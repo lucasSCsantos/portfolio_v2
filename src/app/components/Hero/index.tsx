@@ -2,8 +2,8 @@
 
 import { Heading, Text } from '@/app/components/ui/typography';
 import { Container } from './styles';
-import Waves from './Waves';
 import { motion } from 'framer-motion';
+import Waves from './Waves';
 
 function Hero() {
   return (

@@ -10,6 +10,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-color: ${({ theme }) => theme.colors.secondary};
 
   @media (max-width: 1440px) {
   }

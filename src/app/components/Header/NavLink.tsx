@@ -7,10 +7,6 @@ interface NavLinkProps {
   path?: string;
 }
 
-// const defaultProps = {
-//   path: '/'
-// };
-
 function NavLink({ text, path = '/' }: NavLinkProps) {
   return (
     <NavLinkContainer>
@@ -20,7 +16,5 @@ function NavLink({ text, path = '/' }: NavLinkProps) {
     </NavLinkContainer>
   );
 }
-
-// NavLink.defaultProps = defaultProps;
 
 export default NavLink;
