@@ -5,12 +5,12 @@ import { Container } from './styles';
 function Header() {
   return (
     <Container>
-      <Area backgroundColor="transparent" width={60} height="100%">
+      <Area $backgroundColor="transparent" $width={60} $height="100%">
         <ul className="navLinks">
           <NavLink text="Lucas Santana" />
         </ul>
       </Area>
-      <Area backgroundColor="transparent" width={40} height="100%">
+      <Area $backgroundColor="transparent" $width={40} $height="100%">
         <ul className="navLinks">
           <NavLink text="Sobre Mim" path="#sobre" />
           <NavLink text="Projetos" path="#projetos" />
