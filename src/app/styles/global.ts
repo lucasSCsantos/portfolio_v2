@@ -7,6 +7,7 @@ export default createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
   }
 
   body {
@@ -15,10 +16,10 @@ export default createGlobalStyle`
     font: 400 16px 'Montserrat', sans-serif;
   }
 
-  img {
+  /* img {
     width: 100%;
     max-width: 100%;
-  }
+  } */
 
   button {
     cursor: pointer;

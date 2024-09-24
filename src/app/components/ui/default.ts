@@ -1,21 +1,109 @@
 'use client';
 
+import { Theme } from '@/app/styles/styled';
 import styled, { css } from 'styled-components';
+import '@gabrielfins/ripple-effect';
 
 export type AreaProps = {
-  $backgroundColor?: string;
+  $backgroundColor?: keyof Theme['colors'];
   $width?: number;
   $height?: number | string;
+  $direction?: 'row' | 'column';
+  $justify?:
+    | 'flex-start'
+    | 'flex-end'
+    | 'center'
+    | 'space-between'
+    | 'space-around'
+    | 'space-evenly'
+    | 'initial'
+    | 'inherit';
+  $align?:
+    | 'flex-start'
+    | 'flex-end'
+    | 'center'
+    | 'start'
+    | 'end'
+    | 'baseline'
+    | 'stretch'
+    | 'initial'
+    | 'inherit';
+};
+
+export type ContentProps = {
+  $direction?: 'row' | 'column';
+};
+
+export type ButtonProps = {
+  $backgroundColor?: keyof Theme['colors'];
+  $size?: 'small' | 'large';
 };
 
 export const Area = styled.div<AreaProps>`
-  ${({ $backgroundColor = 'background', $width = 100, $height }) => css`
+  ${({
+    $backgroundColor = 'transparent',
+    $width = 100,
+    $height,
+    $direction = 'row',
+    $align = 'center',
+    $justify = 'center'
+  }) => css`
     background-color: ${({ theme }) => theme.colors[$backgroundColor]};
     align-self: flex-end;
     width: ${$width}%;
     height: ${typeof $height === 'number' ? `${$height}rem` : $height};
     position: relative;
     display: flex;
-    align-items: center !important;
+    align-items: ${$align};
+    justify-content: ${$justify};
+    flex-direction: ${$direction};
   `}
 `;
+
+export const Content = styled.div<ContentProps>`
+  ${({ $direction = 'row' }) => css`
+    position: relative;
+    width: 1440px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: ${$direction};
+
+    @media (max-width: 1440px) {
+      width: 100%;
+    }
+    @media (max-width: 1024px) {
+    }
+    @media (max-width: 834px) {
+    }
+    @media (max-width: 428px) {
+    }
+  `}
+`;
+
+export const Button = styled.button<ButtonProps>`
+  ${({ $backgroundColor = 'text', $size = 'large' }) => css`
+    background-color: ${({ theme }) => theme.colors[$backgroundColor]};
+    padding: ${$size === 'large' ? '16px 32px' : '24px 16px'};
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+    border: none;
+    transition: 0.2s ease-in-out;
+    color: ${({ theme }) => theme.colors.textLight};
+    font-size: ${({ theme }) => theme.sizes.xxsmall};
+    font-weight: bold;
+
+    .ripple {
+      z-index: 2;
+      background-color: ${({ theme }) => theme.colors.primary};
+    }
+  `}
+`;
+
+Button.defaultProps = {
+  className: 'md-ripples'
+};

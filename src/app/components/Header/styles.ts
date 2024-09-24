@@ -4,12 +4,12 @@ import styled from 'styled-components';
 
 export const Container = styled.header`
   width: 100%;
-  height: 5.5rem;
+  height: 10dvh;
   display: flex;
   align-items: center;
+  justify-content: center;
   position: absolute;
   z-index: 10;
-  /* justify-content: flex-end; */
 
   .navLinks {
     display: flex;

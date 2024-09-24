@@ -2,12 +2,13 @@
 
 import styled, { css } from 'styled-components';
 import theme from '../../styles/theme';
+import { Theme } from '@/app/styles/styled';
 
 const sizeArr = Object.values(theme.sizes);
 
 export type HeadingProps = {
-  $color?: string;
-  $size?: string;
+  $color?: keyof Theme["colors"];
+  $size?: keyof Theme["sizes"];
   $fontWeight?: 100 | 400 | 700 | 1000;
   $lineHeight?: string | number;
   $level?: 1 | 2 | 3 | 4 | 5 | 6;
@@ -15,8 +16,8 @@ export type HeadingProps = {
 };
 
 export type TextProps = {
-  $color?: string;
-  $size?: string;
+  $color?: keyof Theme["colors"];
+  $size?: keyof Theme["sizes"];
   $fontWeight?: 100 | 400 | 700;
   $lineHeight?: string | number;
   $textAlign?: 'left' | 'center' | 'right';
@@ -38,7 +39,8 @@ export const Heading = styled('h1').attrs<HeadingProps>(({ $level = 1 }) => ({
     line-height: ${$lineHeight};
     text-align: ${$textAlign};
     z-index: 10;
-    @media (max-width: 1440px) {
+
+    /* @media (max-width: 1440px) {
       font-size: ${({ theme }) => sizeArr[sizeArr.indexOf(theme.sizes[$size])]};
     }
     @media (max-width: 1024px) {
@@ -46,11 +48,11 @@ export const Heading = styled('h1').attrs<HeadingProps>(({ $level = 1 }) => ({
     }
     @media (max-width: 834px) {
       font-size: ${({ theme }) =>
-        sizeArr[sizeArr.indexOf(theme.sizes[$size]) - 1]};
-    }
+        sizeArr[sizeArr.indexOf(theme.sizes[$size])]};
+    } */
     @media (max-width: 428px) {
       font-size: ${({ theme }) =>
-        sizeArr[sizeArr.indexOf(theme.sizes[$size]) - 2]};
+        sizeArr[sizeArr.indexOf(theme.sizes[$size]) - 1]};
     }
   `}
 `;
@@ -69,7 +71,7 @@ export const Text = styled('p')<TextProps>`
     line-height: ${$lineHeight};
     text-align: ${$textAlign};
     z-index: 10;
-    @media (max-width: 1440px) {
+    /* @media (max-width: 1440px) {
       font-size: ${({ theme }) =>
         sizeArr[sizeArr.indexOf(theme.sizes[$size]) - 1]};
     }
@@ -80,10 +82,10 @@ export const Text = styled('p')<TextProps>`
     @media (max-width: 834px) {
       font-size: ${({ theme }) =>
         sizeArr[sizeArr.indexOf(theme.sizes[$size]) - 3]};
-    }
+    } */
     @media (max-width: 428px) {
       font-size: ${({ theme }) =>
-        sizeArr[sizeArr.indexOf(theme.sizes[$size]) - 4]};
+        sizeArr[sizeArr.indexOf(theme.sizes[$size]) - 1]};
     }
   `}
 `;

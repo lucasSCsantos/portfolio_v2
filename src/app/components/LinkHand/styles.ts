@@ -2,16 +2,37 @@
 
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  height: 100vh;
+export const Header = styled.div`
+  height: 40dvh;
   display: flex;
   position: relative;
   overflow: hidden;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.colors.secondary};
 
+  @media (max-width: 1440px) {
+  }
+  @media (max-width: 1024px) {
+  }
+  @media (max-width: 834px) {
+  }
+  @media (max-width: 428px) {
+  }
+`;
+
+export const Body = styled.div`
+  height: 60dvh;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-image: linear-gradient(
+    ${({ theme }) => theme.colors.primary},
+    ${({ theme }) => theme.colors.secondary}
+  );
   @media (max-width: 1440px) {
   }
   @media (max-width: 1024px) {
@@ -34,17 +55,14 @@ export const WavesContainer = styled.svg`
 
   .backWave {
     transform: translate(-100px, -6rem);
-    /* animation: moveBackWave 6s ease-in-out infinite alternate; */
   }
 
   .midWave {
     transform: translate(-200px, -1rem);
-    /* animation: moveMidWave 12s 1.2s ease-in-out infinite alternate; */
   }
 
   .frontWave {
     transform: translate(-300px, 2rem);
-    /* animation: moveFrontWave 16s 0.7s ease-in-out infinite alternate; */
   }
 
   @keyframes moveBackWave {
@@ -84,6 +102,6 @@ export const WavesContainer = styled.svg`
     height: 17rem;
   }
   @media (max-width: 428px) {
-    height: 12rem;
+    height: 8rem;
   }
 `;

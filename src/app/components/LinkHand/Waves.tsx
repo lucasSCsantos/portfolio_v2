@@ -16,9 +16,9 @@ function Waves() {
   const midWaveAnimation = useAnimation();
   const frontWaveAnimation = useAnimation();
 
-  const backWaveX = useTransform(scrollYProgress, [0, 1], [0, 300]);
-  const midWaveX = useTransform(scrollYProgress, [0, 1], [0, -150]);
-  const frontWaveX = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const backWaveX = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const midWaveX = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const frontWaveX = useTransform(scrollYProgress, [0, 1], [0, -200]);
 
   const createWaveAnimation = (
     origin: number,
@@ -39,7 +39,7 @@ function Waves() {
   useEffect(() => {
     backWaveAnimation.start(createWaveAnimation(-100, 8));
     midWaveAnimation.start(createWaveAnimation(-200, 12, 1.2));
-    frontWaveAnimation.start(createWaveAnimation(-300, 18, 0.7));
+    frontWaveAnimation.start(createWaveAnimation(-300, 16, 0.7));
   }, [backWaveAnimation, midWaveAnimation, frontWaveAnimation]);
 
   return (

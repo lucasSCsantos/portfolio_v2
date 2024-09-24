@@ -2,23 +2,14 @@
 
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  height: 100vh;
+export const Container = styled.main`
+  height: 100dvh;
   display: flex;
   position: relative;
   overflow: hidden;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
-
-  @media (max-width: 1440px) {
-  }
-  @media (max-width: 1024px) {
-  }
-  @media (max-width: 834px) {
-  }
-  @media (max-width: 428px) {
-  }
+  padding-top: 10dvh;
 `;
 
 export const WavesContainer = styled.svg`
@@ -33,17 +24,14 @@ export const WavesContainer = styled.svg`
 
   .backWave {
     transform: translate(-100px, -6rem);
-    /* animation: moveBackWave 6s ease-in-out infinite alternate; */
   }
 
   .midWave {
     transform: translate(-200px, -1rem);
-    /* animation: moveMidWave 12s 1.2s ease-in-out infinite alternate; */
   }
 
   .frontWave {
     transform: translate(-300px, 2rem);
-    /* animation: moveFrontWave 16s 0.7s ease-in-out infinite alternate; */
   }
 
   @keyframes moveBackWave {
@@ -73,8 +61,12 @@ export const WavesContainer = styled.svg`
     }
   }
 
+  @media (max-height: 1440px) {
+    height: 28rem;
+  }
+
   @media (max-width: 1440px) {
-    height: 20rem;
+    height: 28rem;
   }
   @media (max-width: 1024px) {
     height: 18rem;

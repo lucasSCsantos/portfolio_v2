@@ -14,5 +14,6 @@ module.exports = {
   },
   rules: {
     // Add your custom ESLint rules here
+    '@typescript-eslint/no-empty-object-type': 'off'
   }
 };
