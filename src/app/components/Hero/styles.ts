@@ -1,5 +1,6 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 export const Container = styled.main`
@@ -76,5 +77,18 @@ export const WavesContainer = styled.svg`
   }
   @media (max-width: 428px) {
     height: 12rem;
+  }
+`;
+
+export const AvatarContainer = styled(motion.div)`
+  position: relative;
+  width: 150px;
+  height: 150px;
+  transition: ease 0.4s;
+  cursor: pointer;
+
+  &:hover {
+    scale: 1.05;
+    transition: ease 0.4s;
   }
 `;

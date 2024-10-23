@@ -83,9 +83,9 @@ export const Content = styled.div<ContentProps>`
 `;
 
 export const Button = styled.button<ButtonProps>`
-  ${({ $backgroundColor = 'text', $size = 'large' }) => css`
-    background-color: ${({ theme }) => theme.colors[$backgroundColor]};
-    padding: ${$size === 'large' ? '16px 32px' : '24px 16px'};
+  ${({ $backgroundColor = 'textLight', $size = 'large' }) => css`
+    background-color: ${({ theme }) => theme.colors[$backgroundColor]}7b;
+    padding: ${$size === 'large' ? '20px 42px' : '24px 16px'};
     position: relative;
     display: flex;
     align-items: center;
@@ -93,13 +93,21 @@ export const Button = styled.button<ButtonProps>`
     border-radius: 100px;
     border: none;
     transition: 0.2s ease-in-out;
-    color: ${({ theme }) => theme.colors.textLight};
-    font-size: ${({ theme }) => theme.sizes.xxsmall};
+    color: ${({ theme }) => theme.colors.text};
+    font-family: ${({ theme }) => theme.font.family['inter']};
+    font-size: ${({ theme }) => theme.sizes.small};
+    box-shadow: -23px 21 36.7 rgba(0, 0, 0, 0.4);
     font-weight: bold;
+    filter: blur(4.66);
+    border: 1.21px solid #fff;
 
     .ripple {
       z-index: 2;
-      background-color: ${({ theme }) => theme.colors.primary};
+      background-color: ${({ theme }) => theme.colors.textLight};
+    }
+
+    &:hover {
+      background-color: ${({ theme }) => theme.colors[$backgroundColor]}8b;
     }
   `}
 `;

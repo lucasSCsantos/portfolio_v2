@@ -8,7 +8,7 @@ function Header() {
       <Content>
         <Area $width={60} $height="100%">
           <ul className="navLinks">
-            <NavLink text="Lucas Santana" />
+            <NavLink text="Lucas Santana" bold />
           </ul>
         </Area>
         <Area $width={30} $height="100%">

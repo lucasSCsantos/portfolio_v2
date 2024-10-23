@@ -1,9 +1,9 @@
 const theme = {
   colors: {
-    background: '#F2F2F2',
+    background: '#f2f2f2',
     backgroundDark: '#0D0D0D',
     text: '#000000',
-    textLight: '#F2F2F2',
+    textLight: '#f2f2f2',
     primary: '#79BED9',
     primaryShadow: '#79bed936',
     secondary: '#398CBF',
@@ -22,6 +22,12 @@ const theme = {
     large: '4.5rem',
     xlarge: '6rem',
     xxlarge: '7.5rem'
+  },
+  font: {
+    family: {
+      poppins: 'var(--font-poppins)',
+      inter: 'var(--font-inter)'
+    }
   }
 };
 
