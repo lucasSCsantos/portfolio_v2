@@ -30,6 +30,32 @@ export type AreaProps = {
     | 'inherit';
 };
 
+export type BoxProps = {
+  $backgroundColor?: keyof Theme['colors'];
+  $width?: number;
+  $height?: number | string;
+  $direction?: 'row' | 'column';
+  $justify?:
+  | 'flex-start'
+  | 'flex-end'
+  | 'center'
+  | 'space-between'
+  | 'space-around'
+  | 'space-evenly'
+  | 'initial'
+  | 'inherit';
+  $align?:
+  | 'flex-start'
+  | 'flex-end'
+  | 'center'
+  | 'start'
+  | 'end'
+  | 'baseline'
+  | 'stretch'
+  | 'initial'
+  | 'inherit';
+};
+
 export type ContentProps = {
   $direction?: 'row' | 'column';
 };
@@ -48,6 +74,27 @@ export const Area = styled.div<AreaProps>`
     $align = 'center',
     $justify = 'center'
   }) => css`
+    background-color: ${({ theme }) => theme.colors[$backgroundColor]};
+    align-self: flex-end;
+    width: ${$width}%;
+    height: ${typeof $height === 'number' ? `${$height}rem` : $height};
+    position: relative;
+    display: flex;
+    align-items: ${$align};
+    justify-content: ${$justify};
+    flex-direction: ${$direction};
+  `}
+`;
+
+export const Box = styled.div<BoxProps>`
+  ${({
+  $backgroundColor = 'transparent',
+  $width = 100,
+  $height,
+  $direction = 'row',
+  $align = 'center',
+  $justify = 'center'
+}) => css`
     background-color: ${({ theme }) => theme.colors[$backgroundColor]};
     align-self: flex-end;
     width: ${$width}%;

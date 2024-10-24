@@ -10,9 +10,18 @@ export default function Avatar() {
         width: 150,
         height: 150
       }}
-      initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ ease: 'easeInOut', duration: 0.8 }}
+      initial={{ opacity: 0, y: 0 }} 
+      animate={{ opacity: 1, y: [0, 10, 0] }} 
+      transition={{
+        opacity: { ease: 'easeInOut', duration: 0.8 }, 
+        y: {
+          duration: 16,         
+          // delay: 0,          
+          repeat: Infinity,     
+          ease: 'easeInOut',     
+          repeatType: 'reverse' 
+        }
+      }}
     >
       <Halo duration={24} width="145px">
         <path
@@ -34,6 +43,7 @@ export default function Avatar() {
         height={110}
         alt="Imagem avatar de Lucas"
         style={{
+          userSelect: 'none',
           borderRadius: '100%',
           cursor: 'none',
           pointerEvents: 'none',
