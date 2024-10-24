@@ -5,14 +5,13 @@ import { NavLinkContainer } from './styles';
 interface NavLinkProps {
   text: string;
   path?: string;
-  bold?: boolean;
 }
 
-function NavLink({ text, path = '/', bold = false }: NavLinkProps) {
+function NavLink({ text, path = '/' }: NavLinkProps) {
   return (
     <NavLinkContainer>
       <Link href={path}>
-        <Text $size="xxsmall" $fontWeight={bold ? 700 : 400}>{text}</Text>
+        <Text $size="xxsmall">{text}</Text>
       </Link>
     </NavLinkContainer>
   );

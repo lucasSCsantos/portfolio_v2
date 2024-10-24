@@ -1,9 +1,25 @@
 import { Area } from '../ui/default';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Heading, Text } from '../ui/typography';
 import Avatar from './Avatar';
+import { useRef } from 'react';
 
 export default function TopSection() {
+  const ref = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"]
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.9], [1, 0], {
+    clamp: false
+  });
+
+  const y = useTransform(scrollYProgress, [0, 0.9], [0, -20], {
+    clamp: false
+  });
+  
   return (
     <Area
       $width={100}
@@ -11,10 +27,11 @@ export default function TopSection() {
       $direction="column"
       $justify="flex-end"
       style={{ paddingBottom: 16 }}
+      ref={ref}
     >
       <Avatar />
       <motion.div
-        style={{ zIndex: 2 }}
+        style={{ zIndex: 2, opacity, y }}
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeInOut', duration: 0.8, delay: 0.8 }}
@@ -31,7 +48,7 @@ export default function TopSection() {
         </Text>
       </motion.div>
       <motion.div
-        style={{ zIndex: 2 }}
+        style={{ zIndex: 2, opacity, y }}
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeInOut', duration: 0.8, delay: 1.6 }}
@@ -44,7 +61,6 @@ export default function TopSection() {
           $letterSpacing={-2.8}
           style={{
             backgroundImage: 'linear-gradient(180deg, black 80%, #1762A6)',
-            // backgroundImage: 'linear-gradient(180deg, black 80%, #b3d6e3)',
             backgroundClip: 'text',
             color: 'transparent'
           }}
