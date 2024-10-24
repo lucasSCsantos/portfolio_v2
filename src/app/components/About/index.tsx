@@ -2,14 +2,19 @@
 
 import { Area, Box, Content } from '../ui/default';
 import { Heading, Text } from '../ui/typography';
-import { Bubble, Container, Icon, SocialMediaButton, Tag } from './styles';
+import Bubble from './Bubble';
+import BubbleMorph from './BubbleMorph';
+// import BubbleTest from './BubbleMorph';
+import { Container, Icon, SocialMediaButton, Tag } from './styles';
 import Image from 'next/image';
 
 function About() {
   return (
     <Container id="sobre">
+      {/* <BubbleMorph size={200} left="2%" top="10%" />
+      <BubbleMorph size={100} left="15%" top="50%"/> */}
+      
       <Content style={{ justifyContent: 'space-between', maxHeight: 484, width: 1120, zIndex: 3 }}>
-       
         <Area
           $width={50}
           $height={'100%'}
@@ -76,60 +81,32 @@ function About() {
         width={1453}
         height={424}
       />
+      <Bubble bottom="40%" left="2%" width={337} height={349} src="/bubble.png"  alt="A medium size bubble floating" />
       <Bubble
-        style={{
-          bottom: '40%',
-          left: '2%'
-        }}
-      >
-        <Image
-          src="/bubble.png"
-          height={349}
-          width={337}
-          alt="A medium size bubble floating"
-        />
-      </Bubble>
+        bottom="25%"
+        left="11%"
+        src="/bubble2.png"
+        height={138}
+        width={135}
+        alt="A small size bubble floating"
+      />
       <Bubble
-        style={{
-          bottom: '25%',
-          left: '11%'
-        }}
-      >
-        <Image
-          src="/bubble2.png"
-          height={138}
-          width={135}
-          alt="A small size bubble floating"
-        />
-      </Bubble>
+        bottom="65%"
+        right="10%"
+        src="/bubble.png"
+        style={{ transform: "scaleX(-1)"}}
+        height={265}
+        width={256}
+        alt="A medium size bubble floating"
+      />
       <Bubble
-        style={{
-          bottom: '65%',
-          right: '10%'
-        }}
-      >
-        <Image
-          style={{ transform: "scaleX(-1)"}}
-          src="/bubble.png"
-          height={265}
-          width={256}
-          alt="A medium size bubble floating"
-        />
-      </Bubble>
-      <Bubble
-        style={{
-          bottom: '50%',
-          right: '15%'
-        }}
-      >
-        <Image
-          style={{ transform: "scaleX(-1)"}}
-          src="/bubble3.png"
-          height={143}
-          width={141}
-          alt="Another small size bubble floating"
-        />
-      </Bubble>
+        bottom="50%"
+        right="15%"
+        src="/bubble3.png"
+        height={143}
+        width={141}
+        alt="Another small size bubble floating"
+      />
     </Container>
   );
 }

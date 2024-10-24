@@ -34,7 +34,7 @@ export default function TopSection() {
         style={{ zIndex: 2, opacity, y }}
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ ease: 'easeInOut', duration: 0.8, delay: 0.8 }}
+        transition={{ ease: 'easeInOut', duration: 0.8, delay: 0.4 }}
       >
         <Text
           $size="small"
@@ -51,7 +51,7 @@ export default function TopSection() {
         style={{ zIndex: 2, opacity, y }}
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ ease: 'easeInOut', duration: 0.8, delay: 1.6 }}
+        transition={{ ease: 'easeInOut', duration: 0.8, delay: 1.2 }}
       >
         <Heading
           $level={1}
