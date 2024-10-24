@@ -86,6 +86,17 @@ export const Bubble = styled(motion.div)`
   } */
 `;
 
+export const BubbleContainer = styled(motion.div)`
+  width: fit-content;
+  height: fit-content;
+  z-index: 199;
+  position: absolute;
+  translate: transform(-50%, -50%);
+  user-select: none;
+  cursor: pointer;
+`;
+
+
 Bubble.defaultProps = {
   drag: true,
   whileDrag: { scale: 1.1 },
