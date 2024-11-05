@@ -2,19 +2,22 @@
 
 import { Area, Box, Content } from '../ui/default';
 import { Heading, Text } from '../ui/typography';
+import AboutImage from './AboutImage';
 import Bubble from './Bubble';
-import BubbleMorph from './BubbleMorph';
-// import BubbleTest from './BubbleMorph';
-import { Container, Icon, SocialMediaButton, Tag } from './styles';
+import { Container, Icon, SocialMediaButton } from './styles';
 import Image from 'next/image';
 
 function About() {
   return (
     <Container id="sobre">
-      {/* <BubbleMorph size={200} left="2%" top="10%" />
-      <BubbleMorph size={100} left="15%" top="50%"/> */}
-      
-      <Content style={{ justifyContent: 'space-between', maxHeight: 484, width: 1120, zIndex: 3 }}>
+      <Content
+        style={{
+          justifyContent: 'space-between',
+          maxHeight: 484,
+          width: 1120,
+          zIndex: 3
+        }}
+      >
         <Area
           $width={50}
           $height={'100%'}
@@ -23,11 +26,21 @@ function About() {
           $direction="column"
           style={{ gap: 32 }}
         >
-          <Box $direction='column' $align='flex-start'>
-            <Heading $level={3} $size="small" $fontWeight={500} $color="tertiary">
+          <Box $direction="column" $align="flex-start">
+            <Heading
+              $level={3}
+              $size="small"
+              $fontWeight={500}
+              $color="tertiary"
+            >
               Sobre mim
             </Heading>
-            <Heading $level={2} $color="text" $size="normal" $letterSpacing={-1.92} >
+            <Heading
+              $level={2}
+              $color="text"
+              $size="normal"
+              $letterSpacing={-1.92}
+            >
               Lucas Santana
             </Heading>
           </Box>
@@ -39,49 +52,49 @@ function About() {
             complex problems and turning ideas into reality through clean,
             efficient code.
           </Text>
-          <Box $height={'64px'} $justify='flex-start' style={{ gap: 32 }}>
+          <Box $height={'64px'} $justify="flex-start" style={{ gap: 32 }}>
             <SocialMediaButton>
-              <Icon alt="Whatsapp icon" src="whatsapp-icon.png"/>
+              <Icon alt="Whatsapp icon" src="whatsapp-icon.png" />
             </SocialMediaButton>
             <SocialMediaButton>
-              <Icon alt="Linkedin Icon" src="linkedin-icon.png"/>
+              <Icon alt="Linkedin Icon" src="linkedin-icon.png" />
             </SocialMediaButton>
             <SocialMediaButton>
-              <Icon alt="Instagram Icon" src="instagram-icon.png"/>
+              <Icon alt="Instagram Icon" src="instagram-icon.png" />
             </SocialMediaButton>
             <SocialMediaButton>
-              <Icon alt="Github Icon" src="github-icon.png" style={{ height: 32, width: 28}} />
-            </SocialMediaButton> 
+              <Icon
+                alt="Github Icon"
+                src="github-icon.png"
+                style={{ height: 32, width: 28 }}
+              />
+            </SocialMediaButton>
           </Box>
         </Area>
-        <Area
-          $width={45}
-          $height={'100%'}
-          $align="flex-end"
-          $justify="flex-end"
-          $direction="column"
-          style={{ position: 'relative' }}
-        >
-          <Tag style={{ bottom: '24%', right: 468-280 }}>👉 Desenvolvedor Full-stack</Tag>
-          <Tag style={{ bottom: '12%', right: 468-280 }}>👉 Desenvolvedor Front-end</Tag>
-          <Image src="/about-image.jpeg" width={468} height={468} style={{ borderRadius: 20 }} alt="Imagem de lucas trabalhando em seu escritório"/>
-        </Area>
+        <AboutImage />
       </Content>
-      <Image  
+      <Image
         style={{
           position: 'absolute',
-          opacity: 0.3,
+          opacity: 0.5,
           bottom: 20,
           right: -10,
           userSelect: 'none',
           pointerEvents: 'none'
         }}
         src="/about-bg-text.png"
-        alt="Texto escrito sobre"
+        alt="Texto escrito 'sobre'"
         width={1453}
         height={424}
       />
-      <Bubble bottom="40%" left="2%" width={337} height={349} src="/bubble.png"  alt="A medium size bubble floating" />
+      <Bubble
+        bottom="42%"
+        left="1%"
+        width={337}
+        height={349}
+        src="/bubble7.png"
+        alt="A medium size bubble floating"
+      />
       <Bubble
         bottom="25%"
         left="11%"
@@ -92,19 +105,20 @@ function About() {
       />
       <Bubble
         bottom="65%"
-        right="10%"
+        right="12%"
         src="/bubble.png"
-        style={{ transform: "scaleX(-1)"}}
         height={265}
         width={256}
+        style={{ transform: 'scaleX(-1)' }}
         alt="A medium size bubble floating"
       />
       <Bubble
         bottom="50%"
-        right="15%"
+        right="17%"
         src="/bubble3.png"
         height={143}
         width={141}
+        rotate
         alt="Another small size bubble floating"
       />
     </Container>

@@ -12,12 +12,16 @@ export const Container = styled.section`
   justify-content: center;
   padding-top: 128px;
   z-index: 98;
-  background-color: ${({ theme }) => theme.colors.primary};
-  background-image: linear-gradient(180deg, ${({ theme }) => theme.colors.primary} 10%, ${({ theme }) => theme.colors.secondary});
+  /* background-color: ${({ theme }) => theme.colors.primary}; */
+  background-image: linear-gradient(
+    180deg,
+    ${({ theme }) => theme.colors.primary},
+    ${({ theme }) => theme.colors.secondary}
+  );
 
   &::before {
-    content: ''; 
-    position: absolute; 
+    content: '';
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
@@ -30,12 +34,12 @@ export const Container = styled.section`
 
   &::after {
     content: '';
-    position: absolute; 
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    box-shadow: inset 0px 160px 330px  ${({ theme }) => theme.colors.primary}; 
+    box-shadow: inset 0px 260px 150px -150px ${({ theme }) => theme.colors.primary};
     background-size: cover;
     pointer-events: none;
   }
@@ -96,33 +100,30 @@ export const BubbleContainer = styled(motion.div)`
   cursor: pointer;
 `;
 
-
 Bubble.defaultProps = {
   drag: true,
   whileDrag: { scale: 1.1 },
   dragSnapToOrigin: true,
   dragConstraints: { left: 0, right: 0, top: 0, bottom: 0 },
   initial: {
-    y: 0,
+    y: 0
     // rotate: -15
   },
   // animate: { y: 40, rotate: 15 },
   transition: {
-  
     y: {
       duration: 16,
-      // delay: 0,          
+      // delay: 0,
       repeat: Infinity,
       ease: 'easeInOut',
       repeatType: 'reverse'
-    },
+    }
     // rotate: {
     //   repeat: Infinity,
-    //   duration: 12, 
+    //   duration: 12,
     //   ease: 'easeInOut',
     //   repeatType: 'reverse'
     // }
-    
   }
 };
 
@@ -131,7 +132,7 @@ export const SocialMediaButton = styled(Button)`
   width: 64px;
   border-radius: 10px;
   padding: 0;
-  box-shadow: -5px 7px 16px rgba(0,0,0,0.25);
+  box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.25);
   background-color: ${({ theme }) => theme.colors.textLight}9a;
   transition: 0.4s ease;
 
@@ -144,7 +145,7 @@ export const SocialMediaButton = styled(Button)`
 export const Tag = styled(Button)`
   border-radius: 10px;
   padding: 10px 10px;
-  box-shadow: -5px 7px 16px rgba(0,0,0,0.25);
+  box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.25);
   font-size: ${({ theme }) => theme.sizes.xxsmall};
   font-weight: 600;
   border: 0.6px solid white;
@@ -159,8 +160,6 @@ export const Tag = styled(Button)`
     background-color: ${({ theme }) => theme.colors.textLight}f0;
   }
 `;
-
-
 
 export const Icon = styled.img`
   width: 32px;

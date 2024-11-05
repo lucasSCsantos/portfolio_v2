@@ -3,6 +3,7 @@
 import { Theme } from '@/app/styles/styled';
 import styled, { css } from 'styled-components';
 import '@gabrielfins/ripple-effect';
+import { motion } from 'framer-motion';
 
 export type AreaProps = {
   $backgroundColor?: keyof Theme['colors'];
@@ -32,28 +33,28 @@ export type AreaProps = {
 
 export type BoxProps = {
   $backgroundColor?: keyof Theme['colors'];
-  $width?: number;
+  $width?: number | string;
   $height?: number | string;
   $direction?: 'row' | 'column';
   $justify?:
-  | 'flex-start'
-  | 'flex-end'
-  | 'center'
-  | 'space-between'
-  | 'space-around'
-  | 'space-evenly'
-  | 'initial'
-  | 'inherit';
+    | 'flex-start'
+    | 'flex-end'
+    | 'center'
+    | 'space-between'
+    | 'space-around'
+    | 'space-evenly'
+    | 'initial'
+    | 'inherit';
   $align?:
-  | 'flex-start'
-  | 'flex-end'
-  | 'center'
-  | 'start'
-  | 'end'
-  | 'baseline'
-  | 'stretch'
-  | 'initial'
-  | 'inherit';
+    | 'flex-start'
+    | 'flex-end'
+    | 'center'
+    | 'start'
+    | 'end'
+    | 'baseline'
+    | 'stretch'
+    | 'initial'
+    | 'inherit';
 };
 
 export type ContentProps = {
@@ -88,6 +89,27 @@ export const Area = styled.div<AreaProps>`
 
 export const Box = styled.div<BoxProps>`
   ${({
+    $backgroundColor = 'transparent',
+    $width = 100,
+    $height,
+    $direction = 'row',
+    $align = 'center',
+    $justify = 'center'
+  }) => css`
+    background-color: ${({ theme }) => theme.colors[$backgroundColor]};
+    align-self: flex-end;
+    width: ${typeof $width === 'number' ? `${$width}%` : $width};
+    height: ${typeof $height === 'number' ? `${$height}rem` : $height};
+    position: relative;
+    display: flex;
+    align-items: ${$align};
+    justify-content: ${$justify};
+    flex-direction: ${$direction};
+  `}
+`;
+
+export const MotionBox = styled(motion.div)<BoxProps>`
+  ${({
   $backgroundColor = 'transparent',
   $width = 100,
   $height,
@@ -97,7 +119,7 @@ export const Box = styled.div<BoxProps>`
 }) => css`
     background-color: ${({ theme }) => theme.colors[$backgroundColor]};
     align-self: flex-end;
-    width: ${$width}%;
+    width: ${typeof $width === 'number' ? `${$width}%` : $width};
     height: ${typeof $height === 'number' ? `${$height}rem` : $height};
     position: relative;
     display: flex;
@@ -129,7 +151,7 @@ export const Content = styled.div<ContentProps>`
   `}
 `;
 
-export const Button = styled.button<ButtonProps>`
+export const Button = styled(motion.button)<ButtonProps>`
   ${({ $backgroundColor = 'textLight', $size = 'large' }) => css`
     background-color: ${({ theme }) => theme.colors[$backgroundColor]}7b;
     padding: ${$size === 'large' ? '20px 42px' : '24px 16px'};

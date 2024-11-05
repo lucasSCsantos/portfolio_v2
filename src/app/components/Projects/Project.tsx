@@ -1,0 +1,50 @@
+import { ComponentProps } from 'react';
+import { Box, MotionBox } from '../ui/default';
+import { Heading, Text } from '../ui/typography';
+
+interface ProjectProps extends ComponentProps<typeof MotionBox> {
+  width: number;
+  height: number;
+  title: string;
+  year: string;
+  color: string;
+  src: string;
+}
+
+const Project = ({ width, height, src, title, year, color }: ProjectProps) => {
+  return (
+    <Box
+      style={{
+        width: `${width}px`,
+        height: `${height}px`,
+        backgroundImage: `url(${src})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+        overflow: 'hidden',
+        color: '#fff',
+        position: 'relative',
+        borderRadius: 0.02 * width
+      }}
+    >
+      <Box
+        $width={100}
+        $height={'8%'}
+        $align="center"
+        $justify="flex-start"
+        style={{ paddingLeft: 32, gap: 16, backgroundColor: color }}
+      >
+        <Text $size="xxsmall" $color="textLight">
+          Projeto Realizado ({year})
+        </Text>
+        <Heading $level={6} $size="xsmall" style={{ opacity: 0.9 }}>
+          {title}
+        </Heading>
+      </Box>
+    </Box>
+  );
+};
+
+export default Project;
