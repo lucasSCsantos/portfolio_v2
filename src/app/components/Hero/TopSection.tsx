@@ -9,7 +9,7 @@ export default function TopSection() {
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end start"]
+    offset: ['start start', 'end start']
   });
 
   const opacity = useTransform(scrollYProgress, [0, 0.9], [1, 0], {
@@ -19,7 +19,7 @@ export default function TopSection() {
   const y = useTransform(scrollYProgress, [0, 0.9], [0, -20], {
     clamp: false
   });
-  
+
   return (
     <Area
       $width={100}

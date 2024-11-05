@@ -11,7 +11,8 @@ const theme = {
     quaternary: '#0F398C',
     navHighlight: '#A3A3A3',
     nav: '#CACACA',
-    transparent: '#00000000'
+    transparent: '#00000000',
+    red: 'red'
   },
   sizes: {
     xxxsmall: '0.75rem',

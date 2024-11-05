@@ -13,7 +13,7 @@ export default function Avatar() {
       initial={{ opacity: 0, y: 0 }} 
       animate={{ opacity: 1, y: [0, 10, 0] }} 
       transition={{
-        opacity: { ease: 'easeInOut', duration: 0.8 }, 
+        opacity: { ease: 'easeInOut', duration: 1.6 }, 
         y: {
           duration: 16,         
           // delay: 0,          
