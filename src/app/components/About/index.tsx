@@ -92,6 +92,7 @@ function About() {
         left="1%"
         width={337}
         height={349}
+        rotate={10}
         src="/bubble7.png"
         alt="A medium size bubble floating"
       />
@@ -118,7 +119,7 @@ function About() {
         src="/bubble3.png"
         height={143}
         width={141}
-        rotate
+        rotate={180}
         alt="Another small size bubble floating"
       />
     </Container>

@@ -11,7 +11,7 @@ export default function BottomSection() {
     offset: ["start start", "end start"]
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0], {
+  const opacity = useTransform(scrollYProgress, [0, 0.15], [1, 0], {
     clamp: false
   });
 

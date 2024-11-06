@@ -12,25 +12,7 @@ export const Container = styled.section`
   justify-content: center;
   padding-top: 128px;
   z-index: 98;
-  /* background-color: ${({ theme }) => theme.colors.primary}; */
-  background-image: linear-gradient(
-    180deg,
-    ${({ theme }) => theme.colors.primary},
-    ${({ theme }) => theme.colors.secondary}
-  );
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('about-grain-noise.png');
-    background-size: cover;
-    opacity: 0.2;
-    pointer-events: none;
-  }
+  background-color: transparent;
 
   &::after {
     content: '';

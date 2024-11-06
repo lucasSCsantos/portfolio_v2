@@ -110,13 +110,13 @@ export const Box = styled.div<BoxProps>`
 
 export const MotionBox = styled(motion.div)<BoxProps>`
   ${({
-  $backgroundColor = 'transparent',
-  $width = 100,
-  $height,
-  $direction = 'row',
-  $align = 'center',
-  $justify = 'center'
-}) => css`
+    $backgroundColor = 'transparent',
+    $width = 100,
+    $height,
+    $direction = 'row',
+    $align = 'center',
+    $justify = 'center'
+  }) => css`
     background-color: ${({ theme }) => theme.colors[$backgroundColor]};
     align-self: flex-end;
     width: ${typeof $width === 'number' ? `${$width}%` : $width};

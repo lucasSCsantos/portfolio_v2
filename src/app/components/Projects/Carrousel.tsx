@@ -55,7 +55,8 @@ export default function Carousel() {
         autoplay={{
           delay: 5000,
           disableOnInteraction: false,
-          waitForTransition: true
+          waitForTransition: true,
+          pauseOnMouseEnter: true
         }}
       >
         {projects.map((props, index) => (

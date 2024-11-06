@@ -1,6 +1,9 @@
 'use client';
 
 import styled from 'styled-components';
+import { Box } from '../ui/default';
+import { Heading, Text } from '../ui/typography';
+import { FC } from 'react';
 
 export const Container = styled.section`
   overflow: hidden;
@@ -10,96 +13,62 @@ export const Container = styled.section`
   justify-content: center;
   padding-top: 128px;
   z-index: 98;
-  background-color: ${({ theme }) => theme.colors.secondary};
-  background-image: linear-gradient(
-    180deg,
-    ${({ theme }) => theme.colors.tertiary},
-    ${({ theme }) => theme.colors.quaternary}
-  );
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('jobs-grain-noise.png');
-    background-size: cover;
-    opacity: 0.2;
-    pointer-events: none;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    /* box-shadow: inset 0px 250px 330px ${({ theme }) =>
-      theme.colors.secondary}; */
-    background-size: cover;
-    pointer-events: none;
-  }
+  background-color: transparent;
 `;
 
-export const SliderWrapper = styled.div`
-  width: 90vw;
-  height: 650px;
-  transform: translateX(6%);
+export const ExperienceContainer = styled(Box)`
+  position: relative;
+  border-radius: 24px;
+  width: 542px;
+  height: 305px;
+  background-size: cover;
+  background-position: center;
 
-  .swiper-slide {
-    overflow: hidden;
-    border-radius: 17px;
-    width: 821px;
-    background-size: cover;
-    background-position: center;
-    cursor: pointer;
-    transform: scale(0.8) !important;
-    transform-origin: left center;
-  }
+  &:hover {
+    .experience-icon {
+      transform: translateX(-178px) scale(0.6);
+      transition: 1s ease;
+      border-radius: 20px;
+    }
 
-  .swiper-slide:active {
-    cursor: grabbing;
+    .experience-content {
+      transform: translateY(90%);
+      transition: 1s ease;
+      display: flex;
+      height: auto;
+      border-radius: 0 0 24px 24px;
+    }
   }
+  `;
 
-  .swiper-container {
-    padding-left: 0;
-  }
-
-  .swiper-slide-active {
-    transform: scale(1) !important;
-    z-index: 10 !important;
-  }
-
-  .swiper-slide-next,
-  .swiper-slide-prev {
-    transform: scale(0.9) !important;
-    z-index: 5 !important;
-  }
-
-  .swiper-slide-prev {
-    opacity: 0;
-  }
-
-  .swiper-button-prev {
-    left: 10px;
-    position: absolute !important;
-    background-color: red;
-    display: none;
-  }
-
-  .swiper-button-next {
-    right: 10px;
-    position: absolute !important;
-    background-color: red;
-    display: none;
-  }
-
-  .swiper-slide.swiper-slide-visible:not(.swiper-slide-fully-visible):not(
-      .swiper-slide-active
-    ) {
-    transform: scale(0.7) !important;
-  }
+export const ExperienceIcon = styled(Box)`
+  z-index: 1;
+  width: 144px;
+  height: 144px;
+  position: absolute;
+  top: 75%;
+  border-radius: 30px;
+  transition: 1s ease;
+  box-shadow: 10px 15px 29px rgba(0,0,0,0.25);
+  background-size: cover;
+  background-position: center;
 `;
+
+export const ExperienceContent = styled(Box)`
+  z-index: -1;
+  background-color: pink;
+  transform: scaleY(0.8);
+  width: 542px;
+  overflow: hidden;
+  border-radius: 24px;
+  padding: 82px 52px 32px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  transition: 1s ease;
+`;
+
+ExperienceContent.defaultProps = { className: 'experience-content' };
+ExperienceIcon.defaultProps = { className: 'experience-icon' };

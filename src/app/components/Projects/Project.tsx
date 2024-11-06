@@ -1,6 +1,7 @@
 import { ComponentProps } from 'react';
 import { Box, MotionBox } from '../ui/default';
 import { Heading, Text } from '../ui/typography';
+import { ProjectContainer } from './styles';
 
 interface ProjectProps extends ComponentProps<typeof MotionBox> {
   width: number;
@@ -13,19 +14,11 @@ interface ProjectProps extends ComponentProps<typeof MotionBox> {
 
 const Project = ({ width, height, src, title, year, color }: ProjectProps) => {
   return (
-    <Box
+    <ProjectContainer
+      $width={`${width}px`}
+      $height={`${height}px`}
       style={{
-        width: `${width}px`,
-        height: `${height}px`,
         backgroundImage: `url(${src})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-        overflow: 'hidden',
-        color: '#fff',
-        position: 'relative',
         borderRadius: 0.02 * width
       }}
     >
@@ -43,7 +36,7 @@ const Project = ({ width, height, src, title, year, color }: ProjectProps) => {
           {title}
         </Heading>
       </Box>
-    </Box>
+    </ProjectContainer>
   );
 };
 

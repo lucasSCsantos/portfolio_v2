@@ -11,7 +11,7 @@ interface BubbleProps extends ComponentProps<'div'> {
   right?: string;
   bottom?: string;
   top?: string;
-  rotate?: boolean;
+  rotate?: number;
 }
 
 export default function Bubble({
@@ -37,7 +37,7 @@ export default function Bubble({
         // ...props.style
       }}
       initial={{ y: -(height * 0.05), x }}
-      animate={{ y: height * 0.05, x: -x, rotate: rotate ? 180 : 0 }}
+      animate={{ y: height * 0.05, x: -x, rotate: rotate || 0 }}
       transition={{
         x: {
           duration: 12,
@@ -54,7 +54,7 @@ export default function Bubble({
         rotate: rotate
           ? {
               repeat: Infinity,
-              duration: 54,
+              duration: 10,
               ease: 'easeInOut',
               repeatType: 'reverse'
             }
