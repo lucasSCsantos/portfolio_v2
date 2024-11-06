@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import About from './components/About';
 import Header from './components/Header';
+import About from './components/About';
 import Hero from './components/Hero';
 import Jobs from './components/Jobs';
 import MainContainer from './components/main';

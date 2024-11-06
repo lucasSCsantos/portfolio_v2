@@ -2,7 +2,6 @@
 
 import { Theme } from '@/app/styles/styled';
 import styled, { css } from 'styled-components';
-import '@gabrielfins/ripple-effect';
 import { motion } from 'framer-motion';
 
 export type AreaProps = {
