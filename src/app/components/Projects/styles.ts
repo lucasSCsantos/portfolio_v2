@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import { Box } from '../ui/default';
 
 export const Container = styled.section`
   overflow: hidden;
@@ -11,37 +12,12 @@ export const Container = styled.section`
   padding-top: 128px;
   z-index: 98;
   background-color: ${({ theme }) => theme.colors.secondary};
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     180deg,
     ${({ theme }) => theme.colors.secondary},
     ${({ theme }) => theme.colors.tertiary}
-  );
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('projects-grain-noise.png');
-    background-size: cover;
-    opacity: 0.2;
-    pointer-events: none;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    /* box-shadow: inset 0px 250px 330px ${({ theme }) =>
-      theme.colors.secondary}; */
-    background-size: cover;
-    pointer-events: none;
-  }
+  ); */
+  background-color: transparent;
 `;
 
 export const SliderWrapper = styled.div`
@@ -101,5 +77,42 @@ export const SliderWrapper = styled.div`
       .swiper-slide-active
     ) {
     transform: scale(0.7) !important;
+  }
+`;
+
+export const ProjectContainer = styled(Box)`
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  color: #fff;
+  position: relative;
+  transition: 0.5s ease;
+
+  &::before {
+    content: 'Ver mais';
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    font-family: var(--font-poppins);
+    font-size: 2rem;
+    font-weight: 800;
+    align-items: center;
+    transition: 0.5s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.566);
+    opacity: 0;
+  }
+
+  .swiper-slide-active &:hover {
+    &::before {
+      opacity: 1;
+    }
   }
 `;

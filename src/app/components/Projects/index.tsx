@@ -47,7 +47,7 @@ function Projects() {
         style={{
           position: 'absolute',
           opacity: 0.5,
-          bottom: 10,
+          bottom: 0,
           right: 0,
           userSelect: 'none',
           pointerEvents: 'none'
@@ -70,20 +70,6 @@ function Projects() {
         alt="Texto escrito 'sobre'"
         width={789}
         height={789}
-      />
-      <Image
-        style={{
-          position: 'absolute',
-          opacity: 1,
-          top: 350,
-          left: -1352 / 2 + 270,
-          userSelect: 'none',
-          pointerEvents: 'none'
-        }}
-        src="/bg-bubble2.png"
-        alt="Texto escrito 'sobre'"
-        width={1352}
-        height={1352}
       />
     </Container>
   );

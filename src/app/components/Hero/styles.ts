@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-export const Container = styled.main`
+export const Container = styled.section`
   height: 100dvh;
   display: flex;
   position: relative;
@@ -11,6 +11,7 @@ export const Container = styled.main`
   align-items: center;
   flex-direction: column;
   padding-top: 10dvh;
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 export const WavesContainer = styled.svg`
