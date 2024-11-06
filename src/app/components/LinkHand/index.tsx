@@ -1,6 +1,6 @@
 'use client';
 
-import { Heading, Text } from '@/app/components/ui/typography';
+import { Text } from '@/app/components/ui/typography';
 import { Body, Header } from './styles';
 import { motion } from 'framer-motion';
 import Waves from './Waves';
@@ -16,7 +16,13 @@ function HandLink() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ ease: 'easeInOut', duration: 0.8 }}
         >
-          <Image src="/avatar.jpeg" width={100} height={100} alt="avatar" style={{ border: '4px solid #f2f2f2', borderRadius: '100%'}} />
+          <Image
+            src="/avatar.jpeg"
+            width={100}
+            height={100}
+            alt="avatar"
+            style={{ border: '4px solid #f2f2f2', borderRadius: '100%' }}
+          />
         </motion.div>
         <motion.div
           style={{ zIndex: 2 }}
