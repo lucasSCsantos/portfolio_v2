@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import Jobs from './components/Jobs';
 import MainContainer from './components/main';
 import Projects from './components/Projects';
+import Services from './components/Services';
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
         <About />
         <Projects />
         <Jobs />
+        <Services />
         <Image
           style={{
             position: 'absolute',
