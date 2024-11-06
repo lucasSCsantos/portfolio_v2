@@ -10,16 +10,16 @@ export default function Avatar() {
         width: 150,
         height: 150
       }}
-      initial={{ opacity: 0, y: 0 }} 
-      animate={{ opacity: 1, y: [0, 10, 0] }} 
+      initial={{ opacity: 0, y: 0 }}
+      animate={{ opacity: 1, y: [0, 10, 0] }}
       transition={{
-        opacity: { ease: 'easeInOut', duration: 1.6 }, 
+        opacity: { ease: 'easeInOut', duration: 1.6 },
         y: {
-          duration: 16,         
-          // delay: 0,          
-          repeat: Infinity,     
-          ease: 'easeInOut',     
-          repeatType: 'reverse' 
+          duration: 16,
+          // delay: 0,
+          repeat: Infinity,
+          ease: 'easeInOut',
+          repeatType: 'reverse'
         }
       }}
     >
