@@ -1,20 +1,10 @@
 import React from 'react';
-// import { Swiper, SwiperSlide } from 'swiper/react';
-import dynamic from 'next/dynamic';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import SwiperCore from 'swiper';
 import { Autoplay, EffectCoverflow, Navigation } from 'swiper/modules';
 import Project from './Project';
 import { SliderWrapper } from './styles';
-
-// Dynamically import Swiper components
-const Swiper = dynamic(() => import('swiper/react').then(mod => mod.Swiper), {
-  ssr: false
-});
-const SwiperSlide = dynamic(
-  () => import('swiper/react').then(mod => mod.SwiperSlide),
-  { ssr: false }
-);
 
 SwiperCore.use([EffectCoverflow, Navigation, Autoplay]);
 
@@ -68,7 +58,6 @@ export default function Carousel() {
           waitForTransition: true,
           pauseOnMouseEnter: true
         }}
-        modules={[EffectCoverflow, Navigation, Autoplay]}
       >
         {projects.map((props, index) => (
           <SwiperSlide key={index}>
