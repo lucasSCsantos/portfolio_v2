@@ -5,7 +5,6 @@ import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
 import GlobalStyles from '@/app/styles/global';
 
-
 const Providers = (props: React.PropsWithChildren) => {
   return (
     <StyledComponentsRegistry>

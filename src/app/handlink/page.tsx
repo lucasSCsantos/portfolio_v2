@@ -1,10 +1,9 @@
-import HandLink from "../components/LinkHand";
-
+import HandLink from '../components/LinkHand';
 
 export default function Home() {
   return (
-		<>
-			<HandLink />
+    <>
+      <HandLink />
     </>
   );
 }
