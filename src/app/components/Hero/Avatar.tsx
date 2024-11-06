@@ -41,6 +41,7 @@ export default function Avatar() {
         src="/avatar.jpeg"
         width={110}
         height={110}
+        priority
         alt="Imagem avatar de Lucas"
         style={{
           userSelect: 'none',
