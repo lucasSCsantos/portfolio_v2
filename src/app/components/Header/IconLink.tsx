@@ -1,6 +1,6 @@
-// import Link from 'next/link';
 import { ReactNode } from 'react';
 import { IconLinkContainer } from './styles';
+import Link from 'next/link';
 
 interface IconLinkProps {
   path: string;
@@ -10,9 +10,9 @@ interface IconLinkProps {
 function IconLink({ path = '/', children }: IconLinkProps) {
   return (
     <IconLinkContainer>
-      <a href={path} target="_blank" rel="noreferrer">
+      <Link href={path} target="_blank" rel="noreferrer">
         {children}
-      </a>
+      </Link>
     </IconLinkContainer>
   );
 }
