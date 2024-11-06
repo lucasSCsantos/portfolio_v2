@@ -6,6 +6,7 @@ import Jobs from './components/Jobs';
 import MainContainer from './components/main';
 import Projects from './components/Projects';
 import Services from './components/Services';
+import Techs from './components/Techs';
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
         <Projects />
         <Jobs />
         <Services />
+        <Techs />
         <Image
           style={{
             position: 'absolute',

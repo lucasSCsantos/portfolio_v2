@@ -16,7 +16,6 @@ export default createGlobalStyle`
     font: 400 16px 'Montserrat', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  
   }
 
   button {

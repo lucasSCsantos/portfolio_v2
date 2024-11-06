@@ -5,68 +5,91 @@ import { Box } from '../ui/default';
 
 export const Container = styled.section`
   overflow: hidden;
-  height: 110vh;
+  height: 190vh;
   display: flex;
   position: relative;
   justify-content: center;
   padding-top: 128px;
   z-index: 98;
   background-color: transparent;
-`;
 
-export const ExperienceContainer = styled(Box)`
-  position: relative;
-  border-radius: 24px;
-  width: 542px;
-  height: 305px;
-  background-size: cover;
-  background-position: center;
-
-  &:hover {
-    .experience-icon {
-      transform: translateX(-178px) scale(0.6);
-      transition: 1s ease;
-      border-radius: 20px;
-    }
-
-    .experience-content {
-      transform: translateY(90%);
-      transition: 1s ease;
-      display: flex;
-      height: auto;
-      border-radius: 0 0 24px 24px;
-    }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: inset 0px -1000px 250px -150px
+      ${({ theme }) => theme.colors.backgroundBlue}cc;
+    background-size: cover;
+    pointer-events: none;
   }
 `;
 
-export const ExperienceIcon = styled(Box)`
-  z-index: 1;
-  width: 144px;
-  height: 144px;
-  position: absolute;
-  top: 75%;
-  border-radius: 30px;
-  transition: 1s ease;
-  box-shadow: 10px 15px 29px rgba(0, 0, 0, 0.25);
-  background-size: cover;
-  background-position: center;
-`;
-
-export const ExperienceContent = styled(Box)`
-  z-index: -1;
-  background-color: pink;
-  transform: scaleY(0.8);
-  width: 542px;
-  overflow: hidden;
-  border-radius: 24px;
-  padding: 82px 52px 32px;
-  position: absolute;
+export const ServiceContainer = styled(Box)`
+  width: 534px;
+  height: 302px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  transition: 1s ease;
 `;
 
-ExperienceContent.defaultProps = { className: 'experience-content' };
-ExperienceIcon.defaultProps = { className: 'experience-icon' };
+export const ServiceTop = styled(Box)`
+  width: 100%;
+  padding: 24px 32px;
+  height: 225px;
+  background-color: ${({ theme }) => theme.colors.background};
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+`;
+
+export const ServiceBottom = styled(Box)`
+  width: 100%;
+  padding: 16px 32px;
+  /* height: auto; */
+  display: flex;
+  justify-content: start;
+`;
+
+export const CoralContainer = styled.div`
+  align-self: flex-end;
+  z-index: 1;
+  position: absolute;
+  right: 0;
+  left: 0;
+  
+  .seaweed-2 {
+    position: absolute;
+    bottom: 170px;
+    left: 790px;
+    fill: red;
+    z-index: 99;
+  }
+
+  .seaweed-1 {
+    position: absolute;
+    bottom: 410px;
+    left: 270px;
+    fill: red;
+    z-index: 99;
+  }
+
+
+  .sea-coral-back {
+    position: absolute;
+    bottom: -50px;
+    image-rendering: optimizeQuality;
+  }
+
+  .sea-coral-mid {
+    position: absolute;
+    bottom: 50px;
+  }
+
+  .sea-coral-front {
+    position: absolute;
+    bottom: -40px;
+  }
+`;
