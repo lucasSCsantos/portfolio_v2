@@ -2,8 +2,6 @@
 
 import styled from 'styled-components';
 import { Box } from '../ui/default';
-import { Heading, Text } from '../ui/typography';
-import { FC } from 'react';
 
 export const Container = styled.section`
   overflow: hidden;
@@ -39,7 +37,7 @@ export const ExperienceContainer = styled(Box)`
       border-radius: 0 0 24px 24px;
     }
   }
-  `;
+`;
 
 export const ExperienceIcon = styled(Box)`
   z-index: 1;
@@ -49,7 +47,7 @@ export const ExperienceIcon = styled(Box)`
   top: 75%;
   border-radius: 30px;
   transition: 1s ease;
-  box-shadow: 10px 15px 29px rgba(0,0,0,0.25);
+  box-shadow: 10px 15px 29px rgba(0, 0, 0, 0.25);
   background-size: cover;
   background-position: center;
 `;
