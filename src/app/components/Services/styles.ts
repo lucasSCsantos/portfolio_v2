@@ -59,7 +59,7 @@ export const CoralContainer = styled.div`
   position: absolute;
   right: 0;
   left: 0;
-  
+
   .seaweed-2 {
     position: absolute;
     bottom: 170px;
@@ -75,7 +75,6 @@ export const CoralContainer = styled.div`
     fill: red;
     z-index: 99;
   }
-
 
   .sea-coral-back {
     position: absolute;

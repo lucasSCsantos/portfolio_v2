@@ -45,8 +45,7 @@ function Techs() {
           $justify="space-between"
           $direction="row"
           style={{ flexWrap: 'wrap', rowGap: 38 }}
-        >
-        </Area>
+        ></Area>
       </Content>
     </Container>
   );
