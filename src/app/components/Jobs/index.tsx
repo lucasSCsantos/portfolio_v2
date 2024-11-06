@@ -8,7 +8,7 @@ import Experience from './Experience';
 import { CSSProperties } from 'react';
 
 const options = {
-  animationData: fishes,
+  animationData: fishes
 };
 
 const style: CSSProperties = {
@@ -17,28 +17,26 @@ const style: CSSProperties = {
   height: 'auto',
   opacity: 0.2,
   top: 300
-}
+};
 
 const Animation = () => {
   const lottieObj = useLottie(options, style);
   const Animation = useLottieInteractivity({
     lottieObj,
-    mode: "scroll",
+    mode: 'scroll',
     actions: [
       {
         visibility: [0, 1],
-        type: "seek",
-        frames: [0, 100],
-      },
-    ],
+        type: 'seek',
+        frames: [0, 100]
+      }
+    ]
   });
 
   return Animation;
 };
 
 function Jobs() {
-  
-
   return (
     <Container id="sobre">
       <Content
@@ -79,8 +77,16 @@ function Jobs() {
           $justify="space-between"
           $direction="row"
         >
-          <Experience iconSrc='eattasty.png' backgroundSrc='eattasty-bg.png' color="#FFBD1B"/>
-          {/* <Experience/> */}
+          <Experience
+            iconSrc="eattasty.png"
+            backgroundSrc="eattasty-bg.png"
+            color="#FFBD1B"
+          />
+          <Experience
+            iconSrc="agricompany-logo.png"
+            backgroundSrc="agricompany-bg2.png"
+            color="#0B1E60"
+          />
         </Area>
       </Content>
       <Animation />
