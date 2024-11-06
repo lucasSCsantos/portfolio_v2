@@ -3,12 +3,11 @@ import { Area, Button } from '../ui/default';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 export default function BottomSection() {
-
   const ref = useRef(null);
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end start"]
+    offset: ['start start', 'end start']
   });
 
   const opacity = useTransform(scrollYProgress, [0, 0.15], [1, 0], {
