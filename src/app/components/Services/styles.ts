@@ -20,8 +20,8 @@ export const Container = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    box-shadow: inset 0px -1000px 250px -150px
-      ${({ theme }) => theme.colors.backgroundBlue}cc;
+    box-shadow: inset 0px -1200px 250px -250px
+      ${({ theme }) => theme.colors.backgroundBlue}bb;
     background-size: cover;
     pointer-events: none;
   }
@@ -55,7 +55,7 @@ export const ServiceBottom = styled(Box)`
 
 export const CoralContainer = styled.div`
   align-self: flex-end;
-  z-index: 1;
+  z-index: 3;
   position: absolute;
   right: 0;
   left: 0;
@@ -64,7 +64,6 @@ export const CoralContainer = styled.div`
     position: absolute;
     bottom: 170px;
     left: 790px;
-    fill: red;
     z-index: 99;
   }
 
@@ -72,7 +71,20 @@ export const CoralContainer = styled.div`
     position: absolute;
     bottom: 410px;
     left: 270px;
-    fill: red;
+    z-index: 99;
+  }
+
+  .seaweed-3 {
+    position: absolute;
+    bottom: 130px;
+    right: 50px;
+    z-index: 99;
+  }
+
+  .seaweed-4 {
+    position: absolute;
+    bottom: 307px;
+    left: 590px;
     z-index: 99;
   }
 

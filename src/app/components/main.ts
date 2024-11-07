@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const MainContainer = styled.main`
   background-image: linear-gradient(
     180deg,
-    ${({ theme }) => theme.colors.primary} 20%,
+    ${({ theme }) => theme.colors.primary} 00%,
     ${({ theme }) => theme.colors.backgroundBlue}
   );
   position: relative;
