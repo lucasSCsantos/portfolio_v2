@@ -25,7 +25,7 @@ export const ExperienceContainer = styled(Box)`
   &:hover {
     .experience-icon {
       transform: translateX(-178px) scale(0.6);
-      transition: 1s ease;
+      transition: 0.9s ease;
       border-radius: 20px;
     }
 
