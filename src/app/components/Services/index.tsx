@@ -8,6 +8,7 @@ import Service from './Service';
 import { useLottie, useLottieInteractivity } from 'lottie-react';
 import { CSSProperties } from 'styled-components';
 import fishes from '@/lotties/fishes-animation-blue.json';
+import services from '@/meta/services';
 
 const options = {
   animationData: fishes
@@ -41,7 +42,7 @@ const Animation = () => {
 
 function Services() {
   return (
-    <Container id="sobre">
+    <Container id="servicos">
       <Content
         style={{
           justifyContent: 'flex-start',
@@ -81,10 +82,9 @@ function Services() {
           $direction="row"
           style={{ flexWrap: 'wrap', rowGap: 38 }}
         >
-          <Service />
-          <Service />
-          <Service />
-          <Service />
+          {services.map(({ text, title, message }) => (
+            <Service text={text} title={title} key={title} message={message} />
+          ))}
         </Area>
       </Content>
       <Animation />

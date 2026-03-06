@@ -127,13 +127,13 @@ export const SocialMediaButton = styled(Button)`
 export const Tag = styled(Button)`
   border-radius: 10px;
   padding: 10px 10px;
-  box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.25);
   font-size: ${({ theme }) => theme.sizes.xxsmall};
   font-weight: 600;
-  border: 0.6px solid white;
   position: absolute !important;
   bottom: 0;
   cursor: default;
+  box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.25);
+  border: 0.6px solid white;
   background-color: ${({ theme }) => theme.colors.textLight}df;
   transition: 0.4s ease;
 

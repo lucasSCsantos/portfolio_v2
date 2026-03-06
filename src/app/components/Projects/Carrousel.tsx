@@ -14,54 +14,44 @@ export default function Carousel() {
       title: 'Torcida Imperial',
       year: '2022',
       color: '#00D84F',
-      src: 'imperial.png'
+      src: 'imperial.png',
+      href: 'https://torcidaimperial.com.br'
     },
     {
       title: 'Agricompany',
       year: '2024',
       color: '#01579B',
-      src: 'agricompany.png'
+      src: 'agricompany.png',
+      href: 'https://tech.agricompany.com.br'
     },
     {
       title: 'Iasos',
       year: '2023',
       color: '#F14444',
-      src: 'iasos.png'
+      src: 'iasos.png',
+      href: 'https://iasos.com.br'
     },
     {
       title: 'Biblio',
       year: '2024',
       color: '#5C3817',
-      src: 'biblio.png'
+      src: 'biblio.png',
+      href: 'https://bibliooo.com.br'
     }
   ];
 
   return (
     <SliderWrapper>
       <Swiper
-        effect="coverflow"
-        slidesPerView="auto"
-        // centeredSlides={true}
-        coverflowEffect={{
-          rotate: 0,
-          stretch: 0,
-          depth: 150,
-          modifier: 1,
-          slideShadows: false
-        }}
+        slidesPerView={3}
+        centeredSlides={true}
         loop
-        spaceBetween={-400}
+        spaceBetween={20}
         navigation
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: false,
-          waitForTransition: true,
-          pauseOnMouseEnter: true
-        }}
       >
         {projects.map((props, index) => (
           <SwiperSlide key={index}>
-            <Project width={821} height={597} {...props} />
+            <Project width={821} height={497} {...props} />
           </SwiperSlide>
         ))}
       </Swiper>
