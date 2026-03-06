@@ -1,7 +1,7 @@
 'use client';
 
-import styled from 'styled-components';
-import { Box } from '../ui/default';
+import styled, { css } from 'styled-components';
+import { Box, Button } from '../ui/default';
 
 export const Container = styled.section`
   overflow: hidden;
@@ -21,19 +21,12 @@ export const Container = styled.section`
 `;
 
 export const SliderWrapper = styled.div`
-  width: 90vw;
+  width: 130vw;
   height: 650px;
-  transform: translateX(6%);
 
   .swiper-slide {
-    overflow: hidden;
     border-radius: 17px;
-    width: 821px;
-    background-size: cover;
-    background-position: center;
     cursor: pointer;
-    transform: scale(0.8) !important;
-    transform-origin: left center;
   }
 
   .swiper-slide:active {
@@ -51,12 +44,12 @@ export const SliderWrapper = styled.div`
 
   .swiper-slide-next,
   .swiper-slide-prev {
-    transform: scale(0.9) !important;
+    transform: scale(1) !important;
     z-index: 5 !important;
   }
 
   .swiper-slide-prev {
-    opacity: 0;
+    /* opacity: 0; */
   }
 
   .swiper-button-prev {
@@ -76,11 +69,34 @@ export const SliderWrapper = styled.div`
   .swiper-slide.swiper-slide-visible:not(.swiper-slide-fully-visible):not(
       .swiper-slide-active
     ) {
-    transform: scale(0.7) !important;
+    /* transform: scale(0.7) !important; */
   }
 `;
 
 export const ProjectContainer = styled(Box)`
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 2rem;
+  overflow: hidden;
+  color: #fff;
+  position: relative;
+  transition: 0.5s ease;
+
+  box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.25);
+  border: 1.6px solid white;
+  background-color: ${({ theme }) => theme.colors.textLight}9a;
+
+  .swiper-slide-active &:hover {
+    &::before {
+      opacity: 1;
+    }
+  }
+`;
+
+export const ProjectImage = styled(Box)`
   background-size: cover;
   background-position: center;
   display: flex;
@@ -90,29 +106,29 @@ export const ProjectContainer = styled(Box)`
   color: #fff;
   position: relative;
   transition: 0.5s ease;
+  border: 0.6px solid white;
+`;
 
-  &::before {
-    content: 'Ver mais';
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-    font-family: var(--font-poppins);
-    font-size: 2rem;
-    font-weight: 800;
-    align-items: center;
-    transition: 0.5s ease;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.566);
-    opacity: 0;
-  }
+export const Tag = styled(Button)<any>`
+  ${({$color = ''}) => css`
+  border-radius: 10px;
+  padding: 10px 10px;
+  margin-top: 16px; 
+  font-size: ${({ theme }) => theme.sizes.xxsmall};
+  font-weight: 600;
+  cursor: default;
+  box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.25);
+  color: white;
+  
+  border: 0.6px solid ${$color};
+  background-color: ${$color}ff;
+  transition: 0.4s ease;
 
-  .swiper-slide-active &:hover {
-    &::before {
-      opacity: 1;
-    }
+  &:hover {
+    transition: 0.4s ease;
+    background-color: ${$color}ff;
+    opacity: 0.9;
+    /* background-color: ${({ theme }) => theme.colors.textLight}f0; */
   }
+  `}
 `;

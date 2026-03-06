@@ -8,7 +8,7 @@ import Image from 'next/image';
 
 function Projects() {
   return (
-    <Container id="sobre">
+    <Container id="projetos">
       <Content
         style={{
           justifyContent: 'flex-start',

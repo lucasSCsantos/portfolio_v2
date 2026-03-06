@@ -27,7 +27,7 @@ export default function Experience({
           backgroundImage: `url(${iconSrc})`
         }}
       ></ExperienceIcon>
-      <ExperienceContent style={{ backgroundColor: color }}>
+      <ExperienceContent>
         <Heading $level={6} $size="small">
           Experience
         </Heading>

@@ -1,7 +1,7 @@
 import { ComponentProps } from 'react';
 import { Box, MotionBox } from '../ui/default';
 import { Heading, Text } from '../ui/typography';
-import { ProjectContainer } from './styles';
+import { ProjectContainer, ProjectImage, Tag } from './styles';
 
 interface ProjectProps extends ComponentProps<typeof MotionBox> {
   width: number;
@@ -10,31 +10,55 @@ interface ProjectProps extends ComponentProps<typeof MotionBox> {
   year: string;
   color: string;
   src: string;
+  href: string;
 }
 
-const Project = ({ width, height, src, title, year, color }: ProjectProps) => {
+const Project = ({
+  width,
+  height,
+  src,
+  title,
+  year,
+  color,
+  href
+}: ProjectProps) => {
   return (
     <ProjectContainer
-      $width={`${width}px`}
+      $width={`100%`}
       $height={`${height}px`}
+      onClick={() => window.open(href, '_blank')}
       style={{
-        backgroundImage: `url(${src})`,
+        // backgroundImage: `url(${src})`,
         borderRadius: 0.02 * width
       }}
     >
-      <Box
-        $width={100}
-        $height={'8%'}
-        $align="center"
-        $justify="flex-start"
-        style={{ paddingLeft: 32, gap: 16, backgroundColor: color }}
-      >
-        <Text $size="xxsmall" $color="textLight">
-          Projeto Realizado ({year})
-        </Text>
-        <Heading $level={6} $size="xsmall" style={{ opacity: 0.9 }}>
-          {title}
-        </Heading>
+      <Box $width={`100%`} $height={'100%'} $align="center" $justify="flex-start" style={{ gap: 32 }}>
+        <Box $height={'100%'} $width={`50%`} $align="flex-start" $justify="flex-start" $direction='column'>
+          <Heading $level={6} $size="xsmall" style={{ opacity: 0.9 }}>
+            {title}
+          </Heading>
+          <Tag
+            $color={color}
+          >
+            Projeto Realizado ({year})
+          </Tag>
+          <Text $size="xxsmall" style={{ marginTop: 24 }} $textAlign='justify'>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius saepe similique dignissimos reprehenderit sint quod veritatis necessitatibus commodi! Nam exercitationem tempore iusto temporibus, optio nisi magni dolores id eos ipsam? Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi eaque vitae accusamus quaerat ex exercitationem ea sunt inventore rem voluptatum.
+          </Text>
+        </Box>
+        <Box $height={'100%'} $width={`50%`} $align="flex-start" $justify="flex-start" $direction='column'>
+          <ProjectImage
+            $width="100%"
+            $height="50%"
+            style={{
+              backgroundImage: `url(${src})`,
+              borderRadius: 0.02 * width
+            }}
+          />
+          {/* <Text $size="xxsmall" style={{ marginTop: 32}} $textAlign='justify'>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius saepe similique dignissimos reprehenderit sint quod veritatis necessitatibus commodi! Nam exercitationem tempore iusto temporibus, optio nisi magni dolores id eos ipsam?
+          </Text> */}
+        </Box>
       </Box>
     </ProjectContainer>
   );

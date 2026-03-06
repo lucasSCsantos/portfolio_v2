@@ -66,6 +66,9 @@ export const ExperienceContent = styled(Box)`
   justify-content: flex-start;
   align-items: flex-start;
   transition: 1s ease;
+  box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.25);
+  border: 0.6px solid white;
+  background-color: ${({ theme }) => theme.colors.textLight}6a;
 `;
 
 ExperienceContent.defaultProps = { className: 'experience-content' };

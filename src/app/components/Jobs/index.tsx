@@ -38,7 +38,7 @@ import Experience from './Experience';
 
 function Jobs() {
   return (
-    <Container id="sobre">
+    <Container id="">
       <Content
         style={{
           justifyContent: 'flex-start',

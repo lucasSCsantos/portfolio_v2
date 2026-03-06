@@ -6,7 +6,7 @@ import { Container } from './styles';
 
 function Techs() {
   return (
-    <Container id="sobre">
+    <Container id="techs">
       <Content
         style={{
           justifyContent: 'flex-start',
