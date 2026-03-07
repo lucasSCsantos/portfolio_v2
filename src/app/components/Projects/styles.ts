@@ -26,7 +26,7 @@ export const SliderWrapper = styled.div`
 
   .swiper-slide {
     border-radius: 17px;
-    cursor: pointer;
+    cursor: grab;
   }
 
   .swiper-slide:active {
@@ -117,7 +117,7 @@ export const Tag = styled(Button)<any>`
   font-size: ${({ theme }) => theme.sizes.xxsmall};
   font-weight: 600;
   cursor: default;
-  box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.25);
+  box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.2);
   color: white;
   
   border: 0.6px solid ${$color};
@@ -131,4 +131,24 @@ export const Tag = styled(Button)<any>`
     /* background-color: ${({ theme }) => theme.colors.textLight}f0; */
   }
   `}
+`;
+
+export const ProjectButton = styled(Button)`
+  border-radius: 10px;
+  padding: 10px 24px;
+  font-size: ${({ theme }) => theme.sizes.xxsmall};
+  font-weight: 600;
+  color: white;
+  box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.15);
+  border: none;
+  /* border: 0.6px solid ${({ theme }) => theme.colors.tertiary}ff; */
+  background-color: ${({ theme }) => theme.colors.tertiary}cd;
+  
+  transition: 0.4s ease;
+
+  &:hover {
+    transition: 0.4s ease;
+    /* border: 0.6px solid ${({ theme }) => theme.colors.tertiary}00; */
+    background-color: ${({ theme }) => theme.colors.tertiary}ff;
+  }
 `;
