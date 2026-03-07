@@ -47,6 +47,7 @@ export default function Carousel() {
         centeredSlides={true}
         loop
         spaceBetween={20}
+        autoplay={{ delay: 3000 }}
         navigation
       >
         {projects.map((props, index) => (

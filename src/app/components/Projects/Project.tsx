@@ -1,7 +1,7 @@
 import { ComponentProps } from 'react';
-import { Box, MotionBox } from '../ui/default';
+import { Box, Button, MotionBox } from '../ui/default';
 import { Heading, Text } from '../ui/typography';
-import { ProjectContainer, ProjectImage, Tag } from './styles';
+import { ProjectButton, ProjectContainer, ProjectImage, Tag } from './styles';
 
 interface ProjectProps extends ComponentProps<typeof MotionBox> {
   width: number;
@@ -26,7 +26,6 @@ const Project = ({
     <ProjectContainer
       $width={`100%`}
       $height={`${height}px`}
-      onClick={() => window.open(href, '_blank')}
       style={{
         // backgroundImage: `url(${src})`,
         borderRadius: 0.02 * width
@@ -40,13 +39,13 @@ const Project = ({
           <Tag
             $color={color}
           >
-            Projeto Realizado ({year})
+            Projeto Realizado em {year}
           </Tag>
           <Text $size="xxsmall" style={{ marginTop: 24 }} $textAlign='justify'>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius saepe similique dignissimos reprehenderit sint quod veritatis necessitatibus commodi! Nam exercitationem tempore iusto temporibus, optio nisi magni dolores id eos ipsam? Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi eaque vitae accusamus quaerat ex exercitationem ea sunt inventore rem voluptatum.
           </Text>
         </Box>
-        <Box $height={'100%'} $width={`50%`} $align="flex-start" $justify="flex-start" $direction='column'>
+        <Box $height={'100%'} $width={`50%`} $align="flex-end" $justify="space-between" $direction='column'>
           <ProjectImage
             $width="100%"
             $height="50%"
@@ -55,9 +54,7 @@ const Project = ({
               borderRadius: 0.02 * width
             }}
           />
-          {/* <Text $size="xxsmall" style={{ marginTop: 32}} $textAlign='justify'>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius saepe similique dignissimos reprehenderit sint quod veritatis necessitatibus commodi! Nam exercitationem tempore iusto temporibus, optio nisi magni dolores id eos ipsam?
-          </Text> */}
+          <ProjectButton $size="small" onClick={() => window.open(href, '_blank')}>Ver mais -></ProjectButton>
         </Box>
       </Box>
     </ProjectContainer>

@@ -13,7 +13,7 @@ function Header() {
         </Area>
         <Area $width={30} $height="100%">
           <ul className="navLinks">
-            <NavLink text="Sobre Mim" path="#sobre" />
+            <NavLink text="Sobre mim" path="#sobre" />
             <NavLink text="Projetos" path="#projetos" />
             <NavLink text="Contato" path="#contato" />
           </ul>
