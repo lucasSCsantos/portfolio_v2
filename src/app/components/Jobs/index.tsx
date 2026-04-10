@@ -1,40 +1,10 @@
 'use client';
 import { Area, Content } from '../ui/default';
 import { Heading } from '../ui/typography';
-import { Container } from './styles';
-// import fishes from '@/lotties/fishes-animation.json';
-// import { useLottie, useLottieInteractivity } from 'lottie-react';
+import { Container, ExperiencesRow } from './styles';
 import Experience from './Experience';
-// import { CSSProperties } from 'react';
-
-// const options = {
-//   animationData: fishes
-// };
-
-// const style: CSSProperties = {
-//   position: 'absolute',
-//   width: '100vw',
-//   height: 'auto',
-//   opacity: 0.2,
-//   top: 300
-// };
-
-// const Animation = () => {
-//   const lottieObj = useLottie(options, style);
-//   const Animation = useLottieInteractivity({
-//     lottieObj,
-//     mode: 'scroll',
-//     actions: [
-//       {
-//         visibility: [0, 1],
-//         type: 'seek',
-//         frames: [0, 100]
-//       }
-//     ]
-//   });
-
-//   return Animation;
-// };
+import experiences from '@/meta/experiences';
+import content from '@/meta/content';
 
 function Jobs() {
   return (
@@ -42,7 +12,7 @@ function Jobs() {
       <Content
         style={{
           justifyContent: 'flex-start',
-          width: 1120,
+          maxWidth: 1120,
           zIndex: 3,
           gap: 32
         }}
@@ -60,7 +30,7 @@ function Jobs() {
             $fontWeight={500}
             $color="textLight"
           >
-            Experiências
+            {content.jobs.label}
           </Heading>
           <Heading
             $level={1}
@@ -68,28 +38,15 @@ function Jobs() {
             $size="normal"
             $letterSpacing={-1.92}
           >
-            Experiências profissionais
+            {content.jobs.title}
           </Heading>
         </Area>
-        <Area
-          $width={100}
-          $align="flex-start"
-          $justify="space-between"
-          $direction="row"
-        >
-          <Experience
-            iconSrc="eattasty.png"
-            backgroundSrc="eattasty-bg.png"
-            color="#FFBD1B"
-          />
-          <Experience
-            iconSrc="agricompany-logo.png"
-            backgroundSrc="agricompany-bg2.png"
-            color="#0B1E60"
-          />
-        </Area>
+        <ExperiencesRow>
+          {experiences.map(exp => (
+            <Experience key={exp.company} {...exp} />
+          ))}
+        </ExperiencesRow>
       </Content>
-      {/* <Animation /> */}
     </Container>
   );
 }

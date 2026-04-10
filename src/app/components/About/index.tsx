@@ -6,6 +6,15 @@ import AboutImage from './AboutImage';
 import Bubble from './Bubble';
 import { Container, Icon, SocialMediaButton } from './styles';
 import Image from 'next/image';
+import profile from '@/meta/profile';
+import content from '@/meta/content';
+
+const socialButtons = [
+  { key: 'whatsapp', alt: 'Whatsapp icon', href: profile.social.whatsapp },
+  { key: 'linkedin', alt: 'Linkedin Icon', href: profile.social.linkedin },
+  { key: 'instagram', alt: 'Instagram Icon', href: profile.social.instagram },
+  { key: 'github', alt: 'Github Icon', href: profile.social.github }
+] as const;
 
 function About() {
   return (
@@ -33,7 +42,7 @@ function About() {
               $fontWeight={500}
               $color="tertiary"
             >
-              Sobre mim
+              {content.about.label}
             </Heading>
             <Heading
               $level={2}
@@ -41,34 +50,30 @@ function About() {
               $size="normal"
               $letterSpacing={-1.92}
             >
-              Lucas Santana
+              {profile.fullName}
             </Heading>
           </Box>
           <Text $size="xsmall" $color="textLight" $fontWeight={600}>
-            Im a passionate full stack developer with 5 years of experience in
-            creating robust and scalable web applications. My expertise spans
-            across front-end technologies like React and Vue.js, as well as
-            back-end frameworks such as Node.js and Django. I love solving
-            complex problems and turning ideas into reality through clean,
-            efficient code.
+            {content.about.bio}
           </Text>
           <Box $height={'64px'} $justify="flex-start" style={{ gap: 32 }}>
-            <SocialMediaButton>
-              <Icon alt="Whatsapp icon" src="whatsapp-icon.png" />
-            </SocialMediaButton>
-            <SocialMediaButton>
-              <Icon alt="Linkedin Icon" src="linkedin-icon.png" />
-            </SocialMediaButton>
-            <SocialMediaButton>
-              <Icon alt="Instagram Icon" src="instagram-icon.png" />
-            </SocialMediaButton>
-            <SocialMediaButton>
-              <Icon
-                alt="Github Icon"
-                src="github-icon.png"
-                style={{ height: 32, width: 28 }}
-              />
-            </SocialMediaButton>
+            {socialButtons.map(({ key, alt, href }) => (
+              <SocialMediaButton
+                key={key}
+                as="a"
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Icon
+                  alt={alt}
+                  src={profile.icons[key]}
+                  style={
+                    key === 'github' ? { height: 32, width: 28 } : undefined
+                  }
+                />
+              </SocialMediaButton>
+            ))}
           </Box>
         </Area>
         <AboutImage />

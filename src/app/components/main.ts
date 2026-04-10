@@ -6,7 +6,8 @@ const MainContainer = styled.main`
   background-image: linear-gradient(
     180deg,
     ${({ theme }) => theme.colors.primary} 00%,
-    ${({ theme }) => theme.colors.backgroundBlue}
+    ${({ theme }) => theme.colors.backgroundBlue} 50%,
+    ${({ theme }) => theme.colors.backgroundDarkBlue}
   );
   position: relative;
   overflow: hidden;

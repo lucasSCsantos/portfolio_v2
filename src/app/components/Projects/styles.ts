@@ -5,7 +5,7 @@ import { Box, Button } from '../ui/default';
 
 export const Container = styled.section`
   overflow: hidden;
-  height: 110vh;
+  height: 100vh;
   display: flex;
   position: relative;
   justify-content: center;
@@ -23,6 +23,14 @@ export const Container = styled.section`
 export const SliderWrapper = styled.div`
   width: 130vw;
   height: 650px;
+
+  @media (max-width: 834px) {
+    height: 450px;
+    width: 100vw;
+  }
+  @media (max-width: 428px) {
+    height: 340px;
+  }
 
   .swiper-slide {
     border-radius: 17px;
@@ -109,27 +117,35 @@ export const ProjectImage = styled(Box)`
   border: 0.6px solid white;
 `;
 
-export const Tag = styled(Button)<any>`
-  ${({$color = ''}) => css`
-  border-radius: 10px;
-  padding: 10px 10px;
-  margin-top: 16px; 
-  font-size: ${({ theme }) => theme.sizes.xxsmall};
-  font-weight: 600;
-  cursor: default;
-  box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.2);
-  color: white;
-  
-  border: 0.6px solid ${$color};
-  background-color: ${$color}ff;
-  transition: 0.4s ease;
+export const Tag = styled(Button)<{ $color?: string; $gradient?: string }>`
+  ${({ $color = '', $gradient = '' }) => css`
+    border-radius: 10px;
+    padding: 10px 10px;
+    margin-top: 16px;
+    font-size: ${({ theme }) => theme.sizes.xxsmall};
+    font-weight: 600;
+    cursor: default;
+    box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.2);
+    color: white;
 
-  &:hover {
+    ${$gradient
+      ? css`
+          background-image: ${$gradient};
+          border: none;
+        `
+      : css`
+          border: 0.6px solid ${$color};
+          background-color: ${$color}ff;
+        `}
+
     transition: 0.4s ease;
-    background-color: ${$color}ff;
-    opacity: 0.9;
-    /* background-color: ${({ theme }) => theme.colors.textLight}f0; */
-  }
+
+    &:hover {
+      transition: 0.4s ease;
+      background-color: ${$color}ff;
+      opacity: 0.9;
+      /* background-color: ${({ theme }) => theme.colors.textLight}f0; */
+    }
   `}
 `;
 
@@ -143,7 +159,7 @@ export const ProjectButton = styled(Button)`
   border: none;
   /* border: 0.6px solid ${({ theme }) => theme.colors.tertiary}ff; */
   background-color: ${({ theme }) => theme.colors.tertiary}cd;
-  
+
   transition: 0.4s ease;
 
   &:hover {
