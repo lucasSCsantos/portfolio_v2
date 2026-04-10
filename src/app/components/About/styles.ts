@@ -126,9 +126,10 @@ export const SocialMediaButton = styled(Button)`
 
 export const Tag = styled(Button)`
   border-radius: 10px;
-  padding: 10px 10px;
+  padding: 10px 6px;
   font-size: ${({ theme }) => theme.sizes.xxsmall};
   font-weight: 600;
+  min-width: 300px !important;
   position: absolute !important;
   bottom: 0;
   cursor: default;

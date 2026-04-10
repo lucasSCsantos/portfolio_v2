@@ -1,6 +1,9 @@
 import { Area, Content } from '../ui/default';
+import { Text } from '../ui/typography';
 import NavLink from './NavLink';
 import { Container } from './styles';
+import navLinks from '@/meta/navigation';
+import profile from '@/meta/profile';
 
 function Header() {
   return (
@@ -8,14 +11,24 @@ function Header() {
       <Content>
         <Area $width={60} $height="100%">
           <ul className="navLinks">
-            <NavLink text="Lucas Santana" />
+            <Text $size="xxsmall">
+              {profile.firstName}{' '}
+              <Text
+                as="span"
+                $size="xxsmall"
+                $color="secondary"
+                $fontWeight={700}
+              >
+                {profile.lastName}
+              </Text>
+            </Text>
           </ul>
         </Area>
         <Area $width={30} $height="100%">
           <ul className="navLinks">
-            <NavLink text="Sobre mim" path="#sobre" />
-            <NavLink text="Projetos" path="#projetos" />
-            <NavLink text="Contato" path="#contato" />
+            {navLinks.map(({ text, path }) => (
+              <NavLink key={path} text={text} path={path} />
+            ))}
           </ul>
         </Area>
       </Content>

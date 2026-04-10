@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Heading, Text } from '../ui/typography';
 import Avatar from './Avatar';
 import { useRef } from 'react';
+import content from '@/meta/content';
 
 export default function TopSection() {
   const ref = useRef(null);
@@ -19,6 +20,8 @@ export default function TopSection() {
   const y = useTransform(scrollYProgress, [0, 0.9], [0, -20], {
     clamp: false
   });
+
+  const [titleLine1, titleLine2] = content.hero.title.split('\n');
 
   return (
     <Area
@@ -44,7 +47,7 @@ export default function TopSection() {
           $lineHeight={'auto'}
           $letterSpacing={-0.9}
         >
-          Oi, eu sou Lucas!
+          {content.hero.greeting}
         </Text>
       </motion.div>
       <motion.div
@@ -65,9 +68,9 @@ export default function TopSection() {
             color: 'transparent'
           }}
         >
-          Desenvolvedor
+          {titleLine1}
           <br />
-          de Software
+          {titleLine2}
         </Heading>
       </motion.div>
     </Area>

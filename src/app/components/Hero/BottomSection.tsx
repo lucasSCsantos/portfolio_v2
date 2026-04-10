@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { Area, Button } from '../ui/default';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import content from '@/meta/content';
 
 export default function BottomSection() {
   const ref = useRef(null);
@@ -37,7 +38,7 @@ export default function BottomSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeInOut', duration: 0.8, delay: 2 }}
       >
-        <Button>Entrar em contato!</Button>
+        <Button>{content.hero.cta}</Button>
       </motion.div>
     </Area>
   );

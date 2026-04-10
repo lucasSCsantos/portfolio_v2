@@ -5,54 +5,28 @@ import SwiperCore from 'swiper';
 import { Autoplay, EffectCoverflow, Navigation } from 'swiper/modules';
 import Project from './Project';
 import { SliderWrapper } from './styles';
+import projects from '@/meta/projects';
 
 SwiperCore.use([EffectCoverflow, Navigation, Autoplay]);
 
 export default function Carousel() {
-  const projects = [
-    {
-      title: 'Torcida Imperial',
-      year: '2022',
-      color: '#00D84F',
-      src: 'imperial.png',
-      href: 'https://torcidaimperial.com.br'
-    },
-    {
-      title: 'Agricompany',
-      year: '2024',
-      color: '#01579B',
-      src: 'agricompany.png',
-      href: 'https://tech.agricompany.com.br'
-    },
-    {
-      title: 'Iasos',
-      year: '2023',
-      color: '#F14444',
-      src: 'iasos.png',
-      href: 'https://iasos.com.br'
-    },
-    {
-      title: 'Biblio',
-      year: '2024',
-      color: '#5C3817',
-      src: 'biblio.png',
-      href: 'https://bibliooo.com.br'
-    }
-  ];
-
   return (
     <SliderWrapper>
       <Swiper
-        slidesPerView={3}
+        slidesPerView={1}
         centeredSlides={true}
         loop
         spaceBetween={20}
         autoplay={{ delay: 3000 }}
         navigation
+        breakpoints={{
+          834: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 }
+        }}
       >
-        {projects.map((props, index) => (
+        {projects.map((project, index) => (
           <SwiperSlide key={index}>
-            <Project width={821} height={497} {...props} />
+            <Project width={821} height={497} {...project} />
           </SwiperSlide>
         ))}
       </Swiper>

@@ -131,21 +131,20 @@ export const MotionBox = styled(motion.div)<BoxProps>`
 export const Content = styled.div<ContentProps>`
   ${({ $direction = 'row' }) => css`
     position: relative;
-    width: 1440px;
+    max-width: 1440px;
+    width: 100%;
     height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: ${$direction};
+    padding: 0 32px;
 
-    @media (max-width: 1440px) {
-      width: 100%;
-    }
-    @media (max-width: 1024px) {
-    }
     @media (max-width: 834px) {
+      padding: 0 20px;
     }
     @media (max-width: 428px) {
+      padding: 0 16px;
     }
   `}
 `;

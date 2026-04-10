@@ -2,7 +2,9 @@
 
 import { Area, Content } from '../ui/default';
 import { Heading } from '../ui/typography';
-import Carrousel from './Carrousel';
+import dynamic from 'next/dynamic';
+
+const Carrousel = dynamic(() => import('./Carrousel'), { ssr: false });
 import { Container } from './styles';
 import Image from 'next/image';
 
@@ -12,7 +14,7 @@ function Projects() {
       <Content
         style={{
           justifyContent: 'flex-start',
-          width: 1120,
+          maxWidth: 1120,
           zIndex: 3,
           gap: 32
         }}

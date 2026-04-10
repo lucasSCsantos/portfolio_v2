@@ -92,4 +92,9 @@ export const AvatarContainer = styled(motion.div)`
     scale: 1.05;
     transition: ease 0.4s;
   }
+
+  @media (max-width: 428px) {
+    width: 100px;
+    height: 100px;
+  }
 `;

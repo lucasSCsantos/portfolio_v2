@@ -9,12 +9,19 @@ interface ExperienceProps {
   backgroundSrc: string;
   iconSrc: string;
   color: string;
+  company: string;
+  role: string;
+  period: string;
+  description: string;
 }
 
 export default function Experience({
   backgroundSrc,
   iconSrc,
-  color
+  company,
+  role,
+  period,
+  description
 }: ExperienceProps) {
   return (
     <ExperienceContainer
@@ -26,16 +33,16 @@ export default function Experience({
         style={{
           backgroundImage: `url(${iconSrc})`
         }}
-      ></ExperienceIcon>
+      />
       <ExperienceContent>
         <Heading $level={6} $size="small">
-          Experience
+          {company}
         </Heading>
-        <Text $size="xsmall">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi
-          illo ut similique enim, eius dolorem accusamus harum, tempore quasi
-          animi unde fuga veniam debitis vitae illum libero doloremque qui
-          minus.
+        <Text $size="xxsmall" $fontWeight={600} style={{ opacity: 0.8 }}>
+          {role} · {period}
+        </Text>
+        <Text $size="xsmall" style={{ marginTop: 8 }}>
+          {description}
         </Text>
       </ExperienceContent>
     </ExperienceContainer>

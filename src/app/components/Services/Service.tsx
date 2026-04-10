@@ -1,5 +1,7 @@
-import { Heading, HoverLink, Text } from '../ui/typography';
-import { ServiceBottom, ServiceContainer, ServiceTop } from './styles';
+import { Heading, Text } from '../ui/typography';
+import { ServiceButton, ServiceContainer, ServiceTop } from './styles';
+import profile from '@/meta/profile';
+import content from '@/meta/content';
 
 export default function Service({
   title,
@@ -16,17 +18,17 @@ export default function Service({
         <Heading $level={6} $size="small">
           {title}
         </Heading>
-        <Text $size="small">{text}</Text>
+        <Text $size="xsmall">{text}</Text>
+        <ServiceButton
+          $size="small"
+          as="a"
+          href={`https://wa.me/${profile.whatsappNumber}?text=${message}`}
+          target="_blank"
+          rel="noopener"
+        >
+          {content.services.buttonText}
+        </ServiceButton>
       </ServiceTop>
-      <a
-        style={{ width: '100%' }}
-        target="_blank"
-        href={`https://wa.me//5571981849630?text=${message}`}
-      >
-        <ServiceBottom $backgroundColor="primary">
-          <Text $size="small">Entre em Contato!</Text>
-        </ServiceBottom>
-      </a>
     </ServiceContainer>
   );
 }
