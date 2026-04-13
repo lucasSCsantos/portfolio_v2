@@ -14,11 +14,11 @@ export default function TopSection() {
   });
 
   const opacity = useTransform(scrollYProgress, [0, 0.9], [1, 0], {
-    clamp: false
+    clamp: true
   });
 
   const y = useTransform(scrollYProgress, [0, 0.9], [0, -20], {
-    clamp: false
+    clamp: true
   });
 
   const [titleLine1, titleLine2] = content.hero.title.split('\n');
@@ -34,44 +34,46 @@ export default function TopSection() {
     >
       <Avatar />
       <motion.div
-        style={{ zIndex: 2, opacity, y }}
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeInOut', duration: 0.8, delay: 0.4 }}
       >
-        <Text
-          $size="small"
-          $textAlign="center"
-          $font="inter"
-          $fontWeight={400}
-          $lineHeight={'auto'}
-          $letterSpacing={-0.9}
-        >
-          {content.hero.greeting}
-        </Text>
+        <motion.div style={{ zIndex: 2, opacity, y }}>
+          <Text
+            $size="small"
+            $textAlign="center"
+            $font="inter"
+            $fontWeight={400}
+            $lineHeight={'auto'}
+            $letterSpacing={-0.9}
+          >
+            {content.hero.greeting}
+          </Text>
+        </motion.div>
       </motion.div>
       <motion.div
-        style={{ zIndex: 2, opacity, y }}
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeInOut', duration: 0.8, delay: 1.2 }}
       >
-        <Heading
-          $level={1}
-          $size="xlarge"
-          $textAlign="center"
-          $lineHeight={'96%'}
-          $letterSpacing={-2.8}
-          style={{
-            backgroundImage: 'linear-gradient(180deg, black 80%, #1762A6)',
-            backgroundClip: 'text',
-            color: 'transparent'
-          }}
-        >
-          {titleLine1}
-          <br />
-          {titleLine2}
-        </Heading>
+        <motion.div style={{ zIndex: 2, opacity, y }}>
+          <Heading
+            $level={1}
+            $size="xlarge"
+            $textAlign="center"
+            $lineHeight={'96%'}
+            $letterSpacing={-2.8}
+            style={{
+              backgroundImage: 'linear-gradient(180deg, black 80%, #1762A6)',
+              backgroundClip: 'text',
+              color: 'transparent'
+            }}
+          >
+            {titleLine1}
+            <br />
+            {titleLine2}
+          </Heading>
+        </motion.div>
       </motion.div>
     </Area>
   );

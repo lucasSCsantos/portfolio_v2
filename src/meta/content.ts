@@ -6,7 +6,7 @@ const content = {
   },
   about: {
     label: 'Sobre mim',
-    bio: 'Sou um desenvolvedor full stack apaixonado por criar soluções robustas e escaláveis. Com experiência em tecnologias como React, Next.js, Node.js e bancos de dados relacionais e NoSQL, busco sempre transformar ideias em código limpo e eficiente.'
+    bio: 'Desenvolvedor de Software com +4 anos de experiência no desenvolvimento de aplicações web e APIs, atuando em empresas de diversos setores. Experiência sólida em desenvolvimento de projetos, desde o planejamento, até a implementação, testes e manutenção, utilizando as tecnologias mais modernas do mercado.'
   },
   projects: {
     label: 'Projetos',

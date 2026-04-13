@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 export const Container = styled.section`
-  height: 100dvh;
+  height: 100vh;
   display: flex;
   position: relative;
   overflow: hidden;

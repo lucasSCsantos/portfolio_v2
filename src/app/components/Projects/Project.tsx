@@ -10,7 +10,7 @@ interface ProjectProps extends ComponentProps<typeof MotionBox> {
   year: string;
   color: string;
   gradient?: string;
-  src: string;
+  src: string | string[];
   type?: 'phone' | 'desktop';
   href: string;
   description: string;
@@ -56,7 +56,7 @@ const Project = ({
           <Tag $color={color} $gradient={gradient}>
             Projeto Realizado em {year}
           </Tag>
-          <Text $size="xxsmall" style={{ marginTop: 24 }}>
+          <Text $size="xxsmall" style={{ marginTop: 24, textAlign: 'justify' }}>
             {description}
           </Text>
         </Box>
@@ -67,14 +67,37 @@ const Project = ({
           $justify="space-between"
           $direction="column"
         >
-          <ProjectImage
-            $width={type === 'phone' ? '68%' : '100%'}
-            $height={type === 'phone' ? '85%' : '50%'}
-            style={{
-              backgroundImage: `url(${src})`,
-              borderRadius: 0.02 * width
-            }}
-          />
+          {type === 'phone' ? (
+            <Box $height={'100%'} $width={'100%'} style={{ alignItems: 'flex-start' }} $align="flex-start" $justify="space-between">
+              <ProjectImage
+                $width={'47%'}
+                $height={'92%'}
+                style={{
+                  backgroundImage: `url(${src[0]})`,
+                  borderRadius: 0.02 * width,
+                  alignSelf: 'flex-start'
+                }}
+              />
+              <ProjectImage
+                $width={'47%'}
+                $height={'92%'}
+                style={{
+                  backgroundImage: `url(${src[1]})`,
+                  borderRadius: 0.02 * width,
+                  alignSelf: 'flex-start'
+                }}
+              />
+            </Box>
+          ): (
+            <ProjectImage
+              $width={'100%'}
+              $height={'50%'}
+              style={{
+                backgroundImage: `url(${src})`,
+                borderRadius: 0.02 * width
+              }}
+            />
+          )}
           <ProjectButton
             $size="small"
             onClick={() => window.open(href, '_blank')}

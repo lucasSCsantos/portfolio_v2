@@ -8,7 +8,7 @@ import { Content } from '../ui/default';
 
 function Hero() {
   return (
-    <Container id="hero">
+    <Container>
       <Content $direction="column">
         <TopSection />
         <BottomSection />

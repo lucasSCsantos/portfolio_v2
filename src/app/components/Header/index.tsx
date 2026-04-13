@@ -9,7 +9,7 @@ function Header() {
   return (
     <Container>
       <Content>
-        <Area $width={60} $height="100%">
+        <Area $width={40} $height="100%">
           <ul className="navLinks">
             <Text $size="xxsmall">
               {profile.firstName}{' '}
@@ -24,7 +24,7 @@ function Header() {
             </Text>
           </ul>
         </Area>
-        <Area $width={30} $height="100%">
+        <Area $width={50} $height="100%">
           <ul className="navLinks">
             {navLinks.map(({ text, path }) => (
               <NavLink key={path} text={text} path={path} />

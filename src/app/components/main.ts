@@ -10,7 +10,7 @@ const MainContainer = styled.main`
     ${({ theme }) => theme.colors.backgroundDarkBlue}
   );
   position: relative;
-  overflow: hidden;
+  overflow: clip;
 
   &::before {
     content: '';
