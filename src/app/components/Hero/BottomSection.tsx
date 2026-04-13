@@ -11,16 +11,17 @@ export default function BottomSection() {
     offset: ['start start', 'end start']
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.15], [1, 0], {
-    clamp: false
+  const opacity = useTransform(scrollYProgress, [0.7, 1], [1, 0], {
+    clamp: true
   });
 
   const y = useTransform(scrollYProgress, [0, 0.3], [0, -50], {
-    clamp: false
+    clamp: true
   });
 
   return (
     <Area
+      ref={ref}
       $width={100}
       $height={'50%'}
       $direction="column"
@@ -28,12 +29,7 @@ export default function BottomSection() {
       style={{ paddingTop: 32 }}
     >
       <motion.div
-        style={{
-          zIndex: 2,
-          marginTop: 64,
-          opacity,
-          y
-        }}
+        style={{ zIndex: 2, marginTop: 64, opacity, y }}
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeInOut', duration: 0.8, delay: 2 }}

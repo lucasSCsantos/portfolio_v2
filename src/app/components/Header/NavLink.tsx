@@ -1,4 +1,5 @@
-import Link from 'next/link';
+'use client';
+
 import { Text } from '../ui/typography';
 import { NavLinkContainer } from './styles';
 
@@ -8,11 +9,19 @@ interface NavLinkProps {
 }
 
 function NavLink({ text, path = '/' }: NavLinkProps) {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (path.startsWith('#')) {
+      e.preventDefault();
+      const id = path.slice(1);
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <NavLinkContainer>
-      <Link href={path}>
+      <a href={path} onClick={handleClick}>
         <Text $size="xxsmall">{text}</Text>
-      </Link>
+      </a>
     </NavLinkContainer>
   );
 }

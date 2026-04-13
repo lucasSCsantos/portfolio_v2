@@ -7,8 +7,8 @@ const profile = {
     'Ol%C3%A1%2C%20vim%20pelo%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar!',
   social: {
     github: 'https://github.com/lucasSCsantos',
-    linkedin: 'https://linkedin.com/in/lucasSCsantos',
-    instagram: '#', // preencha com seu perfil do Instagram
+    linkedin: 'https://linkedin.com/in/lucas-sc-santos',
+    instagram: 'https://www.instagram.com/luc_santos/',
     whatsapp: 'https://wa.me/5571981849630'
   },
   icons: {

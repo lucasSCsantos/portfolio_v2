@@ -5,7 +5,7 @@ export interface Project {
   year: string;
   color: string;
   gradient?: string;
-  src: string;
+  src: string | string[];
   href: string;
   type?: ProjectType;
   description: string;
@@ -19,7 +19,7 @@ const projects: Project[] = [
     src: 'imperial.png',
     href: 'https://torcidaimperial.com.br',
     description:
-      'Site institucional para a torcida organizada Torcida Imperial, com informações sobre eventos, notícias e comunicados aos torcedores.'
+      'Portal para a torcida organizada Torcida Imperial, com informações sobre eventos, notícias e comunicados aos torcedores. Além de um sistema de recompensas, pontos e rankings, aumentando engajamento e participação dos membros da torcida. Projeto idealizado e desenvolvido do zero, chegando a alcançar um pico de 30.000 usuários únicos, com uma comunidade ativa e engajada.'
   },
   {
     title: 'Calculadora Agricompany',
@@ -28,7 +28,7 @@ const projects: Project[] = [
     src: 'agricompany.png',
     href: 'https://agricompany-landing-page.vercel.app/',
     description:
-      'Landing page com calculadora interativa para a Agricompany, permitindo simulações e cotações de produtos agrícolas de forma rápida e intuitiva.'
+      'Landing page com calculadora interativa para a Agricompany, permitindo diagnóstico da sua fazenda/empresa. A calculadora oferece insights personalizados para otimizar operações agrícolas, melhorar a produtividade e reduzir custos, ajudando os clientes a tomarem decisões informadas sobre suas atividades agrícolas.'
   },
   {
     title: 'Iasos',
@@ -37,17 +37,17 @@ const projects: Project[] = [
     src: 'iasos.png',
     href: 'https://iasos.com.br',
     description:
-      'Plataforma digital para a Iasos, com foco em experiência do usuário e performance, entregando conteúdo de forma clara e acessível.'
+      'Plataforma digital para a Iasos, com foco em experiência do usuário e performance, entregando conteúdo de forma clara e acessível. A Iasos é uma empresa inovadora na área de saúde, oferecendo um qrcode para rápido acesso emergencial a informações médicas, histórico de saúde e contatos de emergência, garantindo que os usuários tenham acesso rápido e fácil a informações vitais em situações críticas.'
   },
   {
     title: 'Biblio',
     year: '2024',
     color: '#5C3817',
     type: 'phone',
-    src: 'biblio.png',
+    src: ['biblio-mobile.png', 'biblio-mobile.png'],
     href: 'https://biblioteste.netlify.app/',
     description:
-      'Aplicativo mobile de gerenciamento de leituras e biblioteca pessoal, com cadastro de livros, progresso de leitura e resenhas.'
+      'Jogo diário de adivinhação de livros da Bíblia. O jogador tem 6 tentativas para adivinhar o livro do dia, recebendo feedback sobre quais letras estão corretas e em suas posições corretas, quais estão presentes mas em posições incorretas, e quais não estão presentes no título. O jogo é projetado para ser divertido e educativo, incentivando os jogadores a aprenderem mais sobre os livros da Bíblia enquanto se divertem.'
   },
   {
     title: 'Jogo Passa',
@@ -55,10 +55,10 @@ const projects: Project[] = [
     color: '#000612',
     gradient: 'linear-gradient(135deg, #facc15 0%, #a855f7 50%, #3b82f6 100%)',
     type: 'phone',
-    src: 'jogopassa.png',
+    src: ['jogopassa.png', 'jogopassa-sala2.png'],
     href: 'https://www.jogopassa.com.br',
     description:
-      'App de quiz e jogos interativos para grupos e festas, com múltiplos modos de jogo, categorias variadas e suporte multiplayer.'
+      'Jogo temporizador online para jogos de festa, onde cada jogador tem um tempo limitado para realizar uma ação ou responder a uma pergunta. O jogo funciona online permitindo que os jogadores conectem seus dispositivos e participem de forma interativa, tornando-o ideal para eventos sociais, festas e encontros, promovendo diversão e engajamento entre os participantes.'
   }
 ];
 
