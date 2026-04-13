@@ -52,6 +52,8 @@ export default function AboutImage() {
         src="/about-image.jpeg"
         width={468}
         height={468}
+        quality={65}
+        sizes="(max-width: 834px) 100vw, 468px"
         style={{ borderRadius: 20 }}
         alt="Imagem de lucas trabalhando em seu escritório"
       />
