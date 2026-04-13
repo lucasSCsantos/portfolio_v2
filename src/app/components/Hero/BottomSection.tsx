@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import content from '@/meta/content';
 
 export default function BottomSection() {
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       const id = 'contato';
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
