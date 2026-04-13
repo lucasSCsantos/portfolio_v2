@@ -13,11 +13,7 @@ function NavLink({ text, path = '/' }: NavLinkProps) {
     if (path.startsWith('#')) {
       e.preventDefault();
       const id = path.slice(1);
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        // Ou use Framer Motion para controle mais preciso do timing
-      }
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
