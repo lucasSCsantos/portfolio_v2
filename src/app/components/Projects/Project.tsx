@@ -68,7 +68,13 @@ const Project = ({
           $direction="column"
         >
           {type === 'phone' ? (
-            <Box $height={'100%'} $width={'100%'} style={{ alignItems: 'flex-start' }} $align="flex-start" $justify="space-between">
+            <Box
+              $height={'100%'}
+              $width={'100%'}
+              style={{ alignItems: 'flex-start' }}
+              $align="flex-start"
+              $justify="space-between"
+            >
               <ProjectImage
                 $width={'47%'}
                 $height={'92%'}

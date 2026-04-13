@@ -53,7 +53,12 @@ function About() {
               {profile.fullName}
             </Heading>
           </Box>
-          <Text $size="xsmall" style={{ textAlign: 'justify' }} $color="textLight" $fontWeight={600}>
+          <Text
+            $size="xsmall"
+            style={{ textAlign: 'justify' }}
+            $color="textLight"
+            $fontWeight={600}
+          >
             {content.about.bio}
           </Text>
           <Box $height={'64px'} $justify="flex-start" style={{ gap: 32 }}>
