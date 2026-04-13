@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Providers from './providers';
+import ClientLoader from './components/ClientLoader';
 import { inter, poppins } from './lib/fonts';
 
 export const metadata: Metadata = {
@@ -44,7 +45,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${inter.variable} ${poppins.variable}`}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <ClientLoader>{children}</ClientLoader>
+        </Providers>
       </body>
     </html>
   );

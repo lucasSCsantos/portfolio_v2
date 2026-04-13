@@ -12,9 +12,10 @@ const style: CSSProperties = {
   position: 'absolute',
   width: '100vw',
   height: 'auto',
-  opacity: 1,
-  top: -100,
-  zIndex: 2
+  opacity: 0.36,
+  top: -10,
+  zIndex: 2,
+  filter: 'brightness(0)'
 };
 
 export default function ServicesAnimation() {
@@ -26,9 +27,9 @@ export default function ServicesAnimation() {
       {
         visibility: [0, 1],
         type: 'seek',
-        frames: [0, 100]
+        frames: [0, 200],
       }
-    ]
+    ],
   });
 
   return Animation;

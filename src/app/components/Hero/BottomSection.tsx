@@ -4,6 +4,12 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import content from '@/meta/content';
 
 export default function BottomSection() {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault();
+      const id = 'contato';
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const ref = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -34,7 +40,9 @@ export default function BottomSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeInOut', duration: 0.8, delay: 2 }}
       >
-        <Button>{content.hero.cta}</Button>
+        <Button onClick={handleClick}>
+          {content.hero.cta}
+        </Button>
       </motion.div>
     </Area>
   );
