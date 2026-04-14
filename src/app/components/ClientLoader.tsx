@@ -12,8 +12,16 @@ export default function ClientLoader({
 
   useEffect(() => {
     setMounted(true);
-    const timer = setTimeout(() => setVisible(false), 400);
-    return () => clearTimeout(timer);
+    const timer = setTimeout(() => {
+      setVisible(false);
+    }, 400);
+    
+      document.body.style.overflow = 'auto';
+
+    return () => {
+      clearTimeout(timer);
+      // clearTimeout(overflowTimer);
+    };
   }, []);
 
   return (
