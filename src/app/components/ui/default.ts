@@ -141,7 +141,7 @@ export const Content = styled.div<ContentProps>`
     padding: 0 32px;
 
     @media (max-width: 834px) {
-      padding: 0 20px;
+      padding: 0 24px;
     }
     @media (max-width: 428px) {
       padding: 0 16px;

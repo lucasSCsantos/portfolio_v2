@@ -12,6 +12,59 @@ export const Container = styled.section`
   flex-direction: column;
   padding-top: 10dvh;
   background-color: ${({ theme }) => theme.colors.background};
+
+  #greeting-text {
+    font-size: ${({ theme }) => theme.sizes.small};
+
+    @media (max-width: 428px) {
+      font-size: ${({ theme }) => theme.sizes.xsmall};
+    }
+
+    @media (max-width: 834px) {
+      font-size: ${({ theme }) => theme.sizes.xsmall};
+    }
+
+    @media (max-width: 1024px) {
+      font-size: ${({ theme }) => theme.sizes.xsmall};
+    }
+  }
+
+  #title-text {
+    font-size: ${({ theme }) => theme.sizes.large};
+
+    @media (max-width: 428px) {
+      font-size: ${({ theme }) => theme.sizes.normal};
+    }
+
+    @media (max-width: 834px) {
+      font-size: ${({ theme }) => theme.sizes.normal};
+    }
+
+    @media (max-width: 1024px) {
+      font-size: ${({ theme }) => theme.sizes.normal};
+    }
+  }
+
+  #hero-bottom-section {
+
+    @media (max-width: 1024px) {
+      justify-content: flex-end;
+    }
+  }
+
+  #hero-button {
+    margin-top: 64px;
+  
+    @media (max-width: 1024px) {
+      margin-bottom: 64px;
+    }
+
+    button {
+      @media (max-width: 428px) {
+        font-size: ${({ theme }) => theme.sizes.xsmall};
+      }
+    }
+  }
 `;
 
 export const WavesContainer = styled.svg`
@@ -91,6 +144,93 @@ export const AvatarContainer = styled(motion.div)`
   &:hover {
     scale: 1.05;
     transition: ease 0.4s;
+  }
+
+  #halo-1 {
+
+    svg {
+      width: 145px;
+
+      @media (max-width: 1440px) {
+        width: 140px;
+      }
+
+      @media (max-width: 1024px) {
+        width: 130px;
+      }
+
+      @media (max-width: 834px) {
+        width: 120px;
+      }
+
+      @media (max-width: 428px) {
+        width: 110px;
+      }
+    }
+
+  }
+
+  #halo-2 {
+
+    svg {
+      width: 135px;
+
+      @media (max-width: 1440px) {
+        width: 130px;
+      }
+
+      @media (max-width: 1024px) {
+        width: 120px;
+      }
+
+      @media (max-width: 834px) {
+        width: 110px;
+      }
+
+      @media (max-width: 428px) {
+        width: 100px;
+      }
+    }
+  }
+
+  #avatar-image {
+    width: 110px;
+
+    @media (max-width: 1440px) {
+      width: 100px;
+      height: 100px;
+    }
+
+    @media (max-width: 1024px) {
+      width: 90px;
+      height: 90px;
+
+    }
+
+    @media (max-width: 834px) {
+      width: 90px;
+      height: 90px;
+    }
+
+    @media (max-width: 428px) {
+      width: 80px;
+      height: 80px;
+    }
+  }
+
+  @media (max-width: 1440px) {
+    width: 130px;
+    height: 130px;
+  }
+
+  @media (max-width: 1024px) {
+    width: 110px;
+    height: 110px;
+  }
+
+  @media (max-width: 834px) {
+    width: 100px;
+    height: 100px;
   }
 
   @media (max-width: 428px) {
