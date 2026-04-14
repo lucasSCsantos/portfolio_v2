@@ -15,10 +15,13 @@ import {
 import Corals from './Corals';
 import skills from '@/meta/skills';
 import content from '@/meta/content';
+import dynamic from 'next/dynamic';
+
+const Animation = dynamic(() => import('./Animation'), { ssr: false });
 
 function Work() {
   return (
-    <Container id="servicos">
+    <Container id="habilidades">
       <Content
         style={{
           justifyContent: 'flex-start',
@@ -78,6 +81,7 @@ function Work() {
           </SkillGrid>
         </MainRow>
       </Content>
+      <Animation />
       <Image
         style={{
           position: 'absolute',

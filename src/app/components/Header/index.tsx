@@ -24,7 +24,7 @@ function Header() {
             </Text>
           </ul>
         </Area>
-        <Area $width={50} $height="100%">
+        <Area $width={70} $height="100%">
           <ul className="navLinks">
             {navLinks.map(({ text, path }) => (
               <NavLink key={path} text={text} path={path} />

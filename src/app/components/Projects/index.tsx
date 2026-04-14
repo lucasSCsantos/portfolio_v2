@@ -8,6 +8,8 @@ const Carrousel = dynamic(() => import('./Carrousel'), { ssr: false });
 import { Container } from './styles';
 import Image from 'next/image';
 
+const Animation = dynamic(() => import('./Animation'), { ssr: false });
+
 function Projects() {
   return (
     <Container id="projetos">
@@ -45,6 +47,7 @@ function Projects() {
         </Area>
         <Carrousel />
       </Content>
+      <Animation />
       <Image
         style={{
           position: 'absolute',

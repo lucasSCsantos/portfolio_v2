@@ -15,8 +15,8 @@ function Waves() {
   const { scrollYProgress } = useScroll();
 
   const backWaveX = useTransform(scrollYProgress, [0, 1], [0, 2000]);
-  const midWaveX = useTransform(scrollYProgress, [0, 1], [0, -1750]);
-  const frontWaveX = useTransform(scrollYProgress, [0, 1], [0, -1200]);
+  const midWaveX = useTransform(scrollYProgress, [0, 1], [0, -1350]);
+  const frontWaveX = useTransform(scrollYProgress, [0, 1], [0, -800]);
 
   return (
     <WavesContainer xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 240">
