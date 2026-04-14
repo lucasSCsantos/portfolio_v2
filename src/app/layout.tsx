@@ -44,7 +44,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${inter.variable} ${poppins.variable}`}>
+      <body className={`${inter.variable} ${poppins.variable}`} style={{ overflow: 'hidden' }}>
         <Providers>
           <ClientLoader>{children}</ClientLoader>
         </Providers>
