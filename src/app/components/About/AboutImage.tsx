@@ -22,6 +22,7 @@ export default function AboutImage() {
 
   return (
     <Area
+      id="right-about-area"
       $width={45}
       $height={'100%'}
       $align="flex-end"
@@ -31,6 +32,7 @@ export default function AboutImage() {
       ref={ref}
     >
       <Tag
+        className="tag"
         style={{ bottom: '24%', right: 468 - 280, x, opacity }}
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -40,6 +42,7 @@ export default function AboutImage() {
         👉 Desenvolvedor Full-stack
       </Tag>
       <Tag
+        className="tag"
         style={{ bottom: '12%', right: 468 - 280, x, opacity }}
         viewport={{ once: true }}
         initial={{ opacity: 0, x: -20 }}

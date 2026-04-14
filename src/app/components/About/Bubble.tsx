@@ -60,6 +60,7 @@ export default function Bubble({
             }
           : {}
       }}
+      id={props.id}
     >
       <Image
         src={src}

@@ -18,6 +18,22 @@ export const Container = styled.section`
     ${({ theme }) => theme.colors.tertiary}
   ); */
   background-color: transparent;
+
+
+  @media (max-width: 834px) {
+     h3 {
+      font-size: ${({ theme }) => theme.sizes.xsmall} !important;
+    }
+
+    h1 {
+      font-size: ${({ theme }) => theme.sizes.small} !important;
+    }
+
+    p {
+      text-align: left !important;
+      font-size: ${({ theme }) => theme.sizes.xxsmall} !important;
+    }
+  }
 `;
 
 export const SliderWrapper = styled.div`
@@ -26,8 +42,10 @@ export const SliderWrapper = styled.div`
 
   @media (max-width: 834px) {
     height: 450px;
-    width: 100vw;
+    border-radius: 5px;
+    width: 90vw;
   }
+
   @media (max-width: 428px) {
     height: 340px;
   }
@@ -102,6 +120,19 @@ export const ProjectContainer = styled(Box)`
       opacity: 1;
     }
   }
+
+  @media (max-width: 834px) {
+    h6 {
+      font-size: ${({ theme }) => theme.sizes.xxsmall} !important;
+    }
+
+    p {
+      text-align: left !important;
+      font-size: calc(${({ theme }) => theme.sizes.xxxsmall} * 1.2) !important;
+    }
+  }
+
+  
 `;
 
 export const ProjectImage = styled(Box)`
@@ -115,6 +146,20 @@ export const ProjectImage = styled(Box)`
   position: relative;
   transition: 0.5s ease;
   border: 0.6px solid white;
+
+  @media (max-width: 834px) {
+    &.project-image-mobile2 {
+      display: none;
+    }
+
+     &.project-image-mobile {
+      width: 100% !important;
+    }
+
+    &.project-image-desktop {
+      height: 85% !important;
+    }
+  }
 `;
 
 export const Tag = styled(Button)<{ $color?: string; $gradient?: string }>`
@@ -139,6 +184,12 @@ export const Tag = styled(Button)<{ $color?: string; $gradient?: string }>`
         `}
 
     transition: 0.4s ease;
+
+    @media (max-width: 834px) {
+      padding: 8px 8px;
+      box-sizing: content-box !important;
+      font-size: ${({ theme }) => theme.sizes.xxxsmall};
+    }
 
     &:hover {
       transition: 0.4s ease;

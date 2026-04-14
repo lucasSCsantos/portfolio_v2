@@ -78,6 +78,7 @@ const Project = ({
               <ProjectImage
                 $width={'47%'}
                 $height={'92%'}
+                className="project-image-mobile"
                 style={{
                   backgroundImage: `url(${src[0]})`,
                   borderRadius: 0.02 * width,
@@ -87,6 +88,7 @@ const Project = ({
               <ProjectImage
                 $width={'47%'}
                 $height={'92%'}
+                className="project-image-mobile2"
                 style={{
                   backgroundImage: `url(${src[1]})`,
                   borderRadius: 0.02 * width,
@@ -97,7 +99,8 @@ const Project = ({
           ): (
             <ProjectImage
               $width={'100%'}
-              $height={'50%'}
+                $height={'50%'}
+                className="project-image-desktop"
               style={{
                 backgroundImage: `url(${src})`,
                 borderRadius: 0.02 * width

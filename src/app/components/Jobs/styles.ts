@@ -12,6 +12,24 @@ export const Container = styled.section`
   padding-top: 128px;
   z-index: 98;
   background-color: transparent;
+
+   @media (max-width: 834px) {
+    min-height: fit-content !important;
+    padding-bottom: 80px;
+    
+    h3 {
+      font-size: ${({ theme }) => theme.sizes.xsmall} !important;
+    }
+
+    h1 {
+      font-size: ${({ theme }) => theme.sizes.small} !important;
+    }
+
+    p {
+      text-align: left !important;
+      font-size: ${({ theme }) => theme.sizes.xxsmall} !important;
+    }
+  }
 `;
 
 export const ExperienceContainer = styled(Box)`
@@ -22,6 +40,12 @@ export const ExperienceContainer = styled(Box)`
   height: 305px;
   background-size: cover;
   background-position: center;
+
+   @media (max-width: 834px) {
+
+      transition: 1s ease;
+
+  }
 
   &:hover {
     .experience-icon {
@@ -37,6 +61,13 @@ export const ExperienceContainer = styled(Box)`
       display: flex;
       height: auto;
       border-radius: 0 0 24px 24px;
+    }
+
+    @media (max-width: 834px) {
+      box-sizing: content-box;
+      margin-bottom: 324px !important;
+      transition: 1s ease;
+
     }
   }
 
@@ -81,7 +112,12 @@ export const ExperienceContent = styled(Box)`
   background-color: ${({ theme }) => theme.colors.textLight}6a;
 
   @media (max-width: 428px) {
+    z-index: 13 !important;
     padding: 60px 24px 24px;
+  }
+
+  @media (max-width: 834px) {
+    position: relative !important;
   }
 `;
 
@@ -92,7 +128,12 @@ export const ExperiencesRow = styled.div`
   align-items: flex-start;
   gap: 24px;
 
+
   @media (max-width: 834px) {
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    /* height: 1200px; */
+    margin-bottom: 32px;
     flex-direction: column;
     align-items: center;
   }

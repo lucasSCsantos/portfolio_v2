@@ -20,6 +20,7 @@ function About() {
   return (
     <Container id="sobre">
       <Content
+        id="about-content"
         style={{
           justifyContent: 'space-between',
           maxHeight: 484,
@@ -34,6 +35,7 @@ function About() {
           $justify="flex-start"
           $direction="column"
           style={{ gap: 32 }}
+          id="left-about-area"
         >
           <Box $direction="column" $align="flex-start">
             <Heading
@@ -61,7 +63,7 @@ function About() {
           >
             {content.about.bio}
           </Text>
-          <Box $height={'64px'} $justify="flex-start" style={{ gap: 32 }}>
+          <Box $height={'64px'} $justify="flex-start" style={{ gap: 32 }} id="social-buttons">
             {socialButtons.map(({ key, alt, href }) => (
               <SocialMediaButton
                 key={key}
@@ -98,6 +100,7 @@ function About() {
         height={424}
       />
       <Bubble
+        id="bubble1"
         bottom="42%"
         left="1%"
         width={337}
@@ -107,6 +110,7 @@ function About() {
         alt="A medium size bubble floating"
       />
       <Bubble
+        id="bubble2"
         bottom="25%"
         left="11%"
         src="/bubble2.png"
@@ -115,6 +119,7 @@ function About() {
         alt="A small size bubble floating"
       />
       <Bubble
+        id="bubble3"
         bottom="65%"
         right="12%"
         src="/bubble.png"
@@ -124,6 +129,7 @@ function About() {
         alt="A medium size bubble floating"
       />
       <Bubble
+        id="bubble4"
         bottom="50%"
         right="17%"
         src="/bubble3.png"

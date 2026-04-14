@@ -17,6 +17,19 @@ export const Container = styled.section`
     height: auto;
     min-height: 100vh;
     padding-bottom: 80px;
+    
+    h3 {
+      font-size: ${({ theme }) => theme.sizes.xsmall} !important;
+    }
+
+    h1 {
+      font-size: ${({ theme }) => theme.sizes.small} !important;
+    }
+
+    p {
+      text-align: left !important;
+      font-size: ${({ theme }) => theme.sizes.xxsmall} !important;
+    }
   }
 
   &::after {
