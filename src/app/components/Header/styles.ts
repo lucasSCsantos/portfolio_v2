@@ -17,7 +17,7 @@ export const Container = styled.header`
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 100;
   padding-top: 0.5rem;
 
   @media (max-width: 1024px) {
@@ -106,7 +106,7 @@ export const MobileMenuButton = styled.button<MobileMenuStateProps>`
 
 export const MobileMenu = styled.nav<MobileMenuStateProps>`
   width: min(92vw, 32rem);
-  top: 75%;
+  top: 85%;
   position: absolute;
   padding: ${({ $isOpen }) => ($isOpen ? '0.75rem 1rem' : '0 1rem')};
   border: 1px solid ${({ theme }) => theme.colors.primaryShadow};
