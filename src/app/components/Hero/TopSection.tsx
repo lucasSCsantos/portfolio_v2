@@ -29,7 +29,7 @@ export default function TopSection() {
       $height={'50%'}
       $direction="column"
       $justify="flex-end"
-      style={{ paddingBottom: 16 }}
+      style={{ paddingBottom: 16, zIndex: 99 }}
       ref={ref}
     >
       <Avatar />
@@ -46,6 +46,7 @@ export default function TopSection() {
             $fontWeight={400}
             $lineHeight={'auto'}
             $letterSpacing={-0.9}
+            id="greeting-text"
           >
             {content.hero.greeting}
           </Text>
@@ -68,6 +69,7 @@ export default function TopSection() {
               backgroundClip: 'text',
               color: 'transparent'
             }}
+            id="title-text"
           >
             {titleLine1}
             <br />

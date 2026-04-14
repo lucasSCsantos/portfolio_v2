@@ -5,12 +5,12 @@ export default function Halo({
   children,
   rotate = 360,
   duration = 5,
-  width = '150px'
+  id,
 }: {
   children: ReactNode;
   rotate?: number;
   duration?: number;
-  width?: string;
+  id: string;
 }) {
   return (
     <motion.div
@@ -21,6 +21,7 @@ export default function Halo({
         top: '50%',
         transform: 'translate(-50%, -50%)'
       }}
+      id={id}
       animate={{ rotate }} // Rotate 360 degrees
       transition={{
         repeat: Infinity, // Infinite loop
@@ -31,7 +32,6 @@ export default function Halo({
       <svg
         viewBox="0 0 200 200"
         xmlns="http://www.w3.org/2000/svg"
-        width={width}
         style={{
           position: 'absolute',
           left: '50%',
