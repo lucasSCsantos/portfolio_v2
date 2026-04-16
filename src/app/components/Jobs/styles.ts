@@ -12,11 +12,15 @@ export const Container = styled.section`
   padding-top: 128px;
   z-index: 98;
   background-color: transparent;
-
+  
    @media (max-width: 834px) {
     min-height: fit-content !important;
     padding-bottom: 80px;
-    
+    /* gap: 64px; */
+
+    div:nth-child(1) {
+      margin-bottom: 64px;
+    }
     h3 {
       font-size: ${({ theme }) => theme.sizes.xsmall} !important;
     }
@@ -72,7 +76,7 @@ export const ExperienceContainer = styled(Box)`
   }
 
   @media (max-width: 428px) {
-    height: 260px;
+    height: 216px;
 
     &:hover .experience-icon {
       transform: translateX(-120px) scale(0.6);
@@ -91,6 +95,16 @@ export const ExperienceIcon = styled(Box)`
   box-shadow: 10px 15px 29px rgba(0, 0, 0, 0.25);
   background-size: cover;
   background-position: center;
+
+  @media (max-width: 834px) {
+    width: 120px !important;
+    height: 120px !important;
+  }
+
+  @media (max-width: 428px) {
+    width: 100px !important;
+    height: 100px !important;
+  }
 `;
 
 export const ExperienceContent = styled(Box)`
@@ -111,13 +125,20 @@ export const ExperienceContent = styled(Box)`
   border: 0.6px solid white;
   background-color: ${({ theme }) => theme.colors.textLight}6a;
 
-  @media (max-width: 428px) {
-    z-index: 13 !important;
-    padding: 60px 24px 24px;
-  }
 
   @media (max-width: 834px) {
     position: relative !important;
+    transform: scaleY(0.4);
+  }
+
+  @media (max-width: 1024px) {
+    position: relative !important;
+    transform: scaleY(0.4);
+  }
+
+  @media (max-width: 428px) {
+    padding: 72px 24px 24px;
+    transform: scaleY(0.1);
   }
 `;
 

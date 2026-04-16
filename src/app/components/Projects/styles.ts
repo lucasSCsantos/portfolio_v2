@@ -19,7 +19,6 @@ export const Container = styled.section`
   ); */
   background-color: transparent;
 
-
   @media (max-width: 834px) {
      h3 {
       font-size: ${({ theme }) => theme.sizes.xsmall} !important;
@@ -34,6 +33,10 @@ export const Container = styled.section`
       font-size: ${({ theme }) => theme.sizes.xxsmall} !important;
     }
   }
+
+   @media (max-width: 428px) {
+    padding-top: 32px !important;
+   }
 `;
 
 export const SliderWrapper = styled.div`
@@ -132,6 +135,27 @@ export const ProjectContainer = styled(Box)`
     }
   }
 
+  @media (max-width: 428px) {
+    height: 368px !important;
+    padding: 1rem;
+    h6 {
+      font-size: ${({ theme }) => theme.sizes.xxsmall} !important;
+    }
+
+    p {
+      text-align: left !important;
+      font-size: calc(${({ theme }) => theme.sizes.xxsmall} * 0.55) !important;
+    }
+
+    #project-left-area {
+      width: 62% !important;
+    }
+
+    #project-right-area {
+      width: 38% !important;
+    }
+  }
+
   
 `;
 
@@ -152,12 +176,33 @@ export const ProjectImage = styled(Box)`
       display: none;
     }
 
+    height: 90% !important;
+    max-height: 358px !important;
+
      &.project-image-mobile {
       width: 100% !important;
     }
 
     &.project-image-desktop {
-      height: 85% !important;
+    }
+  }
+
+  @media (max-width: 428px) {
+    /* height: 100% !important; */
+    /* background-position: left !important; */
+
+    &.project-image-mobile2 {
+      display: none;
+    }
+
+    /* height: 100px !important; */
+    max-height: 250px !important;
+
+     &.project-image-mobile {
+      width: 100% !important;
+    }
+    
+    &.project-image-desktop {
     }
   }
 `;
@@ -218,4 +263,14 @@ export const ProjectButton = styled(Button)`
     /* border: 0.6px solid ${({ theme }) => theme.colors.tertiary}00; */
     background-color: ${({ theme }) => theme.colors.tertiary}ff;
   }
+  
+  @media (max-width: 834px) {
+    padding: 8px 16px;
+    font-size: ${({ theme }) => theme.sizes.xxxsmall};
+   }
+
+   @media (max-width: 428px) {
+    padding: 6px 12px;
+    font-size: ${({ theme }) => theme.sizes.xxxsmall} !important;
+   }
 `;
