@@ -253,12 +253,20 @@ export const SkillGrid = styled.div`
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
   flex: 1;
+  width: 100%;
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  @media (max-width: 834px) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
   @media (max-width: 428px) {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
   }
 `;
 
@@ -295,6 +303,11 @@ const CardFace = styled.div`
 export const CardFront = styled(CardFace)`
   border: 1.6px solid white;
   background-color: ${({ theme }) => theme.colors.textLight}77;
+
+  svg {
+    width: clamp(28px, 50%, 64px);
+    height: auto;
+  }
 `;
 
 export const CardBack = styled(CardFace)`
@@ -308,7 +321,7 @@ export const CardBack = styled(CardFace)`
 
   .skill-name {
     font-family: ${({ theme }) => theme.font.family.poppins};
-    font-size: 0.8rem;
+    font-size: clamp(0.45rem, 1.2vw, 0.8rem);
     font-weight: 700;
     color: ${({ theme }) => theme.colors.textLight};
     text-transform: uppercase;
@@ -326,7 +339,7 @@ export const CardBack = styled(CardFace)`
 
   .label {
     font-family: ${({ theme }) => theme.font.family.inter};
-    font-size: 0.45rem;
+    font-size: clamp(0.3rem, 0.8vw, 0.45rem);
     font-weight: 600;
     color: ${({ theme }) => theme.colors.secondary};
     text-transform: uppercase;
@@ -337,7 +350,7 @@ export const CardBack = styled(CardFace)`
 
   .desc {
     font-family: ${({ theme }) => theme.font.family.inter};
-    font-size: 0.52rem;
+    font-size: clamp(0.32rem, 0.9vw, 0.52rem);
     color: ${({ theme }) => theme.colors.secondary};
     line-height: 1.45;
     text-align: left;
