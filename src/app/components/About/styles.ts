@@ -97,6 +97,99 @@ export const Container = styled.section`
 
   }
 
+  @media (max-width: 428px) {
+    padding-top: 0 !important;
+
+    #bubble1, #bubble2, #bubble3, #bubble4 {
+      transform: scale(0.4) !important;
+    }
+
+    #bubble1 {
+      bottom: 15% !important;
+      left: -30% !important;
+    }
+
+    #bubble2 {
+      left: -15% !important;
+      bottom: -3% !important;
+    }
+
+    #bubble3 {
+      right: -10% !important;
+      top: 0% !important;
+      /* background-color: red; */
+    }
+
+    #bubble4 {
+      right: -10% !important;
+      bottom: 55% !important;
+    }
+
+    height: fit-content !important;
+
+    #about-content {
+      height: 100% !important;
+      max-height: 100% !important;
+      flex-direction: column;
+      gap: 32px !important;
+
+
+      #left-about-area {
+        width: 100% !important;
+        padding: 0 48px !important;
+        height: fit-content !important;
+        align-items: center !important;
+
+        gap: 16px !important;
+
+        #social-buttons {
+          margin-top: 8px !important;
+          justify-content: center !important;
+          width: 100% !important;
+        }
+
+        h3 {
+          font-size: ${({ theme }) => theme.sizes.xsmall} !important;
+        }
+
+        h2 {
+          font-size: ${({ theme }) => theme.sizes.small} !important;
+        }
+
+        p {
+          text-align: left !important;
+          font-size: ${({ theme }) => theme.sizes.xxsmall} !important;
+        }
+      }
+
+      #right-about-area {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100% !important;
+        padding: 0 48px !important;
+
+        .tag {
+          left: 16px !important;
+          font-size: ${({ theme }) => theme.sizes.xxxsmall} !important;
+          padding: 6px 4px !important;
+          width: fit-content !important;
+        }
+
+        img {
+          height: auto;
+          width: 100%;
+        }
+
+        justify-content: center !important;
+        width: 100% !important;
+        height: 47% !important;
+      }    
+  }
+
+  }
+
+
   &::after {
     content: '';
     position: absolute;
@@ -224,6 +317,19 @@ export const Tag = styled(Button)`
   &:hover {
     transition: 0.4s ease;
     background-color: ${({ theme }) => theme.colors.textLight}f0;
+  }
+
+  @media (max-width: 834px) {
+    width: fit-content !important;
+  }
+
+  @media (max-width: 428px) {
+    min-width: 150px !important;
+
+    p {
+      font-size: ${({ theme }) => theme.sizes.small} !important;
+    }
+    margin-left: 48px !important;
   }
 `;
 

@@ -14,17 +14,15 @@ export const Container = styled.section`
   padding-bottom: 128px;
   z-index: 98;
   background-color: ${({ theme }) => theme.colors.background};
-`;
-
-export const MainRow = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: flex-start;
-  gap: 64px;
 
   @media (max-width: 834px) {
-    flex-direction: column;
-    gap: 40px;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 0;
+    div {
+      flex-direction: column;
+    }
   }
 `;
 
@@ -102,6 +100,11 @@ export const ContactButton = styled(Button)`
   &:hover {
     filter: brightness(1.05);
     box-shadow: 0 6px 24px ${({ theme }) => theme.colors.primary}77;
+  }
+
+  @media (max-width: 428px) {
+    width: 90%;
+    font-size: ${({ theme }) => theme.sizes.xxsmall};
   }
 `;
 

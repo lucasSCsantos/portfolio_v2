@@ -49,6 +49,7 @@ const Project = ({
           $align="flex-start"
           $justify="flex-start"
           $direction="column"
+          id="project-left-area"
         >
           <Heading $level={6} $size="xsmall" style={{ opacity: 0.9 }}>
             {title}
@@ -66,6 +67,7 @@ const Project = ({
           $align="flex-end"
           $justify="space-between"
           $direction="column"
+          id="project-right-area"
         >
           {type === 'phone' ? (
             <Box
@@ -99,8 +101,8 @@ const Project = ({
           ): (
             <ProjectImage
               $width={'100%'}
-                $height={'50%'}
-                className="project-image-desktop"
+              $height={'50%'}
+              className="project-image-desktop"
               style={{
                 backgroundImage: `url(${src})`,
                 borderRadius: 0.02 * width

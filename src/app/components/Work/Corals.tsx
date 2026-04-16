@@ -59,6 +59,7 @@ function Corals() {
           </clipPath>
         </defs>
       </svg>
+
       <svg
         className="seaweed-1"
         width="354"
@@ -74,6 +75,7 @@ function Corals() {
           fill="#F2F2F2"
         />
       </svg>
+      
       <svg
         width="1920"
         height="860"
