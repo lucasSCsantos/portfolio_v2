@@ -12,7 +12,7 @@ export const Container = styled.section`
   padding-top: 128px;
   z-index: 98;
   background-color: transparent;
-
+  
   @media (max-width: 834px) {
     height: auto;
     min-height: 100vh;
@@ -36,6 +36,10 @@ export const Container = styled.section`
 
     background-size: cover;
     pointer-events: none;
+  }
+
+  @media (max-width: 428px) {
+    padding-top: 16px;
   }
 `;
 
