@@ -46,7 +46,7 @@ export const ExperienceContainer = styled(Box)`
   background-position: center;
 
    @media (max-width: 834px) {
-
+      align-self: center;
       transition: 1s ease;
 
   }
@@ -102,8 +102,10 @@ export const ExperienceIcon = styled(Box)`
   }
 
   @media (max-width: 428px) {
-    width: 100px !important;
-    height: 100px !important;
+    width: 72px !important;
+    height: 72px !important;
+    top: 82%;
+    border-radius: 18px;
   }
 `;
 

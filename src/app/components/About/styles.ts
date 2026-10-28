@@ -16,6 +16,8 @@ export const Container = styled.section`
 
   @media (max-width: 834px) {
     padding-top: 0 !important;
+    height: fit-content !important;
+    padding-bottom: 96px !important;
 
     #bubble1, #bubble2, #bubble3, #bubble4 {
       transform: scale(0.6) !important;
@@ -43,14 +45,16 @@ export const Container = styled.section`
     }
 
     #about-content {
-      height: 100% !important;
+      height: auto !important;
       max-height: 100% !important;
       flex-direction: column;
-
+      justify-content: flex-start !important;
+      gap: 48px;
+      padding-top: 96px;
 
       #left-about-area {
         width: 100% !important;
-        height: 47% !important;
+        height: fit-content !important;
         align-items: center !important;
 
         gap: 16px !important;
@@ -91,7 +95,7 @@ export const Container = styled.section`
 
         justify-content: center !important;
         width: 100% !important;
-        height: 47% !important;
+        height: fit-content !important;
       }    
   }
 
@@ -158,7 +162,9 @@ export const Container = styled.section`
 
         p {
           text-align: left !important;
-          font-size: ${({ theme }) => theme.sizes.xxsmall} !important;
+          font-size: 1.0625rem !important;
+          font-weight: 500 !important;
+          line-height: 1.5 !important;
         }
       }
 
@@ -298,6 +304,14 @@ export const SocialMediaButton = styled(Button)`
     transition: 0.4s ease;
     background-color: ${({ theme }) => theme.colors.textLight}cd;
   }
+
+  @media (max-width: 834px) {
+    background-color: ${({ theme }) => theme.colors.textLight}d9;
+
+    img {
+      filter: brightness(0.55) saturate(1.3);
+    }
+  }
 `;
 
 export const Tag = styled(Button)`
@@ -321,6 +335,12 @@ export const Tag = styled(Button)`
 
   @media (max-width: 834px) {
     width: fit-content !important;
+    bottom: auto !important;
+    top: 12px;
+
+    &:nth-of-type(2) {
+      top: 56px;
+    }
   }
 
   @media (max-width: 428px) {

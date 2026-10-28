@@ -22,6 +22,11 @@ export const Container = styled.section`
     & > div {
       flex-direction: column;
     }
+
+    h1,
+    h2 {
+      line-height: 1.2;
+    }
   }
 `;
 
@@ -82,6 +87,7 @@ export const RightSection = styled.div`
   gap: 32px;
   @media (max-width: 834px) {
     width: 100%;
+    align-items: flex-start;
   }
 `;
 

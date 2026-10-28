@@ -42,12 +42,20 @@ export const CopyrightText = styled.p`
   font-size: ${({ theme }) => theme.sizes.xxxsmall};
   color: ${({ theme }) => theme.colors.navHighlight};
   margin: 0;
+
+  @media (max-width: 834px) {
+    color: ${({ theme }) => theme.colors.text}99;
+  }
 `;
 
 export const SocialLinks = styled.div`
   display: flex;
   gap: 16px;
   align-items: center;
+
+  @media (max-width: 834px) {
+    gap: 4px;
+  }
 `;
 
 export const SocialLink = styled.a`
@@ -62,5 +70,15 @@ export const SocialLink = styled.a`
   &:hover {
     color: ${({ theme }) => theme.colors.secondary};
     transform: translateY(-2px);
+  }
+
+  @media (max-width: 834px) {
+    min-width: 44px;
+    min-height: 44px;
+    color: ${({ theme }) => theme.colors.text}99;
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.secondary};
+    }
   }
 `;

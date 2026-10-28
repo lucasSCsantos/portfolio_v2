@@ -20,6 +20,13 @@ export const Container = styled.section`
   background-color: transparent;
 
   @media (max-width: 834px) {
+    height: auto;
+    padding-bottom: 96px;
+
+    & > div:first-of-type {
+      height: auto;
+    }
+
      h3 {
       font-size: ${({ theme }) => theme.sizes.xsmall} !important;
     }
@@ -44,13 +51,9 @@ export const SliderWrapper = styled.div`
   height: 650px;
 
   @media (max-width: 834px) {
-    height: 450px;
+    height: auto;
     border-radius: 5px;
     width: 90vw;
-  }
-
-  @media (max-width: 428px) {
-    height: 340px;
   }
 
   .swiper-slide {
@@ -125,6 +128,9 @@ export const ProjectContainer = styled(Box)`
   }
 
   @media (max-width: 834px) {
+    height: 100% !important;
+    min-height: 24rem;
+
     h6 {
       font-size: ${({ theme }) => theme.sizes.xxsmall} !important;
     }
@@ -133,10 +139,24 @@ export const ProjectContainer = styled(Box)`
       text-align: left !important;
       font-size: calc(${({ theme }) => theme.sizes.xxxsmall} * 1.2) !important;
     }
+
+    .project-columns {
+      height: auto !important;
+    }
+
+    #project-left-area,
+    #project-right-area {
+      height: auto !important;
+      align-self: stretch;
+    }
+
+    #project-right-area {
+      gap: 16px;
+    }
   }
 
   @media (max-width: 428px) {
-    height: 368px !important;
+    min-height: 0;
     padding: 1rem;
     h6 {
       font-size: ${({ theme }) => theme.sizes.xxsmall} !important;
@@ -144,15 +164,24 @@ export const ProjectContainer = styled(Box)`
 
     p {
       text-align: left !important;
-      font-size: calc(${({ theme }) => theme.sizes.xxsmall} * 0.55) !important;
+      font-size: 0.9375rem !important;
+      line-height: 1.5;
     }
 
-    #project-left-area {
-      width: 62% !important;
+    .project-columns {
+      flex-direction: column !important;
+      align-items: stretch !important;
+      gap: 16px !important;
+    }
+
+    #project-left-area,
+    #project-right-area {
+      width: 100% !important;
     }
 
     #project-right-area {
-      width: 38% !important;
+      gap: 16px;
+      align-items: stretch !important;
     }
   }
 
@@ -188,21 +217,20 @@ export const ProjectImage = styled(Box)`
   }
 
   @media (max-width: 428px) {
-    /* height: 100% !important; */
-    /* background-position: left !important; */
-
     &.project-image-mobile2 {
       display: none;
     }
 
-    /* height: 100px !important; */
-    max-height: 250px !important;
+    height: 220px !important;
+    max-height: none !important;
+    background-position: top center !important;
 
      &.project-image-mobile {
       width: 100% !important;
     }
     
     &.project-image-desktop {
+      width: 100% !important;
     }
   }
 `;
@@ -212,6 +240,7 @@ export const Tag = styled(Button)<{ $color?: string; $gradient?: string }>`
     border-radius: 10px;
     padding: 10px 10px;
     margin-top: 16px;
+    flex-shrink: 0;
     font-size: ${({ theme }) => theme.sizes.xxsmall};
     font-weight: 600;
     cursor: default;
@@ -265,12 +294,13 @@ export const ProjectButton = styled(Button)`
   }
   
   @media (max-width: 834px) {
-    padding: 8px 16px;
+    min-height: 44px;
+    padding: 8px 20px;
     font-size: ${({ theme }) => theme.sizes.xxxsmall};
+    flex-shrink: 0;
    }
 
    @media (max-width: 428px) {
-    padding: 6px 12px;
     font-size: ${({ theme }) => theme.sizes.xxxsmall} !important;
    }
 `;
