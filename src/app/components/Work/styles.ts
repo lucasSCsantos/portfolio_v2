@@ -16,7 +16,7 @@ export const Container = styled.section`
   @media (max-width: 834px) {
     height: auto;
     min-height: 100vh;
-    padding-bottom: 80px;
+    padding-bottom: 300px;
   }
 
   &::after {
@@ -164,6 +164,10 @@ export const CoralContainer = styled.div`
     }
   }
 
+  @media (max-width: 834px) {
+    bottom: 0;
+  }
+
   @media (max-width: 564px) {
     bottom: 0;
 
@@ -238,6 +242,12 @@ export const LeftSection = styled.div`
   @media (max-width: 834px) {
     max-width: 100%;
     flex: 1;
+  }
+
+  @media (max-width: 428px) {
+    p {
+      font-size: 0.9375rem;
+    }
   }
 `;
 
@@ -327,6 +337,15 @@ export const CardBack = styled(CardFace)`
     text-transform: uppercase;
     letter-spacing: 0.08em;
     text-align: center;
+
+    @media (max-width: 834px) {
+      font-size: 0.8125rem;
+    }
+
+    @media (max-width: 428px) {
+      font-size: 0.6875rem;
+      letter-spacing: 0.02em;
+    }
   }
 
   .divider {

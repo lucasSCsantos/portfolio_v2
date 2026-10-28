@@ -32,6 +32,12 @@ export const Container = styled.section`
     }
   }
 
+  @media (max-width: 428px) {
+    h6 {
+      line-height: 1.25;
+    }
+  }
+
   &::after {
     content: '';
     position: absolute;
@@ -56,6 +62,11 @@ export const ServiceContainer = styled(Box)`
   background-color: ${({ theme }) => theme.colors.textLight}9a;
   /* backdrop-filter: blur(1px); */
   border-radius: 17px;
+
+  @media (max-width: 834px) {
+    align-self: center;
+  }
+
   @media (max-width: 428px) {
     max-width: 100%;
   }

@@ -46,7 +46,7 @@ export default function Carousel() {
         autoplay={{ delay: 3000 }}
         navigation
         breakpoints={{
-          834: { slidesPerView: 2 },
+          835: { slidesPerView: 2 },
           1024: { slidesPerView: 3 }
         }}
       >

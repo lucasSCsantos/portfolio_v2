@@ -13,6 +13,14 @@ export const Container = styled.section`
   padding-top: 10dvh;
   background-color: ${({ theme }) => theme.colors.background};
 
+  @media (max-width: 834px) {
+    height: min(100svh, 44rem);
+  }
+
+  @media (max-width: 428px) {
+    height: min(100svh, 40rem);
+  }
+
   #greeting-text {
     font-size: ${({ theme }) => theme.sizes.small};
 
@@ -42,6 +50,10 @@ export const Container = styled.section`
 
     @media (max-width: 1024px) {
       font-size: ${({ theme }) => theme.sizes.normal};
+    }
+
+    @media (min-width: 429px) and (max-width: 834px) {
+      font-size: 4rem;
     }
   }
 
@@ -231,6 +243,24 @@ export const AvatarContainer = styled(motion.div)`
   @media (max-width: 834px) {
     width: 100px;
     height: 100px;
+  }
+
+  @media (min-width: 429px) and (max-width: 834px) {
+    width: 130px;
+    height: 130px;
+
+    #halo-1 svg {
+      width: 140px;
+    }
+
+    #halo-2 svg {
+      width: 130px;
+    }
+
+    #avatar-image {
+      width: 100px;
+      height: 100px;
+    }
   }
 
   @media (max-width: 428px) {

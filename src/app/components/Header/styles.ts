@@ -99,8 +99,8 @@ export const MobileMenuButton = styled.button<MobileMenuStateProps>`
   }
 
   @media (max-width: 428px) {
-    width: 2.6rem;
-    height: 2.6rem;
+    width: 2.75rem;
+    height: 2.75rem;
   }
 `;
 
@@ -111,7 +111,7 @@ export const MobileMenu = styled.nav<MobileMenuStateProps>`
   padding: ${({ $isOpen }) => ($isOpen ? '0.75rem 1rem' : '0 1rem')};
   border: 1px solid ${({ theme }) => theme.colors.primaryShadow};
   border-radius: 1rem;
-  background: ${({ theme }) => theme.colors.background}f2;
+  background: ${({ theme }) => theme.colors.background};
   box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
   backdrop-filter: blur(8px);
   opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
@@ -131,8 +131,14 @@ export const MobileMenu = styled.nav<MobileMenuStateProps>`
 
   a {
     width: 100%;
-    display: block;
+    min-height: 2.75rem;
+    display: flex;
+    align-items: center;
     padding: 0.4rem 0;
+  }
+
+  a p {
+    font-size: 1rem;
   }
 
   @media (max-width: 1024px) {

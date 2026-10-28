@@ -19,8 +19,11 @@ const style: CSSProperties = {
   filter: 'brightness(0)'
 };
 
+const hiddenStyle: CSSProperties = { ...style, display: 'none' };
+
 export default function ServicesAnimation() {
-  const lottieObj = useLottie(options, style);
+  const isSmallScreen = window.matchMedia('(max-width: 834px)').matches;
+  const lottieObj = useLottie(options, isSmallScreen ? hiddenStyle : style);
   const Animation = useLottieInteractivity({
     lottieObj,
     mode: 'scroll',
