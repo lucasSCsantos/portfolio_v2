@@ -240,7 +240,6 @@ export const Tag = styled(Button)<{ $color?: string; $gradient?: string }>`
     border-radius: 10px;
     padding: 10px 10px;
     margin-top: 16px;
-    flex-shrink: 0;
     font-size: ${({ theme }) => theme.sizes.xxsmall};
     font-weight: 600;
     cursor: default;
@@ -260,6 +259,7 @@ export const Tag = styled(Button)<{ $color?: string; $gradient?: string }>`
     transition: 0.4s ease;
 
     @media (max-width: 834px) {
+      flex-shrink: 0;
       padding: 8px 8px;
       box-sizing: content-box !important;
       font-size: ${({ theme }) => theme.sizes.xxxsmall};
