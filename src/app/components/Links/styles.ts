@@ -5,30 +5,24 @@ import { Heading } from '../ui/typography';
 import HeroWaves from '../Hero/Waves';
 
 export const Container = styled.main`
-  min-height: 100dvh;
+  height: 100dvh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
 export const Top = styled.section`
-  --wave-height: 14rem;
+  /* o piso em vw evita faixas vazias nas laterais do SVG (viewBox 6:1) em telas largas */
+  --wave-height: max(clamp(6rem, 24dvh, 14rem), 16.7vw);
 
   display: flex;
   position: relative;
+  flex-shrink: 0;
   overflow: hidden;
   align-items: center;
   flex-direction: column;
-  padding: 4dvh 16px calc(var(--wave-height) * 1.1);
-
-  @media (max-width: 834px) {
-    --wave-height: 11rem;
-  }
-
-  @media (max-width: 428px) {
-    --wave-height: 8rem;
-    padding-top: 3dvh;
-  }
+  padding: 3dvh 16px calc(var(--wave-height) * 1.1);
 `;
 
 export const TopContent = styled.div`
@@ -37,6 +31,19 @@ export const TopContent = styled.div`
   z-index: 2;
   align-items: center;
   flex-direction: column;
+
+  /* encolhe o topo em telas baixas para a lista caber sem scroll */
+  @media (max-height: 760px) {
+    zoom: 0.85;
+  }
+
+  @media (max-height: 660px) {
+    zoom: 0.72;
+  }
+
+  @media (max-height: 560px) {
+    zoom: 0.6;
+  }
 `;
 
 export const Title = styled(Heading)`
@@ -59,10 +66,11 @@ export const Waves = styled(HeroWaves)`
 
 export const Body = styled.section`
   flex: 1;
+  min-height: 0;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding: 24px 16px 64px;
+  align-items: stretch;
+  padding: 1dvh 16px 2.5dvh;
   background-image: linear-gradient(
     ${({ theme }) => theme.colors.primary},
     ${({ theme }) => theme.colors.secondary}
@@ -74,10 +82,17 @@ export const List = styled.ul`
   width: 100%;
   max-width: 480px;
   flex-direction: column;
-  gap: 14px;
+  justify-content: center;
+  gap: clamp(6px, 1.6dvh, 14px);
   margin: 0;
   padding: 0;
   list-style: none;
+
+  li {
+    display: flex;
+    flex: 0 1 4.5rem;
+    min-height: 0;
+  }
 `;
 
 export const LinkButton = styled.a<{ $featured?: boolean }>`
@@ -85,12 +100,13 @@ export const LinkButton = styled.a<{ $featured?: boolean }>`
   position: relative;
   overflow: hidden;
   align-items: center;
+  flex: 1;
   gap: 16px;
-  padding: 16px 24px;
+  padding: 0 24px;
   border-radius: 999px;
   text-decoration: none;
   font-family: ${({ theme }) => theme.font.family.inter};
-  font-size: ${({ theme }) => theme.sizes.xxsmall};
+  font-size: clamp(1rem, 2.6dvh, ${({ theme }) => theme.sizes.xxsmall});
   font-weight: 600;
   color: ${({ theme, $featured }) =>
     $featured ? theme.colors.textLight : theme.colors.text};
@@ -123,8 +139,7 @@ export const LinkButton = styled.a<{ $featured?: boolean }>`
   }
 
   @media (max-width: 428px) {
-    padding: 14px 20px;
-    font-size: 1.125rem;
+    padding: 0 20px;
   }
 `;
 
