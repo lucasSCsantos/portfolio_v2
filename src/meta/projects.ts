@@ -71,6 +71,7 @@ const projects: Project[] = [
     year: '2026',
     color: '#459AC8',
     src: 'mural-onda.png',
+    href: 'https://onda-gules-zeta.vercel.app/sobre',
     video: {
       horizontal: '/mural-onda.mp4',
       vertical: '/mural-onda-9x16.mp4'
