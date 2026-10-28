@@ -1,12 +1,18 @@
 export type ProjectType = 'desktop' | 'phone';
 
+export interface ProjectVideo {
+  horizontal?: string;
+  vertical?: string;
+}
+
 export interface Project {
   title: string;
   year: string;
   color: string;
   gradient?: string;
   src: string | string[];
-  href: string;
+  href?: string;
+  video?: ProjectVideo;
   type?: ProjectType;
   description: string;
 }

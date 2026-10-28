@@ -1,4 +1,5 @@
-import { ComponentProps } from 'react';
+import { ComponentProps, KeyboardEvent } from 'react';
+import type { ProjectVideo } from '@/meta/projects';
 import { Box, MotionBox } from '../ui/default';
 import { Heading, Text } from '../ui/typography';
 import { ProjectButton, ProjectContainer, ProjectImage, Tag } from './styles';
@@ -12,7 +13,9 @@ interface ProjectProps extends ComponentProps<typeof MotionBox> {
   gradient?: string;
   src: string | string[];
   type?: 'phone' | 'desktop';
-  href: string;
+  href?: string;
+  video?: ProjectVideo;
+  onOpenVideo?: (opener: HTMLElement) => void;
   description: string;
 }
 
@@ -24,12 +27,35 @@ const Project = ({
   year,
   color,
   href,
+  video,
+  onOpenVideo,
   gradient,
   description,
   type = 'desktop'
 }: ProjectProps) => {
+  const hasVideo = Boolean(video && (video.horizontal || video.vertical));
+
+  const openVideo = (opener: HTMLElement) => onOpenVideo?.(opener);
+
+  const onKeyDown = (e: KeyboardEvent<HTMLElement>) => {
+    if (e.target !== e.currentTarget) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openVideo(e.currentTarget);
+    }
+  };
+
   return (
     <ProjectContainer
+      {...(hasVideo && {
+        role: 'button',
+        tabIndex: 0,
+        'aria-haspopup': 'dialog',
+        'aria-label': `Ver vídeo do projeto ${title}`,
+        onClick: (e: React.MouseEvent<HTMLElement>) =>
+          openVideo(e.currentTarget),
+        onKeyDown
+      })}
       $width={`100%`}
       $height={`${height}px`}
       style={{
@@ -109,12 +135,17 @@ const Project = ({
               }}
             />
           )}
-          <ProjectButton
-            $size="small"
-            onClick={() => window.open(href, '_blank')}
-          >
-            Ver mais →
-          </ProjectButton>
+          {href && (
+            <ProjectButton
+              $size="small"
+              onClick={(e) => {
+                e.stopPropagation();
+                window.open(href, '_blank');
+              }}
+            >
+              Ver mais →
+            </ProjectButton>
+          )}
         </Box>
       </Box>
     </ProjectContainer>
