@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { ProjectVideo } from '@/meta/projects';
-import { CloseButton, Overlay, Video } from './modalStyles';
+import { CloseButton, Overlay, Video } from './styles';
 
 interface VideoModalProps {
   title: string;
@@ -16,8 +16,8 @@ const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 
 const pickSource = (video: ProjectVideo, isMobile: boolean) =>
   isMobile
-    ? video.vertical ?? video.horizontal
-    : video.horizontal ?? video.vertical;
+    ? (video.vertical ?? video.horizontal)
+    : (video.horizontal ?? video.vertical);
 
 export default function VideoModal({ title, video, onClose }: VideoModalProps) {
   const [isMobile, setIsMobile] = useState(
@@ -67,6 +67,23 @@ export default function VideoModal({ title, video, onClose }: VideoModalProps) {
     });
   }, [src, reducedMotion]);
 
+  const trapFocus = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== 'Tab') return;
+    const focusables = Array.from(
+      e.currentTarget.querySelectorAll<HTMLElement>('button, video[controls]')
+    );
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    const active = document.activeElement;
+    if (e.shiftKey && (active === first || active === e.currentTarget)) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && active === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
+
   if (!src) return null;
 
   return createPortal(
@@ -77,8 +94,16 @@ export default function VideoModal({ title, video, onClose }: VideoModalProps) {
       aria-label={`Vídeo do projeto ${title}`}
       tabIndex={-1}
       onClick={onClose}
+      onKeyDown={trapFocus}
     >
-      <CloseButton type="button" aria-label="Fechar vídeo" onClick={onClose}>
+      <CloseButton
+        type="button"
+        aria-label="Fechar vídeo"
+        onClick={e => {
+          e.stopPropagation();
+          onClose();
+        }}
+      >
         ✕
       </CloseButton>
       <Video
@@ -89,7 +114,7 @@ export default function VideoModal({ title, video, onClose }: VideoModalProps) {
         playsInline
         controls={reducedMotion}
         preload="auto"
-        onClick={(e) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
       />
     </Overlay>,
     document.body

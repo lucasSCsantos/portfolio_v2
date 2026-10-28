@@ -20,17 +20,19 @@ export default function Carousel() {
   const swiperRef = useRef<SwiperCore | null>(null);
   const openerRef = useRef<HTMLElement | null>(null);
 
-  const closeVideo = useCallback(() => {
-    setOpenVideo(null);
-    openerRef.current?.focus();
-    openerRef.current = null;
-  }, []);
+  const closeVideo = useCallback(() => setOpenVideo(null), []);
 
   useEffect(() => {
     const autoplay = swiperRef.current?.autoplay;
     if (!autoplay) return;
-    if (openVideo) autoplay.stop();
-    else autoplay.start();
+    if (openVideo) {
+      autoplay.stop();
+      return;
+    }
+    autoplay.start();
+    // Devolve o foco ao card só depois de o modal desmontar.
+    openerRef.current?.focus({ preventScroll: true });
+    openerRef.current = null;
   }, [openVideo]);
 
   return (
