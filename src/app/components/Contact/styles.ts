@@ -117,10 +117,10 @@ export const ContactCard = styled.div`
   align-items: center;
   gap: 24px;
   padding: 40px;
-  border-radius: 17px;
-  background-color: ${({ theme }) => theme.colors.textLight}9a;
-  border: 1.6px solid ${({ theme }) => theme.colors.white};
-  box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.25);
+  border-radius: 24px;
+  background-color: ${({ theme }) => theme.colors.white};
+  border: 1.6px solid ${({ theme }) => theme.colors.primary}55;
+  box-shadow: -5px 7px 32px rgba(0, 0, 0, 0.1);
   text-align: center;
 
   @media (max-width: 428px) {
