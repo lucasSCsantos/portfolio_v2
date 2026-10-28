@@ -70,7 +70,7 @@ const projects: Project[] = [
     title: 'Mural ONDA',
     year: '2026',
     color: '#459AC8',
-    src: 'mural-onda-1.png',
+    src: 'mural-onda.png',
     video: {
       horizontal: '/mural-onda.mp4',
       vertical: '/mural-onda-9x16.mp4'
