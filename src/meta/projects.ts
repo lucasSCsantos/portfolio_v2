@@ -65,6 +65,18 @@ const projects: Project[] = [
     href: 'https://www.jogopassa.com.br',
     description:
       'Jogo temporizador online para jogos de festa, onde cada jogador tem um tempo limitado para realizar uma ação ou responder a uma pergunta. O jogo funciona online permitindo que os jogadores conectem seus dispositivos e participem de forma interativa, tornando-o ideal para eventos sociais, festas e encontros, promovendo diversão e engajamento entre os participantes.'
+  },
+  {
+    title: 'Mural ONDA',
+    year: '2026',
+    color: '#459AC8',
+    src: 'mural-onda-1.png',
+    video: {
+      horizontal: '/mural-onda.mp4',
+      vertical: '/mural-onda-9x16.mp4'
+    },
+    description:
+      'Calendário de eventos da liderança do ONDA, ministério de adolescentes. Cada evento tem categoria, responsável e status, e as séries recorrentes (como a EBD semanal) geram as ocorrências sozinhas. Inclui painel do dia, filtros rápidos, feed de calendário e criação automática das pastas de cada evento no Google Drive.'
   }
 ];
 
