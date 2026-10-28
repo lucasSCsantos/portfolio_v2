@@ -19,7 +19,7 @@ export const Top = styled.section`
   overflow: hidden;
   align-items: center;
   flex-direction: column;
-  padding: 4dvh 16px calc(var(--wave-height) * 0.4);
+  padding: 4dvh 16px calc(var(--wave-height) * 1.1);
 
   @media (max-width: 834px) {
     --wave-height: 11rem;
