@@ -11,15 +11,25 @@ const waveTransition = (duration: number, delay = 0) => ({
   repeatType: 'reverse' as const
 });
 
-function Waves() {
+type WavesProps = {
+  className?: string;
+  parallax?: boolean;
+};
+
+function Waves({ className, parallax = true }: WavesProps) {
   const { scrollYProgress } = useScroll();
 
-  const backWaveX = useTransform(scrollYProgress, [0, 1], [0, 2000]);
-  const midWaveX = useTransform(scrollYProgress, [0, 1], [0, -1350]);
-  const frontWaveX = useTransform(scrollYProgress, [0, 1], [0, -800]);
+  const scrollRange = (distance: number) => (parallax ? [0, distance] : [0, 0]);
+
+  const backWaveX = useTransform(scrollYProgress, [0, 1], scrollRange(2000));
+  const midWaveX = useTransform(scrollYProgress, [0, 1], scrollRange(-1350));
+  const frontWaveX = useTransform(scrollYProgress, [0, 1], scrollRange(-800));
 
   return (
-    <WavesContainer xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 240">
+    <WavesContainer
+      className={className}
+      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 240"
+    >
       <motion.g style={{ x: backWaveX }}>
         <motion.path
           fill="#1462A6"
