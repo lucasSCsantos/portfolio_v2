@@ -64,7 +64,7 @@ export const ServiceContainer = styled(Box)`
   border-radius: 17px;
 
   @media (max-width: 834px) {
-    align-self: center;
+    margin: 0 auto;
   }
 
   @media (max-width: 428px) {
