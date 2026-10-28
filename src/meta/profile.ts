@@ -5,6 +5,8 @@ const profile = {
   whatsappNumber: '5571981849630',
   whatsappMessage:
     'Ol%C3%A1%2C%20vim%20pelo%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar!',
+  email: 'luc.cristovam10@gmail.com',
+  emailSubject: 'Contato pelo portfólio',
   social: {
     github: 'https://github.com/lucasSCsantos',
     linkedin: 'https://linkedin.com/in/lucas-sc-santos',

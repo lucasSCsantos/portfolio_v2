@@ -6,6 +6,7 @@ const theme = {
     backgroundDarkBlue: '#002F5B',
     text: '#000000',
     textLight: '#f2f2f2',
+    white: '#ffffff',
     primary: '#79BED9',
     primaryShadow: '#79bed936',
     secondary: '#398CBF',

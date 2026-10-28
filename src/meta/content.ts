@@ -29,18 +29,18 @@ const content = {
   },
   contact: {
     label: 'Contato',
-    heading: 'Fale comigo',
+    heading: 'Tem uma ideia? Vamos tirar do papel.',
     description:
-      'Estou disponível para conversar sobre novos projetos, oportunidades de trabalho e parcerias. Me chame pelo WhatsApp — respondo rapidamente!',
-    topics: [
-      'Projetos freelance',
-      'Oportunidades de trabalho',
-      'Dúvidas e parcerias'
-    ],
-    cardHeading: 'Vamos conversar?',
+      'Sou desenvolvedor full stack e crio sites, sistemas e jogos do zero. Me conte o que você precisa e eu te ajudo a transformar isso em produto.',
+    topics: ['Freelance', 'Vaga ou parceria', 'Tirar uma dúvida'],
+    cardHeading: 'Me manda uma mensagem',
     cardSubtext:
-      'Respondo rapidamente pelo WhatsApp. Clique abaixo e já iniciamos uma conversa!',
-    buttonText: 'Chamar no WhatsApp'
+      'Em uma ou duas frases, me diga o que você tem em mente. Eu respondo em até 24h.',
+    buttonText: 'Chamar no WhatsApp',
+    emailButtonText: 'Enviar e-mail',
+    copyEmailText: 'Copiar endereço de e-mail',
+    copiedEmailText: 'E-mail copiado!',
+    linkedinButtonText: 'LinkedIn'
   },
   footer: {
     copyrightName: 'Lucas Santos'
