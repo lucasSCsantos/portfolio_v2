@@ -262,8 +262,13 @@ export const SkillGroups = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  flex: 1;
-  width: 100%;
+  flex: 1 1 0;
+  min-width: 0;
+
+  @media (max-width: 834px) {
+    flex: none;
+    width: 100%;
+  }
 `;
 
 export const GroupTitle = styled.h3`
@@ -281,6 +286,7 @@ export const SkillGroupList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  max-width: 100%;
 `;
 
 export const SkillChip = styled.li`

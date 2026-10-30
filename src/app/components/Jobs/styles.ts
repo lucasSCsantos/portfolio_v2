@@ -17,10 +17,12 @@ export const Container = styled.section`
     content: '';
     position: absolute;
     inset: 0 0 auto 0;
-    height: 420px;
+    height: 520px;
     pointer-events: none;
+    /* Sobe e desce suave: sem borda dura na emenda com os Projetos. */
     background: linear-gradient(
-      ${({ theme }) => theme.colors.backgroundDarkBlue}e6,
+      ${({ theme }) => theme.colors.backgroundDarkBlue}00,
+      ${({ theme }) => theme.colors.backgroundDarkBlue}d9 35%,
       ${({ theme }) => theme.colors.backgroundDarkBlue}00
     );
   }
