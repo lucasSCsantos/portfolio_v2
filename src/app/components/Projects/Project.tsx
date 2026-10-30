@@ -31,6 +31,7 @@ interface ProjectProps extends ComponentProps<typeof MotionBox> {
   color: string;
   gradient?: string;
   src: string | string[];
+  imagePosition?: 'left' | 'center' | 'right';
   type?: 'phone' | 'desktop';
   href?: string;
   video?: ProjectVideo;
@@ -47,6 +48,7 @@ const Project = ({
   width,
   height,
   src,
+  imagePosition = 'center',
   title,
   year,
   color,
@@ -174,6 +176,7 @@ const Project = ({
                 className="project-image-desktop"
                 style={{
                   backgroundImage: `url(${src})`,
+                  backgroundPosition: `${imagePosition} center`,
                   borderRadius: 0.02 * width
                 }}
               />
