@@ -83,7 +83,7 @@ test.describe('experiências', () => {
     for (const r of ratios) expect(r).toBeGreaterThanOrEqual(4.5);
   });
 
-  test('a formação mostra a graduação em andamento e o inglês B2', async ({
+  test('a formação mostra a graduação em andamento e o inglês avançado', async ({
     page
   }) => {
     const section = page.locator('#experiencias');
@@ -91,7 +91,7 @@ test.describe('experiências', () => {
     await expect(section).toContainText('Em andamento');
     await expect(section).toContainText('Desenvolvimento Web Full-Stack');
     await expect(section).toContainText('Inglês');
-    await expect(section).toContainText('B2');
+    await expect(section).toContainText('Avançado');
   });
 });
 

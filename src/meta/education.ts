@@ -17,7 +17,7 @@ const education: Education[] = [
   }
 ];
 
-export const languages = [{ name: 'Inglês', level: 'B2' }];
+export const languages = [{ name: 'Inglês', level: 'Avançado' }];
 
 export default education;
 
