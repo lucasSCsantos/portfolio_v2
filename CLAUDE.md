@@ -9,9 +9,10 @@ npm run dev      # Start development server
 npm run build    # Production build
 npm run start    # Start production server
 npm run lint     # Run ESLint
+npm run test:e2e # Production build + browser tests (Playwright, local Chrome) on / and /links
 ```
 
-No test suite is configured.
+Tests exercise the rendered page (`e2e/`). Public identity (name, role, career start year, URL, photos, resume, availability) lives in `src/meta/profile.ts` — never hardcode it elsewhere.
 
 ## Stack
 
@@ -53,3 +54,21 @@ Single-page portfolio with section-based anchor navigation (`#sobre`, `#projetos
 - **Scroll parallax**: Use Framer Motion `useScroll` + `useTransform` (see Hero/Waves).
 - **Enter animations**: Framer Motion `useAnimation` triggered by scroll events.
 - **Ripple buttons**: Add `md-ripples` class to `<button>` elements to activate `@gabrielfins/ripple-effect`.
+
+## Agent skills
+
+### Issue tracker
+
+Issues and specs are local markdown files under `.scratch/<feature-slug>/` (git-ignored). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default five-role vocabulary (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`). See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: one `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+
+### Branch
+
+All work is done on the `development` branch (local branch based on `main`; do not commit to `main`). Never push without asking first.
