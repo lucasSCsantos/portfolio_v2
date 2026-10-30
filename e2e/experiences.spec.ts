@@ -173,11 +173,11 @@ test.describe('profundidade do mar', () => {
   test('o fundo não clareia ao chegar ao fim das Habilidades', async ({
     page
   }) => {
-    // Média de brilho de uma faixa lateral, onde não há conteúdo, na posição atual da rolagem.
+    // Média de brilho de uma faixa lateral, acima das ondas do fim da seção, na posição atual da rolagem.
     const sample = async () => {
       await page.waitForTimeout(1200);
       const shot = await page.screenshot({
-        clip: { x: 0, y: 200, width: 24, height: 300 }
+        clip: { x: 0, y: 80, width: 24, height: 100 }
       });
       return page.evaluate(async (b64: string) => {
         const img = new Image();
