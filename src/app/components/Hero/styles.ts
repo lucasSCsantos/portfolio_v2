@@ -49,6 +49,8 @@ export const Stack = styled.div`
   gap: clamp(0.5rem, 1.6vh, 1rem);
   padding: 0 32px clamp(1rem, 4vh, 3rem);
   text-align: center;
+  /* Sobe o conteúdo para o título ficar um pouco acima da crista da onda. */
+  transform: translateY(calc(-1 * clamp(1.5rem, 5vh, 3rem)));
 
   @media (max-width: 834px) {
     padding: 0 24px 1.5rem;
