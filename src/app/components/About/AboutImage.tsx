@@ -24,7 +24,7 @@ export default function AboutImage() {
         calm
         style={{ bottom: '24%', right: 468 - 280 }}
       >
-        👉 Desenvolvedor Full-stack
+        👉 Desenvolvedor full stack
       </WaterPiece>
       <WaterPiece
         as={Tag}
@@ -35,7 +35,7 @@ export default function AboutImage() {
         calm
         style={{ bottom: '12%', right: 468 - 280 }}
       >
-        👉 Desenvolvedor Front-end
+        👉 Desenvolvedor front-end
       </WaterPiece>
       <WaterPiece
         as={Image}

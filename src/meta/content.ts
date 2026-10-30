@@ -37,20 +37,20 @@ const content = {
   },
   projects: {
     label: 'Projetos',
-    title: 'Projetos que criei e entreguei'
+    title: 'O que criei e entreguei'
   },
   jobs: {
     label: 'Experiências',
-    title: 'Experiências profissionais'
+    title: 'Onde já trabalhei'
   },
   services: {
     label: 'Serviços',
-    title: 'Meus serviços',
+    title: 'Como posso ajudar',
     proofLabel: 'Prova'
   },
   work: {
     label: 'Habilidades',
-    title: 'Habilidades Técnicas',
+    title: 'O que uso para entregar',
     description:
       'Tecnologias que uso no dia a dia, de JavaScript e TypeScript a React, Next.js e bancos de dados, e o que me permite conduzir um projeto inteiro.',
     competenciesLabel: 'Competências',
@@ -86,7 +86,8 @@ const content = {
     emailButtonText: 'Enviar e-mail',
     copyEmailText: 'Copiar endereço de e-mail',
     copiedEmailText: 'E-mail copiado!',
-    linkedinButtonText: 'LinkedIn'
+    linkedinButtonText: 'LinkedIn',
+    resumeButtonText: 'Baixar currículo'
   },
   footer: {
     copyrightName: profile.name
