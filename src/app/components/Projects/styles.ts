@@ -48,7 +48,26 @@ export const Container = styled.section`
 
 export const SliderWrapper = styled.div`
   width: 130vw;
-  height: 600px;
+  height: auto;
+
+  /* Folga para a flutuação dos cards não ser cortada pelo carrossel. */
+  .swiper {
+    padding: 24px 0;
+  }
+
+  .swiper-wrapper {
+    align-items: stretch;
+  }
+
+  .swiper-slide {
+    height: auto;
+  }
+
+  .swiper-slide > div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 
   @media (max-width: 834px) {
     height: auto;
@@ -122,12 +141,38 @@ export const ProjectContainer = styled(Box)`
   background-color: ${({ theme }) => theme.colors.textLight}9a;
 
   @media (min-width: 835px) {
+    flex: 1;
+    height: auto !important;
+
+    .project-columns {
+      flex: 1;
+      height: auto !important;
+      align-items: stretch !important;
+    }
+
     #project-left-area {
       width: 62% !important;
+      height: auto !important;
+      align-self: flex-start !important;
     }
 
     #project-right-area {
       width: 38% !important;
+      height: auto !important;
+      align-self: stretch !important;
+      gap: 16px;
+    }
+
+    #project-right-area > div {
+      flex: 1;
+      min-height: 200px;
+      width: 100%;
+      height: auto !important;
+    }
+
+    #project-right-area .project-image-mobile,
+    #project-right-area .project-image-mobile2 {
+      height: 100% !important;
     }
 
     #project-left-area p {
