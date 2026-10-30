@@ -13,7 +13,7 @@ A faixa final da página, abaixo da Seção de Contato, com copyright e links so
 _Avoid_: Footer, seção de contato
 
 **Projeto**:
-Um trabalho individual de Lucas exibido no carrossel da seção Projetos.
+Um trabalho de Lucas exibido no carrossel da seção Projetos, com o papel dele, as tecnologias, o resultado (quando há) e a relação com quem o pediu (cliente, empregador, iniciativa própria ou voluntário). Um Projeto não é uma Experiência: a Torcida Imperial, por exemplo, é um Projeto de iniciativa própria.
 _Avoid_: Case, item
 
 **Vídeo do projeto**:

@@ -1,6 +1,7 @@
 'use client';
 
 import { Area, Content } from '../ui/default';
+import content from '@/meta/content';
 import { Heading } from '../ui/typography';
 import WaterPiece from '../ui/WaterPiece';
 import dynamic from 'next/dynamic';
@@ -48,7 +49,7 @@ function Projects() {
             $color="text"
             $size="normal"
           >
-            Meus projetos individuais
+            {content.projects.title}
           </WaterPiece>
         </Area>
         <WaterPiece order={3} from="right" calm>

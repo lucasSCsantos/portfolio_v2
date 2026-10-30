@@ -1,7 +1,6 @@
 'use client';
 
 import styled from 'styled-components';
-import { Box } from '../ui/default';
 
 export const Container = styled.section`
   overflow: hidden;
@@ -12,155 +11,154 @@ export const Container = styled.section`
   padding-top: 128px;
   z-index: 98;
   background-color: transparent;
-  
-   @media (max-width: 834px) {
+
+  @media (max-width: 834px) {
     min-height: fit-content !important;
     padding-bottom: 80px;
-    /* gap: 64px; */
-
-    div:nth-child(1) {
-      margin-bottom: 64px;
-    }
-    h3 {
-      font-size: ${({ theme }) => theme.sizes.xsmall} !important;
-    }
-
-    h1 {
-      font-size: ${({ theme }) => theme.sizes.small} !important;
-    }
-
-    p {
-      text-align: left !important;
-      font-size: ${({ theme }) => theme.sizes.xxsmall} !important;
-    }
   }
 `;
 
-export const ExperienceContainer = styled(Box)`
-  position: relative;
-  border-radius: 24px;
+export const Timeline = styled.ol`
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 24px;
   width: 100%;
-  max-width: 542px;
-  height: 305px;
-  background-size: cover;
-  background-position: center;
-
-   @media (max-width: 834px) {
-      align-self: center;
-      transition: 1s ease;
-
-  }
-
-  &:hover {
-    .experience-icon {
-      transform: translateX(-178px) scale(0.6);
-      transition: 0.9s ease;
-      border-radius: 20px;
-    }
-
-    .experience-content {
-      box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.25);
-      transform: translateY(90%);
-      transition: 1s ease;
-      display: flex;
-      height: auto;
-      border-radius: 0 0 24px 24px;
-    }
-
-    @media (max-width: 834px) {
-      box-sizing: content-box;
-      margin-bottom: 324px !important;
-      transition: 1s ease;
-
-    }
-  }
-
-  @media (max-width: 428px) {
-    height: 216px;
-
-    &:hover .experience-icon {
-      transform: translateX(-120px) scale(0.6);
-    }
-  }
-`;
-
-export const ExperienceIcon = styled(Box)`
-  z-index: 1;
-  width: 144px;
-  height: 144px;
-  position: absolute;
-  top: 75%;
-  border-radius: 30px;
-  transition: 1s ease;
-  box-shadow: 10px 15px 29px rgba(0, 0, 0, 0.25);
-  background-size: cover;
-  background-position: center;
-
-  @media (max-width: 834px) {
-    width: 120px !important;
-    height: 120px !important;
-  }
-
-  @media (max-width: 428px) {
-    width: 72px !important;
-    height: 72px !important;
-    top: 82%;
-    border-radius: 18px;
-  }
-`;
-
-export const ExperienceContent = styled(Box)`
-  z-index: -1;
-  transform: scaleY(0.6);
-  width: 100%;
-  max-width: 542px;
-  overflow: hidden;
-  border-radius: 24px;
-  padding: 82px 52px 32px;
-  position: absolute;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  gap: 20px;
+  border-left: 2px solid ${({ theme }) => theme.colors.primary};
+
+  @media (max-width: 428px) {
+    padding-left: 16px;
+  }
+`;
+
+// Painel sólido: o texto nunca disputa com imagem de fundo.
+export const ExperienceItem = styled.li`
+  position: relative;
+  display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  transition: 1s ease;
-  /* box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.25); */
-  border: 0.6px solid white;
-  background-color: ${({ theme }) => theme.colors.textLight}6a;
+  gap: 8px;
+  padding: 24px 28px;
+  border-radius: 20px;
+  border: 1px solid ${({ theme }) => theme.colors.primary}66;
+  background-color: ${({ theme }) => theme.colors.backgroundDarkBlue};
+  color: ${({ theme }) => theme.colors.textLight};
 
-
-  @media (max-width: 834px) {
-    position: relative !important;
-    transform: scaleY(0.4);
+  &::before {
+    content: '';
+    position: absolute;
+    left: -34px;
+    top: 32px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.colors.primary};
+    border: 2px solid ${({ theme }) => theme.colors.backgroundDarkBlue};
   }
 
-  @media (max-width: 1024px) {
-    position: relative !important;
-    transform: scaleY(0.4);
+  a {
+    color: ${({ theme }) => theme.colors.primary};
+    text-decoration: underline;
   }
 
   @media (max-width: 428px) {
-    padding: 72px 24px 24px;
-    transform: scaleY(0.1);
+    padding: 20px;
+
+    &::before {
+      left: -24px;
+    }
   }
 `;
 
-export const ExperiencesRow = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 24px;
+export const Kind = styled.span`
+  margin-left: 12px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  vertical-align: middle;
+  font-family: ${({ theme }) => theme.font.family.inter};
+  font-size: ${({ theme }) => theme.sizes.xxxsmall};
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.backgroundDarkBlue};
+  background-color: ${({ theme }) => theme.colors.primary};
+`;
 
+export const Meta = styled.p`
+  margin: 0;
+  font-family: ${({ theme }) => theme.font.family.inter};
+  font-size: ${({ theme }) => theme.sizes.xxxsmall};
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.textLight};
+`;
+
+export const Achievements = styled.ul`
+  margin: 4px 0 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: ${({ theme }) => theme.font.family.inter};
+  font-size: ${({ theme }) => theme.sizes.xxxsmall};
+  line-height: 1.6;
+  color: ${({ theme }) => theme.colors.textLight};
+`;
+
+export const TechList = styled.ul`
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  li {
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-family: ${({ theme }) => theme.font.family.inter};
+    font-size: ${({ theme }) => theme.sizes.xxxsmall};
+    font-weight: 500;
+    color: ${({ theme }) => theme.colors.textLight};
+    border: 1px solid ${({ theme }) => theme.colors.primary};
+  }
+`;
+
+export const EducationGrid = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 
   @media (max-width: 834px) {
-    justify-content: flex-start !important;
-    gap: 8px !important;
-    /* height: 1200px; */
-    margin-bottom: 32px;
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: 1fr;
   }
 `;
 
-ExperienceContent.defaultProps = { className: 'experience-content' };
-ExperienceIcon.defaultProps = { className: 'experience-icon' };
+export const EducationList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: ${({ theme }) => theme.font.family.inter};
+  font-size: ${({ theme }) => theme.sizes.xxxsmall};
+  color: ${({ theme }) => theme.colors.textLight};
+  padding: 20px 24px;
+  border-radius: 20px;
+  background-color: ${({ theme }) => theme.colors.backgroundDarkBlue};
+  border: 1px solid ${({ theme }) => theme.colors.primary}66;
+
+  strong {
+    display: block;
+    font-weight: 600;
+  }
+`;
+
+// Painel atrás do título: a água nesse ponto da rolagem clareia e tiraria o contraste.
+export const Heading2Panel = styled.div`
+  align-self: flex-start;
+  padding: 16px 28px;
+  border-radius: 20px;
+  background-color: ${({ theme }) => theme.colors.backgroundDarkBlue}e6;
+`;

@@ -1,9 +1,27 @@
 import { ComponentProps, KeyboardEvent } from 'react';
-import type { ProjectVideo } from '@/meta/projects';
+import { relationLabels } from '@/meta/projects';
+import type {
+  ProjectLinkKind,
+  ProjectRelation,
+  ProjectVideo
+} from '@/meta/projects';
 import { Box, MotionBox } from '../ui/default';
 import { Heading, Text } from '../ui/typography';
 import Float from '../ui/Float';
-import { ProjectButton, ProjectContainer, ProjectImage, Tag } from './styles';
+import {
+  Meta,
+  ProjectButton,
+  ProjectContainer,
+  ProjectImage,
+  Result,
+  Tag,
+  TechList
+} from './styles';
+
+const linkLabels: Record<Exclude<ProjectLinkKind, 'none'>, string> = {
+  production: 'Ver site →',
+  demo: 'Ver demo →'
+};
 
 interface ProjectProps extends ComponentProps<typeof MotionBox> {
   width: number;
@@ -16,6 +34,11 @@ interface ProjectProps extends ComponentProps<typeof MotionBox> {
   type?: 'phone' | 'desktop';
   href?: string;
   video?: ProjectVideo;
+  role: string;
+  technologies: string[];
+  result?: string;
+  relation: ProjectRelation;
+  linkKind: ProjectLinkKind;
   onOpenVideo?: (opener: HTMLElement) => void;
   description: string;
 }
@@ -29,6 +52,11 @@ const Project = ({
   color,
   href,
   video,
+  role,
+  technologies,
+  result,
+  relation,
+  linkKind,
   onOpenVideo,
   gradient,
   description,
@@ -84,9 +112,21 @@ const Project = ({
               {title}
             </Heading>
             <Tag $color={color} $gradient={gradient}>
-              Projeto Realizado em {year}
+              {year}
             </Tag>
-            <Text $size="xxsmall" style={{ marginTop: 24 }}>
+            <Meta>
+              <dt>Relação</dt>
+              <dd>{relationLabels[relation]}</dd>
+              <dt>Papel</dt>
+              <dd>{role}</dd>
+            </Meta>
+            <TechList aria-label="Tecnologias">
+              {technologies.map((tech) => (
+                <li key={tech}>{tech}</li>
+              ))}
+            </TechList>
+            {result && <Result>{result}</Result>}
+            <Text $size="xxsmall" style={{ marginTop: 16 }}>
               {description}
             </Text>
           </Box>
@@ -138,7 +178,7 @@ const Project = ({
                 }}
               />
             )}
-            {href && (
+            {href && linkKind !== 'none' && (
               <ProjectButton
                 $size="small"
                 onClick={(e) => {
@@ -146,7 +186,7 @@ const Project = ({
                   window.open(href, '_blank');
                 }}
               >
-                Ver mais →
+                {linkLabels[linkKind]}
               </ProjectButton>
             )}
           </Box>

@@ -2,9 +2,16 @@
 import { Area, Content } from '../ui/default';
 import { Heading } from '../ui/typography';
 import WaterPiece from '../ui/WaterPiece';
-import { Container, ExperiencesRow } from './styles';
+import {
+  Container,
+  EducationGrid,
+  EducationList,
+  Heading2Panel,
+  Timeline
+} from './styles';
 import Experience from './Experience';
 import experiences from '@/meta/experiences';
+import education, { educationLabels, languages } from '@/meta/education';
 import content from '@/meta/content';
 
 function Jobs() {
@@ -19,6 +26,7 @@ function Jobs() {
         }}
         $direction="column"
       >
+        <Heading2Panel>
         <Area
           $width={100}
           $align="flex-start"
@@ -47,11 +55,46 @@ function Jobs() {
             {content.jobs.title}
           </WaterPiece>
         </Area>
-        <ExperiencesRow>
+        </Heading2Panel>
+        <Timeline>
           {experiences.map((exp, index) => (
             <Experience key={exp.company} order={index + 2} {...exp} />
           ))}
-        </ExperiencesRow>
+        </Timeline>
+        <WaterPiece
+          as={Heading}
+          order={2}
+          from="left"
+          $level={3}
+          $size="small"
+          $role="subtitle"
+          $color="textLight"
+        >
+          {educationLabels.title}
+        </WaterPiece>
+        <EducationGrid>
+          <WaterPiece as={EducationList} order={3} solid>
+            {education.map(item => (
+              <li key={item.title}>
+                <strong>{item.title}</strong>
+                {item.institution} · {item.period}
+              </li>
+            ))}
+          </WaterPiece>
+          <WaterPiece
+            as={EducationList}
+            order={4}
+            solid
+            aria-label={educationLabels.languages}
+          >
+            {languages.map(lang => (
+              <li key={lang.name}>
+                <strong>{educationLabels.languages}</strong>
+                {lang.name} · nível {lang.level}
+              </li>
+            ))}
+          </WaterPiece>
+        </EducationGrid>
       </Content>
     </Container>
   );
