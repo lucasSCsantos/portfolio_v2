@@ -25,7 +25,15 @@ const content = {
   },
   about: {
     label: 'Sobre mim',
-    bio: `${profile.role} com +${experienceYears()} anos de experiência no desenvolvimento de aplicações web e APIs, atuando em empresas de diversos setores. Experiência sólida em desenvolvimento de projetos, desde o planejamento, até a implementação, testes e manutenção, utilizando as tecnologias mais modernas do mercado.`
+    bio: `Desde ${profile.careerStartYear} planejo, lidero e entrego projetos completos, do zero até o uso real: são +${experienceYears()} anos criando sites e sistemas web, da ideia ao acompanhamento dos resultados. Fora do trabalho técnico, também lidero o Ministério de Adolescentes da minha igreja.`,
+    method: [
+      'Levantar a necessidade',
+      'Planejar',
+      'Construir',
+      'Entregar',
+      'Acompanhar os resultados'
+    ],
+    methodLabel: 'Como conduzo um projeto'
   },
   projects: {
     label: 'Projetos',
@@ -38,13 +46,32 @@ const content = {
   services: {
     label: 'Serviços',
     title: 'Meus serviços',
-    buttonText: 'Enviar Mensagem'
+    proofLabel: 'Prova'
   },
   work: {
     label: 'Habilidades',
     title: 'Habilidades Técnicas',
     description:
-      'Com experiência prática em uma variedade de tecnologias, desde linguagens de programação como JavaScript e TypeScript, até frameworks como React e Next.js, além de bancos de dados relacionais e NoSQL. Estou sempre buscando aprender novas ferramentas e aprimorar minhas habilidades para entregar soluções eficientes e inovadoras.'
+      'Tecnologias que uso no dia a dia, de JavaScript e TypeScript a React, Next.js e bancos de dados, e o que me permite conduzir um projeto inteiro.',
+    competenciesLabel: 'Competências',
+    competencies: [
+      {
+        title: 'Gestão de projetos',
+        text: 'Do levantamento à entrega, com Scrum e Kanban.'
+      },
+      {
+        title: 'Liderança',
+        text: 'Da equipe técnica e do Ministério de Adolescentes, definindo prioridades.'
+      },
+      {
+        title: 'Organização e processos',
+        text: 'Transformo rotinas manuais em processos simples.'
+      },
+      {
+        title: 'Soluções digitais completas',
+        text: 'Sistemas completos, da ideia ao uso real.'
+      }
+    ]
   },
   contact: {
     label: 'Contato',

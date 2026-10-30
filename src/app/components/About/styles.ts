@@ -276,3 +276,34 @@ export const Icon = styled.img`
   width: 32px;
   height: 32px;
 `;
+
+export const Method = styled.ol`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  counter-reset: step;
+  font-family: ${({ theme }) => theme.font.family.inter};
+  font-size: ${({ theme }) => theme.sizes.xxxsmall};
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.text};
+
+  li {
+    counter-increment: step;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid white;
+    background-color: ${({ theme }) => theme.colors.textLight}9a;
+  }
+
+  li::before {
+    content: counter(step);
+    font-weight: 700;
+    color: ${({ theme }) => theme.colors.tertiary};
+  }
+`;

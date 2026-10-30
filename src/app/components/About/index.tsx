@@ -4,7 +4,7 @@ import { Area, Box, Content } from '../ui/default';
 import WaterPiece from '../ui/WaterPiece';
 import { Heading, Text } from '../ui/typography';
 import AboutImage from './AboutImage';
-import { Container, Icon, SocialMediaLink } from './styles';
+import { Container, Icon, Method, SocialMediaLink } from './styles';
 import Image from 'next/image';
 import profile from '@/meta/profile';
 import content from '@/meta/content';
@@ -66,14 +66,20 @@ function About() {
             from="right"
             $size="xsmall"
             $color="text"
+            style={{ textAlign: 'left' }}
           >
             {content.about.bio}
+          </WaterPiece>
+          <WaterPiece as={Method} order={3} aria-label={content.about.methodLabel}>
+            {content.about.method.map(step => (
+              <li key={step}>{step}</li>
+            ))}
           </WaterPiece>
           <Box $height={'64px'} $justify="flex-start" style={{ gap: 32 }} id="social-buttons">
             {socialButtons.map(({ key, label, href }, index) => (
               <WaterPiece
                 as={SocialMediaLink}
-                order={3 + index}
+                order={4 + index}
                 float={7}
                 calm
                 key={key}

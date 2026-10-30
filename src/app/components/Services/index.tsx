@@ -56,16 +56,11 @@ function Services() {
           $align="flex-start"
           $justify="space-between"
           $direction="row"
-          style={{ flexWrap: 'wrap', rowGap: 38 }}
+          as="ul"
+          style={{ flexWrap: 'wrap', rowGap: 38, listStyle: 'none', padding: 0, margin: 0 }}
         >
-          {services.map(({ text, title, message }, index) => (
-            <Service
-              text={text}
-              title={title}
-              key={title}
-              message={message}
-              order={index + 2}
-            />
+          {services.map((service, index) => (
+            <Service key={service.title} {...service} order={index + 2} />
           ))}
         </Area>
       </Content>

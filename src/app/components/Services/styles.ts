@@ -5,11 +5,12 @@ import { Box, Button } from '../ui/default';
 
 export const Container = styled.section`
   overflow: hidden;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   position: relative;
   justify-content: center;
   padding-top: 128px;
+  padding-bottom: 96px;
   z-index: 98;
   background-color: transparent;
 
@@ -52,7 +53,7 @@ export const Container = styled.section`
   }
 `;
 
-export const ServiceContainer = styled(Box)`
+export const ServiceContainer = styled(Box).attrs({ as: 'li' })`
   width: 100%;
   max-width: 512px;
   /* height: 268px; */
@@ -83,6 +84,20 @@ export const ServiceTop = styled(Box)`
   flex-direction: column;
   /* justify-content: space-between; */
   align-items: flex-start;
+`;
+
+export const ServiceProof = styled.p`
+  margin: 0;
+  font-family: ${({ theme }) => theme.font.family.inter};
+  font-size: ${({ theme }) => theme.sizes.xxxsmall};
+  color: ${({ theme }) => theme.colors.text};
+
+  a {
+    color: inherit;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
 `;
 
 export const ServiceBottom = styled(Box)`

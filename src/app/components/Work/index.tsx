@@ -7,6 +7,7 @@ import {
   CardBack,
   CardFront,
   CardInner,
+  Competencies,
   Container,
   LeftSection,
   MainRow,
@@ -103,6 +104,19 @@ function Work() {
              
             >
               {content.work.description}
+            </WaterPiece>
+            <WaterPiece
+              as={Competencies}
+              order={3}
+              from="right"
+              aria-label={content.work.competenciesLabel}
+            >
+              {content.work.competencies.map(({ title, text }) => (
+                <li key={title}>
+                  <strong>{title}</strong>
+                  <span>{text}</span>
+                </li>
+              ))}
             </WaterPiece>
           </LeftSection>
 

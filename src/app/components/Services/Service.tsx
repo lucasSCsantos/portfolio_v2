@@ -1,20 +1,23 @@
 import { Heading, Text } from '../ui/typography';
 import WaterPiece from '../ui/WaterPiece';
-import { ServiceButton, ServiceContainer, ServiceTop } from './styles';
+import {
+  ServiceButton,
+  ServiceContainer,
+  ServiceProof,
+  ServiceTop
+} from './styles';
 import profile from '@/meta/profile';
 import content from '@/meta/content';
+import type { Service as ServiceData } from '@/meta/services';
 
 export default function Service({
   title,
   text,
+  proof,
+  buttonLabel,
   message,
   order
-}: {
-  title?: string;
-  text?: string;
-  message?: string;
-  order: number;
-}) {
+}: ServiceData & { order: number }) {
   return (
     <WaterPiece as={ServiceContainer} order={order} float={5}>
       <ServiceTop>
@@ -22,6 +25,10 @@ export default function Service({
           {title}
         </Heading>
         <Text $size="xsmall">{text}</Text>
+        <ServiceProof>
+          {content.services.proofLabel}:{' '}
+          <a href={proof.href}>{proof.name}</a>
+        </ServiceProof>
         <ServiceButton
           $size="small"
           as="a"
@@ -29,7 +36,7 @@ export default function Service({
           target="_blank"
           rel="noopener"
         >
-          {content.services.buttonText}
+          {buttonLabel}
         </ServiceButton>
       </ServiceTop>
     </WaterPiece>
