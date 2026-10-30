@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { Area, Content } from '../ui/default';
+import { Area, Content, scrimStyle } from '../ui/default';
 import { Heading } from '../ui/typography';
 import WaterPiece from '../ui/WaterPiece';
 import { Container } from './styles';
@@ -28,6 +28,7 @@ function Services() {
           $align="flex-start"
           $justify="flex-start"
           $direction="column"
+          style={scrimStyle}
         >
           <WaterPiece
             as={Heading}
@@ -35,7 +36,7 @@ function Services() {
             from="left"
             $level={3}
             $size="small"
-            $fontWeight={500}
+            $role="subtitle"
             $color="textLight"
           >
             {content.services.label}
@@ -47,7 +48,6 @@ function Services() {
             $level={2}
             $color="textLight"
             $size="normal"
-            $letterSpacing={-1.92}
           >
             {content.services.title}
           </WaterPiece>

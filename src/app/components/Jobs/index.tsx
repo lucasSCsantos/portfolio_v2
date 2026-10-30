@@ -1,5 +1,5 @@
 'use client';
-import { Area, Content } from '../ui/default';
+import { Area, Content, scrimStyle } from '../ui/default';
 import { Heading } from '../ui/typography';
 import WaterPiece from '../ui/WaterPiece';
 import { Container, ExperiencesRow } from './styles';
@@ -24,6 +24,7 @@ function Jobs() {
           $align="flex-start"
           $justify="flex-start"
           $direction="column"
+          style={scrimStyle}
         >
           <WaterPiece
             as={Heading}
@@ -31,7 +32,7 @@ function Jobs() {
             from="left"
             $level={3}
             $size="small"
-            $fontWeight={500}
+            $role="subtitle"
             $color="textLight"
           >
             {content.jobs.label}
@@ -43,7 +44,6 @@ function Jobs() {
             $level={2}
             $color="textLight"
             $size="normal"
-            $letterSpacing={-1.92}
           >
             {content.jobs.title}
           </WaterPiece>

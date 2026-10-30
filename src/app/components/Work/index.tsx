@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { Content } from '../ui/default';
+import { Content, scrimStyle } from '../ui/default';
 import { Heading, Text } from '../ui/typography';
 import WaterPiece from '../ui/WaterPiece';
 import {
@@ -34,14 +34,14 @@ function Work() {
       >
         <MainRow>
           <LeftSection>
-            <div>
+            <div style={scrimStyle}>
               <WaterPiece
                 as={Heading}
                 order={0}
                 from="left"
                 $level={3}
                 $size="small"
-                $fontWeight={500}
+                $role="subtitle"
                 $color="textLight"
               >
                 {content.work.label}
@@ -53,7 +53,6 @@ function Work() {
                 $level={2}
                 $color="textLight"
                 $size="normal"
-                $letterSpacing={-1.92}
               >
                 {content.work.title}
               </WaterPiece>
@@ -64,8 +63,7 @@ function Work() {
               from="right"
               $size="xxsmall"
               $color="textLight"
-              $fontWeight={400}
-              $lineHeight={1.6}
+              style={scrimStyle}
             >
               {content.work.description}
             </WaterPiece>

@@ -40,12 +40,8 @@ export const FooterInner = styled.div`
 export const CopyrightText = styled.p`
   font-family: ${({ theme }) => theme.font.family.inter};
   font-size: ${({ theme }) => theme.sizes.xxxsmall};
-  color: ${({ theme }) => theme.colors.navHighlight};
+  color: ${({ theme }) => theme.colors.textMuted};
   margin: 0;
-
-  @media (max-width: 834px) {
-    color: ${({ theme }) => theme.colors.text}99;
-  }
 `;
 
 export const SocialLinks = styled.div`
@@ -62,7 +58,7 @@ export const SocialLink = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${({ theme }) => theme.colors.navHighlight};
+  color: ${({ theme }) => theme.colors.textMuted};
   transition:
     color 0.2s ease,
     transform 0.2s ease;
@@ -75,10 +71,5 @@ export const SocialLink = styled.a`
   @media (max-width: 834px) {
     min-width: 44px;
     min-height: 44px;
-    color: ${({ theme }) => theme.colors.text}99;
-
-    &:hover {
-      color: ${({ theme }) => theme.colors.secondary};
-    }
   }
 `;

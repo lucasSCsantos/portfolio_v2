@@ -13,7 +13,7 @@ export default createGlobalStyle`
   body {
     background: ${({ theme }) => theme.colors.background};
     color: ${({ theme }) => theme.colors.text};
-    font: 400 16px 'Montserrat', sans-serif;
+    font: 400 1rem/1.6 ${({ theme }) => theme.font.family.inter}, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

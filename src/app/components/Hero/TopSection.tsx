@@ -45,7 +45,6 @@ export default function TopSection() {
             $font="inter"
             $fontWeight={400}
             $lineHeight={'auto'}
-            $letterSpacing={-0.9}
             id="greeting-text"
           >
             {content.hero.greeting}
@@ -63,7 +62,6 @@ export default function TopSection() {
             $size="xlarge"
             $textAlign="center"
             $lineHeight={'96%'}
-            $letterSpacing={-2.8}
             style={{
               backgroundImage: 'linear-gradient(180deg, black 80%, #1762A6)',
               backgroundClip: 'text',

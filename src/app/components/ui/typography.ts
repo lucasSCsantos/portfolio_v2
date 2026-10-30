@@ -6,7 +6,10 @@ import { Theme } from '@/app/styles/styled';
 
 const sizeArr = Object.values(theme.sizes);
 
+export type TypeRole = keyof Theme['type'];
+
 export type HeadingProps = {
+  $role?: TypeRole;
   $color?: keyof Theme['colors'];
   $size?: keyof Theme['sizes'];
   $fontWeight?: number;
@@ -18,6 +21,7 @@ export type HeadingProps = {
 };
 
 export type TextProps = {
+  $role?: TypeRole;
   $color?: keyof Theme['colors'];
   $size?: keyof Theme['sizes'];
   $fontWeight?: number;
@@ -31,24 +35,28 @@ export const Heading = styled('h1').attrs<HeadingProps>(({ $level = 1 }) => ({
   as: `h${$level}`
 }))<HeadingProps>`
   ${({
+    $role = 'title',
     $color = 'text',
     $size = 'normal',
-    $fontWeight = 700,
-    $lineHeight = 1.5,
+    $fontWeight,
+    $lineHeight,
     $textAlign = 'left',
     $font = 'poppins',
-    $letterSpacing = 'normal'
+    $letterSpacing
   }) => css`
     font-size: ${({ theme }) => theme.sizes[$size]};
     font-family: ${({ theme }) => theme.font.family[$font]};
     color: ${({ theme }) => theme.colors[$color]};
-    font-weight: ${$fontWeight};
-    line-height: ${$lineHeight};
+    font-weight: ${({ theme }) => $fontWeight ?? theme.type[$role].weight};
+    line-height: ${({ theme }) => $lineHeight ?? theme.type[$role].lineHeight};
     text-align: ${$textAlign};
     z-index: 10;
-    letter-spacing: ${$letterSpacing === 'normal'
-      ? $letterSpacing
-      : `${$letterSpacing}px`};
+    letter-spacing: ${({ theme }) =>
+      $letterSpacing === undefined
+        ? theme.type[$role].letterSpacing
+        : $letterSpacing === 'normal'
+          ? $letterSpacing
+          : `${$letterSpacing}px`};
 
     /* @media (max-width: 1440px) {
       font-size: ${({ theme }) => sizeArr[sizeArr.indexOf(theme.sizes[$size])]};
@@ -61,29 +69,33 @@ export const Heading = styled('h1').attrs<HeadingProps>(({ $level = 1 }) => ({
     } */
     @media (max-width: 428px) {
       font-size: ${({ theme }) =>
-        sizeArr[sizeArr.indexOf(theme.sizes[$size]) - 1]};
+        sizeArr[Math.max(sizeArr.indexOf(theme.sizes[$size]) - 1, 0)]};
     }
   `}
 `;
 
 export const Text = styled('p')<TextProps>`
   ${({
+    $role = 'body',
     $color = 'text',
     $size = 'normal',
-    $fontWeight = 400,
-    $lineHeight = 'auto',
+    $fontWeight,
+    $lineHeight,
     $textAlign = 'left',
     $font = 'inter',
-    $letterSpacing = 'normal'
+    $letterSpacing
   }) => css`
     font-family: ${({ theme }) => theme.font.family[$font]};
     font-size: ${({ theme }) => theme.sizes[$size]};
     color: ${({ theme }) => theme.colors[$color]};
-    font-weight: ${$fontWeight};
-    line-height: ${$lineHeight};
-    letter-spacing: ${$letterSpacing === 'normal'
-      ? $letterSpacing
-      : `${$letterSpacing}px`};
+    font-weight: ${({ theme }) => $fontWeight ?? theme.type[$role].weight};
+    line-height: ${({ theme }) => $lineHeight ?? theme.type[$role].lineHeight};
+    letter-spacing: ${({ theme }) =>
+      $letterSpacing === undefined
+        ? theme.type[$role].letterSpacing
+        : $letterSpacing === 'normal'
+          ? $letterSpacing
+          : `${$letterSpacing}px`};
     text-align: ${$textAlign};
     z-index: 10;
     /* @media (max-width: 1440px) {
@@ -100,7 +112,7 @@ export const Text = styled('p')<TextProps>`
     } */
     @media (max-width: 428px) {
       font-size: ${({ theme }) =>
-        sizeArr[sizeArr.indexOf(theme.sizes[$size]) - 1]};
+        sizeArr[Math.max(sizeArr.indexOf(theme.sizes[$size]) - 1, 0)]};
     }
   `}
 `;
