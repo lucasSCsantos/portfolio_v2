@@ -1,25 +1,10 @@
-import { useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import profile from '@/meta/profile';
 import { Area } from '../ui/default';
+import WaterPiece from '../ui/WaterPiece';
 import { Tag } from './styles';
 import Image from 'next/image';
 
 export default function AboutImage() {
-  const ref = useRef(null);
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start start', 'end start']
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0], {
-    clamp: false
-  });
-
-  const x = useTransform(scrollYProgress, [0, 0.5], [0, -20], {
-    clamp: false
-  });
-
   return (
     <Area
       id="right-about-area"
@@ -29,36 +14,41 @@ export default function AboutImage() {
       $justify="flex-end"
       $direction="column"
       style={{ position: 'relative' }}
-      ref={ref}
     >
-      <Tag
+      <WaterPiece
+        as={Tag}
         className="tag"
-        style={{ bottom: '24%', right: 468 - 280, x, opacity }}
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ ease: 'easeInOut', duration: 0.4, delay: 0.2 }}
+        order={5}
+        from="right"
+        float={8}
+        calm
+        style={{ bottom: '24%', right: 468 - 280 }}
       >
         👉 Desenvolvedor Full-stack
-      </Tag>
-      <Tag
+      </WaterPiece>
+      <WaterPiece
+        as={Tag}
         className="tag"
-        style={{ bottom: '12%', right: 468 - 280, x, opacity }}
-        viewport={{ once: true }}
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ ease: 'easeInOut', duration: 0.4, delay: 0.2 }}
+        order={6}
+        from="right"
+        float={8}
+        calm
+        style={{ bottom: '12%', right: 468 - 280 }}
       >
         👉 Desenvolvedor Front-end
-      </Tag>
-      <Image
-        src="/about-image.jpeg"
+      </WaterPiece>
+      <WaterPiece
+        as={Image}
+        order={1}
+        from="right"
+        calm
+        src={profile.photos.about}
         width={468}
         height={468}
         quality={65}
         sizes="(max-width: 834px) 100vw, 468px"
         style={{ borderRadius: 20 }}
-        alt="Imagem de lucas trabalhando em seu escritório"
+        alt={`Foto de ${profile.name}`}
       />
     </Area>
   );

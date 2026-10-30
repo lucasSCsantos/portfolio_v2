@@ -1,12 +1,15 @@
+import profile, { experienceYears } from './profile';
+
 const content = {
   hero: {
     greeting: 'Oi, eu sou Lucas!',
-    title: 'Desenvolvedor\nde Software',
+    // O cargo vem da identidade; a quebra de linha é só do layout do Hero.
+    title: profile.role.replace(' ', '\n'),
     cta: 'Entrar em contato!'
   },
   about: {
     label: 'Sobre mim',
-    bio: 'Desenvolvedor de Software com +4 anos de experiência no desenvolvimento de aplicações web e APIs, atuando em empresas de diversos setores. Experiência sólida em desenvolvimento de projetos, desde o planejamento, até a implementação, testes e manutenção, utilizando as tecnologias mais modernas do mercado.'
+    bio: `${profile.role} com +${experienceYears()} anos de experiência no desenvolvimento de aplicações web e APIs, atuando em empresas de diversos setores. Experiência sólida em desenvolvimento de projetos, desde o planejamento, até a implementação, testes e manutenção, utilizando as tecnologias mais modernas do mercado.`
   },
   projects: {
     label: 'Projetos',
@@ -43,7 +46,7 @@ const content = {
     linkedinButtonText: 'LinkedIn'
   },
   footer: {
-    copyrightName: 'Lucas Santos'
+    copyrightName: profile.name
   }
 };
 

@@ -11,6 +11,9 @@ import {
   FaBars,
 } from 'react-icons/fa6';
 
+const [firstName, ...lastNameParts] = profile.name.split(' ');
+const lastName = lastNameParts.join(' ');
+
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -38,14 +41,14 @@ function Header() {
         <Brand>
           <ul>
             <Text $size="xxsmall">
-              {profile.firstName}{' '}
+              {firstName}{' '}
               <Text
                 as="span"
                 $size="xxsmall"
                 $color="secondary"
                 $fontWeight={700}
               >
-                {profile.lastName}
+                {lastName}
               </Text>
             </Text>
           </ul>

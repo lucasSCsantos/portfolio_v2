@@ -36,3 +36,10 @@ yarn-error.log*
 next-env.d.ts
 
 todo.md
+
+# agent issue tracker (local markdown)
+/.scratch/
+# playwright
+/test-results/
+/playwright-report/
+/.next-e2e/
