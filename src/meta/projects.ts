@@ -56,7 +56,7 @@ const projects: Project[] = [
     title: 'Sistema de Gestão de Voluntários',
     year: '2026',
     color: '#E8710A',
-    src: 'voluntarios-provisorio.svg',
+    src: 'airtable.png',
     linkKind: 'none',
     relation: 'voluntário',
     role: 'Idealizei e construí',
