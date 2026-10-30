@@ -258,36 +258,25 @@ export const ExperienceText = styled.p`
   margin-top: 16px;
 `;
 
-export const SkillGroups = styled.div`
+export const SkillGrid = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px 24px;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 10px;
   flex: 1 1 0;
   min-width: 0;
 
   @media (max-width: 834px) {
     flex: none;
     width: 100%;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   }
-`;
 
-export const GroupTitle = styled.h3`
-  margin: 0 0 8px;
-  font-family: ${({ theme }) => theme.font.family.poppins};
-  font-size: ${({ theme }) => theme.sizes.xxxsmall};
-  font-weight: ${({ theme }) => theme.type.subtitle.weight};
-  color: ${({ theme }) => theme.colors.textLight};
-`;
-
-export const SkillGroupList = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 76px);
-  @media (max-width: 428px) { grid-template-columns: repeat(auto-fill, 68px); }
-  gap: 10px;
+  @media (max-width: 428px) {
+    grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+    gap: 8px;
+  }
 `;
 
 export const CardInner = styled.div`
@@ -304,17 +293,13 @@ export const CardInner = styled.div`
 
 // Quadrado de vidro: a frente mostra o ícone; o verso, o nome da tecnologia.
 export const SkillCard = styled.li`
-  width: 76px;
+  width: 100%;
   aspect-ratio: 1;
   perspective: 800px;
 
   &:hover ${CardInner},
   &:focus-visible ${CardInner} {
     transform: rotateY(180deg);
-  }
-
-  @media (max-width: 428px) {
-    width: 68px;
   }
 `;
 
@@ -338,6 +323,8 @@ export const CardFront = styled(CardFace)`
 
 export const CardBack = styled(CardFace)`
   transform: rotateY(180deg);
+  flex-direction: column;
+  gap: 2px;
   padding: 4px;
   text-align: center;
   overflow-wrap: anywhere;
@@ -348,4 +335,9 @@ export const CardBack = styled(CardFace)`
   color: ${({ theme }) => theme.colors.textLight};
   background-color: ${({ theme }) => theme.colors.backgroundDarkBlue}b3;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+  span {
+    font-family: ${({ theme }) => theme.font.family.inter};
+    font-weight: 400;
+  }
 `;

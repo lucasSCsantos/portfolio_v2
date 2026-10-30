@@ -8,15 +8,17 @@ import {
   CardFront,
   CardInner,
   Container,
-  GroupTitle,
   LeftSection,
   MainRow,
   SkillCard,
-  SkillGroupList,
-  SkillGroups
+  SkillGrid
 } from './styles';
 import Corals from './Corals';
 import skillGroups from '@/meta/skills';
+
+const skills = skillGroups.flatMap(group =>
+  group.skills.map(skill => ({ skill, kind: group.kind }))
+);
 import content from '@/meta/content';
 import dynamic from 'next/dynamic';
 
@@ -71,33 +73,30 @@ function Work() {
             </WaterPiece>
           </LeftSection>
 
-          <SkillGroups>
-            {skillGroups.map((group, index) => (
-              <WaterPiece
-                as="div"
-                key={group.title}
-                order={2 + (index % 4)}
-                calm
-              >
-                <GroupTitle>{group.title}</GroupTitle>
-                <SkillGroupList aria-label={group.title}>
-                  {group.skills.map(skill => {
-                    const Icon = skill.icon;
-                    return (
-                      <SkillCard key={skill.name} tabIndex={0}>
-                        <CardInner>
-                          <CardFront>
-                            <Icon size={32} aria-hidden />
-                          </CardFront>
-                          <CardBack>{skill.name}</CardBack>
-                        </CardInner>
-                      </SkillCard>
-                    );
-                  })}
-                </SkillGroupList>
-              </WaterPiece>
-            ))}
-          </SkillGroups>
+          <SkillGrid>
+            {skills.map(({ skill, kind }, index) => {
+              const Icon = skill.icon;
+              return (
+                <WaterPiece
+                  as={SkillCard}
+                  key={skill.name}
+                  order={2 + (index % 4)}
+                  tabIndex={0}
+                  calm
+                >
+                  <CardInner>
+                    <CardFront>
+                      <Icon size={32} aria-hidden />
+                    </CardFront>
+                    <CardBack>
+                      <strong>{skill.name}</strong>
+                      <span>{kind}</span>
+                    </CardBack>
+                  </CardInner>
+                </WaterPiece>
+              );
+            })}
+          </SkillGrid>
         </MainRow>
       </Content>
       <Animation />

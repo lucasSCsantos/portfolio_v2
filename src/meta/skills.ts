@@ -36,6 +36,8 @@ export interface Skill {
 
 export interface SkillGroup {
   title: string;
+  // O que cada item do grupo é, mostrado no verso do card.
+  kind: string;
   skills: Skill[];
 }
 
@@ -43,6 +45,7 @@ export interface SkillGroup {
 const skillGroups: SkillGroup[] = [
   {
     title: 'Linguagens',
+    kind: 'Linguagem',
     skills: [
       { name: 'JavaScript', icon: SiJavascript },
       { name: 'TypeScript', icon: SiTypescript },
@@ -52,6 +55,7 @@ const skillGroups: SkillGroup[] = [
   },
   {
     title: 'Frameworks',
+    kind: 'Framework',
     skills: [
       { name: 'React', icon: SiReact },
       { name: 'Next.js', icon: SiNextdotjs },
@@ -60,9 +64,10 @@ const skillGroups: SkillGroup[] = [
       { name: 'NestJS', icon: SiNestjs }
     ]
   },
-  { title: 'ORM', skills: [{ name: 'Prisma', icon: SiPrisma }] },
+  { title: 'ORM', kind: 'ORM', skills: [{ name: 'Prisma', icon: SiPrisma }] },
   {
     title: 'Bancos de dados',
+    kind: 'Banco de dados',
     skills: [
       { name: 'PostgreSQL', icon: SiPostgresql },
       { name: 'MySQL', icon: SiMysql },
@@ -72,6 +77,7 @@ const skillGroups: SkillGroup[] = [
   },
   {
     title: 'Infra e DevOps',
+    kind: 'Infra e DevOps',
     skills: [
       { name: 'AWS', icon: SiAmazonwebservices },
       { name: 'Docker', icon: SiDocker },
@@ -80,6 +86,7 @@ const skillGroups: SkillGroup[] = [
   },
   {
     title: 'Testes',
+    kind: 'Testes',
     skills: [
       { name: 'Jest', icon: SiJest },
       { name: 'Cypress', icon: SiCypress }
@@ -87,6 +94,7 @@ const skillGroups: SkillGroup[] = [
   },
   {
     title: 'Gestão e metodologias',
+    kind: 'Gestão',
     skills: [
       { name: 'Git', icon: SiGit },
       { name: 'GitHub', icon: SiGithub },
