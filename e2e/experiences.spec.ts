@@ -124,7 +124,7 @@ test.describe('habilidades interativas', () => {
   test('passar o mouse em um quadrado vira o card e revela o nome', async ({
     page
   }) => {
-    const card = page.locator('#habilidades li').first();
+    const card = page.locator('#habilidades ul:not([aria-label="Competências"]) > li').first();
     await card.scrollIntoViewIfNeeded();
     await page.waitForTimeout(1500);
     const box = (await card.boundingBox())!;
@@ -154,7 +154,7 @@ test.describe('habilidades interativas', () => {
   }) => {
     const names = () =>
       page
-        .locator('#habilidades li strong')
+        .locator('#habilidades ul:not([aria-label="Competências"]) li strong')
         .allInnerTexts()
         .then(list => list.sort());
     const before = await names();
@@ -166,5 +166,50 @@ test.describe('habilidades interativas', () => {
       .poll(async () => (await names()).join(), { timeout: 20_000 })
       .not.toBe(before.join());
     expect(await names()).toHaveLength(25);
+  });
+});
+
+test.describe('profundidade do mar', () => {
+  test('o fundo não clareia ao chegar ao fim das Habilidades', async ({
+    page
+  }) => {
+    // Média de brilho de uma faixa lateral, onde não há conteúdo, na posição atual da rolagem.
+    const sample = async () => {
+      await page.waitForTimeout(1200);
+      const shot = await page.screenshot({
+        clip: { x: 0, y: 200, width: 24, height: 300 }
+      });
+      return page.evaluate(async (b64: string) => {
+        const img = new Image();
+        img.src = `data:image/png;base64,${b64}`;
+        await img.decode();
+        const c = document.createElement('canvas');
+        c.width = img.width;
+        c.height = img.height;
+        const ctx = c.getContext('2d')!;
+        ctx.drawImage(img, 0, 0);
+        const d = ctx.getImageData(0, 0, c.width, c.height).data;
+        let sum = 0;
+        for (let i = 0; i < d.length; i += 4)
+          sum += 0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2];
+        return sum / (d.length / 4);
+      }, shot.toString('base64'));
+    };
+
+    const section = page.locator('#habilidades');
+    await section.scrollIntoViewIfNeeded();
+    const top = await section.evaluate(
+      el => el.getBoundingClientRect().top + window.scrollY
+    );
+    const height = await section.evaluate(el => el.getBoundingClientRect().height);
+    const viewport = page.viewportSize()!.height;
+
+    await page.evaluate(y => window.scrollTo(0, y), top);
+    const atStart = await sample();
+    await page.evaluate(y => window.scrollTo(0, y), top + height - viewport);
+    const atEnd = await sample();
+
+    // Descer só pode escurecer (tolerância para bolhas e corais na faixa).
+    expect(atEnd).toBeLessThanOrEqual(atStart + 3);
   });
 });

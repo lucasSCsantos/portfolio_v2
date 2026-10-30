@@ -19,25 +19,6 @@ export const Container = styled.section`
     padding-bottom: 300px;
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    box-shadow: inset 0px -1200px 250px -250px
-      ${({ theme }) => theme.colors.backgroundBlue}9a;
-
-    @media (max-width: 834px) {
-      box-shadow: inset 0px -800px 250px -250px
-        ${({ theme }) => theme.colors.backgroundBlue}9a;
-    }
-
-    background-size: cover;
-    pointer-events: none;
-  }
-
   @media (max-width: 428px) {
     padding-top: 16px;
   }
@@ -350,5 +331,28 @@ export const CardBack = styled(CardFace)`
   span {
     font-family: ${({ theme }) => theme.font.family.inter};
     font-weight: 400;
+  }
+`;
+
+export const Competencies = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: ${({ theme }) => theme.font.family.inter};
+  font-size: ${({ theme }) => theme.sizes.xxxsmall};
+  line-height: 1.5;
+  color: ${({ theme }) => theme.colors.textLight};
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  strong {
+    font-weight: 700;
   }
 `;
