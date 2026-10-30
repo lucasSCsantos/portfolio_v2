@@ -31,6 +31,8 @@ export interface Project {
   color: string;
   gradient?: string;
   src: string | string[];
+  // Âncora horizontal da imagem quando o card a corta (padrão: centro).
+  imagePosition?: 'left' | 'center' | 'right';
   href?: string;
   video?: ProjectVideo;
   type?: ProjectType;
@@ -57,6 +59,7 @@ const projects: Project[] = [
     year: '2026',
     color: '#E8710A',
     src: 'airtable.png',
+    imagePosition: 'left',
     linkKind: 'none',
     relation: 'voluntário',
     role: 'Idealizei e construí',

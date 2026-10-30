@@ -283,7 +283,7 @@ export const ProjectImage = styled(Box)`
 
     height: 220px !important;
     max-height: none !important;
-    background-position: top center !important;
+    background-position-y: top !important;
 
      &.project-image-mobile {
       width: 100% !important;
