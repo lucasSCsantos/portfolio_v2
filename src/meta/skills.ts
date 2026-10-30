@@ -25,12 +25,13 @@ import {
   SiLinear,
   SiAirtable
 } from 'react-icons/si';
+import { FaColumns, FaSyncAlt } from 'react-icons/fa';
 import { IconType } from 'react-icons';
 
 export interface Skill {
   name: string;
-  // Metodologias (Scrum, Kanban) não têm logotipo.
-  icon?: IconType;
+  // Metodologias (Scrum, Kanban) não têm logotipo: usam um ícone genérico.
+  icon: IconType;
 }
 
 export interface SkillGroup {
@@ -90,8 +91,8 @@ const skillGroups: SkillGroup[] = [
       { name: 'Git', icon: SiGit },
       { name: 'GitHub', icon: SiGithub },
       { name: 'GitLab', icon: SiGitlab },
-      { name: 'Scrum' },
-      { name: 'Kanban' },
+      { name: 'Scrum', icon: FaSyncAlt },
+      { name: 'Kanban', icon: FaColumns },
       { name: 'Jira', icon: SiJira },
       { name: 'Linear', icon: SiLinear },
       { name: 'Airtable', icon: SiAirtable }

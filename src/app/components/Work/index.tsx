@@ -4,11 +4,14 @@ import { Content } from '../ui/default';
 import { Heading, Text } from '../ui/typography';
 import WaterPiece from '../ui/WaterPiece';
 import {
+  CardBack,
+  CardFront,
+  CardInner,
   Container,
   GroupTitle,
   LeftSection,
   MainRow,
-  SkillChip,
+  SkillCard,
   SkillGroupList,
   SkillGroups
 } from './styles';
@@ -81,10 +84,14 @@ function Work() {
                   {group.skills.map(skill => {
                     const Icon = skill.icon;
                     return (
-                      <SkillChip key={skill.name}>
-                        {Icon && <Icon size={20} aria-hidden />}
-                        {skill.name}
-                      </SkillChip>
+                      <SkillCard key={skill.name} tabIndex={0}>
+                        <CardInner>
+                          <CardFront>
+                            <Icon size={32} aria-hidden />
+                          </CardFront>
+                          <CardBack>{skill.name}</CardBack>
+                        </CardInner>
+                      </SkillCard>
                     );
                   })}
                 </SkillGroupList>
