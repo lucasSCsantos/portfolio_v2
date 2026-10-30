@@ -106,6 +106,10 @@ const projects: Project[] = [
     relation: 'iniciativa própria',
     role: 'Criei e desenvolvi',
     technologies: ['React', 'TypeScript'],
+    video: {
+      horizontal: '/biblio.mp4',
+      vertical: '/biblio-9x16.mp4'
+    },
     description:
       'Jogo diário de adivinhar livros da Bíblia. São 6 tentativas, com dicas sobre as letras certas, nas posições certas e ausentes.'
   },
@@ -121,6 +125,10 @@ const projects: Project[] = [
     relation: 'iniciativa própria',
     role: 'Criei e desenvolvi',
     technologies: ['React', 'TypeScript'],
+    video: {
+      horizontal: '/jogopassa.mp4',
+      vertical: '/jogopassa-9x16.mp4'
+    },
     description:
       'Temporizador online para jogos de festa: cada jogador tem um tempo limitado para agir ou responder, e todos conectam o próprio celular na mesma sala.'
   },

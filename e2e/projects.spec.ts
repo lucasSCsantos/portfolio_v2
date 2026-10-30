@@ -91,4 +91,21 @@ test.describe('seção de Projetos', () => {
     await page.keyboard.press('Escape');
     await expect(dialog).toHaveCount(0);
   });
+
+  test('todo Projeto com vídeo abre a demo', async ({ page }) => {
+    for (const project of projects.filter(p => p.video)) {
+      // O carrossel remonta os slides em loop: o clique é despachado direto.
+      await card(page, project.title)
+        .getByRole('button', { name: `Ver vídeo do projeto ${project.title}` })
+        .dispatchEvent('click');
+      const dialog = page.getByRole('dialog');
+      await expect(dialog, project.title).toBeVisible();
+      await expect(dialog.locator('video')).toHaveAttribute(
+        'src',
+        project.video!.horizontal!
+      );
+      await page.keyboard.press('Escape');
+      await expect(dialog).toHaveCount(0);
+    }
+  });
 });
