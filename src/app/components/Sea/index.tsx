@@ -11,7 +11,7 @@ import { Backdrop, Vignette, Zone } from './styles';
 
 // Do raso (cor da onda do Hero) ao fundo do mar.
 const DEPTH_STOPS = [0, 0.22, 0.5, 0.78, 1];
-const DEPTH_COLORS = ['#79BED9', '#3B8FC2', '#0A5F9E', '#043A6B', '#010F22'];
+const DEPTH_COLORS = ['#79BED9', '#3B8FC2', '#085690', '#043A6B', '#010F22'];
 
 const BUBBLES: BubbleSpec[] = [
   // Atrás do conteúdo: de blobs grandes e lentos a gotas minúsculas.

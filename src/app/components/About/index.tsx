@@ -1,6 +1,6 @@
 'use client';
 
-import { Area, Box, Content, scrimStyle } from '../ui/default';
+import { Area, Box, Content } from '../ui/default';
 import WaterPiece from '../ui/WaterPiece';
 import { Heading, Text } from '../ui/typography';
 import AboutImage from './AboutImage';
@@ -65,8 +65,7 @@ function About() {
             order={2}
             from="right"
             $size="xsmall"
-            $color="textLight"
-            style={scrimStyle}
+            $color="text"
           >
             {content.about.bio}
           </WaterPiece>

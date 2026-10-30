@@ -1,5 +1,5 @@
 'use client';
-import { Area, Content, scrimStyle } from '../ui/default';
+import { Area, Content } from '../ui/default';
 import { Heading } from '../ui/typography';
 import WaterPiece from '../ui/WaterPiece';
 import { Container, ExperiencesRow } from './styles';
@@ -24,7 +24,6 @@ function Jobs() {
           $align="flex-start"
           $justify="flex-start"
           $direction="column"
-          style={scrimStyle}
         >
           <WaterPiece
             as={Heading}

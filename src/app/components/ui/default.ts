@@ -3,19 +3,6 @@
 import { Theme } from '@/app/styles/styled';
 import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
-import type { CSSProperties } from 'react';
-import theme from '@/app/styles/theme';
-
-// Camada escura translúcida atrás de texto claro que fica sobre o mar:
-// mantém contraste >= 4,5:1 mesmo sob bolhas e no raso.
-export const scrimStyle: CSSProperties = {
-  width: 'fit-content',
-  maxWidth: '100%',
-  padding: '12px 24px',
-  borderRadius: 20,
-  background: theme.colors.scrim,
-  backdropFilter: 'blur(6px)'
-};
 
 export type AreaProps = {
   $backgroundColor?: keyof Theme['colors'];

@@ -13,7 +13,6 @@ const theme = {
     tertiary: '#1462A6',
     quaternary: '#0F398C',
     textMuted: '#4d4d4d',
-    scrim: 'rgba(0, 24, 52, 0.66)',
     navHighlight: '#A3A3A3',
     nav: '#CACACA',
     transparent: '#00000000',
