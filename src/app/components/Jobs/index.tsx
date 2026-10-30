@@ -6,7 +6,6 @@ import {
   Container,
   EducationGrid,
   EducationList,
-  Heading2Panel,
   Timeline
 } from './styles';
 import Experience from './Experience';
@@ -26,7 +25,6 @@ function Jobs() {
         }}
         $direction="column"
       >
-        <Heading2Panel>
         <Area
           $width={100}
           $align="flex-start"
@@ -55,7 +53,6 @@ function Jobs() {
             {content.jobs.title}
           </WaterPiece>
         </Area>
-        </Heading2Panel>
         <Timeline>
           {experiences.map((exp, index) => (
             <Experience key={exp.company} order={index + 2} {...exp} />
