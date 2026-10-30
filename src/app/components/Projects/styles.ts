@@ -48,7 +48,7 @@ export const Container = styled.section`
 
 export const SliderWrapper = styled.div`
   width: 130vw;
-  height: 700px;
+  height: 600px;
 
   @media (max-width: 834px) {
     height: auto;
@@ -122,6 +122,14 @@ export const ProjectContainer = styled(Box)`
   background-color: ${({ theme }) => theme.colors.textLight}9a;
 
   @media (min-width: 835px) {
+    #project-left-area {
+      width: 62% !important;
+    }
+
+    #project-right-area {
+      width: 38% !important;
+    }
+
     #project-left-area p {
       font-size: 1rem;
       line-height: 1.5;

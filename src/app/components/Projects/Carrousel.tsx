@@ -67,7 +67,7 @@ export default function Carousel() {
           <SwiperSlide key={index}>
             <Project
               width={821}
-              height={600}
+              height={520}
               {...project}
               onOpenVideo={(opener) => {
                 if (!project.video) return;
