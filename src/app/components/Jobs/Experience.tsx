@@ -27,7 +27,7 @@ export default function Experience({
 }: ExperienceProps) {
   return (
     <WaterPiece as={ExperienceItem} order={order} solid>
-      <Heading $level={3} $size="small" $color="textLight">
+      <Heading $level={3} $size="small">
         {company}
         {kind && <Kind>{kind}</Kind>}
       </Heading>
@@ -36,7 +36,7 @@ export default function Experience({
         {note && ` · ${note}`}
       </Meta>
       {highlight && (
-        <Text $size="xxxsmall" $fontWeight={600} $color="primary">
+        <Text $size="xxxsmall" $fontWeight={600} $color="quaternary">
           {highlight}
         </Text>
       )}
@@ -51,7 +51,7 @@ export default function Experience({
         ))}
       </TechList>
       {projectTitle && (
-        <Text $size="xxxsmall" $color="textLight">
+        <Text $size="xxxsmall">
           Veja o projeto <a href="#projetos">{projectTitle}</a>.
         </Text>
       )}

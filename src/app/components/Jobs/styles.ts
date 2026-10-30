@@ -12,6 +12,19 @@ export const Container = styled.section`
   z-index: 98;
   background-color: transparent;
 
+  /* Água mais funda atrás do título: a luz nesse ponto da rolagem tirava o contraste. */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 420px;
+    pointer-events: none;
+    background: linear-gradient(
+      ${({ theme }) => theme.colors.backgroundDarkBlue}e6,
+      ${({ theme }) => theme.colors.backgroundDarkBlue}00
+    );
+  }
+
   @media (max-width: 834px) {
     min-height: fit-content !important;
     padding-bottom: 80px;
@@ -41,10 +54,10 @@ export const ExperienceItem = styled.li`
   align-items: flex-start;
   gap: 8px;
   padding: 24px 28px;
-  border-radius: 20px;
-  border: 1px solid ${({ theme }) => theme.colors.primary}66;
-  background-color: ${({ theme }) => theme.colors.backgroundDarkBlue};
-  color: ${({ theme }) => theme.colors.textLight};
+  border-radius: 17px;
+  border: 1.6px solid white;
+  background-color: ${({ theme }) => theme.colors.textLight}9a;
+  color: ${({ theme }) => theme.colors.text};
 
   &::before {
     content: '';
@@ -55,11 +68,11 @@ export const ExperienceItem = styled.li`
     height: 14px;
     border-radius: 50%;
     background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.backgroundDarkBlue};
+    border: 2px solid white;
   }
 
   a {
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.quaternary};
     text-decoration: underline;
   }
 
@@ -80,8 +93,8 @@ export const Kind = styled.span`
   font-family: ${({ theme }) => theme.font.family.inter};
   font-size: ${({ theme }) => theme.sizes.xxxsmall};
   font-weight: 600;
-  color: ${({ theme }) => theme.colors.backgroundDarkBlue};
-  background-color: ${({ theme }) => theme.colors.primary};
+  color: white;
+  background-color: ${({ theme }) => theme.colors.tertiary};
 `;
 
 export const Meta = styled.p`
@@ -89,7 +102,7 @@ export const Meta = styled.p`
   font-family: ${({ theme }) => theme.font.family.inter};
   font-size: ${({ theme }) => theme.sizes.xxxsmall};
   font-weight: 500;
-  color: ${({ theme }) => theme.colors.textLight};
+  color: ${({ theme }) => theme.colors.textMuted};
 `;
 
 export const Achievements = styled.ul`
@@ -101,7 +114,7 @@ export const Achievements = styled.ul`
   font-family: ${({ theme }) => theme.font.family.inter};
   font-size: ${({ theme }) => theme.sizes.xxxsmall};
   line-height: 1.6;
-  color: ${({ theme }) => theme.colors.textLight};
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const TechList = styled.ul`
@@ -118,8 +131,8 @@ export const TechList = styled.ul`
     font-family: ${({ theme }) => theme.font.family.inter};
     font-size: ${({ theme }) => theme.sizes.xxxsmall};
     font-weight: 500;
-    color: ${({ theme }) => theme.colors.textLight};
-    border: 1px solid ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.quaternary};
+    border: 1px solid ${({ theme }) => theme.colors.quaternary};
   }
 `;
 
@@ -143,22 +156,14 @@ export const EducationList = styled.ul`
   gap: 12px;
   font-family: ${({ theme }) => theme.font.family.inter};
   font-size: ${({ theme }) => theme.sizes.xxxsmall};
-  color: ${({ theme }) => theme.colors.textLight};
   padding: 20px 24px;
-  border-radius: 20px;
-  background-color: ${({ theme }) => theme.colors.backgroundDarkBlue};
-  border: 1px solid ${({ theme }) => theme.colors.primary}66;
+  border-radius: 17px;
+  border: 1.6px solid white;
+  background-color: ${({ theme }) => theme.colors.textLight}9a;
+  color: ${({ theme }) => theme.colors.text};
 
   strong {
     display: block;
     font-weight: 600;
   }
-`;
-
-// Painel atrás do título: a água nesse ponto da rolagem clareia e tiraria o contraste.
-export const Heading2Panel = styled.div`
-  align-self: flex-start;
-  padding: 16px 28px;
-  border-radius: 20px;
-  background-color: ${({ theme }) => theme.colors.backgroundDarkBlue}e6;
 `;
