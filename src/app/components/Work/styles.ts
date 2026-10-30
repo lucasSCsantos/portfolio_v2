@@ -283,22 +283,68 @@ export const SkillGroupList = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 76px);
+  @media (max-width: 428px) { grid-template-columns: repeat(auto-fill, 68px); }
+  gap: 10px;
 `;
 
-export const SkillChip = styled.li`
-  display: inline-flex;
+export const CardInner = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+`;
+
+// Quadrado de vidro: a frente mostra o ícone; o verso, o nome da tecnologia.
+export const SkillCard = styled.li`
+  width: 76px;
+  aspect-ratio: 1;
+  perspective: 800px;
+
+  &:hover ${CardInner},
+  &:focus-visible ${CardInner} {
+    transform: rotateY(180deg);
+  }
+
+  @media (max-width: 428px) {
+    width: 68px;
+  }
+`;
+
+const CardFace = styled.div`
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 12px;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-family: ${({ theme }) => theme.font.family.inter};
-  font-size: ${({ theme }) => theme.sizes.xxxsmall};
-  font-weight: 500;
+  justify-content: center;
+  overflow: hidden;
+  border: 1.6px solid white;
+`;
+
+export const CardFront = styled(CardFace)`
+  background-color: ${({ theme }) => theme.colors.textLight}77;
   color: ${({ theme }) => theme.colors.textLight};
-  background-color: ${({ theme }) => theme.colors.backgroundDarkBlue};
-  border: 1px solid ${({ theme }) => theme.colors.primary}66;
+`;
+
+export const CardBack = styled(CardFace)`
+  transform: rotateY(180deg);
+  padding: 4px;
+  text-align: center;
+  overflow-wrap: anywhere;
+  font-family: ${({ theme }) => theme.font.family.poppins};
+  font-size: ${({ theme }) => theme.sizes.xxxsmall};
+  font-weight: ${({ theme }) => theme.type.subtitle.weight};
+  line-height: 1.2;
+  color: ${({ theme }) => theme.colors.textLight};
+  background-color: ${({ theme }) => theme.colors.backgroundDarkBlue}b3;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 `;
