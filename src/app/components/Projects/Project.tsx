@@ -121,10 +121,10 @@ const Project = ({
                 $width={'100%'}
                 style={{ alignItems: 'flex-start' }}
                 $align="flex-start"
-                $justify="center"
+                $justify="flex-end"
               >
                 <ProjectImage
-                  $width={'47%'}
+                  $width={'100%'}
                   $height={'92%'}
                   className="project-image-mobile"
                   style={{
