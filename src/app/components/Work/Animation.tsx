@@ -1,5 +1,6 @@
 'use client';
 
+import { useReducedMotion } from 'framer-motion';
 import { useLottie, useLottieInteractivity } from 'lottie-react';
 import { CSSProperties } from 'styled-components';
 import fishes from '@/lotties/Jellyfish.json';
@@ -21,7 +22,7 @@ const style: CSSProperties = {
 
 const hiddenStyle: CSSProperties = { ...style, display: 'none' };
 
-export default function ServicesAnimation() {
+function Fishes() {
   const isSmallScreen = window.matchMedia('(max-width: 834px)').matches;
   const lottieObj = useLottie(options, isSmallScreen ? hiddenStyle : style);
   const Animation = useLottieInteractivity({
@@ -37,4 +38,10 @@ export default function ServicesAnimation() {
   });
 
   return Animation;
+}
+
+// Os peixes nadam conforme a rolagem; sem eles quando se pede menos movimento.
+export default function Animation() {
+  const reducedMotion = useReducedMotion();
+  return reducedMotion ? null : <Fishes />;
 }

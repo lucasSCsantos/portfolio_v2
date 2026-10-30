@@ -1,4 +1,5 @@
 import { Heading, Text } from '../ui/typography';
+import WaterPiece from '../ui/WaterPiece';
 import { ServiceButton, ServiceContainer, ServiceTop } from './styles';
 import profile from '@/meta/profile';
 import content from '@/meta/content';
@@ -6,16 +7,18 @@ import content from '@/meta/content';
 export default function Service({
   title,
   text,
-  message
+  message,
+  order
 }: {
   title?: string;
   text?: string;
   message?: string;
+  order: number;
 }) {
   return (
-    <ServiceContainer>
+    <WaterPiece as={ServiceContainer} order={order} float={5}>
       <ServiceTop>
-        <Heading $level={6} $size="small">
+        <Heading $level={3} $size="small">
           {title}
         </Heading>
         <Text $size="xsmall">{text}</Text>
@@ -29,6 +32,6 @@ export default function Service({
           {content.services.buttonText}
         </ServiceButton>
       </ServiceTop>
-    </ServiceContainer>
+    </WaterPiece>
   );
 }

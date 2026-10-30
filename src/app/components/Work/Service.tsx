@@ -15,7 +15,7 @@ export default function Service({
   return (
     <ServiceContainer>
       <ServiceTop>
-        <Heading $level={6} $size="small">
+        <Heading $level={3} $size="small">
           {title}
         </Heading>
         <Text $size="xsmall">{text}</Text>

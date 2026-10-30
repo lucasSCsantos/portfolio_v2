@@ -6,11 +6,14 @@ export default function Halo({
   rotate = 360,
   duration = 5,
   id,
+  still = false,
 }: {
   children: ReactNode;
   rotate?: number;
   duration?: number;
   id: string;
+  /** Sem girar (preferência por menos movimento). */
+  still?: boolean | null;
 }) {
   return (
     <motion.div
@@ -22,7 +25,7 @@ export default function Halo({
         transform: 'translate(-50%, -50%)'
       }}
       id={id}
-      animate={{ rotate }} // Rotate 360 degrees
+      animate={still ? undefined : { rotate }} // Rotate 360 degrees
       transition={{
         repeat: Infinity, // Infinite loop
         duration, // Duration for one full rotation

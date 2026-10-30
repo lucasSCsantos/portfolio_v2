@@ -1,5 +1,6 @@
 'use client';
 
+import { useReducedMotion } from 'framer-motion';
 import { useLottie, useLottieInteractivity } from 'lottie-react';
 import { CSSProperties } from 'styled-components';
 import fishes from '@/lotties/fish.json';
@@ -18,7 +19,7 @@ const style: CSSProperties = {
   filter: 'brightness(0)'
 };
 
-export default function ServicesAnimation() {
+function Fishes() {
   const lottieObj = useLottie(options, style);
   const Animation = useLottieInteractivity({
     lottieObj,
@@ -33,4 +34,10 @@ export default function ServicesAnimation() {
   });
 
   return Animation;
+}
+
+// Os peixes nadam conforme a rolagem; sem eles quando se pede menos movimento.
+export default function Animation() {
+  const reducedMotion = useReducedMotion();
+  return reducedMotion ? null : <Fishes />;
 }

@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import MainContainer from './components/main';
+import Sea from './components/Sea';
 
 const About    = dynamic(() => import('./components/About'));
 const Projects = dynamic(() => import('./components/Projects'));
@@ -17,13 +18,15 @@ export default function Home() {
   return (
     <>
       <Header />
-      <MainContainer>
+      <MainContainer id="conteudo" tabIndex={-1}>
         <Hero />
-        <About />
-        <Projects />
-        <Jobs />
-        <Services />
-        <Work />
+        <Sea>
+          <About />
+          <Projects />
+          <Jobs />
+          <Services />
+          <Work />
+        </Sea>
         <Contact />
         <Footer />
         <Image
@@ -36,7 +39,8 @@ export default function Home() {
             pointerEvents: 'none'
           }}
           src="/bg-bubble2.png"
-          alt="Texto escrito 'sobre'"
+          alt=""
+          aria-hidden
           width={1352}
           height={1352}
           quality={65}

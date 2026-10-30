@@ -2,6 +2,7 @@
 
 import { Area, Content } from '../ui/default';
 import { Heading } from '../ui/typography';
+import WaterPiece from '../ui/WaterPiece';
 import dynamic from 'next/dynamic';
 
 const Carrousel = dynamic(() => import('./Carrousel'), { ssr: false });
@@ -28,24 +29,32 @@ function Projects() {
           $justify="flex-start"
           $direction="column"
         >
-          <Heading
+          <WaterPiece
+            as={Heading}
+            order={0}
+            from="left"
             $level={3}
             $size="small"
             $fontWeight={500}
             $color="textLight"
           >
             Projetos
-          </Heading>
-          <Heading
-            $level={1}
+          </WaterPiece>
+          <WaterPiece
+            as={Heading}
+            order={1}
+            from="left"
+            $level={2}
             $color="text"
             $size="normal"
             $letterSpacing={-1.92}
           >
             Meus projetos individuais
-          </Heading>
+          </WaterPiece>
         </Area>
-        <Carrousel />
+        <WaterPiece order={3} from="right" calm>
+          <Carrousel />
+        </WaterPiece>
       </Content>
       <Animation />
       <Image
@@ -58,7 +67,8 @@ function Projects() {
           pointerEvents: 'none'
         }}
         src="/projects-bg-text.png"
-        alt="Texto escrito 'sobre'"
+        alt=""
+        aria-hidden
         width={1067}
         height={258}
       />
@@ -72,7 +82,8 @@ function Projects() {
           pointerEvents: 'none'
         }}
         src="/bg-bubble.png"
-        alt="Texto escrito 'sobre'"
+        alt=""
+        aria-hidden
         width={789}
         height={789}
       />

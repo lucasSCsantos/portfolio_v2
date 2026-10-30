@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { Area, Content } from '../ui/default';
 import { Heading } from '../ui/typography';
+import WaterPiece from '../ui/WaterPiece';
 import { Container } from './styles';
 import Service from './Service';
 import dynamic from 'next/dynamic';
@@ -28,22 +29,28 @@ function Services() {
           $justify="flex-start"
           $direction="column"
         >
-          <Heading
+          <WaterPiece
+            as={Heading}
+            order={0}
+            from="left"
             $level={3}
             $size="small"
             $fontWeight={500}
             $color="textLight"
           >
             {content.services.label}
-          </Heading>
-          <Heading
-            $level={1}
-            $color="text"
+          </WaterPiece>
+          <WaterPiece
+            as={Heading}
+            order={1}
+            from="left"
+            $level={2}
+            $color="textLight"
             $size="normal"
             $letterSpacing={-1.92}
           >
             {content.services.title}
-          </Heading>
+          </WaterPiece>
         </Area>
         <Area
           $width={100}
@@ -52,8 +59,14 @@ function Services() {
           $direction="row"
           style={{ flexWrap: 'wrap', rowGap: 38 }}
         >
-          {services.map(({ text, title, message }) => (
-            <Service text={text} title={title} key={title} message={message} />
+          {services.map(({ text, title, message }, index) => (
+            <Service
+              text={text}
+              title={title}
+              key={title}
+              message={message}
+              order={index + 2}
+            />
           ))}
         </Area>
       </Content>
@@ -69,7 +82,8 @@ function Services() {
           zIndex: 1
         }}
         src="/services-bg-text.png"
-        alt="Texto escrito 'serviços'"
+        alt=""
+        aria-hidden
         width={1212}
         height={312}
       />
@@ -83,7 +97,8 @@ function Services() {
           pointerEvents: 'none'
         }}
         src="/bg-bubble3.png"
-        alt="Texto escrito 'sobre'"
+        alt=""
+        aria-hidden
         width={669}
         height={669}
       />

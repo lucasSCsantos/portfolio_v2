@@ -1,6 +1,7 @@
 'use client';
 import { Area, Content } from '../ui/default';
 import { Heading } from '../ui/typography';
+import WaterPiece from '../ui/WaterPiece';
 import { Container, ExperiencesRow } from './styles';
 import Experience from './Experience';
 import experiences from '@/meta/experiences';
@@ -24,26 +25,32 @@ function Jobs() {
           $justify="flex-start"
           $direction="column"
         >
-          <Heading
+          <WaterPiece
+            as={Heading}
+            order={0}
+            from="left"
             $level={3}
             $size="small"
             $fontWeight={500}
             $color="textLight"
           >
             {content.jobs.label}
-          </Heading>
-          <Heading
-            $level={1}
-            $color="text"
+          </WaterPiece>
+          <WaterPiece
+            as={Heading}
+            order={1}
+            from="left"
+            $level={2}
+            $color="textLight"
             $size="normal"
             $letterSpacing={-1.92}
           >
             {content.jobs.title}
-          </Heading>
+          </WaterPiece>
         </Area>
         <ExperiencesRow>
-          {experiences.map(exp => (
-            <Experience key={exp.company} {...exp} />
+          {experiences.map((exp, index) => (
+            <Experience key={exp.company} order={index + 2} {...exp} />
           ))}
         </ExperiencesRow>
       </Content>

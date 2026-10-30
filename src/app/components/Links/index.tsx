@@ -18,7 +18,7 @@ import {
 
 function Links() {
   return (
-    <Container>
+    <Container id="conteudo" tabIndex={-1}>
       <Top>
         <TopSection />
         <Waves parallax={false} />
