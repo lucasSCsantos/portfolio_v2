@@ -35,7 +35,7 @@ function Projects() {
             from="left"
             $level={3}
             $size="small"
-            $fontWeight={500}
+            $role="subtitle"
             $color="textLight"
           >
             Projetos
@@ -47,7 +47,6 @@ function Projects() {
             $level={2}
             $color="text"
             $size="normal"
-            $letterSpacing={-1.92}
           >
             Meus projetos individuais
           </WaterPiece>

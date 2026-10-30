@@ -1,6 +1,6 @@
 'use client';
 
-import { Area, Box, Content } from '../ui/default';
+import { Area, Box, Content, scrimStyle } from '../ui/default';
 import WaterPiece from '../ui/WaterPiece';
 import { Heading, Text } from '../ui/typography';
 import AboutImage from './AboutImage';
@@ -44,7 +44,7 @@ function About() {
               from="left"
               $level={3}
               $size="small"
-              $fontWeight={500}
+              $role="subtitle"
               $color="tertiary"
             >
               {content.about.label}
@@ -56,7 +56,6 @@ function About() {
               $level={2}
               $color="text"
               $size="normal"
-              $letterSpacing={-1.92}
             >
               {profile.name}
             </WaterPiece>
@@ -66,9 +65,8 @@ function About() {
             order={2}
             from="right"
             $size="xsmall"
-            style={{ textAlign: 'justify' }}
             $color="textLight"
-            $fontWeight={600}
+            style={scrimStyle}
           >
             {content.about.bio}
           </WaterPiece>

@@ -59,7 +59,7 @@ function Contact() {
               from="left"
               $level={3}
               $size="small"
-              $fontWeight={500}
+              $role="subtitle"
               $color="quaternary"
             >
               {content.contact.label}
@@ -71,7 +71,6 @@ function Contact() {
               from="left"
               $level={2}
               $color="text"
-              $letterSpacing={-1.92}
             >
               {content.contact.heading}
             </WaterPiece>

@@ -24,7 +24,6 @@ export default function TopSection() {
           $font="inter"
           $fontWeight={400}
           $lineHeight="auto"
-          $letterSpacing={-0.9}
         >
           {profile.name}
         </Text>
@@ -38,7 +37,6 @@ export default function TopSection() {
           $level={1}
           $textAlign="center"
           $lineHeight="96%"
-          $letterSpacing={-2.8}
           style={{
             backgroundImage: 'linear-gradient(180deg, black 80%, #1762A6)',
             backgroundClip: 'text',

@@ -331,21 +331,13 @@ export const CardBack = styled(CardFace)`
 
   .skill-name {
     font-family: ${({ theme }) => theme.font.family.poppins};
-    font-size: clamp(0.45rem, 1.2vw, 0.8rem);
-    font-weight: 700;
+    font-size: ${({ theme }) => theme.sizes.xxxsmall};
+    font-weight: ${({ theme }) => theme.type.title.weight};
     color: ${({ theme }) => theme.colors.textLight};
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.02em;
+    overflow-wrap: anywhere;
     text-align: center;
-
-    @media (max-width: 834px) {
-      font-size: 0.8125rem;
-    }
-
-    @media (max-width: 428px) {
-      font-size: 0.6875rem;
-      letter-spacing: 0.02em;
-    }
   }
 
   .divider {
@@ -356,23 +348,4 @@ export const CardBack = styled(CardFace)`
     border-radius: 1px;
   }
 
-  .label {
-    font-family: ${({ theme }) => theme.font.family.inter};
-    font-size: clamp(0.3rem, 0.8vw, 0.45rem);
-    font-weight: 600;
-    color: ${({ theme }) => theme.colors.secondary};
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    opacity: 0.7;
-    align-self: flex-start;
-  }
-
-  .desc {
-    font-family: ${({ theme }) => theme.font.family.inter};
-    font-size: clamp(0.32rem, 0.9vw, 0.52rem);
-    color: ${({ theme }) => theme.colors.secondary};
-    line-height: 1.45;
-    text-align: left;
-    width: 100%;
-  }
 `;

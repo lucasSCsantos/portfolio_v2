@@ -86,7 +86,7 @@ const Project = ({
             <Tag $color={color} $gradient={gradient}>
               Projeto Realizado em {year}
             </Tag>
-            <Text $size="xxsmall" style={{ marginTop: 24, textAlign: 'justify' }}>
+            <Text $size="xxsmall" style={{ marginTop: 24 }}>
               {description}
             </Text>
           </Box>
