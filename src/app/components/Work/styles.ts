@@ -259,15 +259,16 @@ export const ExperienceText = styled.p`
 `;
 
 export const SkillGroups = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 24px;
   flex: 1 1 0;
   min-width: 0;
 
   @media (max-width: 834px) {
     flex: none;
     width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   }
 `;
 
