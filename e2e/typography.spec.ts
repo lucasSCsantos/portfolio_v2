@@ -52,36 +52,37 @@ test.describe('fontes', () => {
   test('só os pesos usados são baixados', async ({ page }) => {
     await loadAll(page);
 
-    // Entradas animadas (opacidade 0) ainda não contam como texto visível: repete até assentar.
-    await expect
-      .poll(
-        async () => {
-          await page.evaluate(() => document.fonts.ready);
-          const result = (await page.evaluate(`(() => {
-            const els = ${VISIBLE_TEXT.trim()};
-            const used = els.map(el => {
-              const s = getComputedStyle(el);
-              return s.fontFamily.split(',')[0].replace(/["']/g, '').trim() + '|' + s.fontWeight;
-            });
-            const loaded = Array.from(document.fonts)
-              .filter(f => f.status === 'loaded')
-              .map(f => f.family.replace(/["']/g, '') + '|' + f.weight);
-            return { used, loaded };
-          })()`)) as { used: string[]; loaded: string[] };
+    // As seções entram e saem da água ao rolar: junta o que foi visto em toda a rolagem.
+    const result = (await page.evaluate(`(async () => {
+      const used = new Set();
+      const collect = () => {
+        for (const el of ${VISIBLE_TEXT.trim()}) {
+          const s = getComputedStyle(el);
+          used.add(s.fontFamily.split(',')[0].replace(/["']/g, '').trim() + '|' + s.fontWeight);
+        }
+      };
+      for (let y = 0; y < document.body.scrollHeight; y += 300) {
+        window.scrollTo({ top: y, behavior: 'instant' });
+        await new Promise(r => setTimeout(r, 250));
+        collect();
+      }
+      await document.fonts.ready;
+      const loaded = Array.from(document.fonts)
+        .filter(f => f.status === 'loaded')
+        .map(f => f.family.replace(/["']/g, '') + '|' + f.weight);
+      return { used: [...used], loaded };
+    })()`)) as { used: string[]; loaded: string[] };
 
-          // Poppins é estático: um arquivo por peso. Cada peso baixado tem de aparecer na página.
-          return result.loaded
-            .filter(f => /Poppins/i.test(f) && !/Fallback/i.test(f))
-            .filter(f => {
-              const weight = f.split('|')[1];
-              return !result.used.some(
-                u => /Poppins/i.test(u) && u.split('|')[1] === weight
-              );
-            });
-        },
-        { timeout: 10_000 }
-      )
-      .toEqual([]);
+    // Poppins é estático: um arquivo por peso. Cada peso baixado tem de aparecer na página.
+    const unused = result.loaded
+      .filter(f => /Poppins/i.test(f) && !/Fallback/i.test(f))
+      .filter(f => {
+        const weight = f.split('|')[1];
+        return !result.used.some(
+          u => /Poppins/i.test(u) && u.split('|')[1] === weight
+        );
+      });
+    expect(unused).toEqual([]);
   });
 });
 

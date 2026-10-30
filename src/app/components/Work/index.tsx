@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { Content, scrimStyle } from '../ui/default';
+import { Content } from '../ui/default';
 import { Heading, Text } from '../ui/typography';
 import WaterPiece from '../ui/WaterPiece';
 import {
@@ -34,7 +34,7 @@ function Work() {
       >
         <MainRow>
           <LeftSection>
-            <div style={scrimStyle}>
+            <div>
               <WaterPiece
                 as={Heading}
                 order={0}
@@ -63,7 +63,7 @@ function Work() {
               from="right"
               $size="xxsmall"
               $color="textLight"
-              style={scrimStyle}
+             
             >
               {content.work.description}
             </WaterPiece>
