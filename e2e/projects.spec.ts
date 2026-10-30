@@ -58,16 +58,21 @@ test.describe('seção de Projetos', () => {
     await expect(c.getByRole('button', { name: /ver (site|demo)/i })).toHaveCount(0);
   });
 
-  test('links de demo são rotulados como demo e os de produção como site', async ({
-    page
-  }) => {
+  test('Ver demo abre o vídeo e Ver site só existe com link', async ({ page }) => {
     for (const project of projects) {
       const c = card(page, project.title);
-      if (project.linkKind === 'demo')
-        await expect(c.getByRole('button', { name: /ver demo/i })).toHaveCount(1);
-      if (project.linkKind === 'production')
-        await expect(c.getByRole('button', { name: /ver site/i })).toHaveCount(1);
+      await expect(c.getByRole('button', { name: /^Ver demo/ })).toHaveCount(
+        project.video ? 1 : 0
+      );
+      await expect(c.getByRole('button', { name: /^Ver site/ })).toHaveCount(
+        project.href ? 1 : 0
+      );
     }
+  });
+
+  test('Torcida Imperial não tem link e o Biblio aponta para bibliooo.com.br', async () => {
+    expect(projects.find(p => p.title === 'Torcida Imperial')?.href).toBeUndefined();
+    expect(projects.find(p => p.title === 'Biblio')?.href).toBe('https://bibliooo.com.br');
   });
 
   test('descrições têm tamanho de leitura rápida', async () => {
@@ -82,7 +87,7 @@ test.describe('seção de Projetos', () => {
   });
 
   test('o Vídeo do projeto abre e fecha', async ({ page }) => {
-    const opener = page.getByRole('button', { name: /Ver vídeo do projeto Mural ONDA/ }).first();
+    const opener = page.getByRole('button', { name: /Ver demo do projeto Mural ONDA/ }).first();
     await opener.scrollIntoViewIfNeeded();
     await opener.focus();
     await page.keyboard.press('Enter');
@@ -96,7 +101,7 @@ test.describe('seção de Projetos', () => {
     for (const project of projects.filter(p => p.video)) {
       // O carrossel remonta os slides em loop: o clique é despachado direto.
       await card(page, project.title)
-        .getByRole('button', { name: `Ver vídeo do projeto ${project.title}` })
+        .getByRole('button', { name: `Ver demo do projeto ${project.title}` })
         .dispatchEvent('click');
       const dialog = page.getByRole('dialog');
       await expect(dialog, project.title).toBeVisible();
