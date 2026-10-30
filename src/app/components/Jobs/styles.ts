@@ -12,21 +12,6 @@ export const Container = styled.section`
   z-index: 98;
   background-color: transparent;
 
-  /* Água mais funda atrás do título: a luz nesse ponto da rolagem tirava o contraste. */
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: 520px;
-    pointer-events: none;
-    /* Sobe e desce suave: sem borda dura na emenda com os Projetos. */
-    background: linear-gradient(
-      ${({ theme }) => theme.colors.backgroundDarkBlue}00,
-      ${({ theme }) => theme.colors.backgroundDarkBlue}d9 35%,
-      ${({ theme }) => theme.colors.backgroundDarkBlue}00
-    );
-  }
-
   @media (max-width: 834px) {
     min-height: fit-content !important;
     padding-bottom: 80px;
