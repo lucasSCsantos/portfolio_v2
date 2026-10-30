@@ -32,6 +32,8 @@ export interface Skill {
   name: string;
   // Metodologias (Scrum, Kanban) não têm logotipo: usam um ícone genérico.
   icon: IconType;
+  // Fica de fora da vitrine inicial e entra no revezamento das habilidades.
+  rotating?: boolean;
 }
 
 export interface SkillGroup {
@@ -49,8 +51,8 @@ const skillGroups: SkillGroup[] = [
     skills: [
       { name: 'JavaScript', icon: SiJavascript },
       { name: 'TypeScript', icon: SiTypescript },
-      { name: 'HTML', icon: SiHtml5 },
-      { name: 'CSS', icon: SiCss3 }
+      { name: 'HTML', icon: SiHtml5, rotating: true },
+      { name: 'CSS', icon: SiCss3, rotating: true }
     ]
   },
   {
