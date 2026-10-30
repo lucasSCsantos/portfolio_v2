@@ -5,8 +5,7 @@ import styled from 'styled-components';
 import { ctaVariant } from '../ui/default';
 
 export const Container = styled.section`
-  /* Altura mínima para o título ficar acima da crista da onda. */
-  min-height: max(100svh, 54rem);
+  min-height: 100svh;
   display: flex;
   position: relative;
   overflow: hidden;
@@ -46,7 +45,7 @@ export const Stack = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: clamp(0.5rem, 1.6vh, 1rem);
   padding: 0 32px clamp(1rem, 4vh, 3rem);
   text-align: center;
@@ -252,7 +251,7 @@ export const WavesContainer = styled.svg`
 `;
 
 export const AvatarContainer = styled(motion.div)`
-  --avatar: clamp(110px, 15vh, 160px);
+  --avatar: clamp(120px, 19vh, 200px);
   position: relative;
   width: var(--avatar);
   height: var(--avatar);
@@ -265,7 +264,7 @@ export const AvatarContainer = styled(motion.div)`
   }
 
   @media (max-width: 834px) {
-    --avatar: clamp(104px, 14vh, 130px);
+    --avatar: clamp(104px, 16vh, 150px);
   }
 
   #halo-1 svg {

@@ -14,7 +14,7 @@ const content = {
     // Números genéricos, cada um com uma fonte única: o ano de início da
     // carreira, a lista de Projetos e os resultados dos currículos.
     highlights: [
-      { value: `+${experienceYears()} anos`, label: 'construindo software' },
+      { value: `Desde ${profile.careerStartYear}`, label: 'desenvolvendo software' },
       { value: `${projects.length}`, label: 'projetos lançados' },
       { value: '+30 mil', label: 'usuários em sistemas que criei' },
       { value: '+530', label: 'voluntários organizados' }
