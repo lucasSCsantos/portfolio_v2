@@ -2,7 +2,6 @@ import { test, expect, type Locator, type Page } from '@playwright/test';
 import profile from '../src/meta/profile';
 import content from '../src/meta/content';
 import projects from '../src/meta/projects';
-import { experienceYears } from '../src/meta/profile';
 
 const MIN_CONTRAST = 4.5;
 
@@ -120,7 +119,7 @@ test.describe('Hero', () => {
     page
   }) => {
     const values = content.hero.highlights.map(h => h.value).join(' ');
-    expect(values).toContain(`+${experienceYears()} anos`);
+    expect(values).toContain(`Desde ${profile.careerStartYear}`);
     expect(content.hero.highlights.map(h => h.value)).toContain(
       String(projects.length)
     );
