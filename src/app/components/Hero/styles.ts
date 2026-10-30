@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import { ctaVariant } from '../ui/default';
 
 export const Container = styled.section`
-  min-height: 100svh;
+  /* Altura mínima para o título ficar acima da crista da onda. */
+  min-height: max(100svh, 54rem);
   display: flex;
   position: relative;
   overflow: hidden;
@@ -45,7 +46,7 @@ export const Stack = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: clamp(0.5rem, 1.6vh, 1rem);
   padding: 0 32px clamp(1rem, 4vh, 3rem);
   text-align: center;
@@ -61,11 +62,15 @@ export const Stack = styled.div`
 
 export const ValueProp = styled.p`
   max-width: 36rem;
-  font-size: 1.125rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  background-color: ${({ theme }) => theme.colors.backgroundDarkBlue}e6;
+  color: ${({ theme }) => theme.colors.textLight};
+  font-size: 1.0625rem;
   line-height: 1.5;
-  color: ${({ theme }) => theme.colors.textMuted};
 
   @media (max-width: 428px) {
+    border-radius: 1.25rem;
     font-size: 1rem;
   }
 `;
@@ -189,11 +194,6 @@ export const WavesContainer = styled.svg`
   left: 0;
   bottom: 0;
 
-  /* Desce a onda para o título e a frase de valor ficarem sobre o fundo claro. */
-  @media (min-width: 835px) {
-    bottom: clamp(-16rem, -24vh, -8rem);
-  }
-
   .backWave {
     transform: translate(-100px, -6rem);
   }
@@ -252,7 +252,7 @@ export const WavesContainer = styled.svg`
 `;
 
 export const AvatarContainer = styled(motion.div)`
-  --avatar: clamp(120px, 19vh, 200px);
+  --avatar: clamp(110px, 15vh, 160px);
   position: relative;
   width: var(--avatar);
   height: var(--avatar);
@@ -265,7 +265,7 @@ export const AvatarContainer = styled(motion.div)`
   }
 
   @media (max-width: 834px) {
-    --avatar: clamp(104px, 16vh, 150px);
+    --avatar: clamp(104px, 14vh, 130px);
   }
 
   #halo-1 svg {

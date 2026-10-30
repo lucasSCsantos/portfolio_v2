@@ -1,4 +1,5 @@
 import profile, { experienceYears } from './profile';
+import projects from './projects';
 
 const content = {
   hero: {
@@ -10,13 +11,13 @@ const content = {
     cta: 'Entrar em contato',
     secondaryCta: 'Ver projetos',
     resumeCta: 'Baixar currículo',
-    // Cada número tem fonte no currículo: início da carreira, Torcida Imperial,
-    // Sistema de Gestão de Voluntários e migração de usuários na IASOS.
+    // Números genéricos, cada um com uma fonte única: o ano de início da
+    // carreira, a lista de Projetos e os resultados dos currículos.
     highlights: [
-      { value: `Desde ${profile.careerStartYear}`, label: 'desenvolvendo software' },
-      { value: '30 mil+', label: 'usuários na Torcida Imperial' },
-      { value: '530+', label: 'voluntários organizados' },
-      { value: '500+', label: 'usuários migrados sem perda' }
+      { value: `+${experienceYears()} anos`, label: 'construindo software' },
+      { value: `${projects.length}`, label: 'projetos lançados' },
+      { value: '+30 mil', label: 'usuários em sistemas que criei' },
+      { value: '+530', label: 'voluntários organizados' }
     ]
   },
   header: {

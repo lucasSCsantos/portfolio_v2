@@ -155,7 +155,8 @@ test.describe('contraste', () => {
   // Mede o pior pixel de fundo atrás de cada texto, tirando o texto da captura.
   async function worstContrast(page: Page, selector: string) {
     const target = page.locator(selector).first();
-    await target.scrollIntoViewIfNeeded();
+    // Centraliza o texto para o Header fixo não ficar por cima da medição.
+    await target.evaluate(el => el.scrollIntoView({ block: 'center' }));
     await page.waitForTimeout(1500); // entrada na água e flutuação
     const box = await target.boundingBox();
     if (!box) throw new Error(`sem caixa: ${selector}`);

@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaDownload } from 'react-icons/fa6';
 import { Button } from '../ui/default';
-import { CtaRow, ResumeLink, Stats } from './styles';
+import { Availability, CtaRow, ResumeLink, Stats, ValueProp } from './styles';
 import { scrollToId } from '@/app/lib/scroll';
 import content from '@/meta/content';
 import profile from '@/meta/profile';
@@ -41,6 +41,8 @@ export default function BottomSection() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ ease: 'easeInOut', duration: 0.8, delay: 2 }}
     >
+      <ValueProp>{content.hero.valueProp}</ValueProp>
+      <Availability>{profile.availability}</Availability>
       <CtaRow>
         <Button $variant="solid" onClick={() => scrollToId('contato')}>
           {content.hero.cta}
