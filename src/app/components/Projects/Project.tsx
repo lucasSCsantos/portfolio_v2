@@ -22,7 +22,7 @@ interface ProjectProps extends ComponentProps<typeof MotionBox> {
   year: string;
   color: string;
   gradient?: string;
-  src: string | string[];
+  src: string;
   imagePosition?: 'left' | 'center' | 'right';
   type?: 'phone' | 'desktop';
   href?: string;
@@ -121,24 +121,14 @@ const Project = ({
                 $width={'100%'}
                 style={{ alignItems: 'flex-start' }}
                 $align="flex-start"
-                $justify="space-between"
+                $justify="center"
               >
                 <ProjectImage
                   $width={'47%'}
                   $height={'92%'}
                   className="project-image-mobile"
                   style={{
-                    backgroundImage: `url(${src[0]})`,
-                    borderRadius: 0.02 * width,
-                    alignSelf: 'flex-start'
-                  }}
-                />
-                <ProjectImage
-                  $width={'47%'}
-                  $height={'92%'}
-                  className="project-image-mobile2"
-                  style={{
-                    backgroundImage: `url(${src[1]})`,
+                    backgroundImage: `url(${src})`,
                     borderRadius: 0.02 * width,
                     alignSelf: 'flex-start'
                   }}
@@ -160,7 +150,7 @@ const Project = ({
         </Box>
         {(hasVideo || href || offline) && (
           <Box
-            $justify="flex-start"
+            $justify="flex-end"
             style={{ gap: 12, flexWrap: 'wrap', marginTop: 16, flex: '0 0 auto' }}
           >
             {hasVideo && (

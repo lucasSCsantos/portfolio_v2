@@ -27,7 +27,7 @@ export interface Project {
   relation: ProjectRelation;
   color: string;
   gradient?: string;
-  src: string | string[];
+  src: string;
   // Âncora horizontal da imagem quando o card a corta (padrão: centro).
   imagePosition?: 'left' | 'center' | 'right';
   href?: string;
@@ -95,7 +95,7 @@ const projects: Project[] = [
     year: '2024',
     color: '#5C3817',
     type: 'phone',
-    src: ['biblio-mobile.png', 'biblio-mobile.png'],
+    src: 'biblio-mobile.png',
     href: 'https://bibliooo.com.br',
     relation: 'iniciativa própria',
     role: 'Criei e desenvolvi',
@@ -113,7 +113,7 @@ const projects: Project[] = [
     color: '#000612',
     gradient: 'linear-gradient(135deg, #facc15 0%, #a855f7 50%, #3b82f6 100%)',
     type: 'phone',
-    src: ['jogopassa.png', 'jogopassa-sala2.png'],
+    src: 'jogopassa.png',
     href: 'https://www.jogopassa.com.br',
     relation: 'iniciativa própria',
     role: 'Criei e desenvolvi',

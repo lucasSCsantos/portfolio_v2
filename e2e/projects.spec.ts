@@ -77,6 +77,20 @@ test.describe('seção de Projetos', () => {
     expect(Math.abs(demo.y - site.y)).toBeLessThan(4);
   });
 
+  test('os botões ficam no lado direito do card', async ({ page }) => {
+    const c = card(page, 'Mural ONDA');
+    const box = (await c.locator('> div').first().boundingBox())!;
+    const site = (await c.getByRole('button', { name: /^Ver site/ }).boundingBox())!;
+    expect(site.x + site.width).toBeGreaterThan(box.x + box.width * 0.85);
+  });
+
+  test('projetos mobile mostram um print só', async ({ page }) => {
+    for (const project of projects.filter(p => p.type === 'phone'))
+      await expect(
+        card(page, project.title).locator('[class*="project-image"]')
+      ).toHaveCount(1);
+  });
+
   test('Torcida Imperial avisa que o site está fora do ar', async ({ page }) => {
     const c = card(page, 'Torcida Imperial');
     await expect(c).toContainText('Site fora do ar');
