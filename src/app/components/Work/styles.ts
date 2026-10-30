@@ -100,6 +100,8 @@ export const ServiceButton = styled(Button)`
 `;
 
 export const CoralContainer = styled.div`
+  /* Decoração: não pode interceptar o mouse dos cards de habilidades. */
+  pointer-events: none;
   align-self: flex-end;
   z-index: 3;
   position: absolute;
@@ -281,6 +283,15 @@ export const SkillGrid = styled.ul`
 
 export const CardInner = styled.div`
   position: relative;
+  animation: skill-in 0.6s ease;
+
+  @keyframes skill-in {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+  }
+
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;

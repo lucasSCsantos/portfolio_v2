@@ -119,3 +119,52 @@ test.describe('habilidades', () => {
     }
   });
 });
+
+test.describe('habilidades interativas', () => {
+  test('passar o mouse em um quadrado vira o card e revela o nome', async ({
+    page
+  }) => {
+    const card = page.locator('#habilidades li').first();
+    await card.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(1500);
+    const box = (await card.boundingBox())!;
+    const x = box.x + box.width / 2;
+    const y = box.y + box.height / 2;
+
+    // Nada pode estar por cima do quadrado interceptando o mouse.
+    const covered = await page.evaluate(
+      ([px, py]) =>
+        !document.elementFromPoint(px, py)?.closest('#habilidades li'),
+      [x, y]
+    );
+    expect(covered).toBe(false);
+
+    await page.mouse.move(x, y);
+    await page.waitForTimeout(900);
+    const flipped = await card.evaluate(el => {
+      const inner = el.firstElementChild as HTMLElement;
+      return getComputedStyle(inner).transform;
+    });
+    // rotateY(180deg): o primeiro termo da matriz inverte para -1.
+    expect(flipped).toMatch(/^matrix3d\(-1/);
+  });
+
+  test('mostra 25 habilidades e as troca aleatoriamente com o tempo', async ({
+    page
+  }) => {
+    const names = () =>
+      page
+        .locator('#habilidades li strong')
+        .allInnerTexts()
+        .then(list => list.sort());
+    const before = await names();
+    expect(before).toHaveLength(25);
+
+    // Fora do card sob o mouse, o revezamento troca uma habilidade por outra.
+    await page.mouse.move(0, 0);
+    await expect
+      .poll(async () => (await names()).join(), { timeout: 20_000 })
+      .not.toBe(before.join());
+    expect(await names()).toHaveLength(25);
+  });
+});
