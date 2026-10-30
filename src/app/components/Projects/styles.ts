@@ -309,7 +309,7 @@ export const TechList = styled.ul`
   }
 `;
 
-export const Result = styled.p`
+export const Result = styled.div`
   margin: 12px 0 0;
   font-size: ${({ theme }) => theme.sizes.xsmall};
   font-weight: 700;
