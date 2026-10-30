@@ -1,16 +1,19 @@
 import type { Metadata } from 'next';
 import Links from '../components/Links';
+import profile from '@/meta/profile';
 
-const description =
-  'Encontre Lucas Cristovam: portfólio, WhatsApp, LinkedIn, GitHub, Instagram e e-mail.';
+const title = `${profile.name} - ${profile.role}`;
+const description = `Encontre ${profile.name}: portfólio, WhatsApp, LinkedIn, GitHub, Instagram e e-mail.`;
 
 export const metadata: Metadata = {
-  title: 'Lucas Cristovam - Links',
+  title: `${title} | Links`,
   description,
+  alternates: { canonical: '/links' },
+  twitter: { card: 'summary_large_image' },
   openGraph: {
-    title: 'Lucas Cristovam - Links',
+    title: `${title} | Links`,
     description,
-    url: 'https://lucascristovam.com/links',
+    url: `${profile.siteUrl}/links`,
     locale: 'pt_BR',
     type: 'website'
   }

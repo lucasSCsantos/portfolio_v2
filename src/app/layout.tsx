@@ -1,14 +1,19 @@
 import type { Metadata } from 'next';
 import Providers from './providers';
-import ClientLoader from './components/ClientLoader';
+import SkipLink from './components/SkipLink';
 import { inter, poppins } from './lib/fonts';
+import profile from '@/meta/profile';
+
+const title = `${profile.name} - ${profile.role}`;
+const description = `Portfólio de ${profile.name}, ${profile.role.toLowerCase()} especializado em React, Node.js e TypeScript.`;
 
 export const metadata: Metadata = {
-  title: 'Lucas Cristovam - Desenvolvedor Full Stack',
-  description: 'Portfólio de Lucas Cristovam, desenvolvedor full stack especializado em React, Node.js e TypeScript.',
+  metadataBase: new URL(profile.siteUrl),
+  title,
+  description,
   keywords: [
-    'Lucas Cristovam',
-    'desenvolvedor full stack',
+    profile.name,
+    profile.role.toLowerCase(),
     'React',
     'Node.js',
     'TypeScript',
@@ -18,21 +23,37 @@ export const metadata: Metadata = {
     'tecnologias',
     'contato'
   ],
-  authors: [{ name: 'Lucas Cristovam', url: 'https://lucascristovam.com' }],
+  authors: [{ name: profile.name, url: profile.siteUrl }],
+  alternates: { canonical: '/' },
   openGraph: {
-    title: 'Lucas Cristovam - Desenvolvedor Full Stack',
-    description: 'Portfólio de Lucas Cristovam, desenvolvedor full stack especializado em React, Node.js e TypeScript.',
-    url: 'https://lucascristovam.com',
-    siteName: 'Lucas Cristovam Portfolio',
+    title,
+    description,
+    url: profile.siteUrl,
+    siteName: `${profile.name} - Portfólio`,
     locale: 'pt_BR',
     type: 'website'
   },
   twitter: {
-    card: 'summary',
-    title: 'Lucas Cristovam - Desenvolvedor Full Stack',
-    description: 'Portfólio de Lucas Cristovam, desenvolvedor full stack especializado em React, Node.js e TypeScript.'
+    card: 'summary_large_image',
+    title,
+    description
   },
   robots: { index: true, follow: true }
+};
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  alternateName: profile.fullName,
+  jobTitle: profile.role,
+  url: profile.siteUrl,
+  address: { '@type': 'PostalAddress', addressLocality: profile.location },
+  sameAs: [
+    profile.social.github,
+    profile.social.linkedin,
+    profile.social.instagram
+  ]
 };
 
 export default function RootLayout({
@@ -44,9 +65,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${inter.variable} ${poppins.variable}`} style={{ overflow: 'hidden' }}>
+      <body className={`${inter.variable} ${poppins.variable}`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <Providers>
-          <ClientLoader>{children}</ClientLoader>
+          <SkipLink />
+          {children}
         </Providers>
       </body>
     </html>
