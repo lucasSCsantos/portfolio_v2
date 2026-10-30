@@ -9,9 +9,10 @@ interface NavLinkProps {
   text: string;
   path?: string;
   onNavigate?: () => void;
+  active?: boolean;
 }
 
-function NavLink({ text, path = '/', onNavigate }: NavLinkProps) {
+function NavLink({ text, path = '/', onNavigate, active = false }: NavLinkProps) {
   const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
     if (path.startsWith('#')) {
       e.preventDefault();
@@ -23,7 +24,11 @@ function NavLink({ text, path = '/', onNavigate }: NavLinkProps) {
 
   return (
     <NavLinkContainer>
-      <a href={path} onClick={handleClick}>
+      <a
+        href={path}
+        onClick={handleClick}
+        aria-current={active ? 'true' : undefined}
+      >
         <Text $size="xxsmall">{text}</Text>
       </a>
     </NavLinkContainer>

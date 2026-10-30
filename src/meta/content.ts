@@ -5,7 +5,22 @@ const content = {
     greeting: 'Oi, eu sou Lucas!',
     // O cargo vem da identidade; a quebra de linha é só do layout do Hero.
     title: profile.role.replace(' ', '\n'),
-    cta: 'Entrar em contato!'
+    valueProp:
+      'Conduzo projetos do início ao fim: da ideia à solução funcionando.',
+    cta: 'Entrar em contato',
+    secondaryCta: 'Ver projetos',
+    resumeCta: 'Baixar currículo',
+    // Cada número tem fonte no currículo: início da carreira, Torcida Imperial,
+    // Sistema de Gestão de Voluntários e migração de usuários na IASOS.
+    highlights: [
+      { value: `Desde ${profile.careerStartYear}`, label: 'desenvolvendo software' },
+      { value: '30 mil+', label: 'usuários na Torcida Imperial' },
+      { value: '530+', label: 'voluntários organizados' },
+      { value: '500+', label: 'usuários migrados sem perda' }
+    ]
+  },
+  header: {
+    cta: 'Currículo'
   },
   about: {
     label: 'Sobre mim',

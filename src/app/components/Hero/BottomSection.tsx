@@ -1,15 +1,13 @@
 import { useRef } from 'react';
-import { Area, Button } from '../ui/default';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { FaDownload } from 'react-icons/fa6';
+import { Button } from '../ui/default';
+import { CtaRow, ResumeLink, Stats } from './styles';
 import { scrollToId } from '@/app/lib/scroll';
 import content from '@/meta/content';
+import profile from '@/meta/profile';
 
 export default function BottomSection() {
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      scrollToId('contato');
-  };
-
   const ref = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -26,26 +24,43 @@ export default function BottomSection() {
   });
 
   return (
-    <Area
+    <motion.div
       ref={ref}
-      $width={100}
-      $height={'50%'}
-      $direction="column"
-      $justify="flex-start"
-      style={{ paddingTop: 32, zIndex: 99 }}
       id="hero-bottom-section"
+      style={{
+        zIndex: 2,
+        opacity,
+        y,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 'inherit',
+        width: '100%'
+      }}
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ ease: 'easeInOut', duration: 0.8, delay: 2 }}
     >
-      <motion.div
-        id="hero-button"
-        style={{ zIndex: 2, opacity, y }}
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ ease: 'easeInOut', duration: 0.8, delay: 2 }}
-      >
-        <Button onClick={handleClick}>
+      <CtaRow>
+        <Button $variant="solid" onClick={() => scrollToId('contato')}>
           {content.hero.cta}
         </Button>
-      </motion.div>
-    </Area>
+        <Button $variant="light" onClick={() => scrollToId('projetos')}>
+          {content.hero.secondaryCta}
+        </Button>
+        <ResumeLink href={profile.resumePath} download>
+          <FaDownload aria-hidden size={14} />
+          {content.hero.resumeCta}
+        </ResumeLink>
+      </CtaRow>
+      <Stats aria-label="Números">
+        {content.hero.highlights.map(({ value, label }) => (
+          <li key={label}>
+            <strong>{value}</strong>
+            <span>{label}</span>
+          </li>
+        ))}
+      </Stats>
+    </motion.div>
   );
 }

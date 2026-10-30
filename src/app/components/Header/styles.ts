@@ -6,28 +6,24 @@ type MobileMenuStateProps = {
   $isOpen: boolean;
 };
 
-export const Container = styled.header`
+export const Container = styled.header<{ $scrolled: boolean }>`
   width: 100%;
-  height: 12dvh;
+  height: 4.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
-  padding-top: 0.5rem;
-
-  @media (max-width: 1024px) {
-    min-height: 10dvh;
-    padding-top: 0.25rem;
-  }
-
-  @media (max-width: 428px) {
-    min-height: 9dvh;
-  }
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: ${({ $scrolled, theme }) =>
+    $scrolled ? `${theme.colors.background}f2` : 'transparent'};
+  box-shadow: ${({ $scrolled }) =>
+    $scrolled ? '0 2px 16px rgba(0, 47, 91, 0.16)' : 'none'};
+  backdrop-filter: ${({ $scrolled }) => ($scrolled ? 'blur(10px)' : 'none')};
 `;
 
 export const Brand = styled.div`
@@ -37,9 +33,10 @@ export const Brand = styled.div`
   align-items: center;
   flex: 0 0 auto;
 
-  ul {
-    display: flex;
+  a {
+    display: inline-flex;
     align-items: center;
+    min-height: 2.75rem;
   }
 
   @media (max-width: 428px) {
@@ -54,6 +51,7 @@ export const DesktopNav = styled.nav`
   height: 100%;
   display: flex;
   align-items: center;
+  gap: 1.5rem;
 
   ul {
     display: flex;
@@ -106,7 +104,7 @@ export const MobileMenuButton = styled.button<MobileMenuStateProps>`
 
 export const MobileMenu = styled.nav<MobileMenuStateProps>`
   width: min(92vw, 32rem);
-  top: 85%;
+  top: 100%;
   position: absolute;
   padding: ${({ $isOpen }) => ($isOpen ? '0.75rem 1rem' : '0 1rem')};
   border: 1px solid ${({ theme }) => theme.colors.primaryShadow};
@@ -164,6 +162,36 @@ export const NavLinkContainer = styled.div`
   a {
     display: flex;
     align-items: center;
+    border-bottom: 2px solid transparent;
+  }
+
+  a[aria-current='true'] {
+    border-bottom-color: ${({ theme }) => theme.colors.tertiary};
+
+    p {
+      color: ${({ theme }) => theme.colors.tertiary};
+      font-weight: 600;
+    }
+  }
+`;
+
+export const HeaderCta = styled.a`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  background-color: ${({ theme }) => theme.colors.tertiary};
+  color: ${({ theme }) => theme.colors.textLight};
+  font-family: ${({ theme }) => theme.font.family.inter};
+  font-size: 0.9375rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.quaternary};
   }
 `;
 
