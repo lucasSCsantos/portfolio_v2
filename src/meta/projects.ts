@@ -31,6 +31,8 @@ export interface Project {
   // Âncora horizontal da imagem quando o card a corta (padrão: centro).
   imagePosition?: 'left' | 'center' | 'right';
   href?: string;
+  // O site saiu do ar: o card avisa em vez de mostrar o botão de link.
+  offline?: boolean;
   video?: ProjectVideo;
   type?: ProjectType;
   description: string;
@@ -42,6 +44,7 @@ const projects: Project[] = [
     year: '2022',
     color: '#00D84F',
     src: 'imperial.png',
+    offline: true,
     relation: 'iniciativa própria',
     role: 'Idealizei, criei do zero e lancei',
     technologies: ['Next.js', 'React'],

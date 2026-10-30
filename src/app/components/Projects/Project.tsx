@@ -6,6 +6,7 @@ import { Heading, Text } from '../ui/typography';
 import Float from '../ui/Float';
 import {
   Meta,
+  Offline,
   ProjectButton,
   ProjectContainer,
   ProjectImage,
@@ -25,6 +26,7 @@ interface ProjectProps extends ComponentProps<typeof MotionBox> {
   imagePosition?: 'left' | 'center' | 'right';
   type?: 'phone' | 'desktop';
   href?: string;
+  offline?: boolean;
   video?: ProjectVideo;
   role: string;
   technologies: string[];
@@ -43,6 +45,7 @@ const Project = ({
   year,
   color,
   href,
+  offline,
   video,
   role,
   technologies,
@@ -153,31 +156,35 @@ const Project = ({
                 }}
               />
             )}
-            {(hasVideo || href) && (
-              <Box $justify="flex-end" style={{ gap: 12, flexWrap: 'wrap' }}>
-                {hasVideo && (
-                  <ProjectButton
-                    $size="small"
-                    aria-haspopup="dialog"
-                    aria-label={`Ver demo do projeto ${title}`}
-                    onClick={(e) => openVideo(e.currentTarget)}
-                  >
-                    Ver demo
-                  </ProjectButton>
-                )}
-                {href && (
-                  <ProjectButton
-                    $size="small"
-                    aria-label={`Ver site do projeto ${title}`}
-                    onClick={() => window.open(href, '_blank', 'noopener')}
-                  >
-                    Ver site →
-                  </ProjectButton>
-                )}
-              </Box>
-            )}
           </Box>
         </Box>
+        {(hasVideo || href || offline) && (
+          <Box
+            $justify="flex-start"
+            style={{ gap: 12, flexWrap: 'wrap', marginTop: 16, flex: '0 0 auto' }}
+          >
+            {hasVideo && (
+              <ProjectButton
+                $size="small"
+                aria-haspopup="dialog"
+                aria-label={`Ver demo do projeto ${title}`}
+                onClick={(e) => openVideo(e.currentTarget)}
+              >
+                Ver demo
+              </ProjectButton>
+            )}
+            {href && (
+              <ProjectButton
+                $size="small"
+                aria-label={`Ver site do projeto ${title}`}
+                onClick={() => window.open(href, '_blank', 'noopener')}
+              >
+                Ver site →
+              </ProjectButton>
+            )}
+            {offline && <Offline>Site fora do ar</Offline>}
+          </Box>
+        )}
       </ProjectContainer>
     </Float>
   );

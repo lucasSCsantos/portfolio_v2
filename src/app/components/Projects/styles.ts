@@ -459,3 +459,16 @@ export const CloseButton = styled.button`
     background-color: rgba(255, 255, 255, 0.25);
   }
 `;
+
+export const Offline = styled.span`
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-family: ${({ theme }) => theme.font.family.inter};
+  font-size: ${({ theme }) => theme.sizes.xxxsmall};
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.text};
+  background-color: ${({ theme }) => theme.colors.textLight}cd;
+  border: 1px dashed ${({ theme }) => theme.colors.text};
+`;

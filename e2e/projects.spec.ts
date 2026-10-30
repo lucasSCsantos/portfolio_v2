@@ -70,6 +70,19 @@ test.describe('seção de Projetos', () => {
     }
   });
 
+  test('os botões Ver demo e Ver site ficam lado a lado', async ({ page }) => {
+    const c = card(page, 'Mural ONDA');
+    const demo = (await c.getByRole('button', { name: /^Ver demo/ }).boundingBox())!;
+    const site = (await c.getByRole('button', { name: /^Ver site/ }).boundingBox())!;
+    expect(Math.abs(demo.y - site.y)).toBeLessThan(4);
+  });
+
+  test('Torcida Imperial avisa que o site está fora do ar', async ({ page }) => {
+    const c = card(page, 'Torcida Imperial');
+    await expect(c).toContainText('Site fora do ar');
+    await expect(c.getByRole('button', { name: /^Ver site/ })).toHaveCount(0);
+  });
+
   test('Torcida Imperial não tem link e o Biblio aponta para bibliooo.com.br', async () => {
     expect(projects.find(p => p.title === 'Torcida Imperial')?.href).toBeUndefined();
     expect(projects.find(p => p.title === 'Biblio')?.href).toBe('https://bibliooo.com.br');
