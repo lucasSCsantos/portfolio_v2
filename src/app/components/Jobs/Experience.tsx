@@ -1,4 +1,5 @@
 import { Heading, Text } from '../ui/typography';
+import WaterPiece from '../ui/WaterPiece';
 import {
   ExperienceContainer,
   ExperienceContent,
@@ -6,6 +7,7 @@ import {
 } from './styles';
 
 interface ExperienceProps {
+  order: number;
   backgroundSrc: string;
   iconSrc: string;
   color: string;
@@ -16,6 +18,7 @@ interface ExperienceProps {
 }
 
 export default function Experience({
+  order,
   backgroundSrc,
   iconSrc,
   company,
@@ -24,7 +27,9 @@ export default function Experience({
   description
 }: ExperienceProps) {
   return (
-    <ExperienceContainer
+    <WaterPiece
+      as={ExperienceContainer}
+      order={order}
       style={{
         backgroundImage: `url(${backgroundSrc})`
       }}
@@ -35,7 +40,7 @@ export default function Experience({
         }}
       />
       <ExperienceContent>
-        <Heading $level={6} $size="small">
+        <Heading $level={3} $size="small">
           {company}
         </Heading>
         <Text $size="xxsmall" $fontWeight={600} style={{ opacity: 0.8 }}>
@@ -45,6 +50,6 @@ export default function Experience({
           {description}
         </Text>
       </ExperienceContent>
-    </ExperienceContainer>
+    </WaterPiece>
   );
 }

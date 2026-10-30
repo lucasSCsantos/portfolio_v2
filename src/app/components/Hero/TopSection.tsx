@@ -71,7 +71,7 @@ export default function TopSection() {
             }}
             id="title-text"
           >
-            {titleLine1}
+            {titleLine1}{' '}
             <br />
             {titleLine2}
           </Heading>

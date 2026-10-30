@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { Content } from '../ui/default';
 import { Heading, Text } from '../ui/typography';
+import WaterPiece from '../ui/WaterPiece';
 import {
   CardBack,
   CardFront,
@@ -34,38 +35,53 @@ function Work() {
         <MainRow>
           <LeftSection>
             <div>
-              <Heading
+              <WaterPiece
+                as={Heading}
+                order={0}
+                from="left"
                 $level={3}
                 $size="small"
                 $fontWeight={500}
                 $color="textLight"
               >
                 {content.work.label}
-              </Heading>
-              <Heading
-                $level={1}
-                $color="text"
+              </WaterPiece>
+              <WaterPiece
+                as={Heading}
+                order={1}
+                from="left"
+                $level={2}
+                $color="textLight"
                 $size="normal"
                 $letterSpacing={-1.92}
               >
                 {content.work.title}
-              </Heading>
+              </WaterPiece>
             </div>
-            <Text
+            <WaterPiece
+              as={Text}
+              order={2}
+              from="right"
               $size="xxsmall"
               $color="textLight"
               $fontWeight={400}
               $lineHeight={1.6}
             >
               {content.work.description}
-            </Text>
+            </WaterPiece>
           </LeftSection>
 
           <SkillGrid>
-            {skills.map(skill => {
+            {skills.map((skill, index) => {
               const Icon = skill.icon;
               return (
-                <SkillCard key={skill.name}>
+                <WaterPiece
+                  as={SkillCard}
+                  key={skill.name}
+                  order={2 + (index % 4)}
+                  float={6}
+                  calm
+                >
                   <CardInner>
                     <CardFront>
                       <Icon size={64} color={skill.color} />
@@ -75,7 +91,7 @@ function Work() {
                       <div className="divider" />
                     </CardBack>
                   </CardInner>
-                </SkillCard>
+                </WaterPiece>
               );
             })}
           </SkillGrid>
@@ -93,7 +109,8 @@ function Work() {
           zIndex: 1
         }}
         src="/habilidades.png"
-        alt="Texto escrito 'habilidades'"
+        alt=""
+        aria-hidden
         width={3212 / 2.5}
         height={422 / 2.5}
       />
@@ -108,7 +125,8 @@ function Work() {
           pointerEvents: 'none'
         }}
         src="/bg-bubble3.png"
-        alt="Texto escrito 'sobre'"
+        alt=""
+        aria-hidden
         width={669}
         height={669}
       />

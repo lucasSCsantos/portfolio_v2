@@ -1,13 +1,13 @@
 import { useRef } from 'react';
 import { Area, Button } from '../ui/default';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { scrollToId } from '@/app/lib/scroll';
 import content from '@/meta/content';
 
 export default function BottomSection() {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-      const id = 'contato';
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      scrollToId('contato');
   };
 
   const ref = useRef(null);

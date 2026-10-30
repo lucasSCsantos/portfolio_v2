@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Text } from '../ui/typography';
 import Avatar from '../Hero/Avatar';
 import content from '@/meta/content';
+import profile from '@/meta/profile';
 import { Title, TopContent } from './styles';
 
 export default function TopSection() {
@@ -25,7 +26,7 @@ export default function TopSection() {
           $lineHeight="auto"
           $letterSpacing={-0.9}
         >
-          {content.hero.greeting}
+          {profile.name}
         </Text>
       </motion.div>
       <motion.div
@@ -44,7 +45,7 @@ export default function TopSection() {
             color: 'transparent'
           }}
         >
-          {titleLine1}
+          {titleLine1}{' '}
           <br />
           {titleLine2}
         </Title>

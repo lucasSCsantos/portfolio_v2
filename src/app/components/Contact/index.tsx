@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Content } from '../ui/default';
 import { Heading, Text } from '../ui/typography';
+import WaterPiece from '../ui/WaterPiece';
 import {
   Container,
   LeftSection,
@@ -51,38 +52,62 @@ function Contact() {
       >
         <LeftSection>
           <div>
-            <Heading
+            <WaterPiece
+              solid
+              as={Heading}
+              order={0}
+              from="left"
               $level={3}
               $size="small"
               $fontWeight={500}
               $color="quaternary"
             >
               {content.contact.label}
-            </Heading>
-            <Heading $level={1} $color="text" $letterSpacing={-1.92}>
+            </WaterPiece>
+            <WaterPiece
+              solid
+              as={Heading}
+              order={1}
+              from="left"
+              $level={2}
+              $color="text"
+              $letterSpacing={-1.92}
+            >
               {content.contact.heading}
-            </Heading>
+            </WaterPiece>
           </div>
-          <Text
+          <WaterPiece
+            solid
+            as={Text}
+            order={2}
+            from="right"
             $size="xxsmall"
             $color="text"
             $fontWeight={400}
             $lineHeight={1.6}
           >
             {content.contact.description}
-          </Text>
+          </WaterPiece>
           <TopicList>
-            {content.contact.topics.map(topic => (
-              <TopicItem key={topic}>{topic}</TopicItem>
+            {content.contact.topics.map((topic, index) => (
+              <WaterPiece
+                solid
+                as={TopicItem}
+                key={topic}
+                order={3 + index}
+                calm
+              >
+                {topic}
+              </WaterPiece>
             ))}
           </TopicList>
         </LeftSection>
 
         <RightSection>
-          <ContactCard>
+          <WaterPiece solid as={ContactCard} order={2} from="right">
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               <Heading
-                $level={2}
+                $level={3}
                 $size="xsmall"
                 $fontWeight={700}
                 $color="text"
@@ -120,7 +145,7 @@ function Contact() {
                 ? content.contact.copiedEmailText
                 : content.contact.copyEmailText}
             </CopyEmailButton>
-          </ContactCard>
+          </WaterPiece>
         </RightSection>
       </Content>
     </Container>

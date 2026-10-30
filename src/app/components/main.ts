@@ -3,14 +3,13 @@
 import styled from 'styled-components';
 
 const MainContainer = styled.main`
-  background-image: linear-gradient(
-    180deg,
-    ${({ theme }) => theme.colors.primary} 00%,
-    ${({ theme }) => theme.colors.backgroundBlue} 50%,
-    ${({ theme }) => theme.colors.backgroundDarkBlue}
-  );
+  background-color: ${({ theme }) => theme.colors.backgroundDarkBlue};
   position: relative;
   overflow: clip;
+
+  &:focus {
+    outline: none;
+  }
 
   &::before {
     content: '';
@@ -20,9 +19,9 @@ const MainContainer = styled.main`
     right: 0;
     bottom: 0;
     height: 100%;
-    background-image: url('noise-bg.png');
-    /* margin-top: 100vh; */
-    background-size: cover;
+    background-image: url('/noise-grain.png');
+    /* Tamanho nativo do tile: esticar a imagem (cover) deixava o grão borrado. */
+    background-size: 256px 256px;
     background-repeat: repeat;
     opacity: 0.2;
     pointer-events: none;

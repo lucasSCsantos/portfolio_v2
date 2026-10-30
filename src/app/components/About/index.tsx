@@ -1,19 +1,19 @@
 'use client';
 
 import { Area, Box, Content } from '../ui/default';
+import WaterPiece from '../ui/WaterPiece';
 import { Heading, Text } from '../ui/typography';
 import AboutImage from './AboutImage';
-import Bubble from './Bubble';
-import { Container, Icon, SocialMediaButton } from './styles';
+import { Container, Icon, SocialMediaLink } from './styles';
 import Image from 'next/image';
 import profile from '@/meta/profile';
 import content from '@/meta/content';
 
 const socialButtons = [
-  { key: 'whatsapp', alt: 'Whatsapp icon', href: profile.social.whatsapp },
-  { key: 'linkedin', alt: 'Linkedin Icon', href: profile.social.linkedin },
-  { key: 'instagram', alt: 'Instagram Icon', href: profile.social.instagram },
-  { key: 'github', alt: 'Github Icon', href: profile.social.github }
+  { key: 'whatsapp', label: 'WhatsApp', href: profile.social.whatsapp },
+  { key: 'linkedin', label: 'LinkedIn', href: profile.social.linkedin },
+  { key: 'instagram', label: 'Instagram', href: profile.social.instagram },
+  { key: 'github', label: 'GitHub', href: profile.social.github }
 ] as const;
 
 function About() {
@@ -38,48 +38,61 @@ function About() {
           id="left-about-area"
         >
           <Box $direction="column" $align="flex-start">
-            <Heading
+            <WaterPiece
+              as={Heading}
+              order={0}
+              from="left"
               $level={3}
               $size="small"
               $fontWeight={500}
               $color="tertiary"
             >
               {content.about.label}
-            </Heading>
-            <Heading
+            </WaterPiece>
+            <WaterPiece
+              as={Heading}
+              order={1}
+              from="left"
               $level={2}
               $color="text"
               $size="normal"
               $letterSpacing={-1.92}
             >
-              {profile.fullName}
-            </Heading>
+              {profile.name}
+            </WaterPiece>
           </Box>
-          <Text
+          <WaterPiece
+            as={Text}
+            order={2}
+            from="right"
             $size="xsmall"
             style={{ textAlign: 'justify' }}
             $color="textLight"
             $fontWeight={600}
           >
             {content.about.bio}
-          </Text>
+          </WaterPiece>
           <Box $height={'64px'} $justify="flex-start" style={{ gap: 32 }} id="social-buttons">
-            {socialButtons.map(({ key, alt, href }) => (
-              <SocialMediaButton
+            {socialButtons.map(({ key, label, href }, index) => (
+              <WaterPiece
+                as={SocialMediaLink}
+                order={3 + index}
+                float={7}
+                calm
                 key={key}
-                as="a"
                 href={href}
+                aria-label={label}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <Icon
-                  alt={alt}
+                  alt=""
                   src={profile.icons[key]}
                   style={
                     key === 'github' ? { height: 32, width: 28 } : undefined
                   }
                 />
-              </SocialMediaButton>
+              </WaterPiece>
             ))}
           </Box>
         </Area>
@@ -95,48 +108,10 @@ function About() {
           pointerEvents: 'none'
         }}
         src="/about-bg-text.png"
-        alt="Texto escrito 'sobre'"
+        alt=""
+        aria-hidden
         width={1453}
         height={424}
-      />
-      <Bubble
-        id="bubble1"
-        bottom="42%"
-        left="1%"
-        width={337}
-        height={349}
-        rotate={10}
-        src="/bubble7.png"
-        alt="A medium size bubble floating"
-      />
-      <Bubble
-        id="bubble2"
-        bottom="25%"
-        left="11%"
-        src="/bubble2.png"
-        height={138}
-        width={135}
-        alt="A small size bubble floating"
-      />
-      <Bubble
-        id="bubble3"
-        bottom="65%"
-        right="12%"
-        src="/bubble.png"
-        height={265}
-        width={256}
-        style={{ transform: 'scaleX(-1)' }}
-        alt="A medium size bubble floating"
-      />
-      <Bubble
-        id="bubble4"
-        bottom="50%"
-        right="17%"
-        src="/bubble3.png"
-        height={143}
-        width={141}
-        rotate={180}
-        alt="Another small size bubble floating"
       />
     </Container>
   );

@@ -22,6 +22,19 @@ export default createGlobalStyle`
     cursor: pointer;
   }
 
+  /* Anel duplo (claro por fora, escuro por dentro): aparece sobre o mar escuro e sobre o fundo claro. */
+  :focus-visible {
+    outline: 3px solid ${({ theme }) => theme.colors.tertiary};
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px ${({ theme }) => theme.colors.white};
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      scroll-behavior: auto;
+    }
+  }
+
   a {
     text-decoration: none;
     color: ${props => props.theme.colors.text};

@@ -10,6 +10,10 @@ export const Container = styled.main`
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme.colors.background};
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const Top = styled.section`
