@@ -11,8 +11,6 @@ export type ProjectRelation =
   | 'iniciativa própria'
   | 'voluntário';
 
-export type ProjectLinkKind = 'production' | 'demo' | 'none';
-
 export const relationLabels: Record<ProjectRelation, string> = {
   cliente: 'Para cliente',
   empregador: 'Para empregador',
@@ -27,7 +25,6 @@ export interface Project {
   technologies: string[];
   result?: string;
   relation: ProjectRelation;
-  linkKind: ProjectLinkKind;
   color: string;
   gradient?: string;
   src: string | string[];
@@ -45,8 +42,6 @@ const projects: Project[] = [
     year: '2022',
     color: '#00D84F',
     src: 'imperial.png',
-    href: 'https://torcidaimperial.com.br',
-    linkKind: 'production',
     relation: 'iniciativa própria',
     role: 'Idealizei, criei do zero e lancei',
     technologies: ['Next.js', 'React'],
@@ -60,7 +55,6 @@ const projects: Project[] = [
     color: '#E8710A',
     src: 'airtable.png',
     imagePosition: 'left',
-    linkKind: 'none',
     relation: 'voluntário',
     role: 'Idealizei e construí',
     technologies: ['Airtable'],
@@ -74,7 +68,6 @@ const projects: Project[] = [
     color: '#01579B',
     src: 'agricompany.png',
     href: 'https://agricompany-landing-page.vercel.app/',
-    linkKind: 'demo',
     relation: 'empregador',
     role: 'Desenvolvedor Full Stack',
     technologies: ['Next.js', 'TypeScript'],
@@ -87,7 +80,6 @@ const projects: Project[] = [
     color: '#F14444',
     src: 'iasos.png',
     href: 'https://iasos.com.br',
-    linkKind: 'production',
     relation: 'cliente',
     role: 'Liderança técnica do ecossistema digital (freelance)',
     technologies: ['React', 'Next.js', 'Node.js'],
@@ -101,8 +93,7 @@ const projects: Project[] = [
     color: '#5C3817',
     type: 'phone',
     src: ['biblio-mobile.png', 'biblio-mobile.png'],
-    href: 'https://biblioteste.netlify.app/',
-    linkKind: 'demo',
+    href: 'https://bibliooo.com.br',
     relation: 'iniciativa própria',
     role: 'Criei e desenvolvi',
     technologies: ['React', 'TypeScript'],
@@ -121,7 +112,6 @@ const projects: Project[] = [
     type: 'phone',
     src: ['jogopassa.png', 'jogopassa-sala2.png'],
     href: 'https://www.jogopassa.com.br',
-    linkKind: 'production',
     relation: 'iniciativa própria',
     role: 'Criei e desenvolvi',
     technologies: ['React', 'TypeScript'],
@@ -138,7 +128,6 @@ const projects: Project[] = [
     color: '#459AC8',
     src: 'mural-onda.png',
     href: 'https://onda-gules-zeta.vercel.app/sobre',
-    linkKind: 'demo',
     relation: 'voluntário',
     role: 'Idealizei e desenvolvi',
     technologies: ['Next.js', 'TypeScript'],

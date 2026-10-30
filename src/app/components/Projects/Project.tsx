@@ -1,10 +1,6 @@
-import { ComponentProps, KeyboardEvent } from 'react';
+import { ComponentProps } from 'react';
 import { relationLabels } from '@/meta/projects';
-import type {
-  ProjectLinkKind,
-  ProjectRelation,
-  ProjectVideo
-} from '@/meta/projects';
+import type { ProjectRelation, ProjectVideo } from '@/meta/projects';
 import { Box, MotionBox } from '../ui/default';
 import { Heading, Text } from '../ui/typography';
 import Float from '../ui/Float';
@@ -17,11 +13,6 @@ import {
   Tag,
   TechList
 } from './styles';
-
-const linkLabels: Record<Exclude<ProjectLinkKind, 'none'>, string> = {
-  production: 'Ver site →',
-  demo: 'Ver demo →'
-};
 
 interface ProjectProps extends ComponentProps<typeof MotionBox> {
   width: number;
@@ -39,7 +30,6 @@ interface ProjectProps extends ComponentProps<typeof MotionBox> {
   technologies: string[];
   result?: string;
   relation: ProjectRelation;
-  linkKind: ProjectLinkKind;
   onOpenVideo?: (opener: HTMLElement) => void;
   description: string;
 }
@@ -58,7 +48,6 @@ const Project = ({
   technologies,
   result,
   relation,
-  linkKind,
   onOpenVideo,
   gradient,
   description,
@@ -68,26 +57,9 @@ const Project = ({
 
   const openVideo = (opener: HTMLElement) => onOpenVideo?.(opener);
 
-  const onKeyDown = (e: KeyboardEvent<HTMLElement>) => {
-    if (e.target !== e.currentTarget) return;
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      openVideo(e.currentTarget);
-    }
-  };
-
   return (
     <Float amplitude={6}>
       <ProjectContainer
-        {...(hasVideo && {
-          role: 'button',
-          tabIndex: 0,
-          'aria-haspopup': 'dialog',
-          'aria-label': `Ver vídeo do projeto ${title}`,
-          onClick: (e: React.MouseEvent<HTMLElement>) =>
-            openVideo(e.currentTarget),
-          onKeyDown
-        })}
         $width={`100%`}
         $height={`${height}px`}
         style={{
@@ -181,16 +153,28 @@ const Project = ({
                 }}
               />
             )}
-            {href && linkKind !== 'none' && (
-              <ProjectButton
-                $size="small"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  window.open(href, '_blank');
-                }}
-              >
-                {linkLabels[linkKind]}
-              </ProjectButton>
+            {(hasVideo || href) && (
+              <Box $justify="flex-end" style={{ gap: 12, flexWrap: 'wrap' }}>
+                {hasVideo && (
+                  <ProjectButton
+                    $size="small"
+                    aria-haspopup="dialog"
+                    aria-label={`Ver demo do projeto ${title}`}
+                    onClick={(e) => openVideo(e.currentTarget)}
+                  >
+                    Ver demo
+                  </ProjectButton>
+                )}
+                {href && (
+                  <ProjectButton
+                    $size="small"
+                    aria-label={`Ver site do projeto ${title}`}
+                    onClick={() => window.open(href, '_blank', 'noopener')}
+                  >
+                    Ver site →
+                  </ProjectButton>
+                )}
+              </Box>
             )}
           </Box>
         </Box>
