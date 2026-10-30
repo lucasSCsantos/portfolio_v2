@@ -1,10 +1,8 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Heading, Text } from '../ui/typography';
 import Avatar from './Avatar';
-import { Availability, ValueProp } from './styles';
 import { useRef } from 'react';
 import content from '@/meta/content';
-import profile from '@/meta/profile';
 
 export default function TopSection() {
   const ref = useRef(null);
@@ -85,8 +83,6 @@ export default function TopSection() {
             <br />
             {titleLine2}
           </Heading>
-          <ValueProp>{content.hero.valueProp}</ValueProp>
-          <Availability>{profile.availability}</Availability>
         </motion.div>
       </motion.div>
     </div>

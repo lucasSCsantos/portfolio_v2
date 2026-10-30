@@ -72,14 +72,15 @@ export const ctaVariant = (variant: 'solid' | 'light') => css`
   ${({ theme }) =>
     variant === 'solid'
       ? css`
-          background-color: ${theme.colors.tertiary};
-          color: ${theme.colors.textLight};
-          /* Contorno branco: separa o botão de ondas da mesma cor azul. */
+          /* Azul-marinho com contorno branco: se destaca de todas as ondas e do fundo claro. */
+          background-color: ${theme.colors.backgroundDarkBlue};
+          color: ${theme.colors.white};
           border: 2px solid ${theme.colors.white};
-          box-shadow: 0 4px 14px rgba(0, 47, 91, 0.35);
+          box-shadow: 0 6px 18px rgba(0, 47, 91, 0.35);
 
           &:hover {
-            background-color: ${theme.colors.quaternary};
+            background-color: ${theme.colors.tertiary};
+            transform: translateY(-2px);
           }
         `
       : css`

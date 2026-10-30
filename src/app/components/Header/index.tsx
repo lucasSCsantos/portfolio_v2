@@ -23,6 +23,8 @@ import {
 const [firstName, ...lastNameParts] = profile.name.split(' ');
 const lastName = lastNameParts.join(' ');
 
+const HEADER_HEIGHT = 72;
+
 const sectionIds = navLinks.map(({ path }) => path.slice(1));
 
 // A seção ativa é a última cujo topo já passou de um terço da tela.
@@ -39,14 +41,16 @@ function findActiveSection() {
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
-  const [scrolled, setScrolled] = useState(false);
+  const [onSea, setOnSea] = useState(false);
 
   useEffect(() => {
     let frame = 0;
     const update = () => {
       frame = 0;
       setActiveId(findActiveSection());
-      setScrolled(window.scrollY > 24);
+      // Depois do Hero o Header passa a combinar com o mar.
+      const hero = document.getElementById('inicio');
+      setOnSea(hero ? hero.getBoundingClientRect().bottom < HEADER_HEIGHT : false);
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
@@ -80,7 +84,7 @@ function Header() {
   const closeMobileMenu = () => setIsMenuOpen(false);
 
   return (
-    <Container $scrolled={scrolled}>
+    <Container $onSea={onSea}>
       <Content>
         <Brand>
           <a
@@ -115,7 +119,7 @@ function Header() {
               />
             ))}
           </ul>
-          <HeaderCta href={profile.resumePath} download>
+          <HeaderCta $onSea={onSea} href={profile.resumePath} download>
             {content.header.cta}
           </HeaderCta>
         </DesktopNav>
@@ -144,7 +148,7 @@ function Header() {
             />
           ))}
           <li>
-            <HeaderCta href={profile.resumePath} download>
+            <HeaderCta $onSea={onSea} href={profile.resumePath} download>
               {content.header.cta}
             </HeaderCta>
           </li>

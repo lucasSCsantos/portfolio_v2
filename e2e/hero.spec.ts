@@ -1,6 +1,8 @@
 import { test, expect, type Locator, type Page } from '@playwright/test';
 import profile from '../src/meta/profile';
 import content from '../src/meta/content';
+import projects from '../src/meta/projects';
+import { experienceYears } from '../src/meta/profile';
 
 const MIN_CONTRAST = 4.5;
 
@@ -47,7 +49,7 @@ async function worstContrast(page: Page, target: Locator) {
   await handle!.evaluate(el => {
     const h = el as HTMLElement;
     // Sem transição, a cor some na hora e a captura não pega o meio do caminho.
-    for (const n of [h, ...h.querySelectorAll<HTMLElement>('*')]) {
+    for (const n of [h, ...Array.from(h.querySelectorAll<HTMLElement>("*"))]) {
       n.style.setProperty('transition', 'none', 'important');
       n.style.setProperty('color', 'transparent', 'important');
     }
@@ -55,7 +57,7 @@ async function worstContrast(page: Page, target: Locator) {
   const shot = await page.screenshot({ clip: box });
   await handle!.evaluate(el => {
     const h = el as HTMLElement;
-    for (const n of [h, ...h.querySelectorAll<HTMLElement>('*')]) {
+    for (const n of [h, ...Array.from(h.querySelectorAll<HTMLElement>("*"))]) {
       n.style.removeProperty('color');
       n.style.removeProperty('transition');
     }
@@ -118,7 +120,10 @@ test.describe('Hero', () => {
     page
   }) => {
     const values = content.hero.highlights.map(h => h.value).join(' ');
-    expect(values).toContain(String(profile.careerStartYear));
+    expect(values).toContain(`+${experienceYears()} anos`);
+    expect(content.hero.highlights.map(h => h.value)).toContain(
+      String(projects.length)
+    );
     const body = await page.locator('body').innerText();
     expect(body).not.toMatch(/30\s?%/);
     expect(body).not.toMatch(/lat[eê]ncia/i);

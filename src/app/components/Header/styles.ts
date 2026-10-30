@@ -1,12 +1,12 @@
 'use client';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 type MobileMenuStateProps = {
   $isOpen: boolean;
 };
 
-export const Container = styled.header<{ $scrolled: boolean }>`
+export const Container = styled.header<{ $onSea: boolean }>`
   width: 100%;
   height: 4.5rem;
   display: flex;
@@ -18,12 +18,31 @@ export const Container = styled.header<{ $scrolled: boolean }>`
   left: 0;
   right: 0;
   z-index: 100;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
-  background-color: ${({ $scrolled, theme }) =>
-    $scrolled ? `${theme.colors.background}f2` : 'transparent'};
-  box-shadow: ${({ $scrolled }) =>
-    $scrolled ? '0 2px 16px rgba(0, 47, 91, 0.16)' : 'none'};
-  backdrop-filter: ${({ $scrolled }) => ($scrolled ? 'blur(10px)' : 'none')};
+  transition: background-color 0.3s ease;
+  background-color: ${({ $onSea, theme }) =>
+    $onSea ? `${theme.colors.backgroundDarkBlue}b3` : 'transparent'};
+  backdrop-filter: ${({ $onSea }) => ($onSea ? 'blur(12px)' : 'none')};
+
+  ${({ $onSea, theme }) =>
+    $onSea &&
+    css`
+      p,
+      span {
+        color: ${theme.colors.textLight};
+      }
+
+      a span span {
+        color: ${theme.colors.primary};
+      }
+
+      nav a[aria-current='true'] {
+        border-bottom-color: ${theme.colors.primary};
+      }
+
+      nav a[aria-current='true'] p {
+        color: ${theme.colors.primary};
+      }
+    `}
 `;
 
 export const Brand = styled.div`
@@ -175,15 +194,17 @@ export const NavLinkContainer = styled.div`
   }
 `;
 
-export const HeaderCta = styled.a`
+export const HeaderCta = styled.a<{ $onSea?: boolean }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 2.5rem;
   padding: 0.5rem 1.25rem;
   border-radius: 999px;
-  background-color: ${({ theme }) => theme.colors.tertiary};
-  color: ${({ theme }) => theme.colors.textLight};
+  background-color: ${({ $onSea, theme }) =>
+    $onSea ? theme.colors.primary : theme.colors.tertiary};
+  color: ${({ $onSea, theme }) =>
+    $onSea ? theme.colors.backgroundDarkBlue : theme.colors.textLight};
   font-family: ${({ theme }) => theme.font.family.inter};
   font-size: 0.9375rem;
   font-weight: 600;
@@ -191,7 +212,8 @@ export const HeaderCta = styled.a`
   transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.quaternary};
+    background-color: ${({ $onSea, theme }) =>
+      $onSea ? theme.colors.white : theme.colors.quaternary};
   }
 `;
 
