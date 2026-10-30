@@ -1,9 +1,10 @@
-import { Area } from '../ui/default';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Heading, Text } from '../ui/typography';
 import Avatar from './Avatar';
+import { Availability, ValueProp } from './styles';
 import { useRef } from 'react';
 import content from '@/meta/content';
+import profile from '@/meta/profile';
 
 export default function TopSection() {
   const ref = useRef(null);
@@ -24,13 +25,14 @@ export default function TopSection() {
   const [titleLine1, titleLine2] = content.hero.title.split('\n');
 
   return (
-    <Area
-      $width={100}
-      $height={'50%'}
-      $direction="column"
-      $justify="flex-end"
-      style={{ paddingBottom: 16, zIndex: 99 }}
+    <div
       ref={ref}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 'inherit'
+      }}
     >
       <Avatar />
       <motion.div
@@ -56,7 +58,17 @@ export default function TopSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeInOut', duration: 0.8, delay: 1.2 }}
       >
-        <motion.div style={{ zIndex: 2, opacity, y }}>
+        <motion.div
+          style={{
+            zIndex: 2,
+            opacity,
+            y,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 'inherit'
+          }}
+        >
           <Heading
             $level={1}
             $size="xlarge"
@@ -73,8 +85,10 @@ export default function TopSection() {
             <br />
             {titleLine2}
           </Heading>
+          <ValueProp>{content.hero.valueProp}</ValueProp>
+          <Availability>{profile.availability}</Availability>
         </motion.div>
       </motion.div>
-    </Area>
+    </div>
   );
 }

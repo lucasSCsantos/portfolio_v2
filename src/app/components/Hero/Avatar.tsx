@@ -11,11 +11,6 @@ export default function Avatar() {
 
   return (
     <AvatarContainer
-      style={{
-        position: 'relative',
-        width: 150,
-        height: 150
-      }}
       initial={{ opacity: 0, y: 0 }}
       animate={{ opacity: 1, y: reducedMotion ? 0 : [0, 10, 0] }}
       transition={{
@@ -45,8 +40,8 @@ export default function Avatar() {
       </Halo>
       <Image
         src={profile.photos.avatar}
-        width={110}
-        height={110}
+        width={200}
+        height={200}
         id='avatar-image'
         priority
         alt={`Foto de ${profile.name}`}

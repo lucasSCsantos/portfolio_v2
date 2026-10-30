@@ -63,7 +63,40 @@ export type ContentProps = {
 export type ButtonProps = {
   $backgroundColor?: keyof Theme['colors'];
   $size?: 'small' | 'large';
+  // glass: vidro translúcido (padrão); solid e light são opacos, com contraste ≥ 4,5:1.
+  $variant?: 'glass' | 'solid' | 'light';
 };
+
+/** Aparência opaca de botão de chamada para ação, compartilhada por botões e links. */
+export const ctaVariant = (variant: 'solid' | 'light') => css`
+  ${({ theme }) =>
+    variant === 'solid'
+      ? css`
+          background-color: ${theme.colors.tertiary};
+          color: ${theme.colors.textLight};
+          /* Contorno branco: separa o botão de ondas da mesma cor azul. */
+          border: 2px solid ${theme.colors.white};
+          box-shadow: 0 4px 14px rgba(0, 47, 91, 0.35);
+
+          &:hover {
+            background-color: ${theme.colors.quaternary};
+          }
+        `
+      : css`
+          background-color: ${theme.colors.white};
+          color: ${theme.colors.text};
+          border: 2px solid ${theme.colors.tertiary};
+
+          &:hover {
+            background-color: ${theme.colors.background};
+          }
+        `}
+  .ripple {
+    background-color: ${({ theme }) =>
+      variant === 'solid' ? theme.colors.white : theme.colors.tertiary};
+    opacity: 0.35;
+  }
+`;
 
 export const Area = styled.div<AreaProps>`
   ${({
@@ -150,7 +183,7 @@ export const Content = styled.div<ContentProps>`
 `;
 
 export const Button = styled(motion.button)<ButtonProps>`
-  ${({ $backgroundColor = 'textLight', $size = 'large' }) => css`
+  ${({ $backgroundColor = 'textLight', $size = 'large', $variant = 'glass' }) => css`
     background-color: ${({ theme }) => theme.colors[$backgroundColor]}7b;
     padding: ${$size === 'large' ? '20px 42px' : '24px 16px'};
     position: relative;
@@ -176,6 +209,8 @@ export const Button = styled(motion.button)<ButtonProps>`
     &:hover {
       background-color: ${({ theme }) => theme.colors[$backgroundColor]}8b;
     }
+
+    ${$variant !== 'glass' && ctaVariant($variant)}
   `}
 `;
 

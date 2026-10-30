@@ -1,18 +1,17 @@
 'use client';
 
-import { Container } from './styles';
+import { Container, Stack } from './styles';
 import Waves from './Waves';
 import TopSection from './TopSection';
 import BottomSection from './BottomSection';
-import { Content } from '../ui/default';
 
 function Hero() {
   return (
-    <Container>
-      <Content $direction="column">
+    <Container id="inicio">
+      <Stack>
         <TopSection />
         <BottomSection />
-      </Content>
+      </Stack>
       <Waves />
     </Container>
   );
