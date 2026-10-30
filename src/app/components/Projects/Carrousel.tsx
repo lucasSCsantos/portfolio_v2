@@ -60,14 +60,14 @@ export default function Carousel() {
         navigation
         breakpoints={{
           835: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 }
+          1280: { slidesPerView: 3 }
         }}
       >
         {projects.map((project, index) => (
           <SwiperSlide key={index}>
             <Project
               width={821}
-              height={497}
+              height={600}
               {...project}
               onOpenVideo={(opener) => {
                 if (!project.video) return;
