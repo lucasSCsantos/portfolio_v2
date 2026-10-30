@@ -21,10 +21,10 @@ export default function Service({
   return (
     <WaterPiece as={ServiceContainer} order={order} float={5}>
       <ServiceTop>
-        <Heading $level={3} $size="small">
+        <Heading $level={3} $size="xsmall">
           {title}
         </Heading>
-        <Text $size="xsmall">{text}</Text>
+        <Text $size="xxsmall">{text}</Text>
         <ServiceProof>
           {content.services.proofLabel}:{' '}
           <a href={proof.href}>{proof.name}</a>
