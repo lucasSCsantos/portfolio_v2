@@ -258,94 +258,41 @@ export const ExperienceText = styled.p`
   margin-top: 16px;
 `;
 
-export const SkillGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+export const SkillGroups = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   flex: 1;
   width: 100%;
-
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media (max-width: 834px) {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-  }
-
-  @media (max-width: 428px) {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-  }
 `;
 
-export const CardInner = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+export const GroupTitle = styled.h3`
+  margin: 0 0 8px;
+  font-family: ${({ theme }) => theme.font.family.poppins};
+  font-size: ${({ theme }) => theme.sizes.xxxsmall};
+  font-weight: ${({ theme }) => theme.type.subtitle.weight};
+  color: ${({ theme }) => theme.colors.textLight};
 `;
 
-export const SkillCard = styled.div`
-  width: 100%;
-  aspect-ratio: 1;
-  perspective: 1000px;
-
-  &:hover ${CardInner} {
-    transform: rotateY(180deg);
-  }
-`;
-
-const CardFace = styled.div`
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  border-radius: 6%;
+export const SkillGroupList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+export const SkillChip = styled.li`
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
-`;
-
-export const CardFront = styled(CardFace)`
-  border: 1.6px solid white;
-  background-color: ${({ theme }) => theme.colors.textLight}77;
-
-  svg {
-    width: clamp(28px, 50%, 64px);
-    height: auto;
-  }
-`;
-
-export const CardBack = styled(CardFace)`
-  transform: rotateY(180deg);
-  flex-direction: column;
-  gap: 6px;
-  padding: 10px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-  background-color: ${({ theme }) => theme.colors.background}77;
-  border: 1.6px solid white;
-
-  .skill-name {
-    font-family: ${({ theme }) => theme.font.family.poppins};
-    font-size: ${({ theme }) => theme.sizes.xxxsmall};
-    font-weight: ${({ theme }) => theme.type.title.weight};
-    color: ${({ theme }) => theme.colors.textLight};
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    overflow-wrap: anywhere;
-    text-align: center;
-  }
-
-  .divider {
-    width: 70%;
-    height: 1px;
-    background-color: ${({ theme }) => theme.colors.textLight};
-    opacity: 0.4;
-    border-radius: 1px;
-  }
-
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-family: ${({ theme }) => theme.font.family.inter};
+  font-size: ${({ theme }) => theme.sizes.xxxsmall};
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.textLight};
+  background-color: ${({ theme }) => theme.colors.backgroundDarkBlue};
+  border: 1px solid ${({ theme }) => theme.colors.primary}66;
 `;

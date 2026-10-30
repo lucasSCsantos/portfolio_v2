@@ -4,17 +4,16 @@ import { Content } from '../ui/default';
 import { Heading, Text } from '../ui/typography';
 import WaterPiece from '../ui/WaterPiece';
 import {
-  CardBack,
-  CardFront,
-  CardInner,
   Container,
+  GroupTitle,
   LeftSection,
   MainRow,
-  SkillCard,
-  SkillGrid
+  SkillChip,
+  SkillGroupList,
+  SkillGroups
 } from './styles';
 import Corals from './Corals';
-import skills from '@/meta/skills';
+import skillGroups from '@/meta/skills';
 import content from '@/meta/content';
 import dynamic from 'next/dynamic';
 
@@ -69,30 +68,29 @@ function Work() {
             </WaterPiece>
           </LeftSection>
 
-          <SkillGrid>
-            {skills.map((skill, index) => {
-              const Icon = skill.icon;
-              return (
-                <WaterPiece
-                  as={SkillCard}
-                  key={skill.name}
-                  order={2 + (index % 4)}
-                  float={6}
-                  calm
-                >
-                  <CardInner>
-                    <CardFront>
-                      <Icon size={64} color={skill.color} />
-                    </CardFront>
-                    <CardBack>
-                      <span className="skill-name">{skill.name}</span>
-                      <div className="divider" />
-                    </CardBack>
-                  </CardInner>
-                </WaterPiece>
-              );
-            })}
-          </SkillGrid>
+          <SkillGroups>
+            {skillGroups.map((group, index) => (
+              <WaterPiece
+                as="div"
+                key={group.title}
+                order={2 + (index % 4)}
+                calm
+              >
+                <GroupTitle>{group.title}</GroupTitle>
+                <SkillGroupList aria-label={group.title}>
+                  {group.skills.map(skill => {
+                    const Icon = skill.icon;
+                    return (
+                      <SkillChip key={skill.name}>
+                        {Icon && <Icon size={20} aria-hidden />}
+                        {skill.name}
+                      </SkillChip>
+                    );
+                  })}
+                </SkillGroupList>
+              </WaterPiece>
+            ))}
+          </SkillGroups>
         </MainRow>
       </Content>
       <Animation />

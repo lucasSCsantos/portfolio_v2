@@ -29,7 +29,7 @@ const content = {
   },
   projects: {
     label: 'Projetos',
-    title: 'Meus projetos individuais'
+    title: 'Projetos que criei e entreguei'
   },
   jobs: {
     label: 'Experiências',

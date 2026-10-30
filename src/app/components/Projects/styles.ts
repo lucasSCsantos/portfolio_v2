@@ -274,6 +274,48 @@ export const Tag = styled(Button)<{ $color?: string; $gradient?: string }>`
   `}
 `;
 
+export const Meta = styled.dl`
+  margin: 16px 0 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  font-size: ${({ theme }) => theme.sizes.xxsmall};
+  line-height: 1.4;
+
+  dt {
+    opacity: 0.75;
+  }
+
+  dd {
+    margin: 0;
+    font-weight: 600;
+  }
+`;
+
+export const TechList = styled.ul`
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  li {
+    padding: 2px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    font-size: ${({ theme }) => theme.sizes.xxsmall};
+    line-height: 1.5;
+  }
+`;
+
+export const Result = styled.p`
+  margin: 12px 0 0;
+  font-size: ${({ theme }) => theme.sizes.xsmall};
+  font-weight: 700;
+  line-height: 1.3;
+`;
+
 export const ProjectButton = styled(Button)`
   border-radius: 10px;
   padding: 10px 24px;

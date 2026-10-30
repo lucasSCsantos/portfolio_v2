@@ -5,9 +5,29 @@ export interface ProjectVideo {
   vertical?: string;
 }
 
+export type ProjectRelation =
+  | 'cliente'
+  | 'empregador'
+  | 'iniciativa própria'
+  | 'voluntário';
+
+export type ProjectLinkKind = 'production' | 'demo' | 'none';
+
+export const relationLabels: Record<ProjectRelation, string> = {
+  cliente: 'Para cliente',
+  empregador: 'Para empregador',
+  'iniciativa própria': 'Iniciativa própria',
+  voluntário: 'Voluntário'
+};
+
 export interface Project {
   title: string;
   year: string;
+  role: string;
+  technologies: string[];
+  result?: string;
+  relation: ProjectRelation;
+  linkKind: ProjectLinkKind;
   color: string;
   gradient?: string;
   src: string | string[];
@@ -24,8 +44,26 @@ const projects: Project[] = [
     color: '#00D84F',
     src: 'imperial.png',
     href: 'https://torcidaimperial.com.br',
+    linkKind: 'production',
+    relation: 'iniciativa própria',
+    role: 'Idealizei, criei do zero e lancei',
+    technologies: ['Next.js', 'React'],
+    result: '+30 mil usuários',
     description:
-      'Portal para a torcida organizada Torcida Imperial, com informações sobre eventos, notícias e comunicados aos torcedores. Além de um sistema de recompensas, pontos e rankings, aumentando engajamento e participação dos membros da torcida. Projeto idealizado e desenvolvido do zero, chegando a alcançar um pico de 30.000 usuários únicos, com uma comunidade ativa e engajada.'
+      'Portal da torcida organizada, com eventos, notícias e comunicados. Tem gamificação (medalhas, níveis e skins) e campanhas automatizadas. Nasceu como iniciativa minha, enquanto eu trabalhava na Eattasty.'
+  },
+  {
+    title: 'Sistema de Gestão de Voluntários',
+    year: '2026',
+    color: '#E8710A',
+    src: 'voluntarios-provisorio.svg',
+    linkKind: 'none',
+    relation: 'voluntário',
+    role: 'Idealizei e construí',
+    technologies: ['Airtable'],
+    result: '+530 voluntários em 15 áreas',
+    description:
+      'Sistema do Ministério Infantil para organizar os voluntários. Cruza as respostas dos formulários com as listas da coordenação e entrega listas por área, gráficos e um painel de métricas para a liderança.'
   },
   {
     title: 'Calculadora Agricompany',
@@ -33,8 +71,12 @@ const projects: Project[] = [
     color: '#01579B',
     src: 'agricompany.png',
     href: 'https://agricompany-landing-page.vercel.app/',
+    linkKind: 'demo',
+    relation: 'empregador',
+    role: 'Desenvolvedor Full Stack',
+    technologies: ['Next.js', 'TypeScript'],
     description:
-      'Landing page com calculadora interativa para a Agricompany, permitindo diagnóstico da sua fazenda/empresa. A calculadora oferece insights personalizados para otimizar operações agrícolas, melhorar a produtividade e reduzir custos, ajudando os clientes a tomarem decisões informadas sobre suas atividades agrícolas.'
+      'Landing page com calculadora interativa que faz o diagnóstico da fazenda ou da empresa e mostra onde otimizar a operação, ganhar produtividade e reduzir custos.'
   },
   {
     title: 'Iasos',
@@ -42,8 +84,13 @@ const projects: Project[] = [
     color: '#F14444',
     src: 'iasos.png',
     href: 'https://iasos.com.br',
+    linkKind: 'production',
+    relation: 'cliente',
+    role: 'Liderança técnica do ecossistema digital (freelance)',
+    technologies: ['React', 'Next.js', 'Node.js'],
+    result: '+500 usuários migrados sem perda',
     description:
-      'Plataforma digital para a Iasos, com foco em experiência do usuário e performance, entregando conteúdo de forma clara e acessível. A Iasos é uma empresa inovadora na área de saúde, oferecendo um qrcode para rápido acesso emergencial a informações médicas, histórico de saúde e contatos de emergência, garantindo que os usuários tenham acesso rápido e fácil a informações vitais em situações críticas.'
+      'Plataforma da Iasos, empresa de saúde cujo QR code dá acesso rápido a informações médicas e contatos de emergência. Cuidei do site, da performance e da migração dos usuários.'
   },
   {
     title: 'Biblio',
@@ -52,8 +99,12 @@ const projects: Project[] = [
     type: 'phone',
     src: ['biblio-mobile.png', 'biblio-mobile.png'],
     href: 'https://biblioteste.netlify.app/',
+    linkKind: 'demo',
+    relation: 'iniciativa própria',
+    role: 'Criei e desenvolvi',
+    technologies: ['React', 'TypeScript'],
     description:
-      'Jogo diário de adivinhação de livros da Bíblia. O jogador tem 6 tentativas para adivinhar o livro do dia, recebendo feedback sobre quais letras estão corretas e em suas posições corretas, quais estão presentes mas em posições incorretas, e quais não estão presentes no título. O jogo é projetado para ser divertido e educativo, incentivando os jogadores a aprenderem mais sobre os livros da Bíblia enquanto se divertem.'
+      'Jogo diário de adivinhar livros da Bíblia. São 6 tentativas, com dicas sobre as letras certas, nas posições certas e ausentes.'
   },
   {
     title: 'Jogo Passa',
@@ -63,8 +114,12 @@ const projects: Project[] = [
     type: 'phone',
     src: ['jogopassa.png', 'jogopassa-sala2.png'],
     href: 'https://www.jogopassa.com.br',
+    linkKind: 'production',
+    relation: 'iniciativa própria',
+    role: 'Criei e desenvolvi',
+    technologies: ['React', 'TypeScript'],
     description:
-      'Jogo temporizador online para jogos de festa, onde cada jogador tem um tempo limitado para realizar uma ação ou responder a uma pergunta. O jogo funciona online permitindo que os jogadores conectem seus dispositivos e participem de forma interativa, tornando-o ideal para eventos sociais, festas e encontros, promovendo diversão e engajamento entre os participantes.'
+      'Temporizador online para jogos de festa: cada jogador tem um tempo limitado para agir ou responder, e todos conectam o próprio celular na mesma sala.'
   },
   {
     title: 'Mural ONDA',
@@ -72,12 +127,16 @@ const projects: Project[] = [
     color: '#459AC8',
     src: 'mural-onda.png',
     href: 'https://onda-gules-zeta.vercel.app/sobre',
+    linkKind: 'demo',
+    relation: 'voluntário',
+    role: 'Idealizei e desenvolvi',
+    technologies: ['Next.js', 'TypeScript'],
     video: {
       horizontal: '/mural-onda.mp4',
       vertical: '/mural-onda-9x16.mp4'
     },
     description:
-      'Calendário de eventos da liderança do ONDA, ministério de adolescentes. Cada evento tem categoria, responsável e status, e as séries recorrentes (como a EBD semanal) geram as ocorrências sozinhas. Inclui painel do dia, filtros rápidos, feed de calendário e criação automática das pastas de cada evento no Google Drive.'
+      'Calendário de eventos da liderança do ONDA, ministério de adolescentes. Eventos recorrentes geram as ocorrências sozinhos e as pastas no Google Drive são criadas automaticamente.'
   }
 ];
 
