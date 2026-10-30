@@ -48,7 +48,7 @@ export const Container = styled.section`
 
 export const SliderWrapper = styled.div`
   width: 130vw;
-  height: 650px;
+  height: 700px;
 
   @media (max-width: 834px) {
     height: auto;
@@ -120,6 +120,13 @@ export const ProjectContainer = styled(Box)`
   box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.25);
   border: 1.6px solid white;
   background-color: ${({ theme }) => theme.colors.textLight}9a;
+
+  @media (min-width: 835px) {
+    #project-left-area p {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+  }
 
   .swiper-slide-active &:hover {
     &::before {
@@ -279,7 +286,7 @@ export const Meta = styled.dl`
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 4px 12px;
-  font-size: ${({ theme }) => theme.sizes.xxsmall};
+  font-size: 1rem;
   line-height: 1.4;
 
   dt {
@@ -304,14 +311,14 @@ export const TechList = styled.ul`
     padding: 2px 10px;
     border-radius: 999px;
     border: 1px solid rgba(255, 255, 255, 0.7);
-    font-size: ${({ theme }) => theme.sizes.xxsmall};
+    font-size: ${({ theme }) => theme.sizes.xxxsmall};
     line-height: 1.5;
   }
 `;
 
 export const Result = styled.div`
   margin: 12px 0 0;
-  font-size: ${({ theme }) => theme.sizes.xsmall};
+  font-size: ${({ theme }) => theme.sizes.xxsmall};
   font-weight: 700;
   line-height: 1.3;
 `;
