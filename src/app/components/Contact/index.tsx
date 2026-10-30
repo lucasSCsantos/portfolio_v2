@@ -14,7 +14,10 @@ import {
   ContactButton,
   SecondaryActions,
   SecondaryLink,
-  CopyEmailButton
+  CopyEmailButton,
+  Status,
+  StatusItem,
+  SurfaceTransition
 } from './styles';
 import content from '@/meta/content';
 import profile from '@/meta/profile';
@@ -42,6 +45,16 @@ function Contact() {
 
   return (
     <Container id="contato">
+      <SurfaceTransition
+        aria-hidden
+        viewBox="0 0 1440 120"
+        preserveAspectRatio="none"
+      >
+        <path
+          fill="currentColor"
+          d="M0,72 C240,40 480,48 720,76 C960,104 1200,92 1440,56 L1440,121 L0,121 Z"
+        />
+      </SurfaceTransition>
       <Content
         style={{
           justifyContent: 'flex-start',
@@ -87,6 +100,10 @@ function Contact() {
           >
             {content.contact.description}
           </WaterPiece>
+          <Status>
+            <StatusItem $available>{profile.availability}</StatusItem>
+            <StatusItem>{profile.location}</StatusItem>
+          </Status>
           <TopicList>
             {content.contact.topics.map((topic, index) => (
               <WaterPiece
@@ -139,6 +156,9 @@ function Contact() {
                 {content.contact.linkedinButtonText}
               </SecondaryLink>
             </SecondaryActions>
+            <SecondaryLink $full href={profile.resumePath} download>
+              {content.contact.resumeButtonText}
+            </SecondaryLink>
             <CopyEmailButton type="button" onClick={copyEmail} aria-live="polite">
               {copied
                 ? content.contact.copiedEmailText

@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import { Button } from '../ui/default';
 
 export const Container = styled.section`
-  overflow: hidden;
+  /* Só o horizontal: a transição do mar sobe para fora do topo da seção. */
+  overflow-x: clip;
   min-height: 60vh;
   display: flex;
   position: relative;
@@ -137,11 +138,13 @@ export const ContactCard = styled.div`
 export const SecondaryActions = styled.div`
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
 `;
 
-export const SecondaryLink = styled.a`
-  flex: 1;
+export const SecondaryLink = styled.a<{ $full?: boolean }>`
+  flex: ${({ $full }) => ($full ? 'none' : 1)};
+  width: ${({ $full }) => ($full ? '100%' : 'auto')};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -180,4 +183,50 @@ export const CopyEmailButton = styled.button`
   font-weight: 500;
   text-decoration: underline;
   cursor: pointer;
+`;
+
+// Borda ondulada na cor da seção: cobre a emenda entre o mar e o fundo claro, como a onda do Hero.
+export const SurfaceTransition = styled.svg`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  transform: translateY(-119px);
+  color: ${({ theme }) => theme.colors.background};
+  pointer-events: none;
+
+  @media (max-width: 834px) {
+    height: 72px;
+    transform: translateY(-71px);
+  }
+`;
+
+export const Status = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`;
+
+export const StatusItem = styled.li<{ $available?: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: ${({ theme }) => theme.font.family.inter};
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.text};
+
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background-color: ${({ $available }) => ($available ? '#1E9E5A' : 'transparent')};
+    display: ${({ $available }) => ($available ? 'inline-block' : 'none')};
+  }
 `;
