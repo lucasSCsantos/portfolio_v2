@@ -240,6 +240,8 @@ export const Tag = styled(Button)`
   font-weight: 600;
   min-width: 300px !important;
   position: absolute !important;
+  /* Sempre à frente da foto, que perde o stacking context quando para de animar. */
+  z-index: 2;
   bottom: 0;
   cursor: default;
   box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.25);

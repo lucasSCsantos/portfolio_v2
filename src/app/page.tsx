@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import MainContainer from './components/main';
+import NextSection from './components/NextSection';
 import Sea from './components/Sea';
 
 const About    = dynamic(() => import('./components/About'));
@@ -18,6 +19,7 @@ export default function Home() {
   return (
     <>
       <Header />
+      <NextSection />
       <MainContainer id="conteudo" tabIndex={-1}>
         <Hero />
         <Sea>

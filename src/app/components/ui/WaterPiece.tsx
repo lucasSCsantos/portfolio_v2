@@ -2,12 +2,15 @@
 
 import { ComponentType, ElementType, ReactNode, useId, useRef } from 'react';
 import {
+  animate,
   motion,
+  useMotionValue,
   useMotionValueEvent,
   useReducedMotion,
   useScroll,
   useTransform
 } from 'framer-motion';
+import { diveStage } from '@/app/lib/scroll';
 import useFloat from './useFloat';
 
 // Fração da viewport em que a peça termina de se formar / começa a se desfazer.
@@ -16,6 +19,11 @@ const FADING_AT = 0.1;
 // Quanto cada posição na fila atrasa a formação (peças seguintes se formam depois).
 const STAGGER = 0.02;
 const MAX_STAGGER_STEPS = 5;
+// Formação após um mergulho: duração de cada peça e atraso entre peças da fila.
+const ARRIVAL_DURATION = 1.1;
+const ARRIVAL_STAGGER = 0.12;
+// Abaixo desta clareza a peça é quase invisível e pode esperar a chegada sem "sumir".
+const GATED_BELOW = 0.25;
 
 const ENTER_DEPTH = 130;
 const EXIT_DEPTH = 90;
@@ -104,8 +112,13 @@ function WaterPiece({
     offset: [`end ${FADING_AT}`, 'end start']
   });
 
+  // Durante um mergulho a peça fica submersa (0) e se forma só quando o scroll para.
+  // Peças que nascem no meio de um mergulho também esperam a chegada.
+  const gate = useMotionValue(diveStage.get() === 'diving' ? 0 : 1);
+  const entered = useTransform([enter, gate], ([e, g]: number[]) => e * g);
+
   // 1 = totalmente visível, 0 = totalmente submersa.
-  const clarity = useTransform([enter, exit], ([e, o]: number[]) =>
+  const clarity = useTransform([entered, exit], ([e, o]: number[]) =>
     Math.min(e, 1 - o)
   );
   const distortion = useTransform(clarity, c => (1 - c) * MAX_DISTORTION);
@@ -117,12 +130,12 @@ function WaterPiece({
   );
   const { floatX, floatY, floatRotate } = useFloat(ref, float);
   const y = useTransform(
-    [enter, exit, floatY],
+    [entered, exit, floatY],
     ([e, o, f]: number[]) => Math.round((1 - e) * depth - o * EXIT_DEPTH) + f
   );
   // Vem de lado e se acalma num balanço conforme se encaixa; ao sair, deriva para o lado oposto.
   const x = useTransform(
-    [enter, exit, floatX],
+    [entered, exit, floatX],
     ([e, o, f]: number[]) =>
       Math.round(
         (1 - e) * drift +
@@ -135,6 +148,25 @@ function WaterPiece({
     if (solid || c >= 0.995) return 'none';
     const blur = `blur(${((1 - c) * MAX_BLUR).toFixed(1)}px)`;
     return calm ? blur : `url(#${filterId}) ${blur}`;
+  });
+
+  useMotionValueEvent(diveStage, 'change', stage => {
+    // Seções marcadas com data-no-dive seguem só o scroll, sem formação automática.
+    if (ref.current?.closest('[data-no-dive]')) return;
+    if (stage === 'diving') {
+      // Só as peças ainda quase invisíveis esperam a chegada; as que já aparecem na tela
+      // seguem o scroll, para não sumirem do nada ao clicar.
+      if (clarity.get() < GATED_BELOW) gate.set(0);
+    } else if (stage === 'arrived') {
+      animate(gate, 1, {
+        duration: ARRIVAL_DURATION,
+        delay: step * ARRIVAL_STAGGER,
+        // Linear, como a formação que o scroll produz.
+        ease: 'linear'
+      });
+    } else if (stage === 'released') {
+      animate(gate, 1, { duration: 0.3 });
+    }
   });
 
   useMotionValueEvent(distortion, 'change', d =>

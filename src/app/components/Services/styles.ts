@@ -111,7 +111,7 @@ export const ServiceBottom = styled(Box)`
 export const ServiceButton = styled(Button)`
   border-radius: 10px;
   padding: 10px 24px;
-  margin-top: 32px;
+  margin-top: 12px;
   font-size: ${({ theme }) => theme.sizes.xxsmall};
   font-weight: 600;
   color: white;

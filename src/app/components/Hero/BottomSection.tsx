@@ -7,6 +7,11 @@ import { scrollToId } from '@/app/lib/scroll';
 import content from '@/meta/content';
 import profile from '@/meta/profile';
 
+// A última entrada do Hero: quem depende de o Hero estar pronto espera por este tempo.
+const ENTER_DELAY = 2;
+const ENTER_DURATION = 0.8;
+export const HERO_READY_MS = (ENTER_DELAY + ENTER_DURATION) * 1000;
+
 export default function BottomSection() {
   const ref = useRef(null);
 
@@ -39,7 +44,11 @@ export default function BottomSection() {
       }}
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ ease: 'easeInOut', duration: 0.8, delay: 2 }}
+      transition={{
+        ease: 'easeInOut',
+        duration: ENTER_DURATION,
+        delay: ENTER_DELAY
+      }}
     >
       <ValueProp>{content.hero.valueProp}</ValueProp>
       <Availability>{profile.availability}</Availability>
