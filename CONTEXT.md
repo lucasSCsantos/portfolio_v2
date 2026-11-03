@@ -27,3 +27,7 @@ _Avoid_: Handlink, LinkHand, link-tree
 **Link**:
 Um item da lista da Página de Links, que leva o visitante a um destino (portfólio, WhatsApp, LinkedIn etc.).
 _Avoid_: Botão, atalho
+
+**Link principal**:
+O Link que a Página de Links destaca como o caminho preferido para falar com Lucas (o WhatsApp). Há um só por página, e ele vem primeiro na lista.
+_Avoid_: Link em destaque, featured, CTA
