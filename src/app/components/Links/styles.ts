@@ -156,14 +156,17 @@ export const LinkButton = styled.a<{ $principal?: boolean }>`
     $principal ? `${theme.colors.tertiary}e6` : `${theme.colors.textLight}7b`};
   border: 1px solid ${({ theme }) => theme.colors.white};
   backdrop-filter: blur(8px);
-  box-shadow: 0 4px 16px rgba(0, 47, 91, 0.18);
+  /* O vidro branco tem sombra leve, para parecer parte do mar; o principal mantém a sua. */
+  box-shadow: ${({ $principal }) =>
+    $principal ? '0 4px 16px rgba(0, 47, 91, 0.18)' : '0 2px 8px rgba(0, 47, 91, 0.08)'};
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 47, 91, 0.28);
+    box-shadow: ${({ $principal }) =>
+      $principal ? '0 8px 24px rgba(0, 47, 91, 0.28)' : '0 4px 12px rgba(0, 47, 91, 0.14)'};
   }
 
   /* Os PNGs são azul-claro e ficam apagados sobre o vidro: todos viram cor plana, como o texto. */
@@ -174,7 +177,8 @@ export const LinkButton = styled.a<{ $principal?: boolean }>`
 
   &:active {
     transform: scale(0.98);
-    box-shadow: 0 2px 8px rgba(0, 47, 91, 0.28);
+    box-shadow: ${({ $principal }) =>
+      $principal ? '0 2px 8px rgba(0, 47, 91, 0.28)' : '0 1px 4px rgba(0, 47, 91, 0.14)'};
   }
 
   &:focus-visible {
