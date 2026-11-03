@@ -1,6 +1,6 @@
 'use client';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Heading } from '../ui/typography';
 import HeroWaves from '../Hero/Waves';
@@ -166,14 +166,11 @@ export const LinkButton = styled.a<{ $principal?: boolean }>`
     box-shadow: 0 8px 24px rgba(0, 47, 91, 0.28);
   }
 
-  /* O ícone colorido some sobre o vidro azul: no Link principal ele fica branco. */
-  ${({ $principal }) =>
-    $principal &&
-    css`
-      img {
-        filter: brightness(0) invert(1);
-      }
-    `}
+  /* Os PNGs são azul-claro e ficam apagados sobre o vidro: todos viram cor plana, como o texto. */
+  img {
+    filter: ${({ $principal }) =>
+      $principal ? 'brightness(0) invert(1)' : 'brightness(0)'};
+  }
 
   &:active {
     transform: scale(0.98);
