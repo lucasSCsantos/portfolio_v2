@@ -5,18 +5,18 @@ import { Box, Button } from '../ui/default';
 
 export const Container = styled.section`
   overflow: hidden;
-  height: 160vh;
+  /* Ao navegar até Habilidades, a seção ocupa a tela toda sem mostrar o Contato. */
+  min-height: 100svh;
   display: flex;
   position: relative;
   justify-content: center;
   padding-top: 128px;
+  padding-bottom: 32px;
   z-index: 98;
   background-color: transparent;
   
   @media (max-width: 834px) {
-    height: auto;
-    min-height: 100vh;
-    padding-bottom: 300px;
+    padding-bottom: 32px;
   }
 
   @media (max-width: 428px) {

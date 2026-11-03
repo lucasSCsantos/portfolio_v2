@@ -14,7 +14,6 @@ import {
   SkillCard,
   SkillGrid
 } from './styles';
-import Corals from './Corals';
 import skillGroups from '@/meta/skills';
 import { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from 'framer-motion';
@@ -163,7 +162,6 @@ function Work() {
         width={3212 / 2.5}
         height={422 / 2.5}
       />
-      <Corals />
       <Image
         style={{
           position: 'absolute',

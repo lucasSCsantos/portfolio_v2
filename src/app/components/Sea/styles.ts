@@ -45,3 +45,10 @@ export const BubbleWrapper = styled(motion.div)<{
     display: ${({ $extra }) => ($extra ? 'none' : 'block')};
   }
 `;
+
+// Fundo do mar: Contato e rodapé dividem a última tela, então chegar ao Contato é chegar ao fim da página.
+export const Seabed = styled.div`
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+`;
