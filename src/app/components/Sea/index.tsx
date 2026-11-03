@@ -6,6 +6,7 @@ import {
   useScroll,
   useTransform
 } from 'framer-motion';
+import { dive } from '@/app/lib/scroll';
 import FloatingBubble, { BubbleSpec } from './FloatingBubble';
 import { Backdrop, Vignette, Zone } from './styles';
 
@@ -57,7 +58,12 @@ export default function Sea({ children }: { children: ReactNode }) {
   });
 
   const backgroundColor = useTransform(depth, DEPTH_STOPS, DEPTH_COLORS);
-  const vignetteOpacity = useTransform(depth, [0, 1], [0.1, 0.95]);
+  const baseVignette = useTransform(depth, [0, 1], [0.1, 0.95]);
+  // Durante o mergulho a vinheta fecha um pouco, como a pressão da água.
+  const vignetteOpacity = useTransform(
+    [baseVignette, dive],
+    ([base, d]: number[]) => Math.min(1, base + d * 0.3)
+  );
 
   return (
     <Zone ref={zoneRef}>

@@ -44,7 +44,7 @@ function Contact() {
   }
 
   return (
-    <Container id="contato">
+    <Container id="contato" data-no-dive>
       <SurfaceTransition
         aria-hidden
         viewBox="0 0 1440 120"
