@@ -101,8 +101,8 @@ const projects: Project[] = [
     role: 'Criei e desenvolvi',
     technologies: ['React', 'TypeScript'],
     video: {
-      horizontal: '/biblio.mp4',
-      vertical: '/biblio-9x16.mp4'
+      horizontal: '/videos/06-bibliooo.mp4',
+      vertical: '/videos/06-bibliooo-9x16.mp4'
     },
     description:
       'Jogo diário de adivinhar livros da Bíblia. São 6 tentativas, com dicas sobre as letras certas, nas posições certas e ausentes.'
@@ -119,8 +119,8 @@ const projects: Project[] = [
     role: 'Criei e desenvolvi',
     technologies: ['React', 'TypeScript'],
     video: {
-      horizontal: '/jogopassa.mp4',
-      vertical: '/jogopassa-9x16.mp4'
+      horizontal: '/videos/05-jogopassa.mp4',
+      vertical: '/videos/05-jogopassa-9x16.mp4'
     },
     description:
       'Temporizador online para jogos de festa: cada jogador tem um tempo limitado para agir ou responder, e todos conectam o próprio celular na mesma sala.'
@@ -135,8 +135,8 @@ const projects: Project[] = [
     role: 'Idealizei e desenvolvi',
     technologies: ['Next.js', 'TypeScript'],
     video: {
-      horizontal: '/mural-onda.mp4',
-      vertical: '/mural-onda-9x16.mp4'
+      horizontal: '/videos/04-marca-de-verdade-v2.mp4',
+      vertical: '/videos/04-marca-de-verdade-v2-9x16.mp4'
     },
     description:
       'Calendário de eventos da liderança do ONDA, ministério de adolescentes. Eventos recorrentes geram as ocorrências sozinhos e as pastas no Google Drive são criadas automaticamente.'
