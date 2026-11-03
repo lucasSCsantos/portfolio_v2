@@ -1,6 +1,5 @@
 'use client';
 
-import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import links from '@/meta/links';
@@ -25,7 +24,7 @@ function Links() {
   const reducedMotion = useReducedMotion();
 
   return (
-    <Container id="conteudo" tabIndex={-1} $count={links.length}>
+    <Container id="conteudo" tabIndex={-1}>
       <Top>
         <TopSection />
         <Waves parallax={false} cover />
@@ -35,9 +34,6 @@ function Links() {
           {links.map(({ label, href, icon, principal, external }, index) => (
             <motion.li
               key={label}
-              style={
-                { '--row': index, '--row2': Math.floor(index / 2) } as CSSProperties
-              }
               initial={reducedMotion ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -57,7 +53,7 @@ function Links() {
                 })}
               >
                 <Icon>
-                  <LinkIcon name={icon} knockout={!principal} />
+                  <LinkIcon name={icon} />
                 </Icon>
                 <Label>{label}</Label>
               </LinkButton>

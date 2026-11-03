@@ -1,6 +1,6 @@
 'use client';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Heading } from '../ui/typography';
 import HeroWaves from '../Hero/Waves';
@@ -17,20 +17,11 @@ export const AvailabilityTag = styled(motion.div)`
   margin-top: 0.5rem;
 `;
 
-// Espaço entre o topo da base azul e o primeiro Link.
-const BODY_PADDING_TOP = '8px';
-
-export const Container = styled.main<{ $count: number }>`
+export const Container = styled.main`
   /* A página nunca rola: cada medida abaixo encolhe com a altura da tela. */
   --link-height: clamp(44px, 7dvh, 56px);
   --link-gap: clamp(6px, 1.2dvh, 12px);
   --wave-height: clamp(3.5rem, 12dvh, 12rem);
-  /* Altura da base azul, para o texto e o ícone vazados acharem a cor do gradiente atrás deles. */
-  --rows: ${({ $count }) => $count};
-  --body-height: calc(
-    ${BODY_PADDING_TOP} + var(--rows) * var(--link-height) +
-      (var(--rows) - 1) * var(--link-gap) + max(16px, env(safe-area-inset-bottom))
-  );
 
   height: 100dvh;
   overflow: hidden;
@@ -62,10 +53,6 @@ export const Container = styled.main<{ $count: number }>`
   /* Celular deitado: duas colunas, para a lista caber na altura. */
   ${SHORT} {
     --link-gap: 6px;
-  }
-
-  ${LANDSCAPE} {
-    --rows: ${({ $count }) => Math.ceil($count / 2)};
   }
 `;
 
@@ -120,7 +107,7 @@ export const Body = styled.section`
   flex: none;
   display: flex;
   justify-content: center;
-  padding: ${BODY_PADDING_TOP} 16px max(16px, env(safe-area-inset-bottom));
+  padding: 8px 16px max(16px, env(safe-area-inset-bottom));
   background-image: linear-gradient(
     ${({ theme }) => theme.colors.primary},
     ${({ theme }) => theme.colors.secondary}
@@ -138,9 +125,6 @@ export const List = styled.ul`
   list-style: none;
 
   li {
-    --r: var(--row);
-    /* Distância do topo da base azul até este Link. */
-    --item-top: calc(${BODY_PADDING_TOP} + var(--r) * (var(--link-height) + var(--link-gap)));
     display: flex;
     height: var(--link-height);
   }
@@ -148,10 +132,6 @@ export const List = styled.ul`
   ${LANDSCAPE} {
     max-width: 640px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    li {
-      --r: var(--row2);
-    }
   }
 `;
 
@@ -168,34 +148,12 @@ export const LinkButton = styled.a<{ $principal?: boolean }>`
   font-family: ${({ theme }) => theme.font.family.inter};
   font-size: clamp(1rem, 2.6dvh, ${({ theme }) => theme.sizes.xxsmall});
   font-weight: 600;
-  --icon-size: 28px;
-  ${({ theme, $principal }) =>
-    $principal
-      ? css`
-          color: ${theme.colors.textLight};
-          /* O Link principal é o vidro tingido de azul a 90% (e6): com menos que isso
-             o texto claro cai abaixo de 4,5:1 sobre o gradiente. */
-          background-color: ${theme.colors.tertiary}e6;
-        `
-      : css`
-          /* Vidro como o do Button do site: #f2f2f2 a 48% (7b). O texto é vazado: a camada de
-             cima, recortada no formato das letras, é o mesmo gradiente da base azul, alinhado
-             com ele, e por isso o texto mostra o mar atrás do botão. */
-          color: transparent;
-          background-image:
-            linear-gradient(${theme.colors.primary}, ${theme.colors.secondary}),
-            linear-gradient(${theme.colors.textLight}7b, ${theme.colors.textLight}7b);
-          background-size:
-            100% var(--body-height),
-            auto;
-          background-position:
-            0 calc(-1 * var(--item-top)),
-            0 0;
-          background-repeat: no-repeat;
-          background-origin: border-box;
-          -webkit-background-clip: text, border-box;
-          background-clip: text, border-box;
-        `}
+  color: ${({ theme, $principal }) =>
+    $principal ? theme.colors.textLight : theme.colors.text};
+  /* Vidro como o do Button do site: #f2f2f2 a 48% (7b). O Link principal é o vidro tingido de azul a 90% (e6):
+     com menos que isso o texto claro cai abaixo de 4,5:1 sobre o gradiente. */
+  background-color: ${({ theme, $principal }) =>
+    $principal ? `${theme.colors.tertiary}e6` : `${theme.colors.textLight}7b`};
   border: 1px solid ${({ theme }) => theme.colors.white};
   backdrop-filter: blur(8px);
   box-shadow: 0 4px 16px rgba(0, 47, 91, 0.18);
@@ -208,9 +166,10 @@ export const LinkButton = styled.a<{ $principal?: boolean }>`
     box-shadow: 0 8px 24px rgba(0, 47, 91, 0.28);
   }
 
-  /* Os PNGs são azul-claro e somem sobre o vidro azul: no Link principal ficam brancos. */
+  /* Os PNGs são azul-claro e ficam apagados sobre o vidro: todos viram cor plana, como o texto. */
   img {
-    filter: brightness(0) invert(1);
+    filter: ${({ $principal }) =>
+      $principal ? 'brightness(0) invert(1)' : 'brightness(0)'};
   }
 
   &:active {
@@ -239,7 +198,6 @@ export const LinkButton = styled.a<{ $principal?: boolean }>`
   }
 
   ${LANDSCAPE} {
-    --icon-size: 24px;
     gap: 8px;
     padding: 0 12px;
     font-size: 0.9375rem;
@@ -259,8 +217,8 @@ export const Label = styled.span`
 
 export const Icon = styled.span`
   display: flex;
-  width: var(--icon-size);
-  height: var(--icon-size);
+  width: 28px;
+  height: 28px;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
@@ -270,21 +228,9 @@ export const Icon = styled.span`
     width: 100%;
     height: 100%;
   }
-`;
 
-// O ícone vira um furo no botão: a máscara dá o formato e o fundo é o gradiente da base azul.
-export const KnockoutIcon = styled.span`
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(
-    ${({ theme }) => theme.colors.primary},
-    ${({ theme }) => theme.colors.secondary}
-  );
-  background-size: 100% var(--body-height);
-  background-repeat: no-repeat;
-  background-position: 0
-    calc(-1 * (var(--item-top) + (var(--link-height) - var(--icon-size)) / 2));
-  -webkit-mask: var(--icon) center / contain no-repeat;
-  mask: var(--icon) center / contain no-repeat;
+  ${LANDSCAPE} {
+    width: 24px;
+    height: 24px;
+  }
 `;
