@@ -1,35 +1,27 @@
+import type { CSSProperties } from 'react';
 import Image from 'next/image';
 import profile from '@/meta/profile';
 import type { LinkIcon as LinkIconName } from '@/meta/links';
+import { KnockoutIcon } from './styles';
 
-const svgProps = {
-  viewBox: '0 0 24 24',
-  fill: 'none',
-  stroke: 'currentColor',
-  strokeWidth: 2,
-  strokeLinecap: 'round' as const,
-  strokeLinejoin: 'round' as const,
-  'aria-hidden': true
+const files: Record<LinkIconName, string> = {
+  ...profile.icons,
+  portfolio: 'portfolio-icon.svg',
+  email: 'email-icon.svg'
 };
 
-export default function LinkIcon({ name }: { name: LinkIconName }) {
-  if (name === 'portfolio') {
-    return (
-      <svg {...svgProps}>
-        <circle cx="12" cy="12" r="10" />
-        <path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20" />
-      </svg>
-    );
-  }
+// knockout: o ícone vira um furo que mostra o mar atrás; sem ele, é a imagem como está.
+export default function LinkIcon({
+  name,
+  knockout
+}: {
+  name: LinkIconName;
+  knockout?: boolean;
+}) {
+  const src = `/${files[name]}`;
 
-  if (name === 'email') {
-    return (
-      <svg {...svgProps}>
-        <rect x="2" y="4" width="20" height="16" rx="2" />
-        <path d="m22 7-10 6L2 7" />
-      </svg>
-    );
-  }
+  if (knockout)
+    return <KnockoutIcon style={{ '--icon': `url(${src})` } as CSSProperties} />;
 
-  return <Image src={`/${profile.icons[name]}`} width={28} height={28} alt="" />;
+  return <Image src={src} width={28} height={28} alt="" />;
 }

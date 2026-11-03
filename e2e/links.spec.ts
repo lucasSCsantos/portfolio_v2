@@ -129,21 +129,47 @@ test.describe('Página de Links', () => {
     });
   }
 
+  // O vidro branco é vazado de propósito: o texto e o ícone mostram o mar atrás (contraste baixo,
+  // decisão do projeto). Só o Link principal, de texto sólido, segue o mínimo de 4,5:1.
   for (const { name, width, height } of VIEWPORTS) {
-    test(`os Links têm contraste de 4,5:1 ou mais sobre o vidro em ${name}`, async ({
+    test(`o Link principal tem contraste de 4,5:1 ou mais sobre o vidro em ${name}`, async ({
       page
     }) => {
       await page.setViewportSize({ width, height });
       await openLinks(page);
-      for (const label of LABELS) {
-        // Só o rótulo: o ícone não é texto e entraria na medição do fundo.
-        const text = page.locator('main ul a').getByText(label, { exact: true });
-        expect(await worstContrast(page, text), label).toBeGreaterThanOrEqual(
-          MIN_CONTRAST
-        );
-      }
+      const text = page.locator('main ul a').getByText('WhatsApp', { exact: true });
+      expect(await worstContrast(page, text)).toBeGreaterThanOrEqual(MIN_CONTRAST);
     });
   }
+
+  test('o texto e o ícone dos Links de vidro branco são vazados; os do Link principal não', async ({
+    page
+  }) => {
+    await openLinks(page);
+    const clip = (label: string) =>
+      page
+        .locator('main ul a')
+        .filter({ hasText: label })
+        .evaluate(el => {
+          const style = getComputedStyle(el);
+          return {
+            clip: style.backgroundClip,
+            color: style.color,
+            icons: el.querySelectorAll('span[style*="--icon"]').length
+          };
+        });
+
+    for (const label of LABELS.slice(1)) {
+      const link = await clip(label);
+      expect(link.clip, label).toContain('text');
+      expect(link.color, label).toBe('rgba(0, 0, 0, 0)');
+      expect(link.icons, label).toBe(1);
+    }
+
+    const principal = await clip('WhatsApp');
+    expect(principal.clip).not.toContain('text');
+    expect(principal.icons).toBe(0);
+  });
 
   for (const { name, width, height } of VIEWPORTS) {
     test(`sem rolagem e com todos os Links tocáveis em ${name} (${width}×${height})`, async ({
