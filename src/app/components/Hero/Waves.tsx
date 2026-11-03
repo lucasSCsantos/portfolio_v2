@@ -14,9 +14,11 @@ const waveTransition = (duration: number, delay = 0) => ({
 type WavesProps = {
   className?: string;
   parallax?: boolean;
+  // Preenche a largura cortando a base lisa, em vez de deixar faixas vazias nas laterais.
+  cover?: boolean;
 };
 
-function Waves({ className, parallax = true }: WavesProps) {
+function Waves({ className, parallax = true, cover = false }: WavesProps) {
   const { scrollYProgress } = useScroll();
   const reducedMotion = useReducedMotion();
 
@@ -31,6 +33,7 @@ function Waves({ className, parallax = true }: WavesProps) {
     <WavesContainer
       className={className}
       xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 240"
+      preserveAspectRatio={cover ? 'xMidYMin slice' : undefined}
     >
       <motion.g style={{ x: backWaveX }}>
         <motion.path

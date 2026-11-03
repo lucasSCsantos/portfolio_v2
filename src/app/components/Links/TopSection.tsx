@@ -1,13 +1,15 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Text } from '../ui/typography';
 import Avatar from '../Hero/Avatar';
 import content from '@/meta/content';
 import profile from '@/meta/profile';
-import { Title, TopContent } from './styles';
+import { Availability } from '../Hero/styles';
+import { AvailabilityTag, Title, TopContent } from './styles';
 
 export default function TopSection() {
+  const reducedMotion = useReducedMotion();
   const [titleLine1, titleLine2] = content.hero.title.split('\n');
 
   return (
@@ -48,6 +50,13 @@ export default function TopSection() {
           {titleLine2}
         </Title>
       </motion.div>
+      <AvailabilityTag
+        initial={reducedMotion ? false : { opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ ease: 'easeInOut', duration: 0.8, delay: 1.6 }}
+      >
+        <Availability>{profile.availability}</Availability>
+      </AvailabilityTag>
     </TopContent>
   );
 }
