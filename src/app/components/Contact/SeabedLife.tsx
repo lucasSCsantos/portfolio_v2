@@ -36,10 +36,10 @@ const FAN: Shape = { viewBox: '0 0 354 294', ratio: 354 / 294, baseX: 0.56, path
 // centro ficam atrás do conteúdo da seção (z 3).
 const GROWTHS = [
   // Atrás do conteúdo, na colina azul-escura do fundo.
-  { shape: BRANCH, x: 38, h: 0.85, base: 0.52, color: '#0063A3', z: 1 },
-  { shape: KELP, x: 46, h: 0.55, base: 0.474, color: '#0063A3', z: 1, flip: true },
-  { shape: KELP, x: 52, h: 0.8, base: 0.494, color: '#0063A3', z: 1 },
-  { shape: FAN, x: 64, h: 0.4, base: 0.426, color: '#298DBC', z: 2 },
+  { shape: BRANCH, x: 38, h: 0.85, base: 0.52, color: '#0062a36e', z: 1 },
+  { shape: KELP, x: 44, h: 0.45, base: 0.374, color: '#298DBC', z: 2, flip: true },
+  { shape: KELP, x: 54, h: 0.8, base: 0.494, color: '#0062a35c', z: 1 },
+  { shape: FAN, x: 69.5, h: 0.4, base: 0.400, color: '#298DBC', z: 3, rotate: -25 },
   // Laterais.
   { shape: KELP, x: 23, h: 0.45, base: 0.784, color: '#0063A3', z: 1 },
   { shape: KELP, x: 84, h: 0.5, base: 0.401, color: '#0063A3', z: 1, flip: true },
@@ -52,7 +52,7 @@ const GROWTHS = [
 function SeabedLife() {
   return (
     <>
-      {GROWTHS.map(({ shape, x, h, base, color, z, flip }) => (
+      {GROWTHS.map(({ shape, x, h, base, color, z, flip, rotate }) => (
         <Growth
           key={`${x}-${color}`}
           viewBox={shape.viewBox}
@@ -64,6 +64,7 @@ function SeabedLife() {
           $ratio={shape.ratio}
           $baseX={shape.baseX}
           $flip={flip}
+          $rotate={rotate}
           style={{ color }}
         >
           {shape.paths.map(d => (

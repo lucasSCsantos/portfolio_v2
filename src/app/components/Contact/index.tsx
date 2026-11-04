@@ -59,12 +59,11 @@ function Contact() {
 
   if (variant === 'c') {
     return (
-      <Container id="contato" data-no-dive>
+      <Container id="contato">
         <Content style={{ maxWidth: 800, zIndex: 3, justifyContent: 'center' }}>
           <CenterSection>
             <WaterPiece
-              solid
-              as={Heading}
+                            as={Heading}
               order={0}
               $level={3}
               $size="small"
@@ -75,8 +74,7 @@ function Contact() {
               {content.contact.label}
             </WaterPiece>
             <WaterPiece
-              solid
-              as={Heading}
+                            as={Heading}
               order={1}
               $level={2}
               $color="textLight"
@@ -85,8 +83,7 @@ function Contact() {
               {content.contact.heading}
             </WaterPiece>
             <WaterPiece
-              solid
-              as={Text}
+                            as={Text}
               order={2}
               $size="xxsmall"
               $color="textLight"
@@ -96,11 +93,16 @@ function Contact() {
             >
               {content.contact.description}
             </WaterPiece>
-            <Status style={{ justifyContent: 'center' }}>
+            <WaterPiece
+              as={Status}
+              order={3}
+              calm
+              style={{ justifyContent: 'center' }}
+            >
               <StatusItem $available>{profile.availability}</StatusItem>
               <StatusItem>{profile.location}</StatusItem>
-            </Status>
-            <WaterPiece solid as={GlassStack} order={3}>
+            </WaterPiece>
+            <WaterPiece solid as={GlassStack} order={4}>
               <GlassButton
                 as="button"
                 type="button"
@@ -145,11 +147,18 @@ function Contact() {
                 <GlassLabel>{content.contact.resumeButtonText}</GlassLabel>
               </GlassButton>
             </WaterPiece>
-            <CopyEmailButton type="button" onClick={copyEmail} aria-live="polite">
+            <WaterPiece
+              as={CopyEmailButton}
+              order={5}
+              calm
+              type="button"
+              onClick={copyEmail}
+              aria-live="polite"
+            >
               {copied
                 ? content.contact.copiedEmailText
                 : content.contact.copyEmailText}
-            </CopyEmailButton>
+            </WaterPiece>
           </CenterSection>
         </Content>
         <CoralLayer>
@@ -161,7 +170,7 @@ function Contact() {
   }
 
   return (
-    <Container id="contato" data-no-dive>
+    <Container id="contato">
       <Content
         style={{
           justifyContent: 'flex-start',
@@ -173,8 +182,7 @@ function Contact() {
         <LeftSection>
           <div>
             <WaterPiece
-              solid
-              as={Heading}
+                            as={Heading}
               order={0}
               from="left"
               $level={3}
@@ -185,8 +193,7 @@ function Contact() {
               {content.contact.label}
             </WaterPiece>
             <WaterPiece
-              solid
-              as={Heading}
+                            as={Heading}
               order={1}
               from="left"
               $level={2}
@@ -196,8 +203,7 @@ function Contact() {
             </WaterPiece>
           </div>
           <WaterPiece
-            solid
-            as={Text}
+                        as={Text}
             order={2}
             from="right"
             $size="xxsmall"

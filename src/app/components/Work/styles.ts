@@ -10,17 +10,18 @@ export const Container = styled.section`
   display: flex;
   position: relative;
   justify-content: center;
-  padding-top: 128px;
-  padding-bottom: 32px;
+  /* Conteúdo no meio da seção: o mesmo espaço até Serviços e até o Contato. */
+  align-items: center;
+  padding: 96px 0;
   z-index: 98;
   background-color: transparent;
-  
+
   @media (max-width: 834px) {
-    padding-bottom: 32px;
+    padding: 64px 0;
   }
 
   @media (max-width: 428px) {
-    padding-top: 16px;
+    padding: 32px 0;
   }
 `;
 

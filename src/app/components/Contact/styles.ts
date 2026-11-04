@@ -139,9 +139,8 @@ export const ContactCard = styled.div`
   gap: 24px;
   padding: 40px;
   border-radius: 24px;
-  background-color: ${({ theme }) => theme.colors.textLight}d9;
+  background-color: ${({ theme }) => theme.colors.textLight}77;
   border: 1.6px solid ${({ theme }) => theme.colors.white};
-  backdrop-filter: blur(8px);
   box-shadow: 0 8px 32px rgba(0, 12, 32, 0.35);
   text-align: center;
 
@@ -286,8 +285,7 @@ export const GlassButton = styled.a<{ $principal?: boolean }>`
   color: ${({ theme, $principal }) =>
     $principal ? theme.colors.textLight : theme.colors.text};
   background-color: ${({ theme, $principal }) =>
-    $principal ? `${theme.colors.tertiary}e6` : `${theme.colors.textLight}d9`};
-  backdrop-filter: blur(8px);
+    $principal ? `${theme.colors.tertiary}e6` : `${theme.colors.textLight}77`};
   box-shadow: 0 4px 16px rgba(0, 12, 32, 0.3);
   transition:
     transform 0.3s ease,
@@ -374,8 +372,8 @@ export const CoralLayer = styled.div`
     width: 100vw;
   }
 
-  /* Ordem das camadas: fundo 0, plantas azul-escuras 1, meio 2, plantas azuis 2
-     (depois do meio), âncora 3, frente 4, o que fica sobre a areia 5. */
+  /* Ordem das camadas: fundo 0, plantas azul-escuras e âncora 1, meio 2, plantas azuis 2
+     (depois do meio), frente 4, o que fica sobre a areia 5. */
   && .sea-coral-back {
     z-index: 0;
     bottom: 0;
@@ -426,7 +424,9 @@ export const CoralLayer = styled.div`
   && .seaweed-1 {
     height: calc(294 * var(--u) * 1.15 * var(--k));
     left: calc(88% - var(--coral-h) * 0.3535 * var(--k));
-    bottom: calc(var(--coral-h) * 0.2344 - var(--sink));
+    bottom: calc(var(--coral-h) * 0.2744 - var(--sink));
+    transform: rotate(-45deg);
+    transform-origin: 56% 100%;
   }
 
   /* Branca na borda da direita (superfície a 28%). */
@@ -445,14 +445,15 @@ export const CoralLayer = styled.div`
   }
 `;
 
-// Âncora velha assentada no vale da direita, com as patas abaixo da areia
-// (superfície a 18% da altura dos corais). Translúcida e clara, como a água-viva.
+// Âncora de navio, grande, cravada no vale da direita e inclinada para fora do
+// conteúdo. Fica atrás das camadas do meio e da frente (que enterram as patas) e
+// do conteúdo. Translúcida e clara, como a água-viva.
 export const Anchor = styled.svg`
   position: absolute;
-  z-index: 3;
-  height: calc(var(--coral-h) * 0.5 * var(--k));
-  left: calc(76% - var(--coral-h) * 0.208 * var(--k));
-  bottom: calc(var(--coral-h) * (0.178 - 0.1 * var(--k)));
+  z-index: 1;
+  height: calc(var(--coral-h) * 1.3 * var(--k));
+  left: calc(82% - var(--coral-h) * 0.54 * var(--k));
+  bottom: calc(var(--coral-h) * (0.18 - 0.16 * var(--k)));
   color: #f2f2f2;
   opacity: 0.22;
   transform: rotate(12deg);
@@ -479,6 +480,7 @@ export const Growth = styled.svg<{
   $ratio: number;
   $baseX: number;
   $flip?: boolean;
+  $rotate?: number;
 }>`
   position: absolute;
   z-index: ${({ $z }) => $z};
@@ -490,5 +492,7 @@ export const Growth = styled.svg<{
       var(--k)
   );
   bottom: calc(var(--coral-h) * ${({ $base }) => $base} - var(--sink));
-  transform: ${({ $flip }) => ($flip ? 'scaleX(-1)' : 'none')};
+  transform: ${({ $flip, $rotate = 0 }) =>
+    `${$flip ? 'scaleX(-1) ' : ''}rotate(${$rotate}deg)`};
+  transform-origin: ${({ $baseX, $flip }) => `${($flip ? 1 - $baseX : $baseX) * 100}% 100%`};
 `;
