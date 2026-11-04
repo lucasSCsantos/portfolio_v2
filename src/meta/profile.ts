@@ -1,6 +1,6 @@
 // Fonte única da identidade pública. Tudo que fala "quem é Lucas" (Header,
 // Hero, Sobre, Rodapé, metadados, Página de Links) lê daqui.
-const careerStartYear = 2022;
+const careerStartYear = 2021;
 
 const whatsappNumber = '5571981849630';
 
