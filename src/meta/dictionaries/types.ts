@@ -4,6 +4,7 @@ import type { Experience } from '../experiences';
 import type { LinkItem } from '../links';
 import type { Project, ProjectRelation } from '../projects';
 import type { Service } from '../services';
+import type { SceneMode } from '@/app/lib/scene';
 
 export type Locale = 'pt' | 'en';
 
@@ -42,6 +43,8 @@ export interface Ui {
   tagFullStack: string;
   tagFrontEnd: string;
   languageSwitch: string;
+  sceneSwitch: string;
+  sceneModes: Record<SceneMode, string>;
 }
 
 // Palavras decorativas de fundo das seções: têm o texto dentro da imagem.

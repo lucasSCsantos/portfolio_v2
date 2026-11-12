@@ -222,6 +222,20 @@ export const IconLinkContainer = styled.div`
   display: flex;
 `;
 
+// Só no cabeçalho largo: no celular o seletor da Cena fica dentro do menu móvel.
+export const DesktopOnly = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
+`;
+
+export const MobileSceneItem = styled.li`
+  padding: 0.25rem 0 0.5rem;
+`;
+
 // Agrupa o menu, o botão de idioma e o botão do menu móvel à direita do Brand.
 export const HeaderActions = styled.div`
   height: 100%;
@@ -234,11 +248,11 @@ export const HeaderActions = styled.div`
   }
 `;
 
-// Trilho afundado com um seletor em relevo que desliza entre PT e EN.
-export const LanguageSwitchContainer = styled.div<{ $onSea?: boolean }>`
+// Trilho afundado com um seletor em relevo que desliza entre as opções (idioma, modo da Cena).
+export const SwitchContainer = styled.div<{ $onSea?: boolean; $count?: number }>`
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(${({ $count = 2 }) => $count}, 1fr);
   padding: 3px;
   border-radius: 999px;
   font-family: ${({ theme }) => theme.font.family.inter};
@@ -254,7 +268,8 @@ export const LanguageSwitchContainer = styled.div<{ $onSea?: boolean }>`
       : 'inset 0 2px 5px rgba(0, 45, 95, 0.32), 0 1px 0 rgba(255, 255, 255, 0.7)'};
   transition: background 0.3s ease, box-shadow 0.3s ease;
 
-  a {
+  a,
+  button {
     position: relative;
     z-index: 1;
     display: inline-flex;
@@ -268,15 +283,21 @@ export const LanguageSwitchContainer = styled.div<{ $onSea?: boolean }>`
     transition: color 0.25s ease, transform 0.15s ease;
   }
 
-  a:not([data-selected='true']):hover {
+  button {
+    border: none;
+    background: none;
+    font: inherit;
+  }
+
+  [data-selected]:not([data-selected='true']):hover {
     transform: translateY(-1px);
   }
 
-  a:not([data-selected='true']):active {
+  [data-selected]:not([data-selected='true']):active {
     transform: translateY(1px);
   }
 
-  a[data-selected='true'] {
+  [data-selected='true'] {
     color: ${({ $onSea, theme }) =>
       $onSea ? theme.colors.backgroundDarkBlue : theme.colors.white};
     pointer-events: none;
@@ -285,19 +306,24 @@ export const LanguageSwitchContainer = styled.div<{ $onSea?: boolean }>`
   }
 
   @media (max-width: 428px) {
-    a {
+    a,
+    button {
       min-width: 2.25rem;
       min-height: 2rem;
     }
   }
 `;
 
-export const LanguageThumb = styled.span<{ $index: number; $onSea?: boolean }>`
+export const SwitchThumb = styled.span<{
+  $index: number;
+  $onSea?: boolean;
+  $count?: number;
+}>`
   position: absolute;
   top: 3px;
   bottom: 3px;
   left: 3px;
-  width: calc(50% - 3px);
+  width: calc((100% - 6px) / ${({ $count = 2 }) => $count});
   border-radius: 999px;
   background: ${({ $onSea, theme }) =>
     $onSea

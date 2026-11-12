@@ -53,7 +53,7 @@ O Modo da Cena em que o céu segue a hora de Salvador (fuso America/Bahia, indep
 _Avoid_: Tempo real, easter egg
 
 **Fase do dia**:
-Em que ponto do dia a Cena está: `dia` (a única hoje), e, no modo Salvador ao vivo, também noite, amanhecer, pôr do sol e crepúsculo, com passagens graduais entre elas. Aparece no Hero como `data-cena-fase`, para teste.
+Em que ponto do dia a Cena está: `dia` ou `noite` (os dois presets fixos), e, no modo Salvador ao vivo, também noite, amanhecer, pôr do sol e crepúsculo, com passagens graduais entre elas. Aparece no Hero como `data-cena-fase`, para teste.
 _Avoid_: Período, turno
 
 **Mar**:

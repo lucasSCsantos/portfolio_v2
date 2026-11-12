@@ -69,7 +69,9 @@ const pt: Dictionary = {
     photoAlt: 'Foto de {name}',
     tagFullStack: '👉 Desenvolvedor full stack',
     tagFrontEnd: '👉 Desenvolvedor front-end',
-    languageSwitch: 'Idioma'
+    languageSwitch: 'Idioma',
+    sceneSwitch: 'Modo da cena',
+    sceneModes: { dia: 'Dia', noite: 'Noite' }
   },
   content,
   navLinks,

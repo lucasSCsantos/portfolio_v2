@@ -73,11 +73,6 @@ export default function TopSection() {
             $size="xlarge"
             $textAlign="center"
             $lineHeight={'96%'}
-            style={{
-              backgroundImage: 'linear-gradient(180deg, black 80%, #1762A6)',
-              backgroundClip: 'text',
-              color: 'transparent'
-            }}
             id="title-text"
           >
             {titleLine1}{' '}

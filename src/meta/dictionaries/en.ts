@@ -215,7 +215,9 @@ const en: Dictionary = {
     photoAlt: 'Photo of {name}',
     tagFullStack: '👉 Full stack developer',
     tagFrontEnd: '👉 Front-end developer',
-    languageSwitch: 'Language'
+    languageSwitch: 'Language',
+    sceneSwitch: 'Scene mode',
+    sceneModes: { dia: 'Day', noite: 'Night' }
   },
   content: {
     hero: {

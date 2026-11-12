@@ -10,6 +10,8 @@ import {
   DesktopNav,
   HeaderCta,
   HeaderActions,
+  DesktopOnly,
+  MobileSceneItem,
   MobileMenu,
   MobileMenuButton
 } from './styles';
@@ -18,6 +20,7 @@ import navLinks from '@/meta/navigation';
 import profile from '@/meta/profile';
 import { useDict } from '@/app/lib/locale';
 import LanguageSwitch from './LanguageSwitch';
+import SceneSwitch from './SceneSwitch';
 import {
   FaBars,
 } from 'react-icons/fa6';
@@ -129,6 +132,9 @@ function Header() {
             </HeaderCta>
           </DesktopNav>
 
+          <DesktopOnly>
+            <SceneSwitch onSea={onSea} />
+          </DesktopOnly>
           <LanguageSwitch onSea={onSea} activeId={activeId} />
 
           <MobileMenuButton
@@ -155,6 +161,9 @@ function Header() {
               onNavigate={closeMobileMenu}
             />
           ))}
+          <MobileSceneItem>
+            <SceneSwitch onSea={onSea} />
+          </MobileSceneItem>
           <li>
             <HeaderCta $onSea={onSea} href={dict.profile.resumePath} download>
               {content.header.cta}

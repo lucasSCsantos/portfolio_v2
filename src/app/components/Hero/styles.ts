@@ -1,11 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { ctaVariant } from '../ui/default';
-import type { ColorTrio } from '@/app/lib/scene';
+import { textOnScene, type SceneParams } from '@/app/lib/scene';
 
-export const Container = styled.section<{ $sky: ColorTrio }>`
+export const Container = styled.section<{
+  $sky: SceneParams['sky'];
+  $tone: SceneParams['tone'];
+}>`
   min-height: 100svh;
   display: flex;
   position: relative;
@@ -22,6 +25,7 @@ export const Container = styled.section<{ $sky: ColorTrio }>`
   );
 
   #greeting-text {
+    color: ${({ $tone }) => textOnScene($tone).ink};
     font-size: ${({ theme }) => theme.sizes.xsmall};
 
     @media (max-width: 1024px) {
@@ -30,6 +34,11 @@ export const Container = styled.section<{ $sky: ColorTrio }>`
   }
 
   #title-text {
+    color: ${({ $tone }) => textOnScene($tone).ink};
+    -webkit-text-fill-color: transparent;
+    background-image: ${({ $tone }) => textOnScene($tone).titleGradient};
+    background-clip: text;
+    -webkit-background-clip: text;
     font-size: clamp(2.5rem, 8.5vh, 4.5rem);
     padding-bottom: 0.1em;
 
@@ -288,5 +297,45 @@ export const AvatarContainer = styled(motion.div)`
     width: calc(var(--avatar) * 0.73);
     height: calc(var(--avatar) * 0.73);
     object-fit: cover;
+  }
+`;
+
+export const SkyLayer = styled.div`
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+`;
+
+const twinkle = keyframes`
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+`;
+
+export const Star = styled.span`
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  animation: ${twinkle} var(--duration) ease-in-out var(--delay) infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    opacity: 0.8;
+  }
+`;
+
+export const Moon = styled.div`
+  position: absolute;
+  right: 12%;
+  top: 15%;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fffdf2, #e6e2c8 60%, #c9c5a8);
+  box-shadow: 0 0 44px 12px rgba(255, 250, 220, 0.32);
+
+  @media (max-width: 428px) {
+    width: 44px;
+    height: 44px;
   }
 `;

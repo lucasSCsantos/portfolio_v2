@@ -8,7 +8,7 @@ import {
   type Locale
 } from '@/meta/dictionaries';
 import { useDict } from '@/app/lib/locale';
-import { LanguageSwitchContainer, LanguageThumb } from './styles';
+import { SwitchContainer, SwitchThumb } from './styles';
 
 // Cada idioma aparece pelo próprio nome.
 const LANGUAGES: Record<Locale, { code: string; name: string }> = {
@@ -56,12 +56,12 @@ export default function LanguageSwitch({ onSea, activeId }: LanguageSwitchProps)
   };
 
   return (
-    <LanguageSwitchContainer
+    <SwitchContainer
       $onSea={onSea}
       role="group"
       aria-label={ui.languageSwitch}
     >
-      <LanguageThumb
+      <SwitchThumb
         aria-hidden
         $onSea={onSea}
         $index={locales.indexOf(selected)}
@@ -84,6 +84,6 @@ export default function LanguageSwitch({ onSea, activeId }: LanguageSwitchProps)
           </a>
         );
       })}
-    </LanguageSwitchContainer>
+    </SwitchContainer>
   );
 }
