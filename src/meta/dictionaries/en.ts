@@ -232,7 +232,7 @@ const en: Dictionary = {
           label: 'building software'
         },
         { value: `${projects.length}`, label: 'projects launched' },
-        { value: '+30k', label: 'users on systems I built' },
+        { value: '+30k', label: 'users on a single system' },
         { value: '+530', label: 'volunteers organized' }
       ]
     },

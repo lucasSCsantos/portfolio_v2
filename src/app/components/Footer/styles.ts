@@ -10,9 +10,14 @@ export const Container = styled.footer`
   justify-content: center;
   align-items: center;
   gap: 20px;
-  padding: 48px 32px;
+  padding: 32px;
   z-index: 98;
   background-color: ${({ theme }) => theme.colors.background};
+
+  /* Telas baixas: o rodapé encolhe para caber na mesma tela que o Contato. */
+  @media (min-width: 835px) and (max-height: 760px) {
+    padding: 20px 32px;
+  }
 `;
 
 export const Divider = styled.hr`

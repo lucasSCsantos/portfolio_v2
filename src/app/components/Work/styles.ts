@@ -5,22 +5,23 @@ import { Box, Button } from '../ui/default';
 
 export const Container = styled.section`
   overflow: hidden;
-  height: 160vh;
+  /* Ao navegar até Habilidades, a seção ocupa a tela toda sem mostrar o Contato. */
+  min-height: 100svh;
   display: flex;
   position: relative;
   justify-content: center;
-  padding-top: 128px;
+  /* Conteúdo no meio da seção: o mesmo espaço até Serviços e até o Contato. */
+  align-items: center;
+  padding: 96px 0;
   z-index: 98;
   background-color: transparent;
-  
+
   @media (max-width: 834px) {
-    height: auto;
-    min-height: 100vh;
-    padding-bottom: 300px;
+    padding: 64px 0;
   }
 
   @media (max-width: 428px) {
-    padding-top: 16px;
+    padding: 32px 0;
   }
 `;
 

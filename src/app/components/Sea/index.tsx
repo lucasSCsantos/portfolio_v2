@@ -10,8 +10,9 @@ import { dive } from '@/app/lib/scroll';
 import FloatingBubble, { BubbleSpec } from './FloatingBubble';
 import { Backdrop, Vignette, Zone } from './styles';
 
-// Do raso (cor da onda do Hero) ao fundo do mar.
-const DEPTH_STOPS = [0, 0.22, 0.5, 0.78, 1];
+// Do raso (cor da onda do Hero) ao fundo do mar. O fundo é atingido em 85% da zona:
+// o Contato, no fim, já fica na água mais escura.
+const DEPTH_STOPS = [0, 0.18, 0.42, 0.66, 0.85];
 const DEPTH_COLORS = ['#79BED9', '#2A74A6', '#085690', '#043A6B', '#010F22'];
 
 const BUBBLES: BubbleSpec[] = [

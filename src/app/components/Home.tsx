@@ -5,6 +5,7 @@ import Hero from './Hero';
 import MainContainer from './main';
 import NextSection from './NextSection';
 import Sea from './Sea';
+import { Seabed } from './Sea/styles';
 
 const About    = dynamic(() => import('./About'));
 const Projects = dynamic(() => import('./Projects'));
@@ -15,6 +16,7 @@ const Contact  = dynamic(() => import('./Contact'));
 const Footer   = dynamic(() => import('./Footer'));
 
 export default function Home() {
+  
   return (
     <>
       <Header />
@@ -27,9 +29,11 @@ export default function Home() {
           <Jobs />
           <Services />
           <Work />
+          <Seabed>
+            <Contact />
+            <Footer />
+          </Seabed>
         </Sea>
-        <Contact />
-        <Footer />
         <Image
           style={{
             position: 'absolute',

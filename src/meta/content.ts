@@ -16,7 +16,7 @@ const content = {
     highlights: [
       { value: `Desde ${profile.careerStartYear}`, label: 'desenvolvendo software' },
       { value: `${projects.length}`, label: 'projetos lançados' },
-      { value: '+30 mil', label: 'usuários em sistemas que criei' },
+      { value: '+30 mil', label: 'usuários em um único sistema' },
       { value: '+530', label: 'voluntários organizados' }
     ]
   },

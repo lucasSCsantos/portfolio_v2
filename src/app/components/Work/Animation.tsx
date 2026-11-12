@@ -13,11 +13,12 @@ const style: CSSProperties = {
   position: 'absolute',
   width: '20vw',
   height: 'auto',
-  opacity: 0.36,
+  // Silhueta clara: no fundo escuro do mar, a preta sumia.
+  opacity: 0.22,
   top: 300,
   left: 0,
   zIndex: 2,
-  filter: 'brightness(0)'
+  filter: 'brightness(0) invert(1)'
 };
 
 const hiddenStyle: CSSProperties = { ...style, display: 'none' };
