@@ -234,48 +234,86 @@ export const HeaderActions = styled.div`
   }
 `;
 
+// Trilho afundado com um seletor em relevo que desliza entre PT e EN.
 export const LanguageSwitchContainer = styled.div<{ $onSea?: boolean }>`
-  display: inline-flex;
-  align-items: center;
-  gap: 0.125rem;
-  padding: 0.125rem;
-  border: 1px solid
-    ${({ $onSea, theme }) =>
-      $onSea ? theme.colors.primary : theme.colors.tertiary};
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 3px;
   border-radius: 999px;
   font-family: ${({ theme }) => theme.font.family.inter};
   font-size: 0.875rem;
   font-weight: 600;
+  background: ${({ $onSea, theme }) =>
+    $onSea
+      ? `linear-gradient(180deg, ${theme.colors.backgroundDarkBlue}, ${theme.colors.backgroundDarkBlue}cc)`
+      : `linear-gradient(180deg, ${theme.colors.tertiary}40, ${theme.colors.tertiary}1f)`};
+  box-shadow: ${({ $onSea }) =>
+    $onSea
+      ? 'inset 0 2px 5px rgba(0, 0, 0, 0.55), 0 1px 0 rgba(255, 255, 255, 0.14)'
+      : 'inset 0 2px 5px rgba(0, 45, 95, 0.32), 0 1px 0 rgba(255, 255, 255, 0.7)'};
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 
   a {
+    position: relative;
+    z-index: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 2.25rem;
+    min-width: 2.5rem;
     min-height: 2.25rem;
     border-radius: 999px;
     color: ${({ $onSea, theme }) =>
       $onSea ? theme.colors.textLight : theme.colors.tertiary};
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: color 0.25s ease, transform 0.15s ease;
   }
 
-  a:not([aria-current='true']):hover {
-    background-color: ${({ $onSea, theme }) =>
-      `${$onSea ? theme.colors.primary : theme.colors.tertiary}33`};
+  a:not([data-selected='true']):hover {
+    transform: translateY(-1px);
   }
 
-  a[aria-current='true'] {
-    background-color: ${({ $onSea, theme }) =>
-      $onSea ? theme.colors.primary : theme.colors.tertiary};
+  a:not([data-selected='true']):active {
+    transform: translateY(1px);
+  }
+
+  a[data-selected='true'] {
     color: ${({ $onSea, theme }) =>
-      $onSea ? theme.colors.backgroundDarkBlue : theme.colors.textLight};
+      $onSea ? theme.colors.backgroundDarkBlue : theme.colors.white};
     pointer-events: none;
+    text-shadow: ${({ $onSea }) =>
+      $onSea ? 'none' : '0 1px 1px rgba(0, 45, 95, 0.35)'};
   }
 
   @media (max-width: 428px) {
     a {
-      min-width: 2rem;
+      min-width: 2.25rem;
       min-height: 2rem;
     }
+  }
+`;
+
+export const LanguageThumb = styled.span<{ $index: number; $onSea?: boolean }>`
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  border-radius: 999px;
+  background: ${({ $onSea, theme }) =>
+    $onSea
+      ? `linear-gradient(180deg, ${theme.colors.white}, ${theme.colors.primary})`
+      : `linear-gradient(180deg, color-mix(in srgb, ${theme.colors.tertiary} 78%, white), ${theme.colors.tertiary})`};
+  box-shadow: ${({ $onSea }) =>
+    $onSea
+      ? '0 3px 8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
+      : '0 3px 8px rgba(0, 60, 120, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'};
+  transform: translateX(${({ $index }) => $index * 100}%);
+  transition:
+    transform 0.32s cubic-bezier(0.34, 1.45, 0.64, 1),
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 `;
