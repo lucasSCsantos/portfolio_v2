@@ -221,3 +221,61 @@ export const IconLinkContainer = styled.div`
   cursor: pointer;
   display: flex;
 `;
+
+// Agrupa o menu, o botão de idioma e o botão do menu móvel à direita do Brand.
+export const HeaderActions = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+
+  @media (max-width: 1024px) {
+    gap: 0.5rem;
+  }
+`;
+
+export const LanguageSwitchContainer = styled.div<{ $onSea?: boolean }>`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0.125rem;
+  border: 1px solid
+    ${({ $onSea, theme }) =>
+      $onSea ? theme.colors.primary : theme.colors.tertiary};
+  border-radius: 999px;
+  font-family: ${({ theme }) => theme.font.family.inter};
+  font-size: 0.875rem;
+  font-weight: 600;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.25rem;
+    min-height: 2.25rem;
+    border-radius: 999px;
+    color: ${({ $onSea, theme }) =>
+      $onSea ? theme.colors.textLight : theme.colors.tertiary};
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  a:not([aria-current='true']):hover {
+    background-color: ${({ $onSea, theme }) =>
+      `${$onSea ? theme.colors.primary : theme.colors.tertiary}33`};
+  }
+
+  a[aria-current='true'] {
+    background-color: ${({ $onSea, theme }) =>
+      $onSea ? theme.colors.primary : theme.colors.tertiary};
+    color: ${({ $onSea, theme }) =>
+      $onSea ? theme.colors.backgroundDarkBlue : theme.colors.textLight};
+    pointer-events: none;
+  }
+
+  @media (max-width: 428px) {
+    a {
+      min-width: 2rem;
+      min-height: 2rem;
+    }
+  }
+`;

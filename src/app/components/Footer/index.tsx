@@ -9,7 +9,7 @@ import {
   SocialLink
 } from './styles';
 import profile from '@/meta/profile';
-import content from '@/meta/content';
+import { useDict } from '@/app/lib/locale';
 
 function GitHubIcon() {
   return (
@@ -40,13 +40,14 @@ function LinkedInIcon() {
 }
 
 function Footer() {
+  const { content, ui } = useDict();
+
   return (
     <Container id="footer">
       <Divider />
       <FooterInner>
         <CopyrightText>
-          © {new Date().getFullYear()} {content.footer.copyrightName}. Todos os
-          direitos reservados.
+          © {new Date().getFullYear()} {content.footer.copyrightName}. {ui.rights}
         </CopyrightText>
         <SocialLinks>
           <SocialLink

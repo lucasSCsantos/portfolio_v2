@@ -4,8 +4,7 @@ import { FaDownload } from 'react-icons/fa6';
 import { Button } from '../ui/default';
 import { Availability, CtaRow, ResumeLink, Stats, ValueProp } from './styles';
 import { scrollToId } from '@/app/lib/scroll';
-import content from '@/meta/content';
-import profile from '@/meta/profile';
+import { useDict } from '@/app/lib/locale';
 
 // A última entrada do Hero: quem depende de o Hero estar pronto espera por este tempo.
 const ENTER_DELAY = 2;
@@ -13,6 +12,7 @@ const ENTER_DURATION = 0.8;
 export const HERO_READY_MS = (ENTER_DELAY + ENTER_DURATION) * 1000;
 
 export default function BottomSection() {
+  const { content, profile, ui } = useDict();
   const ref = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -64,7 +64,7 @@ export default function BottomSection() {
           {content.hero.resumeCta}
         </ResumeLink>
       </CtaRow>
-      <Stats aria-label="Números">
+      <Stats aria-label={ui.stats}>
         {content.hero.highlights.map(({ value, label }) => (
           <li key={label}>
             <strong>{value}</strong>

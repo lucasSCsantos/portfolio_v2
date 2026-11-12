@@ -2,12 +2,15 @@
 
 import { useReducedMotion } from 'framer-motion';
 import profile from '@/meta/profile';
+import { fill } from '@/meta/dictionaries';
+import { useDict } from '@/app/lib/locale';
 import Image from 'next/image';
 import Halo from './Halo';
 import { AvatarContainer } from './styles';
 
 export default function Avatar() {
   const reducedMotion = useReducedMotion();
+  const { ui } = useDict();
 
   return (
     <AvatarContainer
@@ -44,7 +47,7 @@ export default function Avatar() {
         height={200}
         id='avatar-image'
         priority
-        alt={`Foto de ${profile.name}`}
+        alt={fill(ui.photoAlt, { name: profile.name })}
         style={{
           userSelect: 'none',
           borderRadius: '100%',

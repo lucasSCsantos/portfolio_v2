@@ -30,12 +30,13 @@ function initialSlots() {
   const waiting = allSkills.filter(item => item.skill.rotating);
   return { shown, waiting };
 }
-import content from '@/meta/content';
+import { useDict } from '@/app/lib/locale';
 import dynamic from 'next/dynamic';
 
 const Animation = dynamic(() => import('./Animation'), { ssr: false });
 
 function Work() {
+  const { content, skillKinds, backgroundWords } = useDict();
   const [{ shown }, setSlots] = useState(initialSlots);
   const reducedMotion = useReducedMotion();
   const gridRef = useRef<HTMLUListElement>(null);
@@ -137,7 +138,7 @@ function Work() {
                     </CardFront>
                     <CardBack>
                       <strong>{skill.name}</strong>
-                      <span>{kind}</span>
+                      <span>{skillKinds[kind] ?? kind}</span>
                     </CardBack>
                   </CardInner>
                 </WaterPiece>
@@ -157,7 +158,7 @@ function Work() {
           pointerEvents: 'none',
           zIndex: 1
         }}
-        src="/habilidades.png"
+        src={backgroundWords.skills}
         alt=""
         aria-hidden
         width={3212 / 2.5}

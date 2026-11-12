@@ -7,7 +7,7 @@ import {
   ServiceTop
 } from './styles';
 import profile from '@/meta/profile';
-import content from '@/meta/content';
+import { useDict } from '@/app/lib/locale';
 import type { Service as ServiceData } from '@/meta/services';
 
 export default function Service({
@@ -18,6 +18,8 @@ export default function Service({
   message,
   order
 }: ServiceData & { order: number }) {
+  const { content } = useDict();
+
   return (
     <WaterPiece as={ServiceContainer} order={order} float={5}>
       <ServiceTop>

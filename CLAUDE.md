@@ -24,7 +24,13 @@ Tests exercise the rendered page (`e2e/`). Public identity (name, role, career s
 
 ## Architecture
 
-Single-page portfolio with section-based anchor navigation (`#sobre`, `#projetos`, `#contato`). One additional route: `/handlink`.
+Single-page portfolio with section-based anchor navigation (`#sobre`, `#projetos`, `#contato`). Routes: `/` (pt, default), `/en` (English, home only) and `/links` (pt only).
+
+### i18n
+
+- Each language is its own root layout via route groups: `src/app/(pt)/` and `src/app/(en)/en/` (so `<html lang>` is right). The shared home is `components/Home.tsx`. See `docs/adr/0001-idiomas-por-prefixo-de-rota.md`.
+- All user-visible text comes from a typed `Dictionary` (`src/meta/dictionaries/{pt,en}.ts`). `pt` assembles the existing `src/meta/*.ts` modules; `en` overrides their copy. Components read it with `useDict()` (`src/app/lib/locale.tsx`); never hardcode Portuguese strings in components. Strings with variables use `{name}` and `fill()`.
+- Text baked into images (section background words, OG images, the resume PDF) has an English twin: `scripts/generate-bg-text.mjs`, `scripts/generate-og-images.mjs`, `public/resume-lucas-cristovam.pdf`.
 
 ### Key directories
 
@@ -33,7 +39,7 @@ Single-page portfolio with section-based anchor navigation (`#sobre`, `#projetos
 - `src/app/styles/` — `theme.ts` (colors, sizes, fonts), `global.ts` (createGlobalStyle), `styled.d.ts` (typed theme).
 - `src/app/lib/` — `fonts.ts` (Next.js Google Font imports), `registry.tsx` (StyledComponentsRegistry for SSR).
 - `src/app/providers.tsx` — Client-side ThemeProvider + StyledComponentsRegistry wrapper.
-- `src/meta/` — Static data (e.g., `services.ts`).
+- `src/meta/` — Static data (e.g., `services.ts`) and `dictionaries/` (per-language copy).
 - `src/lotties/` — Lottie JSON animation files.
 
 ### Styling conventions

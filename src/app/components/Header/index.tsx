@@ -9,13 +9,15 @@ import {
   Container,
   DesktopNav,
   HeaderCta,
+  HeaderActions,
   MobileMenu,
   MobileMenuButton
 } from './styles';
 import { scrollToId } from '@/app/lib/scroll';
-import content from '@/meta/content';
 import navLinks from '@/meta/navigation';
 import profile from '@/meta/profile';
+import { useDict } from '@/app/lib/locale';
+import LanguageSwitch from './LanguageSwitch';
 import {
   FaBars,
 } from 'react-icons/fa6';
@@ -39,6 +41,8 @@ function findActiveSection() {
 }
 
 function Header() {
+  const dict = useDict();
+  const { content, ui } = dict;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [onSea, setOnSea] = useState(false);
@@ -108,37 +112,41 @@ function Header() {
           </a>
         </Brand>
 
-        <DesktopNav>
-          <ul>
-            {navLinks.map(({ text, path }) => (
-              <NavLink
-                key={path}
-                text={text}
-                path={path}
-                active={activeId === path.slice(1)}
-              />
-            ))}
-          </ul>
-          <HeaderCta $onSea={onSea} href={profile.resumePath} download>
-            {content.header.cta}
-          </HeaderCta>
-        </DesktopNav>
+        <HeaderActions>
+          <DesktopNav>
+            <ul>
+              {dict.navLinks.map(({ text, path }) => (
+                <NavLink
+                  key={path}
+                  text={text}
+                  path={path}
+                  active={activeId === path.slice(1)}
+                />
+              ))}
+            </ul>
+            <HeaderCta $onSea={onSea} href={dict.profile.resumePath} download>
+              {content.header.cta}
+            </HeaderCta>
+          </DesktopNav>
 
-        <MobileMenuButton
-          type="button"
-          aria-label={isMenuOpen ? 'Fechar menu de navegacao' : 'Abrir menu de navegacao'}
-          aria-expanded={isMenuOpen}
-          aria-controls="mobile-navigation"
-          $isOpen={isMenuOpen}
-          onClick={() => setIsMenuOpen((prevState) => !prevState)}
-        >
-          <FaBars size={20} color="#398CBF" />
-        </MobileMenuButton>
+          <LanguageSwitch onSea={onSea} activeId={activeId} />
+
+          <MobileMenuButton
+            type="button"
+            aria-label={isMenuOpen ? ui.closeMenu : ui.openMenu}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-navigation"
+            $isOpen={isMenuOpen}
+            onClick={() => setIsMenuOpen((prevState) => !prevState)}
+          >
+            <FaBars size={20} color="#398CBF" />
+          </MobileMenuButton>
+        </HeaderActions>
       </Content>
 
       <MobileMenu id="mobile-navigation" $isOpen={isMenuOpen}>
         <ul>
-          {navLinks.map(({ text, path }) => (
+          {dict.navLinks.map(({ text, path }) => (
             <NavLink
               key={`mobile-${path}`}
               text={text}
@@ -148,7 +156,7 @@ function Header() {
             />
           ))}
           <li>
-            <HeaderCta $onSea={onSea} href={profile.resumePath} download>
+            <HeaderCta $onSea={onSea} href={dict.profile.resumePath} download>
               {content.header.cta}
             </HeaderCta>
           </li>

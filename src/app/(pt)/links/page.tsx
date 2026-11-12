@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Links from '../components/Links';
+import Links from '../../components/Links';
 import profile from '@/meta/profile';
 
 const title = `${profile.name} - ${profile.role}`;

@@ -9,11 +9,13 @@ import {
   Timeline
 } from './styles';
 import Experience from './Experience';
-import experiences from '@/meta/experiences';
-import education, { educationLabels, languages } from '@/meta/education';
-import content from '@/meta/content';
+import { fill } from '@/meta/dictionaries';
+import { useDict } from '@/app/lib/locale';
 
 function Jobs() {
+  const { content, experiences, education, educationLabels, languages, ui } =
+    useDict();
+
   return (
     <Container id="experiencias">
       <Content
@@ -87,7 +89,7 @@ function Jobs() {
             {languages.map(lang => (
               <li key={lang.name}>
                 <strong>{educationLabels.languages}</strong>
-                {lang.name} · nível {lang.level}
+                {lang.name} · {fill(ui.level, { level: lang.level })}
               </li>
             ))}
           </WaterPiece>

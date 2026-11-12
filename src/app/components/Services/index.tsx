@@ -6,12 +6,13 @@ import WaterPiece from '../ui/WaterPiece';
 import { Container } from './styles';
 import Service from './Service';
 import dynamic from 'next/dynamic';
-import services from '@/meta/services';
-import content from '@/meta/content';
+import { useDict } from '@/app/lib/locale';
 
 const Animation = dynamic(() => import('./Animation'), { ssr: false });
 
 function Services() {
+  const { content, services, backgroundWords } = useDict();
+
   return (
     <Container id="servicos">
       <Content
@@ -75,7 +76,7 @@ function Services() {
           pointerEvents: 'none',
           zIndex: 1
         }}
-        src="/services-bg-text.png"
+        src={backgroundWords.services}
         alt=""
         aria-hidden
         width={1212}

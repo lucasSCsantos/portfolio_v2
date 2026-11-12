@@ -8,12 +8,14 @@ import { Autoplay, EffectCoverflow, Navigation } from 'swiper/modules';
 import { useReducedMotion } from 'framer-motion';
 import Project from './Project';
 import { SliderWrapper } from './styles';
-import projects, { ProjectVideo } from '@/meta/projects';
+import type { ProjectVideo } from '@/meta/projects';
+import { useDict } from '@/app/lib/locale';
 import VideoModal from './VideoModal';
 
 SwiperCore.use([EffectCoverflow, Navigation, Autoplay]);
 
 export default function Carousel() {
+  const { projects } = useDict();
   const [openVideo, setOpenVideo] = useState<{
     title: string;
     video: ProjectVideo;

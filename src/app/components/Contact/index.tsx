@@ -19,14 +19,15 @@ import {
   StatusItem,
   SurfaceTransition
 } from './styles';
-import content from '@/meta/content';
 import profile from '@/meta/profile';
+import { useDict } from '@/app/lib/locale';
 
-const WHATSAPP_URL = `https://wa.me/${profile.whatsappNumber}?text=${profile.whatsappMessage}`;
-const EMAIL_URL = `mailto:${profile.email}?subject=${encodeURIComponent(profile.emailSubject)}`;
 const COPIED_FEEDBACK_MS = 2000;
 
 function Contact() {
+  const { content, profile: text } = useDict();
+  const WHATSAPP_URL = `https://wa.me/${profile.whatsappNumber}?text=${text.whatsappMessage}`;
+  const EMAIL_URL = `mailto:${profile.email}?subject=${encodeURIComponent(text.emailSubject)}`;
   const [copied, setCopied] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
@@ -101,8 +102,8 @@ function Contact() {
             {content.contact.description}
           </WaterPiece>
           <Status>
-            <StatusItem $available>{profile.availability}</StatusItem>
-            <StatusItem>{profile.location}</StatusItem>
+            <StatusItem $available>{text.availability}</StatusItem>
+            <StatusItem>{text.location}</StatusItem>
           </Status>
           <TopicList>
             {content.contact.topics.map((topic, index) => (
@@ -156,7 +157,7 @@ function Contact() {
                 {content.contact.linkedinButtonText}
               </SecondaryLink>
             </SecondaryActions>
-            <SecondaryLink $full href={profile.resumePath} download>
+            <SecondaryLink $full href={text.resumePath} download>
               {content.contact.resumeButtonText}
             </SecondaryLink>
             <CopyEmailButton type="button" onClick={copyEmail} aria-live="polite">

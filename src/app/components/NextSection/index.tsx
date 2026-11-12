@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { scrollToId } from '@/app/lib/scroll';
+import { useDict } from '@/app/lib/locale';
 import { HERO_READY_MS } from '../Hero/BottomSection';
 import { Button } from './styles';
 
@@ -37,6 +38,7 @@ function findNext(): string | undefined {
 
 /** Botão fixo, no centro e perto do fim da tela, que chama para descer à próxima seção. */
 export default function NextSection() {
+  const { ui } = useDict();
   const [next, setNext] = useState<string | undefined>('sobre');
   const [heroReady, setHeroReady] = useState(false);
 
@@ -70,7 +72,7 @@ export default function NextSection() {
       $visible={visible}
       tabIndex={visible ? 0 : -1}
       aria-hidden={!visible}
-      aria-label="Descer para a próxima seção"
+      aria-label={ui.nextSection}
       onClick={() => next && scrollToId(next)}
     >
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>

@@ -8,6 +8,7 @@ import {
   TechList
 } from './styles';
 import type { Experience as ExperienceData } from '@/meta/experiences';
+import { useDict } from '@/app/lib/locale';
 
 interface ExperienceProps extends ExperienceData {
   order: number;
@@ -25,6 +26,8 @@ export default function Experience({
   techs,
   projectTitle
 }: ExperienceProps) {
+  const { ui } = useDict();
+
   return (
     <WaterPiece as={ExperienceItem} order={order} solid>
       <Heading $level={3} $size="small">
@@ -40,19 +43,19 @@ export default function Experience({
           {highlight}
         </Text>
       )}
-      <Achievements aria-label="Realizações">
+      <Achievements aria-label={ui.achievements}>
         {achievements.map(item => (
           <li key={item}>{item}</li>
         ))}
       </Achievements>
-      <TechList aria-label="Tecnologias">
+      <TechList aria-label={ui.technologies}>
         {techs.map(tech => (
           <li key={tech}>{tech}</li>
         ))}
       </TechList>
       {projectTitle && (
         <Text $size="xxxsmall">
-          Veja o projeto <a href="#projetos">{projectTitle}</a>.
+          {ui.seeProject} <a href="#projetos">{projectTitle}</a>.
         </Text>
       )}
     </WaterPiece>

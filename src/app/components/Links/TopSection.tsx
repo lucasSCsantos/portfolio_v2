@@ -3,12 +3,13 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { Text } from '../ui/typography';
 import Avatar from '../Hero/Avatar';
-import content from '@/meta/content';
 import profile from '@/meta/profile';
+import { useDict } from '@/app/lib/locale';
 import { Availability } from '../Hero/styles';
 import { AvailabilityTag, Title, TopContent } from './styles';
 
 export default function TopSection() {
+  const { content, profile: text } = useDict();
   const reducedMotion = useReducedMotion();
   const [titleLine1, titleLine2] = content.hero.title.split('\n');
 
@@ -55,7 +56,7 @@ export default function TopSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ ease: 'easeInOut', duration: 0.8, delay: 1.6 }}
       >
-        <Availability>{profile.availability}</Availability>
+        <Availability>{text.availability}</Availability>
       </AvailabilityTag>
     </TopContent>
   );

@@ -7,7 +7,7 @@ import AboutImage from './AboutImage';
 import { Container, Icon, Method, SocialMediaLink } from './styles';
 import Image from 'next/image';
 import profile from '@/meta/profile';
-import content from '@/meta/content';
+import { useDict } from '@/app/lib/locale';
 
 const socialButtons = [
   { key: 'whatsapp', label: 'WhatsApp', href: profile.social.whatsapp },
@@ -17,6 +17,8 @@ const socialButtons = [
 ] as const;
 
 function About() {
+  const { content, backgroundWords } = useDict();
+
   return (
     <Container id="sobre">
       <Content
@@ -110,7 +112,7 @@ function About() {
           userSelect: 'none',
           pointerEvents: 'none'
         }}
-        src="/about-bg-text.png"
+        src={backgroundWords.about}
         alt=""
         aria-hidden
         width={1453}

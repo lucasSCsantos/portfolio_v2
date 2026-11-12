@@ -12,6 +12,14 @@ _Avoid_: Footer (reservado para o Rodapé)
 A faixa final da página, abaixo da Seção de Contato, com copyright e links sociais.
 _Avoid_: Footer, seção de contato
 
+**Idioma**:
+A língua em que a página é mostrada: português (`/`, padrão) ou inglês (`/en`). Só a home tem os dois; a Página de Links é só em português. O visitante troca pelo botão `PT | EN` no Header, que é um link para a mesma seção no outro idioma.
+_Avoid_: Locale, tradução (no código e nas conversas, use Idioma)
+
+**Dicionário**:
+O conjunto tipado de todos os textos visíveis de um Idioma (`src/meta/dictionaries`). Os dois Dicionários têm o mesmo formato.
+_Avoid_: Arquivo de tradução, i18n
+
 **Projeto**:
 Um trabalho de Lucas exibido no carrossel da seção Projetos, com o papel dele, as tecnologias, o resultado (quando há) e a relação com quem o pediu (cliente, empregador, iniciativa própria ou voluntário). Um Projeto não é uma Experiência: a Torcida Imperial, por exemplo, é um Projeto de iniciativa própria.
 _Avoid_: Case, item

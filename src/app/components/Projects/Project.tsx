@@ -1,5 +1,6 @@
 import { ComponentProps } from 'react';
-import { relationLabels } from '@/meta/projects';
+import { fill } from '@/meta/dictionaries';
+import { useDict } from '@/app/lib/locale';
 import type { ProjectRelation, ProjectVideo } from '@/meta/projects';
 import { Box, MotionBox } from '../ui/default';
 import { Heading, Text } from '../ui/typography';
@@ -56,6 +57,7 @@ const Project = ({
   description,
   type = 'desktop'
 }: ProjectProps) => {
+  const { relationLabels, ui } = useDict();
   const hasVideo = Boolean(video && (video.horizontal || video.vertical));
 
   const openVideo = (opener: HTMLElement) => onOpenVideo?.(opener);
@@ -92,12 +94,12 @@ const Project = ({
               {year}
             </Tag>
             <Meta>
-              <dt>Relação</dt>
+              <dt>{ui.relation}</dt>
               <dd>{relationLabels[relation]}</dd>
-              <dt>Papel</dt>
+              <dt>{ui.role}</dt>
               <dd>{role}</dd>
             </Meta>
-            <TechList aria-label="Tecnologias">
+            <TechList aria-label={ui.technologies}>
               {technologies.map((tech) => (
                 <li key={tech}>{tech}</li>
               ))}
@@ -157,22 +159,22 @@ const Project = ({
               <ProjectButton
                 $size="small"
                 aria-haspopup="dialog"
-                aria-label={`Ver demo do projeto ${title}`}
+                aria-label={fill(ui.viewDemoLabel, { title })}
                 onClick={(e) => openVideo(e.currentTarget)}
               >
-                Ver demo
+                {ui.viewDemo}
               </ProjectButton>
             )}
             {href && (
               <ProjectButton
                 $size="small"
-                aria-label={`Ver site do projeto ${title}`}
+                aria-label={fill(ui.viewSiteLabel, { title })}
                 onClick={() => window.open(href, '_blank', 'noopener')}
               >
-                Ver site →
+                {ui.viewSite}
               </ProjectButton>
             )}
-            {offline && <Offline>Site fora do ar</Offline>}
+            {offline && <Offline>{ui.offline}</Offline>}
           </Box>
         )}
       </ProjectContainer>

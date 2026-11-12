@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import { useDict } from '@/app/lib/locale';
 
 const Link = styled.a`
   position: fixed;
@@ -21,5 +22,7 @@ const Link = styled.a`
 `;
 
 export default function SkipLink() {
-  return <Link href="#conteudo">Pular para o conteúdo</Link>;
+  const { ui } = useDict();
+
+  return <Link href="#conteudo">{ui.skipLink}</Link>;
 }

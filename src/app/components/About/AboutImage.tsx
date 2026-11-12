@@ -1,10 +1,14 @@
 import profile from '@/meta/profile';
+import { fill } from '@/meta/dictionaries';
+import { useDict } from '@/app/lib/locale';
 import { Area } from '../ui/default';
 import WaterPiece from '../ui/WaterPiece';
 import { Tag } from './styles';
 import Image from 'next/image';
 
 export default function AboutImage() {
+  const { ui } = useDict();
+
   return (
     <Area
       id="right-about-area"
@@ -24,7 +28,7 @@ export default function AboutImage() {
         calm
         style={{ bottom: '24%', right: 468 - 280 }}
       >
-        👉 Desenvolvedor full stack
+        {ui.tagFullStack}
       </WaterPiece>
       <WaterPiece
         as={Tag}
@@ -35,7 +39,7 @@ export default function AboutImage() {
         calm
         style={{ bottom: '12%', right: 468 - 280 }}
       >
-        👉 Desenvolvedor front-end
+        {ui.tagFrontEnd}
       </WaterPiece>
       <WaterPiece
         as={Image}
@@ -48,7 +52,7 @@ export default function AboutImage() {
         quality={65}
         sizes="(max-width: 834px) 100vw, 468px"
         style={{ borderRadius: 20 }}
-        alt={`Foto de ${profile.name}`}
+        alt={fill(ui.photoAlt, { name: profile.name })}
       />
     </Area>
   );

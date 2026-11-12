@@ -2,9 +2,10 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Heading, Text } from '../ui/typography';
 import Avatar from './Avatar';
 import { useRef } from 'react';
-import content from '@/meta/content';
+import { useDict } from '@/app/lib/locale';
 
 export default function TopSection() {
+  const { content } = useDict();
   const ref = useRef(null);
 
   const { scrollYProgress } = useScroll({

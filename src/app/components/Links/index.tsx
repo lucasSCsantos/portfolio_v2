@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
-import links from '@/meta/links';
+import { useDict } from '@/app/lib/locale';
 import LinkIcon from './LinkIcon';
 import TopSection from './TopSection';
 import {
@@ -21,6 +21,7 @@ const ENTER_DELAY = 0.6;
 const ENTER_STAGGER = 0.06;
 
 function Links() {
+  const { links } = useDict();
   const reducedMotion = useReducedMotion();
 
   return (

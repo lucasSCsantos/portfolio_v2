@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { ProjectVideo } from '@/meta/projects';
+import { fill } from '@/meta/dictionaries';
+import { useDict } from '@/app/lib/locale';
 import { CloseButton, Overlay, Video } from './styles';
 
 interface VideoModalProps {
@@ -20,6 +22,7 @@ const pickSource = (video: ProjectVideo, isMobile: boolean) =>
     : (video.horizontal ?? video.vertical);
 
 export default function VideoModal({ title, video, onClose }: VideoModalProps) {
+  const { ui } = useDict();
   const [isMobile, setIsMobile] = useState(
     () => window.matchMedia(MOBILE_QUERY).matches
   );
@@ -91,14 +94,14 @@ export default function VideoModal({ title, video, onClose }: VideoModalProps) {
       ref={overlayRef}
       role="dialog"
       aria-modal="true"
-      aria-label={`Vídeo do projeto ${title}`}
+      aria-label={fill(ui.videoLabel, { title })}
       tabIndex={-1}
       onClick={onClose}
       onKeyDown={trapFocus}
     >
       <CloseButton
         type="button"
-        aria-label="Fechar vídeo"
+        aria-label={ui.closeVideo}
         onClick={e => {
           e.stopPropagation();
           onClose();

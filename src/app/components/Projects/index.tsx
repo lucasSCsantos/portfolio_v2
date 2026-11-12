@@ -1,7 +1,7 @@
 'use client';
 
 import { Area, Content } from '../ui/default';
-import content from '@/meta/content';
+import { useDict } from '@/app/lib/locale';
 import { Heading } from '../ui/typography';
 import WaterPiece from '../ui/WaterPiece';
 import dynamic from 'next/dynamic';
@@ -13,6 +13,8 @@ import Image from 'next/image';
 const Animation = dynamic(() => import('./Animation'), { ssr: false });
 
 function Projects() {
+  const { content, backgroundWords } = useDict();
+
   return (
     <Container id="projetos">
       <Content
@@ -39,7 +41,7 @@ function Projects() {
             $role="subtitle"
             $color="textLight"
           >
-            Projetos
+            {content.projects.label}
           </WaterPiece>
           <WaterPiece
             as={Heading}
@@ -66,7 +68,7 @@ function Projects() {
           userSelect: 'none',
           pointerEvents: 'none'
         }}
-        src="/projects-bg-text.png"
+        src={backgroundWords.projects}
         alt=""
         aria-hidden
         width={1067}
