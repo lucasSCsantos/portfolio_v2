@@ -3,8 +3,9 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { ctaVariant } from '../ui/default';
+import type { ColorTrio } from '@/app/lib/scene';
 
-export const Container = styled.section`
+export const Container = styled.section<{ $sky: ColorTrio }>`
   min-height: 100svh;
   display: flex;
   position: relative;
@@ -13,6 +14,12 @@ export const Container = styled.section`
   flex-direction: column;
   padding-top: 5.5rem;
   background-color: ${({ theme }) => theme.colors.background};
+  background-image: linear-gradient(
+    180deg,
+    ${({ $sky }) => $sky[0]} 0%,
+    ${({ $sky }) => $sky[1]} 55%,
+    ${({ $sky }) => $sky[2]} 100%
+  );
 
   #greeting-text {
     font-size: ${({ theme }) => theme.sizes.xsmall};

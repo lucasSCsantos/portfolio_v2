@@ -52,6 +52,10 @@ _Avoid_: Tema, modo escuro (só `noite` é escuro)
 O Modo da Cena em que o céu segue a hora de Salvador (fuso America/Bahia, independente de onde o visitante está) e o clima e o mar reais da cidade (chuva, nuvens, vento, altura das ondas). Enquanto o clima carrega, ou se ele não puder ser obtido, o céu continua seguindo a hora, sem nuvens nem chuva e com ondas calmas padrão.
 _Avoid_: Tempo real, easter egg
 
+**Fase do dia**:
+Em que ponto do dia a Cena está: `dia` (a única hoje), e, no modo Salvador ao vivo, também noite, amanhecer, pôr do sol e crepúsculo, com passagens graduais entre elas. Aparece no Hero como `data-cena-fase`, para teste.
+_Avoid_: Período, turno
+
 **Mar**:
 A zona submersa abaixo do Hero, que escurece conforme o visitante rola a página. No Modo `noite` a profundidade começa já escura, em continuidade com as ondas, e o texto que fica direto sobre ele passa a ser claro.
 _Avoid_: Sea, fundo do mar
