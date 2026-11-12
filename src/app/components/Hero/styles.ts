@@ -113,6 +113,28 @@ export const Availability = styled.p`
   }
 `;
 
+// O selo de disponibilidade e, logo abaixo, o Aviso de sono.
+export const AvailabilityStack = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+`;
+
+// A linha tem altura fixa e fica reservada mesmo vazia: o aviso só aparece depois
+// da hidratação, e nada abaixo dele pode pular quando ele aparece.
+export const SleepLine = styled.p<{ $visible: boolean }>`
+  height: 1.5rem;
+  padding: 0 0.75rem;
+  border-radius: 999px;
+  background-color: ${({ theme }) => theme.colors.white}b3;
+  font-size: 0.8125rem;
+  font-style: italic;
+  line-height: 1.5rem;
+  color: ${({ theme }) => theme.colors.text};
+  visibility: ${({ $visible }) => ($visible ? 'visible' : 'hidden')};
+`;
+
 export const CtaRow = styled.div`
   display: flex;
   flex-wrap: wrap;

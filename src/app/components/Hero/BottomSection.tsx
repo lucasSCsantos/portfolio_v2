@@ -2,7 +2,15 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaDownload } from 'react-icons/fa6';
 import { Button } from '../ui/default';
-import { Availability, CtaRow, ResumeLink, Stats, ValueProp } from './styles';
+import SleepNotice from './SleepNotice';
+import {
+  Availability,
+  AvailabilityStack,
+  CtaRow,
+  ResumeLink,
+  Stats,
+  ValueProp
+} from './styles';
 import { scrollToId } from '@/app/lib/scroll';
 import { useDict } from '@/app/lib/locale';
 
@@ -51,7 +59,10 @@ export default function BottomSection() {
       }}
     >
       <ValueProp>{content.hero.valueProp}</ValueProp>
-      <Availability>{profile.availability}</Availability>
+      <AvailabilityStack>
+        <Availability>{profile.availability}</Availability>
+        <SleepNotice />
+      </AvailabilityStack>
       <CtaRow>
         <Button $variant="solid" onClick={() => scrollToId('contato')}>
           {content.hero.cta}

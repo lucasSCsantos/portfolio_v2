@@ -87,3 +87,11 @@ export function salvadorMinutes(now: Date): number {
     Number(SALVADOR_CLOCK.formatToParts(now).find((p) => p.type === type)?.value);
   return part('hour') * 60 + part('minute');
 }
+
+// O Aviso de sono: das 22h às 5h em Salvador, em qualquer Modo da Cena.
+const SLEEP_FROM = 22 * 60;
+const SLEEP_UNTIL = 5 * 60;
+
+export function isSleepTime(minutes: number): boolean {
+  return minutes >= SLEEP_FROM || minutes < SLEEP_UNTIL;
+}

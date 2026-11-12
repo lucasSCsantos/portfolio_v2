@@ -228,6 +228,7 @@ const en: Dictionary = {
       cta: 'Get in touch',
       secondaryCta: 'See projects',
       resumeCta: 'Download resume',
+      sleepNotice: 'probably sleeping...',
       highlights: [
         {
           value: `Since ${profile.careerStartYear}`,

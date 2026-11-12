@@ -11,6 +11,7 @@ const content = {
     cta: 'Entrar em contato',
     secondaryCta: 'Ver projetos',
     resumeCta: 'Baixar currículo',
+    sleepNotice: 'provavelmente dormindo... 😴',
     // Números genéricos, cada um com uma fonte única: o ano de início da
     // carreira, a lista de Projetos e os resultados dos currículos.
     highlights: [
