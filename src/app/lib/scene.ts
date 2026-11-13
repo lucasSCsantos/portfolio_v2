@@ -67,6 +67,43 @@ export function sceneFor({ mode }: SceneInput): SceneParams {
   }
 }
 
+const mix = (from: number, to: number, t: number) => from + (to - from) * t;
+
+const mixColor = (from: string, to: string, t: number) =>
+  '#' +
+  [1, 3, 5]
+    .map(i => {
+      const channel = mix(parseInt(from.slice(i, i + 2), 16), parseInt(to.slice(i, i + 2), 16), t);
+      return Math.round(channel).toString(16).padStart(2, '0');
+    })
+    .join('');
+
+const mixTrio = (from: ColorTrio, to: ColorTrio, t: number): ColorTrio => [
+  mixColor(from[0], to[0], t),
+  mixColor(from[1], to[1], t),
+  mixColor(from[2], to[2], t)
+];
+
+// O quadro `t` (0..1) da passagem de uma Cena para outra: cores e números andam juntos;
+// o tom dos textos e a fase, que não têm meio-termo, trocam na metade.
+export function mixScenes(from: SceneParams, to: SceneParams, t: number): SceneParams {
+  if (t <= 0) return from;
+  if (t >= 1) return to;
+  const ending = t >= 0.5 ? to : from;
+  return {
+    sky: mixTrio(from.sky, to.sky, t),
+    stars: mix(from.stars, to.stars, t),
+    cloud: mix(from.cloud, to.cloud, t),
+    rain: mix(from.rain, to.rain, t),
+    amp: mix(from.amp, to.amp, t),
+    speed: mix(from.speed, to.speed, t),
+    waves: mixTrio(from.waves, to.waves, t),
+    dark: mix(from.dark, to.dark, t),
+    tone: ending.tone,
+    phase: ending.phase
+  };
+}
+
 // Cores dos textos do Hero sobre a Cena: escuros sobre céu claro, claros sobre céu escuro.
 export function textOnScene(tone: SceneParams['tone']) {
   return tone === 'light'

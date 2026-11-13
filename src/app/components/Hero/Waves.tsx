@@ -1,6 +1,7 @@
 'use client';
 
 import { sceneFor, type ColorTrio } from '@/app/lib/scene';
+import { CROSSFADE_SECONDS } from '@/app/lib/scene-mode';
 import { useReducedMotion, useScroll, motion, useTransform } from 'framer-motion';
 import { WavesContainer } from './styles';
 
@@ -20,6 +21,8 @@ type WavesProps = {
   // Cores de trás para a frente, a altura (1 = as ondas de sempre) e o multiplicador da duração do deslize.
   colors?: ColorTrio;
   amplitude?: number;
+  // A altura que dita o sobe-e-desce; por padrão, a própria amplitude.
+  bobAmplitude?: number;
   speed?: number;
 };
 
@@ -32,6 +35,7 @@ function Waves({
   cover = false,
   colors = DEFAULT_COLORS,
   amplitude = 1,
+  bobAmplitude = amplitude,
   speed = 1
 }: WavesProps) {
   const { scrollYProgress } = useScroll();
@@ -46,14 +50,15 @@ function Waves({
 
   // A altura vem de um esticão suave a partir da base mais um sobe-e-desce; com a amplitude de sempre, nenhum dos dois.
   const scaleY = 1 + (amplitude - 1) * 0.3;
-  const bob = reducedMotion ? 0 : Math.max(0, amplitude - 1) * 12;
+  const bob = reducedMotion ? 0 : Math.max(0, bobAmplitude - 1) * 12;
+  // Sem balanço, a camada volta suavemente à base em vez de ficar parada onde estava.
   const bobbing = (duration: number) =>
     bob > 0
       ? {
           animate: { y: [0, -bob, 0] },
           transition: { duration, repeat: Infinity, ease: 'easeInOut' as const }
         }
-      : {};
+      : { animate: { y: 0 }, transition: { duration: reducedMotion ? 0 : CROSSFADE_SECONDS } };
 
   return (
     <WavesContainer

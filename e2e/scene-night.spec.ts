@@ -110,7 +110,8 @@ test.describe('Hero em noite', () => {
   test.beforeEach(async ({ page }) => {
     await openHero(page);
     await sceneSwitch(page).getByRole('radio', { name: pt.ui.sceneModes.noite }).click();
-    await page.waitForTimeout(500);
+    // Espera o crossfade de cerca de 600 ms terminar.
+    await page.waitForTimeout(800);
   });
 
   test('o Hero informa o modo e a fase da noite', async ({ page }) => {
@@ -165,7 +166,7 @@ test.describe('Hero em noite', () => {
   test('voltar para dia devolve o Hero de sempre', async ({ page }) => {
     await sceneSwitch(page).getByRole('radio', { name: pt.ui.sceneModes.dia }).click();
     await expect(page.locator('#inicio')).toHaveAttribute('data-cena-modo', 'dia');
-    expect(await waveFills(page)).toEqual(DAY_WAVES);
+    await expect.poll(() => waveFills(page)).toEqual(DAY_WAVES);
     await expect(page.locator('#inicio [data-cena-camada="estrelas"]')).toHaveCount(0);
   });
 });

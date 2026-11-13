@@ -5,10 +5,9 @@ import styled, { keyframes } from 'styled-components';
 import { ctaVariant } from '../ui/default';
 import { textOnScene, type SceneParams } from '@/app/lib/scene';
 
-export const Container = styled.section<{
-  $sky: SceneParams['sky'];
-  $tone: SceneParams['tone'];
-}>`
+// O céu vem por variáveis (--sky-top, --sky-middle, --sky-bottom) no estilo do elemento:
+// muda a cada quadro da troca de modo sem gerar uma classe nova por quadro.
+export const Container = styled.section<{ $tone: SceneParams['tone'] }>`
   min-height: 100svh;
   display: flex;
   position: relative;
@@ -19,9 +18,9 @@ export const Container = styled.section<{
   background-color: ${({ theme }) => theme.colors.background};
   background-image: linear-gradient(
     180deg,
-    ${({ $sky }) => $sky[0]} 0%,
-    ${({ $sky }) => $sky[1]} 55%,
-    ${({ $sky }) => $sky[2]} 100%
+    var(--sky-top) 0%,
+    var(--sky-middle) 55%,
+    var(--sky-bottom) 100%
   );
 
   #greeting-text {

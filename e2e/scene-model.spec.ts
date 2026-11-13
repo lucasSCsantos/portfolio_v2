@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { sceneFor, salvadorMinutes, textOnScene } from '../src/app/lib/scene';
+import { mixScenes, sceneFor, salvadorMinutes, textOnScene } from '../src/app/lib/scene';
 
 // Valores do Hero como ele sempre foi (cores das três camadas de onda e o fundo do Hero).
 const DAY_WAVES = ['#1462A6', '#398CBF', '#79BED9'];
@@ -50,6 +50,48 @@ test.describe('modelo da Cena em noite', () => {
     expect(night.phase).toBe('noite');
     expect(textOnScene(night.tone).ink).not.toBe(textOnScene('light').ink);
   });
+});
+
+test.describe('passagem entre duas Cenas', () => {
+  const day = sceneFor({ mode: 'dia' });
+  const night = sceneFor({ mode: 'noite' });
+  const channels = (hex: string) => [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16));
+
+  test('no início é a Cena de partida e no fim a de chegada, sem nenhuma diferença', () => {
+    expect(mixScenes(day, night, 0)).toEqual(day);
+    expect(mixScenes(day, night, 1)).toEqual(night);
+  });
+
+  test('fora do intervalo fica presa às pontas', () => {
+    expect(mixScenes(day, night, -0.5)).toEqual(day);
+    expect(mixScenes(day, night, 1.5)).toEqual(night);
+  });
+
+  test('no meio, cores e números ficam no meio do caminho, e as cores continuam válidas', () => {
+    const mid = mixScenes(day, night, 0.5);
+    [...mid.sky, ...mid.waves].forEach(color => expect(color).toMatch(/^#[0-9a-f]{6}$/));
+
+    mid.sky.forEach((color, i) =>
+      channels(color).forEach((channel, k) =>
+        expect(channel).toBeCloseTo((channels(day.sky[i])[k] + channels(night.sky[i])[k]) / 2, -0.5)
+      )
+    );
+    mid.waves.forEach((color, i) =>
+      channels(color).forEach((channel, k) =>
+        expect(channel).toBeCloseTo((channels(day.waves[i])[k] + channels(night.waves[i])[k]) / 2, -0.5)
+      )
+    );
+    expect(mid.stars).toBeCloseTo(0.5);
+    expect(mid.amp).toBeCloseTo(1.3);
+    expect(mid.speed).toBeCloseTo(0.825);
+    expect(mid.dark).toBeCloseTo(0.5);
+  });
+
+  test('o tom dos textos e a fase trocam de uma vez, na metade', () => {
+    expect(mixScenes(day, night, 0.49)).toMatchObject({ tone: 'light', phase: 'dia' });
+    expect(mixScenes(day, night, 0.5)).toMatchObject({ tone: 'dark', phase: 'noite' });
+  });
+
 });
 
 test.describe('hora de Salvador', () => {
