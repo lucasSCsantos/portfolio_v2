@@ -47,7 +47,7 @@ function About() {
               $level={3}
               $size="small"
               $role="subtitle"
-              $color="tertiary"
+              $color="onSeaAccent"
             >
               {content.about.label}
             </WaterPiece>
@@ -56,7 +56,7 @@ function About() {
               order={1}
               from="left"
               $level={2}
-              $color="text"
+              $color="onSea"
               $size="normal"
             >
               {profile.name}
@@ -67,7 +67,7 @@ function About() {
             order={2}
             from="right"
             $size="xsmall"
-            $color="text"
+            $color="onSea"
             style={{ textAlign: 'left' }}
           >
             {content.about.bio}

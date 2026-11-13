@@ -16,7 +16,12 @@ const theme = {
     navHighlight: '#A3A3A3',
     nav: '#CACACA',
     transparent: '#00000000',
-    red: 'red'
+    red: 'red',
+    // Acompanham a Cena: o Mar (Sea) define as variáveis; sem elas, valem as de `dia`.
+    // São `var(...)`, não hex: não aceitam sufixo de opacidade (`${cor}b3`).
+    seaTop: 'var(--sea-top, #79BED9)',
+    onSea: 'var(--sea-ink, #000000)',
+    onSeaAccent: 'var(--sea-accent, #1462A6)'
   },
   sizes: {
     xxxsmall: '0.875rem',

@@ -21,6 +21,8 @@ import profile from '@/meta/profile';
 import { useDict } from '@/app/lib/locale';
 import LanguageSwitch from './LanguageSwitch';
 import SceneSwitch from './SceneSwitch';
+import { sceneFor } from '@/app/lib/scene';
+import { useSceneMode, useSceneReady } from '@/app/lib/scene-mode';
 import {
   FaBars,
 } from 'react-icons/fa6';
@@ -49,6 +51,10 @@ function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [onSea, setOnSea] = useState(false);
+  const scene = sceneFor({ mode: useSceneMode() });
+  const ready = useSceneReady();
+  // Claro sobre escuro: sobre o Mar ou sobre a Cena escura.
+  const light = onSea || scene.tone === 'dark';
 
   useEffect(() => {
     let frame = 0;
@@ -91,7 +97,11 @@ function Header() {
   const closeMobileMenu = () => setIsMenuOpen(false);
 
   return (
-    <Container $onSea={onSea}>
+    <Container
+      $onSea={onSea}
+      $light={light}
+      data-cena-pronta={ready ? '' : undefined}
+    >
       <Content>
         <Brand>
           <a
@@ -127,15 +137,15 @@ function Header() {
                 />
               ))}
             </ul>
-            <HeaderCta $onSea={onSea} href={dict.profile.resumePath} download>
+            <HeaderCta $light={light} href={dict.profile.resumePath} download>
               {content.header.cta}
             </HeaderCta>
           </DesktopNav>
 
           <DesktopOnly>
-            <SceneSwitch onSea={onSea} />
+            <SceneSwitch light={light} />
           </DesktopOnly>
-          <LanguageSwitch onSea={onSea} activeId={activeId} />
+          <LanguageSwitch light={light} activeId={activeId} />
 
           <MobileMenuButton
             type="button"
@@ -161,11 +171,12 @@ function Header() {
               onNavigate={closeMobileMenu}
             />
           ))}
+          {/* O menu móvel tem fundo claro próprio: não acompanha o tom da Cena. */}
           <MobileSceneItem>
-            <SceneSwitch onSea={onSea} />
+            <SceneSwitch light={onSea} />
           </MobileSceneItem>
           <li>
-            <HeaderCta $onSea={onSea} href={dict.profile.resumePath} download>
+            <HeaderCta $light={onSea} href={dict.profile.resumePath} download>
               {content.header.cta}
             </HeaderCta>
           </li>

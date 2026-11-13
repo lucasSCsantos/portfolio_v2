@@ -48,7 +48,7 @@ function Projects() {
             order={1}
             from="left"
             $level={2}
-            $color="text"
+            $color="onSea"
             $size="normal"
           >
             {content.projects.title}

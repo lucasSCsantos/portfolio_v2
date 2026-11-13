@@ -14,7 +14,7 @@ const MODES: { mode: SceneMode; Icon: IconType }[] = [
 ];
 
 /** Seletor do Modo da Cena: um grupo de opções que desliza como o de Idioma. */
-export default function SceneSwitch({ onSea }: { onSea?: boolean }) {
+export default function SceneSwitch({ light }: { light?: boolean }) {
   const { ui } = useDict();
   const selected = useSceneMode();
   const options = useRef<(HTMLButtonElement | null)[]>([]);
@@ -36,14 +36,14 @@ export default function SceneSwitch({ onSea }: { onSea?: boolean }) {
 
   return (
     <SwitchContainer
-      $onSea={onSea}
+      $light={light}
       $count={MODES.length}
       role="radiogroup"
       aria-label={ui.sceneSwitch}
     >
       <SwitchThumb
         aria-hidden
-        $onSea={onSea}
+        $light={light}
         $count={MODES.length}
         $index={MODES.findIndex(({ mode }) => mode === selected)}
       />

@@ -20,7 +20,8 @@ const LANGUAGES: Record<Locale, { code: string; name: string }> = {
 const SLIDE_MS = 320;
 
 interface LanguageSwitchProps {
-  onSea?: boolean;
+  // Claro sobre escuro: sobre o Mar ou sobre a Cena escura.
+  light?: boolean;
   // Seção em que a pessoa está: a troca de idioma a mantém.
   activeId?: string | null;
 }
@@ -29,7 +30,7 @@ interface LanguageSwitchProps {
  * Links reais para a mesma página nos dois idiomas. No clique, o seletor
  * desliza e só então a página troca (cada idioma é um documento próprio).
  */
-export default function LanguageSwitch({ onSea, activeId }: LanguageSwitchProps) {
+export default function LanguageSwitch({ light, activeId }: LanguageSwitchProps) {
   const { locale, ui } = useDict();
   // O idioma mostrado como ativo: muda antes da navegação, para a animação rodar.
   const [selected, setSelected] = useState<Locale>(locale);
@@ -57,13 +58,13 @@ export default function LanguageSwitch({ onSea, activeId }: LanguageSwitchProps)
 
   return (
     <SwitchContainer
-      $onSea={onSea}
+      $light={light}
       role="group"
       aria-label={ui.languageSwitch}
     >
       <SwitchThumb
         aria-hidden
-        $onSea={onSea}
+        $light={light}
         $index={locales.indexOf(selected)}
       />
       {locales.map(target => {

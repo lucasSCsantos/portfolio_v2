@@ -202,7 +202,7 @@ export const Container = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    box-shadow: inset 0px 260px 150px -150px ${({ theme }) => theme.colors.primary};
+    box-shadow: inset 0px 260px 150px -150px ${({ theme }) => theme.colors.seaTop};
     background-size: cover;
     pointer-events: none;
   }

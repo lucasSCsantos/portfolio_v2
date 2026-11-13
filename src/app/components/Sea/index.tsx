@@ -1,19 +1,44 @@
 'use client';
 
-import { ReactNode, useRef } from 'react';
+import { CSSProperties, ReactNode, useEffect, useRef } from 'react';
 import {
+  MotionValue,
+  transform,
+  useMotionValue,
   useReducedMotion,
   useScroll,
   useTransform
 } from 'framer-motion';
 import { dive } from '@/app/lib/scroll';
+import { sceneFor, type SceneParams } from '@/app/lib/scene';
+import { useSceneMode } from '@/app/lib/scene-mode';
+import theme from '@/app/styles/theme';
 import FloatingBubble, { BubbleSpec } from './FloatingBubble';
 import { Backdrop, Vignette, Zone } from './styles';
 
-// Do raso (cor da onda do Hero) ao fundo do mar. O fundo é atingido em 85% da zona:
+// Do raso (cor da onda da frente da Cena) ao fundo do mar. O fundo é atingido em 85% da zona:
 // o Contato, no fim, já fica na água mais escura.
 const DEPTH_STOPS = [0, 0.18, 0.42, 0.66, 0.85];
-const DEPTH_COLORS = ['#79BED9', '#2A74A6', '#085690', '#043A6B', '#010F22'];
+const DEEPER_COLORS = ['#2A74A6', '#085690', '#043A6B', '#010F22'];
+
+// Textos que ficam direto sobre o Mar: escuros sob a Cena clara, claros sob a escura.
+const TEXT_ON_SEA: Record<SceneParams['tone'], { ink: string; accent: string }> = {
+  light: { ink: theme.colors.text, accent: theme.colors.tertiary },
+  dark: { ink: theme.colors.textLight, accent: theme.colors.primary }
+};
+
+let depthScale: { surface: string; toColor: (depth: number) => string } | undefined;
+
+// A escala de profundidade só muda quando muda a superfície; não se refaz a cada quadro.
+function depthColor(depth: number, surface: string) {
+  if (depthScale?.surface !== surface) {
+    depthScale = {
+      surface,
+      toColor: transform(DEPTH_STOPS, [surface, ...DEEPER_COLORS])
+    };
+  }
+  return depthScale.toColor(depth);
+}
 
 const BUBBLES: BubbleSpec[] = [
   // Atrás do conteúdo: de blobs grandes e lentos a gotas minúsculas.
@@ -51,6 +76,9 @@ export default function Sea({ children }: { children: ReactNode }) {
   const zoneRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
   const { scrollY } = useScroll();
+  const scene = sceneFor({ mode: useSceneMode() });
+  const seaTop = scene.waves[2];
+  const text = TEXT_ON_SEA[scene.tone];
 
   // 0 quando o topo da zona encosta no topo da tela; 1 quando o fim da zona chega ao fim da tela.
   const { scrollYProgress: depth } = useScroll({
@@ -58,7 +86,13 @@ export default function Sea({ children }: { children: ReactNode }) {
     offset: ['start start', 'end end']
   });
 
-  const backgroundColor = useTransform(depth, DEPTH_STOPS, DEPTH_COLORS);
+  // O Mar começa na cor da onda da frente, para não haver emenda com o Hero.
+  const surface = useMotionValue<string | number>(seaTop);
+  useEffect(() => surface.set(seaTop), [surface, seaTop]);
+  const backgroundColor = useTransform(
+    [depth, surface] as MotionValue<string | number>[],
+    ([d, top]) => depthColor(d as number, top as string)
+  );
   const baseVignette = useTransform(depth, [0, 1], [0.1, 0.95]);
   // Durante o mergulho a vinheta fecha um pouco, como a pressão da água.
   const vignetteOpacity = useTransform(
@@ -67,7 +101,16 @@ export default function Sea({ children }: { children: ReactNode }) {
   );
 
   return (
-    <Zone ref={zoneRef}>
+    <Zone
+      ref={zoneRef}
+      style={
+        {
+          '--sea-top': seaTop,
+          '--sea-ink': text.ink,
+          '--sea-accent': text.accent
+        } as CSSProperties
+      }
+    >
       <Backdrop style={{ backgroundColor }} />
       <Vignette style={{ opacity: vignetteOpacity }} />
       {!reducedMotion &&

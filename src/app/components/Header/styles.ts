@@ -6,7 +6,9 @@ type MobileMenuStateProps = {
   $isOpen: boolean;
 };
 
-export const Container = styled.header<{ $onSea: boolean }>`
+// `$onSea` dá o fundo de vidro sobre o Mar; `$light` (sobre o Mar ou sobre a Cena escura) clareia o texto.
+// O menu móvel tem fundo claro próprio, então só o conteúdo da barra (`> div`) clareia.
+export const Container = styled.header<{ $onSea: boolean; $light: boolean }>`
   width: 100%;
   height: 4.5rem;
   display: flex;
@@ -23,23 +25,23 @@ export const Container = styled.header<{ $onSea: boolean }>`
     $onSea ? `${theme.colors.backgroundDarkBlue}b3` : 'transparent'};
   backdrop-filter: ${({ $onSea }) => ($onSea ? 'blur(12px)' : 'none')};
 
-  ${({ $onSea, theme }) =>
-    $onSea &&
+  ${({ $light, theme }) =>
+    $light &&
     css`
-      p,
-      span {
+      > div p,
+      > div span {
         color: ${theme.colors.textLight};
       }
 
-      a span span {
+      > div a span span {
         color: ${theme.colors.primary};
       }
 
-      nav a[aria-current='true'] {
+      > div nav a[aria-current='true'] {
         border-bottom-color: ${theme.colors.primary};
       }
 
-      nav a[aria-current='true'] p {
+      > div nav a[aria-current='true'] p {
         color: ${theme.colors.primary};
       }
     `}
@@ -194,17 +196,17 @@ export const NavLinkContainer = styled.div`
   }
 `;
 
-export const HeaderCta = styled.a<{ $onSea?: boolean }>`
+export const HeaderCta = styled.a<{ $light?: boolean }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 2.5rem;
   padding: 0.5rem 1.25rem;
   border-radius: 999px;
-  background-color: ${({ $onSea, theme }) =>
-    $onSea ? theme.colors.primary : theme.colors.tertiary};
-  color: ${({ $onSea, theme }) =>
-    $onSea ? theme.colors.backgroundDarkBlue : theme.colors.textLight};
+  background-color: ${({ $light, theme }) =>
+    $light ? theme.colors.primary : theme.colors.tertiary};
+  color: ${({ $light, theme }) =>
+    $light ? theme.colors.backgroundDarkBlue : theme.colors.textLight};
   font-family: ${({ theme }) => theme.font.family.inter};
   font-size: 0.9375rem;
   font-weight: 600;
@@ -212,8 +214,8 @@ export const HeaderCta = styled.a<{ $onSea?: boolean }>`
   transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: ${({ $onSea, theme }) =>
-      $onSea ? theme.colors.white : theme.colors.quaternary};
+    background-color: ${({ $light, theme }) =>
+      $light ? theme.colors.white : theme.colors.quaternary};
   }
 `;
 
@@ -249,7 +251,7 @@ export const HeaderActions = styled.div`
 `;
 
 // Trilho afundado com um seletor em relevo que desliza entre as opções (idioma, modo da Cena).
-export const SwitchContainer = styled.div<{ $onSea?: boolean; $count?: number }>`
+export const SwitchContainer = styled.div<{ $light?: boolean; $count?: number }>`
   position: relative;
   display: grid;
   grid-template-columns: repeat(${({ $count = 2 }) => $count}, 1fr);
@@ -258,12 +260,12 @@ export const SwitchContainer = styled.div<{ $onSea?: boolean; $count?: number }>
   font-family: ${({ theme }) => theme.font.family.inter};
   font-size: 0.875rem;
   font-weight: 600;
-  background: ${({ $onSea, theme }) =>
-    $onSea
+  background: ${({ $light, theme }) =>
+    $light
       ? `linear-gradient(180deg, ${theme.colors.backgroundDarkBlue}, ${theme.colors.backgroundDarkBlue}cc)`
       : `linear-gradient(180deg, ${theme.colors.tertiary}40, ${theme.colors.tertiary}1f)`};
-  box-shadow: ${({ $onSea }) =>
-    $onSea
+  box-shadow: ${({ $light }) =>
+    $light
       ? 'inset 0 2px 5px rgba(0, 0, 0, 0.55), 0 1px 0 rgba(255, 255, 255, 0.14)'
       : 'inset 0 2px 5px rgba(0, 45, 95, 0.32), 0 1px 0 rgba(255, 255, 255, 0.7)'};
   transition: background 0.3s ease, box-shadow 0.3s ease;
@@ -278,8 +280,8 @@ export const SwitchContainer = styled.div<{ $onSea?: boolean; $count?: number }>
     min-width: 2.5rem;
     min-height: 2.25rem;
     border-radius: 999px;
-    color: ${({ $onSea, theme }) =>
-      $onSea ? theme.colors.textLight : theme.colors.tertiary};
+    color: ${({ $light, theme }) =>
+      $light ? theme.colors.textLight : theme.colors.tertiary};
     transition: color 0.25s ease, transform 0.15s ease;
   }
 
@@ -298,11 +300,11 @@ export const SwitchContainer = styled.div<{ $onSea?: boolean; $count?: number }>
   }
 
   [data-selected='true'] {
-    color: ${({ $onSea, theme }) =>
-      $onSea ? theme.colors.backgroundDarkBlue : theme.colors.white};
+    color: ${({ $light, theme }) =>
+      $light ? theme.colors.backgroundDarkBlue : theme.colors.white};
     pointer-events: none;
-    text-shadow: ${({ $onSea }) =>
-      $onSea ? 'none' : '0 1px 1px rgba(0, 45, 95, 0.35)'};
+    text-shadow: ${({ $light }) =>
+      $light ? 'none' : '0 1px 1px rgba(0, 45, 95, 0.35)'};
   }
 
   @media (max-width: 428px) {
@@ -316,7 +318,7 @@ export const SwitchContainer = styled.div<{ $onSea?: boolean; $count?: number }>
 
 export const SwitchThumb = styled.span<{
   $index: number;
-  $onSea?: boolean;
+  $light?: boolean;
   $count?: number;
 }>`
   position: absolute;
@@ -325,12 +327,12 @@ export const SwitchThumb = styled.span<{
   left: 3px;
   width: calc((100% - 6px) / ${({ $count = 2 }) => $count});
   border-radius: 999px;
-  background: ${({ $onSea, theme }) =>
-    $onSea
+  background: ${({ $light, theme }) =>
+    $light
       ? `linear-gradient(180deg, ${theme.colors.white}, ${theme.colors.primary})`
       : `linear-gradient(180deg, color-mix(in srgb, ${theme.colors.tertiary} 78%, white), ${theme.colors.tertiary})`};
-  box-shadow: ${({ $onSea }) =>
-    $onSea
+  box-shadow: ${({ $light }) =>
+    $light
       ? '0 3px 8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
       : '0 3px 8px rgba(0, 60, 120, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'};
   transform: translateX(${({ $index }) => $index * 100}%);
