@@ -227,6 +227,8 @@ export const WavesContainer = styled.svg`
   right: 0;
   left: 0;
   bottom: 0;
+  /* Com a amplitude maior (Cena escura) as ondas passam do topo do viewBox; quem corta as laterais é o pai. */
+  overflow: visible;
 
   .backWave {
     transform: translate(-100px, -6rem);

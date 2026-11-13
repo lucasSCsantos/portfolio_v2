@@ -1,7 +1,7 @@
 // A Cena: o céu e as ondas do Hero (ver CONTEXT.md e docs/adr/0003).
 // Módulo puro: a hora e o clima entram como argumentos, nada aqui lê relógio nem DOM.
 
-import type { SceneWeather } from './scene-weather';
+import { isFiniteNumber, type SceneWeather } from './scene-weather';
 
 export const SCENE_MODES = ['dia', 'noite', 'ao-vivo'] as const;
 export type SceneMode = (typeof SCENE_MODES)[number];
@@ -207,6 +207,24 @@ const STORM_SEA = '#4f6577';
 // A chuva chega à intensidade máxima por volta de 4 mm/h.
 const HEAVY_RAIN = 4;
 
+// O mar pelas ondas e pelo vento reais, contínuo e preso aos limites (nunca parado, nunca frenético).
+// Os pesos são os do protótipo, ajustáveis a olho. Sem a altura da onda, só o vento (e a chuva) mexem no mar.
+const ROUGH_WAVE = 3; // m
+const STRONG_WIND = 15; // m/s
+
+function seaMotion(weather: SceneWeather | null, rain: number): Pick<SceneParams, 'amp' | 'speed'> {
+  // Sem clima, as ondas calmas de sempre.
+  if (!weather) return { amp: 1, speed: 1 };
+  // Um valor inválido ou negativo vale como mar parado.
+  const nonNegative = (value: number | null) => (isFiniteNumber(value) ? Math.max(0, value) : 0);
+  const wave = nonNegative(weather.waveHeight) / ROUGH_WAVE;
+  const wind = nonNegative(weather.windSpeed) / STRONG_WIND;
+  return {
+    amp: clamp(0.75 + wave * 0.95 + wind * 0.4 + rain * 0.2, 0.75, 2),
+    speed: clamp(1.25 - wind * 0.5 - wave * 0.2 - rain * 0.1, 0.55, 1.25)
+  };
+}
+
 function liveScene(minutes: number, weather: SceneWeather | null): SceneParams {
   const m = ((minutes % DAY_MINUTES) + DAY_MINUTES) % DAY_MINUTES;
   const { sunrise, sunset } = sunTimes(weather);
@@ -245,8 +263,7 @@ function liveScene(minutes: number, weather: SceneWeather | null): SceneParams {
     stars: clamp((0.4 - light) / 0.4, 0, 1) * (1 - cloud * 0.85),
     cloud,
     rain,
-    amp: 1,
-    speed: 1,
+    ...seaMotion(weather, rain),
     waves,
     dark: 1 - light,
     tone: toneOver([sky[0], sky[1]]),

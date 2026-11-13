@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { mixScenes, sceneFor, salvadorMinutes, textOnScene } from '../src/app/lib/scene';
+import { mixScenes, sceneFor, salvadorMinutes, textOnScene, type SceneParams } from '../src/app/lib/scene';
 import type { SceneWeather } from '../src/app/lib/scene-weather';
 
 // Valores do Hero como ele sempre foi (cores das três camadas de onda e o fundo do Hero).
@@ -229,9 +229,12 @@ test.describe('modelo da Cena em ao vivo com clima', () => {
   // Quanto a cor foge do cinza: a diferença entre o canal mais forte e o mais fraco.
   const saturation = (hex: string) => Math.max(...channels(hex)) - Math.min(...channels(hex));
 
+  // O céu e as cores, sem as ondas, que dependem do mar e do vento.
+  const skyOf = ({ amp, speed, ...rest }: SceneParams) => rest;
+
   test('céu limpo é a mesma Cena da hora, sem nuvens nem chuva', () => {
-    for (const hours of [3, 12, 17, 21]) expect(at(hours)).toEqual(byHour(hours));
-    expect(at(12)).toEqual(sceneFor({ mode: 'dia' }));
+    for (const hours of [3, 12, 17, 21]) expect(skyOf(at(hours))).toEqual(skyOf(byHour(hours)));
+    expect(skyOf(at(12))).toEqual(skyOf(sceneFor({ mode: 'dia' })));
   });
 
   test('a cobertura de nuvens vira nuvens, na mesma proporção e sem chuva', () => {
@@ -317,5 +320,91 @@ test.describe('modelo da Cena em ao vivo com clima', () => {
       );
     }
     expect(jump).toBeLessThanOrEqual(8);
+  });
+});
+
+test.describe('ondas em ao vivo, pelo mar e pelo vento', () => {
+  const calm: SceneWeather = {
+    sunrise: '2026-11-13T05:30:00-03:00',
+    sunset: '2026-11-13T17:30:00-03:00',
+    cloudCover: 0,
+    precipitation: 0,
+    windSpeed: 2,
+    waveHeight: 0.5,
+    fetchedAt: '2026-11-13T15:00:00.000Z'
+  };
+  const waves = (weather: Partial<SceneWeather>, hours = 12) => {
+    const { amp, speed } = sceneFor({ mode: 'ao-vivo', minutes: hours * 60, weather: { ...calm, ...weather } });
+    return { amp, speed };
+  };
+  // Mais agitado: ondas mais altas e deslize mais rápido (duração menor).
+  type SeaMotion = Pick<SceneParams, 'amp' | 'speed'>;
+  const rougher = (a: SeaMotion, b: SeaMotion) => {
+    expect(a.amp).toBeGreaterThan(b.amp);
+    expect(a.speed).toBeLessThan(b.speed);
+  };
+
+  test('mar calmo e pouco vento ficam perto das ondas de sempre', () => {
+    const { amp, speed } = waves({});
+    expect(Math.abs(amp - 1)).toBeLessThan(0.15);
+    expect(Math.abs(speed - 1)).toBeLessThan(0.2);
+  });
+
+  test('ondas altas e vento forte deixam as ondas mais altas e mais rápidas que o mar calmo', () => {
+    rougher(waves({ waveHeight: 2.5, windSpeed: 12 }), waves({}));
+  });
+
+  test('cada um agita o mar sozinho: a altura da onda, o vento e a chuva', () => {
+    rougher(waves({ waveHeight: 2 }), waves({}));
+    rougher(waves({ windSpeed: 10 }), waves({}));
+    rougher(waves({ precipitation: 4 }), waves({}));
+  });
+
+  test('a agitação cresce aos poucos, sem saltos', () => {
+    let jump = 0;
+    for (let wind = 0; wind < 20; wind += 0.1) {
+      const [a, b] = [waves({ windSpeed: wind }), waves({ windSpeed: wind + 0.1 })];
+      jump = Math.max(jump, Math.abs(a.amp - b.amp), Math.abs(a.speed - b.speed));
+    }
+    expect(jump).toBeLessThan(0.01);
+  });
+
+  test('a altura fica entre 0,75 e 2 e a duração entre 0,55 e 1,25, com qualquer entrada', () => {
+    const extremes: Partial<SceneWeather>[] = [
+      { waveHeight: 0, windSpeed: 0, precipitation: 0 },
+      { waveHeight: 40, windSpeed: 90, precipitation: 300 },
+      { waveHeight: -5, windSpeed: -20, precipitation: -3 },
+      { waveHeight: null, windSpeed: 1e9 },
+      { waveHeight: NaN, windSpeed: Infinity, precipitation: NaN }
+    ];
+    for (const weather of extremes) {
+      const { amp, speed } = waves(weather);
+      expect(amp).toBeGreaterThanOrEqual(0.75);
+      expect(amp).toBeLessThanOrEqual(2);
+      expect(speed).toBeGreaterThanOrEqual(0.55);
+      expect(speed).toBeLessThanOrEqual(1.25);
+    }
+    expect(waves({ waveHeight: 0, windSpeed: 0 })).toEqual({ amp: 0.75, speed: 1.25 });
+    expect(waves({ waveHeight: 40, windSpeed: 90, precipitation: 300 })).toEqual({ amp: 2, speed: 0.55 });
+  });
+
+  test('sem altura de onda, as ondas respondem só ao vento', () => {
+    rougher(waves({ waveHeight: null, windSpeed: 10 }), waves({ waveHeight: null, windSpeed: 1 }));
+    expect(waves({ waveHeight: null, windSpeed: 6 })).toEqual(waves({ waveHeight: 0, windSpeed: 6 }));
+  });
+
+  test('a hora não mexe nas ondas: o mesmo mar dá as mesmas ondas de dia e de noite', () => {
+    const rough = { waveHeight: 2, windSpeed: 9 };
+    expect(waves(rough, 3)).toEqual(waves(rough, 12));
+  });
+
+  test('sem clima, as ondas calmas de sempre', () => {
+    const { amp, speed } = sceneFor({ mode: 'ao-vivo', minutes: 3 * 60 });
+    expect({ amp, speed }).toEqual({ amp: 1, speed: 1 });
+  });
+
+  test('dia e noite não dependem do clima: as ondas dos presets continuam as mesmas', () => {
+    expect(sceneFor({ mode: 'dia' })).toMatchObject({ amp: 1, speed: 1 });
+    expect(sceneFor({ mode: 'noite' })).toMatchObject({ amp: 1.6, speed: 0.65 });
   });
 });

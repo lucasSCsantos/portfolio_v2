@@ -11,7 +11,7 @@ export type SceneWeather = {
   fetchedAt: string; // ISO, instante em que os dados foram obtidos
 };
 
-const isFiniteNumber = (value: unknown): value is number => typeof value === 'number' && Number.isFinite(value);
+export const isFiniteNumber = (value: unknown): value is number => typeof value === 'number' && Number.isFinite(value);
 
 // O navegador confere o que recebe da rota: qualquer coisa fora do contrato vale como clima indisponível.
 export function isSceneWeather(value: unknown): value is SceneWeather {
