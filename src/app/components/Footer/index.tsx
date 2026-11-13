@@ -5,6 +5,8 @@ import {
   Divider,
   FooterInner,
   CopyrightText,
+  Credits,
+  CreditLink,
   SocialLinks,
   SocialLink
 } from './styles';
@@ -46,9 +48,17 @@ function Footer() {
     <Container id="footer">
       <Divider />
       <FooterInner>
-        <CopyrightText>
-          © {new Date().getFullYear()} {content.footer.copyrightName}. {ui.rights}
-        </CopyrightText>
+        <Credits>
+          <CopyrightText>
+            © {new Date().getFullYear()} {content.footer.copyrightName}. {ui.rights}
+          </CopyrightText>
+          <CopyrightText>
+            {content.footer.weatherCredit}{' '}
+            <CreditLink href="https://open-meteo.com" target="_blank" rel="noopener noreferrer">
+              Open-Meteo
+            </CreditLink>
+          </CopyrightText>
+        </Credits>
         <SocialLinks>
           <SocialLink
             href={profile.social.github}

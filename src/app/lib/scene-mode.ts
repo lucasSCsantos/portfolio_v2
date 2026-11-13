@@ -11,6 +11,7 @@ import {
   type SceneParams
 } from './scene';
 import { SCENE_MODE_KEY } from './scene-prepaint';
+import { isSceneWeather, type SceneWeather } from './scene-weather';
 
 // A escolha só é gravada quando o visitante escolhe: sem escolha, nada no armazenamento e a Cena é `dia`.
 const DEFAULT_MODE = 'dia' satisfies SceneMode;
@@ -120,7 +121,7 @@ function subscribeClock(listener: () => void) {
   };
 }
 
-const noClock = () => () => {};
+const noSubscribe = () => () => {};
 const getClock = () => (minutes ??= salvadorMinutes(new Date()));
 const noMinutes = () => null;
 
@@ -130,23 +131,91 @@ const noMinutes = () => null;
  */
 export function useSalvadorMinutes(running = true): number | null {
   return useSyncExternalStore(
-    running ? subscribeClock : noClock,
+    running ? subscribeClock : noSubscribe,
     running ? getClock : noMinutes,
     noMinutes
   );
 }
 
+// O clima de Salvador (`/api/cena`), só em `ao vivo`: um pedido a cada entrada no modo, refeito no
+// ritmo do cache da rota enquanto a aba está visível. Fica só em memória; se um novo pedido falha,
+// segue o último que chegou nesta entrada (ou nenhum, e o céu segue só pela hora).
+const WEATHER_REFRESH_MS = 20 * 60_000;
+let weather: SceneWeather | null = null;
+let weatherAt = 0;
+let weatherTimer: ReturnType<typeof setTimeout> | undefined;
+let weatherRequest: AbortController | undefined;
+const weatherListeners = new Set<() => void>();
+
+async function loadWeather() {
+  clearTimeout(weatherTimer);
+  weatherRequest?.abort();
+  const request = (weatherRequest = new AbortController());
+  weatherAt = Date.now();
+  try {
+    const response = await fetch('/api/cena', { signal: request.signal });
+    const body: unknown = response.ok ? await response.json() : null;
+    if (isSceneWeather(body)) {
+      weather = body;
+      weatherListeners.forEach(listener => listener());
+    }
+  } catch {
+    // Sem rede ou pedido cancelado: a Cena continua com o que já tem.
+  }
+  if (request === weatherRequest) scheduleWeather();
+}
+
+function scheduleWeather() {
+  clearTimeout(weatherTimer);
+  if (document.hidden || weatherListeners.size === 0) return;
+  weatherTimer = setTimeout(loadWeather, Math.max(0, weatherAt + WEATHER_REFRESH_MS - Date.now()));
+}
+
+// Ao voltar para a aba, o pedido atrasado sai na hora; ao sair, nada é pedido.
+function onWeatherVisibility() {
+  if (document.hidden) clearTimeout(weatherTimer);
+  else scheduleWeather();
+}
+
+function subscribeWeather(listener: () => void) {
+  weatherListeners.add(listener);
+  if (weatherListeners.size === 1) {
+    document.addEventListener('visibilitychange', onWeatherVisibility);
+    loadWeather();
+  }
+  return () => {
+    weatherListeners.delete(listener);
+    if (weatherListeners.size > 0) return;
+    clearTimeout(weatherTimer);
+    weatherRequest?.abort();
+    weatherRequest = undefined;
+    // Na próxima entrada, o céu segue pela hora até o clima novo chegar.
+    weather = null;
+    document.removeEventListener('visibilitychange', onWeatherVisibility);
+  };
+}
+
+const getWeather = () => weather;
+const noWeather = () => null;
+
+/** O clima de Salvador quando `running` (o modo `ao vivo`); nulo enquanto não chega, se a rota falha e fora do modo. */
+export function useSceneWeather(running: boolean): SceneWeather | null {
+  return useSyncExternalStore(running ? subscribeWeather : noSubscribe, running ? getWeather : noWeather, noWeather);
+}
+
 /** O Modo da Cena e a Cena que ele pede agora: o que o Hero, o Header e o Mar leem. */
 export function useScene(): { mode: SceneMode; scene: SceneParams } {
   const mode = useSceneMode();
-  const minutes = useSalvadorMinutes(mode === 'ao-vivo');
-  // A mesma Cena enquanto a hora não muda: a troca animada só recomeça quando o alvo muda de fato.
+  const live = mode === 'ao-vivo';
+  const minutes = useSalvadorMinutes(live);
+  const weather = useSceneWeather(live);
+  // A mesma Cena enquanto a hora e o clima não mudam: a troca animada só recomeça quando o alvo muda de fato.
   const scene = useMemo(() => {
     if (mode !== 'ao-vivo') return sceneFor({ mode });
     // Sem a hora (HTML estático e hidratação), a Cena é a de quem não escolheu nada.
     if (minutes === null) return sceneFor({ mode: DEFAULT_MODE });
-    return sceneFor({ mode, minutes });
-  }, [mode, minutes]);
+    return sceneFor({ mode, minutes, weather });
+  }, [mode, minutes, weather]);
   return { mode, scene };
 }
 

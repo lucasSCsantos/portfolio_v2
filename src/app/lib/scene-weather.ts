@@ -11,6 +11,22 @@ export type SceneWeather = {
   fetchedAt: string; // ISO, instante em que os dados foram obtidos
 };
 
+const isFiniteNumber = (value: unknown): value is number => typeof value === 'number' && Number.isFinite(value);
+
+// O navegador confere o que recebe da rota: qualquer coisa fora do contrato vale como clima indisponível.
+export function isSceneWeather(value: unknown): value is SceneWeather {
+  if (!isRecord(value)) return false;
+  return (
+    typeof value.sunrise === 'string' &&
+    typeof value.sunset === 'string' &&
+    typeof value.fetchedAt === 'string' &&
+    isFiniteNumber(value.cloudCover) &&
+    isFiniteNumber(value.precipitation) &&
+    isFiniteNumber(value.windSpeed) &&
+    (value.waveHeight === null || isFiniteNumber(value.waveHeight))
+  );
+}
+
 export type NormalizeResult = { ok: true; weather: SceneWeather } | { ok: false; reason: string };
 
 const SALVADOR = { latitude: '-12.97', longitude: '-38.5' };

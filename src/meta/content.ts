@@ -91,7 +91,9 @@ const content = {
     resumeButtonText: 'Baixar currículo'
   },
   footer: {
-    copyrightName: profile.name
+    copyrightName: profile.name,
+    // A atribuição que a Open-Meteo pede (ADR 0002); o nome do serviço é o texto do link.
+    weatherCredit: 'Dados de clima:'
   }
 };
 

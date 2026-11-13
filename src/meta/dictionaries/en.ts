@@ -296,7 +296,7 @@ const en: Dictionary = {
       linkedinButtonText: 'LinkedIn',
       resumeButtonText: 'Download resume'
     },
-    footer: ptContent.footer
+    footer: { ...ptContent.footer, weatherCredit: 'Weather data:' }
   },
   navLinks: navLinks.map(({ path }) => ({ text: navText[path], path })),
   experiences: experiences.map(exp => ({

@@ -3,7 +3,7 @@ import { MIN_CONTRAST, worstContrast } from './contrast';
 import pt from '../src/meta/dictionaries/pt';
 import en from '../src/meta/dictionaries/en';
 
-// O Modo `ao vivo` pela hora de Salvador (ainda sem clima).
+// O Modo `ao vivo` pela hora de Salvador. O clima fica de fora (a rota responde erro): ver scene-live-weather.spec.ts.
 
 const STORAGE_KEY = 'cena-modo';
 const DAY_WAVES = ['rgb(20, 98, 166)', 'rgb(57, 140, 191)', 'rgb(121, 190, 217)'];
@@ -23,8 +23,9 @@ const sceneSwitch = (page: Page, name = pt.ui.sceneSwitch) =>
 
 const hero = (page: Page) => page.locator('#inicio');
 
-// Abre a home já em `ao vivo` e espera as entradas animadas do Hero.
+// Abre a home já em `ao vivo`, sem clima, e espera as entradas animadas do Hero.
 async function openLive(page: Page, path = '/') {
+  await page.route('**/api/cena', route => route.fulfill({ status: 502, json: { error: 'clima indisponível' } }));
   await page.addInitScript(key => localStorage.setItem(key, 'ao-vivo'), STORAGE_KEY);
   await page.goto(path);
   await page.waitForTimeout(3500);
@@ -236,13 +237,15 @@ test.describe('o relógio da Cena', () => {
   });
 });
 
-test.describe('ao vivo sem rede e sem servidor', () => {
-  test('o modo não chama a rota de clima nem nenhum outro servidor', async ({ page, baseURL }) => {
+test.describe('ao vivo e a rede', () => {
+  test('o modo só chama a própria rota de clima, nenhum outro servidor', async ({ page, baseURL }) => {
     const calls: string[] = [];
     page.on('request', request => calls.push(request.url()));
     await openLive(page);
     await page.waitForTimeout(1500);
-    expect(calls.filter(url => url.includes('/api/') || !url.startsWith(baseURL!))).toEqual([]);
+    expect(calls.filter(url => url.includes('/api/') || !url.startsWith(baseURL!))).toEqual([
+      `${baseURL}/api/cena`
+    ]);
   });
 
   test('o HTML estático sai em dia, mesmo de noite em Salvador', async ({ page }) => {

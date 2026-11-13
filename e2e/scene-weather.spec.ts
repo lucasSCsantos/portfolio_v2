@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { createSceneWeatherHandler, normalizeOpenMeteo } from '../src/app/lib/scene-weather';
+import { createSceneWeatherHandler, isSceneWeather, normalizeOpenMeteo } from '../src/app/lib/scene-weather';
 
 // Respostas da Open-Meteo para Salvador capturadas em 12/11/2026, 16h15, nos parâmetros que a rota pede;
 // só a chuva e o vento foram trocados por valores de conta redonda.
@@ -212,4 +212,39 @@ test.describe('rota /api/cena', () => {
     expect(response.status).toBe(502);
     expect(response.headers.get('cache-control')).toContain('s-maxage=60');
   });
+});
+
+test.describe('o contrato lido pelo navegador', () => {
+  const weather = {
+    sunrise: '2026-11-12T04:57:00-03:00',
+    sunset: '2026-11-12T17:38:00-03:00',
+    cloudCover: 6,
+    precipitation: 2,
+    windSpeed: 6.25,
+    waveHeight: 1.34,
+    fetchedAt: '2026-11-12T19:15:30.000Z'
+  };
+
+  test('aceita o que a rota devolve, inclusive sem altura de onda', () => {
+    const result = normalizeOpenMeteo(FORECAST, MARINE, FETCHED_AT);
+    expect(result.ok && isSceneWeather(result.weather)).toBe(true);
+    expect(isSceneWeather(weather)).toBe(true);
+    expect(isSceneWeather({ ...weather, waveHeight: null })).toBe(true);
+  });
+
+  const invalid: [string, unknown][] = [
+    ['nulo', null],
+    ['a resposta de erro da rota', { error: 'clima indisponível' }],
+    ['lista', [weather]],
+    ['nuvens como texto', { ...weather, cloudCover: '6' }],
+    ['chuva infinita', { ...weather, precipitation: Infinity }],
+    ['sem vento', { ...weather, windSpeed: undefined }],
+    ['nascer do sol como número', { ...weather, sunrise: 5 }],
+    ['onda como texto', { ...weather, waveHeight: 'alta' }]
+  ];
+  for (const [name, value] of invalid) {
+    test(`recusa o que não é o contrato: ${name}`, () => {
+      expect(isSceneWeather(value)).toBe(false);
+    });
+  }
 });

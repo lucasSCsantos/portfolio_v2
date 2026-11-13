@@ -341,6 +341,35 @@ export const Star = styled.span`
   }
 `;
 
+const drift = keyframes`
+  from { transform: translateX(-4vw); }
+  to { transform: translateX(4vw); }
+`;
+
+export const Cloud = styled.div`
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(16px);
+  animation: ${drift} var(--duration) ease-in-out infinite alternate;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+`;
+
+const fall = keyframes`
+  from { transform: translateY(-10vh); }
+  to { transform: translateY(110vh); }
+`;
+
+export const Drop = styled.span`
+  position: absolute;
+  top: 0;
+  width: 1.5px;
+  border-radius: 1px;
+  animation: ${fall} var(--duration) linear var(--delay) infinite;
+`;
+
 export const Moon = styled.div`
   position: absolute;
   right: 12%;

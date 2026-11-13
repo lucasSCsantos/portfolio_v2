@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { mixScenes, sceneFor, salvadorMinutes, textOnScene } from '../src/app/lib/scene';
+import type { SceneWeather } from '../src/app/lib/scene-weather';
 
 // Valores do Hero como ele sempre foi (cores das três camadas de onda e o fundo do Hero).
 const DAY_WAVES = ['#1462A6', '#398CBF', '#79BED9'];
@@ -205,5 +206,116 @@ test.describe('modelo da Cena em ao vivo', () => {
       const scene = sceneFor({ mode: 'ao-vivo', minutes: minute });
       [...scene.sky, ...scene.waves].forEach(color => expect(color).toMatch(/^#[0-9a-f]{6}$/i));
     }
+  });
+});
+
+test.describe('modelo da Cena em ao vivo com clima', () => {
+  // O dia de 13/11/2026 em Salvador, com o nascer e o pôr do sol da tabela de reserva (5h30, 17h30).
+  const clear: SceneWeather = {
+    sunrise: '2026-11-13T05:30:00-03:00',
+    sunset: '2026-11-13T17:30:00-03:00',
+    cloudCover: 0,
+    precipitation: 0,
+    windSpeed: 0,
+    waveHeight: null,
+    fetchedAt: '2026-11-13T15:00:00.000Z'
+  };
+  const at = (hours: number, weather: Partial<SceneWeather> = {}, minutes = 0) =>
+    sceneFor({ mode: 'ao-vivo', minutes: hours * 60 + minutes, weather: { ...clear, ...weather } });
+  const byHour = (hours: number, minutes = 0) => sceneFor({ mode: 'ao-vivo', minutes: hours * 60 + minutes });
+  const channels = (hex: string) => [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16));
+  const luminance = (hex: string) =>
+    channels(hex).reduce((sum, channel, k) => sum + channel * [0.2126, 0.7152, 0.0722][k], 0);
+  // Quanto a cor foge do cinza: a diferença entre o canal mais forte e o mais fraco.
+  const saturation = (hex: string) => Math.max(...channels(hex)) - Math.min(...channels(hex));
+
+  test('céu limpo é a mesma Cena da hora, sem nuvens nem chuva', () => {
+    for (const hours of [3, 12, 17, 21]) expect(at(hours)).toEqual(byHour(hours));
+    expect(at(12)).toEqual(sceneFor({ mode: 'dia' }));
+  });
+
+  test('a cobertura de nuvens vira nuvens, na mesma proporção e sem chuva', () => {
+    expect(at(12, { cloudCover: 40 })).toMatchObject({ cloud: 0.4, rain: 0 });
+    expect(at(12, { cloudCover: 100 }).cloud).toBe(1);
+  });
+
+  test('a chuva liga com qualquer precipitação, cresce com os mm/h e satura em cerca de 4 mm/h', () => {
+    expect(at(12, { precipitation: 0 }).rain).toBe(0);
+    const drizzle = at(12, { precipitation: 0.2 }).rain;
+    const moderate = at(12, { precipitation: 2 }).rain;
+    expect(drizzle).toBeGreaterThan(0);
+    expect(moderate).toBeGreaterThan(drizzle);
+    expect(at(12, { precipitation: 4 }).rain).toBe(1);
+    expect(at(12, { precipitation: 40 }).rain).toBe(1);
+  });
+
+  test('valores fora do intervalo ficam presos aos limites', () => {
+    const wild = at(12, { cloudCover: 250, precipitation: -3 });
+    expect(wild.cloud).toBe(1);
+    expect(wild.rain).toBe(0);
+    expect(at(12, { cloudCover: -10 }).cloud).toBe(0);
+  });
+
+  test('nuvens e chuva deixam o céu mais cinza e mais escuro, mais com chuva do que só com nuvens', () => {
+    const sunset = at(17, {}, 30);
+    const cloudy = at(17, { cloudCover: 100 }, 30);
+    const rainy = at(17, { cloudCover: 100, precipitation: 4 }, 30);
+    expect(saturation(cloudy.sky[1])).toBeLessThan(saturation(sunset.sky[1]));
+    expect(saturation(rainy.sky[1])).toBeLessThan(saturation(cloudy.sky[1]));
+
+    const noon = at(12);
+    const noonRain = at(12, { cloudCover: 100, precipitation: 4 });
+    noonRain.sky.forEach((color, i) => expect(luminance(color)).toBeLessThan(luminance(noon.sky[i])));
+    noonRain.waves.forEach((color, i) => expect(saturation(color)).toBeLessThan(saturation(noon.waves[i])));
+  });
+
+  test('o tom dos textos continua o de melhor leitura sob o céu nublado e chuvoso', () => {
+    expect(at(12, { cloudCover: 100, precipitation: 4 }).tone).toBe('light');
+    expect(at(3, { cloudCover: 100, precipitation: 4 }).tone).toBe('dark');
+  });
+
+  test('as estrelas diminuem com a cobertura de nuvens, sem sumir de todo', () => {
+    const covered = at(3, { cloudCover: 100 }).stars;
+    expect(at(3).stars).toBe(1);
+    expect(at(3, { cloudCover: 50 }).stars).toBeLessThan(1);
+    expect(covered).toBeLessThan(at(3, { cloudCover: 50 }).stars);
+    expect(covered).toBeGreaterThan(0);
+    expect(at(12, { cloudCover: 100 }).stars).toBe(0);
+  });
+
+  test('o nascer e o pôr do sol do dia substituem a tabela fixa nas fases', () => {
+    // Em novembro o sol nasce perto das 5h e se põe perto das 17h40.
+    const november = { sunrise: '2026-11-13T04:57:00-03:00', sunset: '2026-11-13T17:38:00-03:00' };
+    expect(at(4, november, 40).phase).toBe('amanhecer');
+    expect(byHour(4, 40).phase).toBe('noite');
+    expect(at(16, november, 50).phase).toBe('dia');
+    expect(byHour(16, 50).phase).toBe('por-do-sol');
+  });
+
+  test('um nascer ou pôr do sol fora do razoável cai na tabela fixa', () => {
+    const backwards = { sunrise: '2026-11-13T19:00:00-03:00', sunset: '2026-11-13T06:00:00-03:00' };
+    for (const hours of [3, 6, 12, 17, 21]) expect(at(hours, backwards).phase).toBe(byHour(hours).phase);
+    const garbage = { sunrise: 'ontem', sunset: '' };
+    for (const hours of [3, 6, 12, 17, 21]) expect(at(hours, garbage).phase).toBe(byHour(hours).phase);
+  });
+
+  test('todas as cores continuam válidas com qualquer clima', () => {
+    for (let minute = 0; minute < 1440; minute += 37)
+      for (const weather of [{ cloudCover: 100 }, { precipitation: 4 }, { cloudCover: 70, precipitation: 1.5 }]) {
+        const scene = at(0, weather, minute);
+        [...scene.sky, ...scene.waves].forEach(color => expect(color).toMatch(/^#[0-9a-f]{6}$/i));
+      }
+  });
+
+  test('a passagem continua gradual sob chuva', () => {
+    let jump = 0;
+    for (let minute = 0; minute < 1440; minute++) {
+      const a = at(0, { cloudCover: 80, precipitation: 2 }, minute);
+      const b = at(0, { cloudCover: 80, precipitation: 2 }, (minute + 1) % 1440);
+      a.sky.forEach((color, i) =>
+        channels(color).forEach((channel, k) => (jump = Math.max(jump, Math.abs(channel - channels(b.sky[i])[k]))))
+      );
+    }
+    expect(jump).toBeLessThanOrEqual(8);
   });
 });

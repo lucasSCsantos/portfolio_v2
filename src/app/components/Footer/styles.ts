@@ -49,6 +49,22 @@ export const CopyrightText = styled.p`
   margin: 0;
 `;
 
+export const Credits = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+export const CreditLink = styled.a`
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.secondary};
+  }
+`;
+
 export const SocialLinks = styled.div`
   display: flex;
   gap: 16px;
