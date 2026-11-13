@@ -83,27 +83,32 @@ test.describe('Aviso de sono', () => {
     await expect(notice(page, en.content.hero.sleepNotice)).toBeVisible();
   });
 
-  test('não muda o selo nem desloca o que vem abaixo', async ({ page }) => {
-    const layout = async () => {
-      const hero = page.locator('#inicio');
-      const box = async (locator: ReturnType<Page['locator']>) => {
-        const { x, y, width, height } = (await locator.boundingBox())!;
-        return { x, y, width, height };
-      };
-      return {
-        badge: await box(badge(page)),
-        cta: await box(hero.getByRole('button', { name: pt.content.hero.cta })),
-        stats: await box(hero.getByText(pt.content.hero.highlights[0].label, { exact: true }))
-      };
+  test('o aviso só ocupa espaço no Hero quando aparece', async ({ page }) => {
+    const hero = page.locator('#inicio');
+    const spaceBelowBadge = async () => {
+      const selo = (await badge(page).boundingBox())!;
+      const cta = (await hero.getByRole('button', { name: pt.content.hero.cta }).boundingBox())!;
+      return cta.y - (selo.y + selo.height);
     };
 
     await openAt(page, '21:59');
-    const awake = await layout();
+    const awake = await spaceBelowBadge();
+
+    await openAt(page, '22:00');
+    const line = (await notice(page).boundingBox())!;
+    const asleep = await spaceBelowBadge();
+
+    // Acordado, nenhuma linha fica reservada: o espaço só cresce, e pelo menos a altura
+    // do aviso, quando ele aparece.
+    expect(asleep - awake).toBeGreaterThanOrEqual(line.height);
+  });
+
+  test('com o aviso, o selo continua o mesmo', async ({ page }) => {
+    await openAt(page, '21:59');
     const awakeBadge = await badge(page).evaluate(el => el.outerHTML);
 
     await openAt(page, '22:00');
     await expect(notice(page)).toBeVisible();
-    expect(await layout()).toEqual(awake);
     expect(await badge(page).evaluate(el => el.outerHTML)).toBe(awakeBadge);
   });
 });

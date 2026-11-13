@@ -9,7 +9,7 @@ import { SleepLine } from './styles';
 const CHECK_EVERY_MS = 60_000;
 
 // O Aviso de sono depende só da hora de Salvador, por isso é calculado no cliente:
-// o HTML estático sai sem ele, e a linha fica reservada até a hidratação decidir.
+// o HTML estático sai sem ele, e fora da hora ele não ocupa espaço no Hero.
 export default function SleepNotice() {
   const { content } = useDict();
   const [asleep, setAsleep] = useState(false);
@@ -21,9 +21,6 @@ export default function SleepNotice() {
     return () => clearInterval(timer);
   }, []);
 
-  return (
-    <SleepLine $visible={asleep} aria-hidden={!asleep}>
-      {asleep ? content.hero.sleepNotice : null}
-    </SleepLine>
-  );
+  if (!asleep) return null;
+  return <SleepLine>{content.hero.sleepNotice}</SleepLine>;
 }

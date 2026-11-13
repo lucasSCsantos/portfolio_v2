@@ -121,10 +121,7 @@ export const AvailabilityStack = styled.div`
   gap: 0.375rem;
 `;
 
-// A linha tem altura fixa e fica reservada mesmo vazia: o aviso só aparece depois
-// da hidratação, e nada abaixo dele pode pular quando ele aparece.
-export const SleepLine = styled.p<{ $visible: boolean }>`
-  height: 1.5rem;
+export const SleepLine = styled.p`
   padding: 0 0.75rem;
   border-radius: 999px;
   background-color: ${({ theme }) => theme.colors.white}b3;
@@ -132,7 +129,6 @@ export const SleepLine = styled.p<{ $visible: boolean }>`
   font-style: italic;
   line-height: 1.5rem;
   color: ${({ theme }) => theme.colors.text};
-  visibility: ${({ $visible }) => ($visible ? 'visible' : 'hidden')};
 `;
 
 export const CtaRow = styled.div`
