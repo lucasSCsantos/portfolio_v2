@@ -21,7 +21,9 @@ const theme = {
     // São `var(...)`, não hex: não aceitam sufixo de opacidade (`${cor}b3`).
     seaTop: 'var(--sea-top, #79BED9)',
     onSea: 'var(--sea-ink, #000000)',
-    onSeaAccent: 'var(--sea-accent, #1462A6)'
+    onSeaAccent: 'var(--sea-accent, #1462A6)',
+    // A cor do Mar atrás do elemento, que muda com a profundidade.
+    sea: 'var(--sea-color, #79BED9)'
   },
   sizes: {
     xxxsmall: '0.875rem',

@@ -5,12 +5,13 @@ import {
   MotionValue,
   transform,
   useMotionValue,
+  useMotionValueEvent,
   useReducedMotion,
   useScroll,
   useTransform
 } from 'framer-motion';
 import { dive } from '@/app/lib/scroll';
-import type { SceneParams } from '@/app/lib/scene';
+import { mixColor, type SceneParams } from '@/app/lib/scene';
 import { useScene } from '@/app/lib/scene-mode';
 import theme from '@/app/styles/theme';
 import FloatingBubble, { BubbleSpec } from './FloatingBubble';
@@ -18,8 +19,10 @@ import { Backdrop, Vignette, Zone } from './styles';
 
 // Do raso (cor da onda da frente da Cena) ao fundo do mar. O fundo é atingido em 85% da zona:
 // o Contato, no fim, já fica na água mais escura.
+// Cada Cena tem a sua escala, sempre escurecendo a partir da onda da frente; entre as duas, a Cena mistura pelo `dark`.
 const DEPTH_STOPS = [0, 0.18, 0.42, 0.66, 0.85];
-const DEEPER_COLORS = ['#2A74A6', '#085690', '#043A6B', '#010F22'];
+const DEEPER_DAY = ['#2A74A6', '#085690', '#043A6B', '#010F22'];
+const DEEPER_NIGHT = ['#0a3058', '#072545', '#041930', '#010812'];
 
 // Textos que ficam direto sobre o Mar: escuros sob a Cena clara, claros sob a escura.
 const TEXT_ON_SEA: Record<SceneParams['tone'], { ink: string; accent: string }> = {
@@ -27,14 +30,16 @@ const TEXT_ON_SEA: Record<SceneParams['tone'], { ink: string; accent: string }> 
   dark: { ink: theme.colors.textLight, accent: theme.colors.primary }
 };
 
-let depthScale: { surface: string; toColor: (depth: number) => string } | undefined;
+let depthScale: { surface: string; dark: number; toColor: (depth: number) => string } | undefined;
 
-// A escala de profundidade só muda quando muda a superfície; não se refaz a cada quadro.
-function depthColor(depth: number, surface: string) {
-  if (depthScale?.surface !== surface) {
+// A escala de profundidade só muda quando muda a Cena; não se refaz a cada quadro.
+function depthColor(depth: number, surface: string, dark: number) {
+  if (depthScale?.surface !== surface || depthScale.dark !== dark) {
+    const deeper = DEEPER_DAY.map((day, i) => mixColor(day, DEEPER_NIGHT[i], dark));
     depthScale = {
       surface,
-      toColor: transform(DEPTH_STOPS, [surface, ...DEEPER_COLORS])
+      dark,
+      toColor: transform(DEPTH_STOPS, [surface, ...deeper])
     };
   }
   return depthScale.toColor(depth);
@@ -89,10 +94,16 @@ export default function Sea({ children }: { children: ReactNode }) {
   // O Mar começa na cor da onda da frente, para não haver emenda com o Hero.
   const surface = useMotionValue<string | number>(seaTop);
   useEffect(() => surface.set(seaTop), [surface, seaTop]);
+  const dark = useMotionValue<string | number>(scene.dark);
+  useEffect(() => dark.set(scene.dark), [dark, scene.dark]);
   const backgroundColor = useTransform(
-    [depth, surface] as MotionValue<string | number>[],
-    ([d, top]) => depthColor(d as number, top as string)
+    [depth, surface, dark] as MotionValue<string | number>[],
+    ([d, top, night]) => depthColor(d as number, top as string, night as number)
   );
+  // A cor do Mar na altura atual, para o que tem de parecer vazado (os ícones das redes, no Sobre).
+  const paintSea = (color: string) => zoneRef.current?.style.setProperty('--sea-color', color);
+  useEffect(() => paintSea(backgroundColor.get()), [backgroundColor]);
+  useMotionValueEvent(backgroundColor, 'change', paintSea);
   const baseVignette = useTransform(depth, [0, 1], [0.1, 0.95]);
   // Durante o mergulho a vinheta fecha um pouco, como a pressão da água.
   const vignetteOpacity = useTransform(

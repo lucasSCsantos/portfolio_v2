@@ -224,10 +224,6 @@ export const SocialMediaButton = styled(Button)`
 
   @media (max-width: 834px) {
     background-color: ${({ theme }) => theme.colors.textLight}d9;
-
-    img {
-      filter: brightness(0.55) saturate(1.3);
-    }
   }
 `;
 
@@ -274,9 +270,14 @@ export const Tag = styled(Button)`
   }
 `;
 
-export const Icon = styled.img`
+// O ícone é um recorte pintado com a cor do Mar, como se o botão fosse vazado.
+export const Icon = styled.span<{ $src: string }>`
+  display: block;
   width: 32px;
   height: 32px;
+  background-color: ${({ theme }) => theme.colors.sea};
+  -webkit-mask: url(/${({ $src }) => $src}) center / contain no-repeat;
+  mask: url(/${({ $src }) => $src}) center / contain no-repeat;
 `;
 
 export const Method = styled.ol`

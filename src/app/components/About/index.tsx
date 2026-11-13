@@ -91,8 +91,8 @@ function About() {
                 rel="noopener noreferrer"
               >
                 <Icon
-                  alt=""
-                  src={profile.icons[key]}
+                  aria-hidden
+                  $src={profile.icons[key]}
                   style={
                     key === 'github' ? { height: 32, width: 28 } : undefined
                   }
