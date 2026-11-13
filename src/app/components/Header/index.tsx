@@ -21,8 +21,7 @@ import profile from '@/meta/profile';
 import { useDict } from '@/app/lib/locale';
 import LanguageSwitch from './LanguageSwitch';
 import SceneSwitch from './SceneSwitch';
-import { sceneFor } from '@/app/lib/scene';
-import { useSceneMode, useSceneReady } from '@/app/lib/scene-mode';
+import { useScene, useSceneReady } from '@/app/lib/scene-mode';
 import {
   FaBars,
 } from 'react-icons/fa6';
@@ -51,7 +50,7 @@ function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [onSea, setOnSea] = useState(false);
-  const scene = sceneFor({ mode: useSceneMode() });
+  const { scene } = useScene();
   const ready = useSceneReady();
   // Claro sobre escuro: sobre o Mar ou sobre a Cena escura.
   const light = onSea || scene.tone === 'dark';

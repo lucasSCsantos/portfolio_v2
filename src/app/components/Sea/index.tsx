@@ -10,8 +10,8 @@ import {
   useTransform
 } from 'framer-motion';
 import { dive } from '@/app/lib/scroll';
-import { sceneFor, type SceneParams } from '@/app/lib/scene';
-import { useSceneMode } from '@/app/lib/scene-mode';
+import type { SceneParams } from '@/app/lib/scene';
+import { useScene } from '@/app/lib/scene-mode';
 import theme from '@/app/styles/theme';
 import FloatingBubble, { BubbleSpec } from './FloatingBubble';
 import { Backdrop, Vignette, Zone } from './styles';
@@ -76,9 +76,9 @@ export default function Sea({ children }: { children: ReactNode }) {
   const zoneRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
   const { scrollY } = useScroll();
-  const scene = sceneFor({ mode: useSceneMode() });
+  const { scene } = useScene();
   const seaTop = scene.waves[2];
-  const text = TEXT_ON_SEA[scene.tone];
+  const text = TEXT_ON_SEA[scene.seaTone];
 
   // 0 quando o topo da zona encosta no topo da tela; 1 quando o fim da zona chega ao fim da tela.
   const { scrollYProgress: depth } = useScroll({

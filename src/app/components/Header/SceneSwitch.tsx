@@ -1,17 +1,19 @@
 'use client';
 
 import { useRef, type KeyboardEvent } from 'react';
-import { FaMoon, FaSun } from 'react-icons/fa6';
+import { FaEarthAmericas, FaMoon, FaSun } from 'react-icons/fa6';
 import type { IconType } from 'react-icons';
 import { useDict } from '@/app/lib/locale';
-import type { SceneMode } from '@/app/lib/scene';
+import { SCENE_MODES, type SceneMode } from '@/app/lib/scene';
 import { setSceneMode, useSceneMode } from '@/app/lib/scene-mode';
 import { SwitchContainer, SwitchThumb } from './styles';
 
-const MODES: { mode: SceneMode; Icon: IconType }[] = [
-  { mode: 'dia', Icon: FaSun },
-  { mode: 'noite', Icon: FaMoon }
-];
+const ICONS: Record<SceneMode, IconType> = {
+  dia: FaSun,
+  noite: FaMoon,
+  'ao-vivo': FaEarthAmericas
+};
+const MODES = SCENE_MODES.map(mode => ({ mode, Icon: ICONS[mode] }));
 
 /** Seletor do Modo da Cena: um grupo de opções que desliza como o de Idioma. */
 export default function SceneSwitch({ light }: { light?: boolean }) {

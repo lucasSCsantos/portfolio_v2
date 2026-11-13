@@ -1,8 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { sceneFor } from '@/app/lib/scene';
-import { useSceneCrossfade, useSceneMode, useSceneReady } from '@/app/lib/scene-mode';
+import { useScene, useSceneCrossfade, useSceneReady } from '@/app/lib/scene-mode';
 import { Container, Stack } from './styles';
 import Sky from './Sky';
 import Waves from './Waves';
@@ -10,9 +9,8 @@ import TopSection from './TopSection';
 import BottomSection from './BottomSection';
 
 function Hero() {
-  const mode = useSceneMode();
+  const { mode, scene: target } = useScene();
   const ready = useSceneReady();
-  const target = sceneFor({ mode });
   const scene = useSceneCrossfade(target, ready);
   // O conteúdo não muda com a Cena: não precisa renderizar de novo a cada quadro da troca.
   const content = useMemo(

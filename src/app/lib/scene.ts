@@ -1,12 +1,14 @@
 // A Cena: o céu e as ondas do Hero (ver CONTEXT.md e docs/adr/0003).
 // Módulo puro: a hora e o clima entram como argumentos, nada aqui lê relógio nem DOM.
 
-export type SceneMode = 'dia' | 'noite';
+export const SCENE_MODES = ['dia', 'noite', 'ao-vivo'] as const;
+export type SceneMode = (typeof SCENE_MODES)[number];
 
 // Três cores, de cima para baixo no céu ou de trás para a frente nas ondas.
 export type ColorTrio = [string, string, string];
 
-export type ScenePhase = 'dia' | 'noite';
+// Os presets são `dia` e `noite`; em `ao vivo` o dia também passa por amanhecer, pôr do sol e crepúsculo.
+export type ScenePhase = 'dia' | 'noite' | 'amanhecer' | 'por-do-sol' | 'crepusculo';
 
 export type SceneParams = {
   // Topo, meio e base do gradiente do céu.
@@ -22,12 +24,14 @@ export type SceneParams = {
   waves: ColorTrio;
   // 0 dia .. 1 noite.
   dark: number;
-  // Tom dos textos que ficam sobre a Cena e o Mar.
+  // Tom dos textos que ficam sobre o céu (o Hero e o Header) e sobre o Mar, que começa na onda da frente.
   tone: 'light' | 'dark';
+  seaTone: 'light' | 'dark';
   phase: ScenePhase;
 };
 
-type SceneInput = { mode: SceneMode };
+// Em `ao vivo`, a hora de Salvador em minutos desde a meia-noite.
+type SceneInput = { mode: 'dia' | 'noite' } | { mode: 'ao-vivo'; minutes: number };
 
 const DAY_SKY = '#f2f2f2';
 
@@ -41,6 +45,7 @@ const DAY: SceneParams = {
   waves: ['#1462A6', '#398CBF', '#79BED9'],
   dark: 0,
   tone: 'light',
+  seaTone: 'light',
   phase: 'dia'
 };
 
@@ -55,28 +60,35 @@ const NIGHT: SceneParams = {
   waves: ['#031a33', '#07294d', '#0e3a66'],
   dark: 1,
   tone: 'dark',
+  seaTone: 'dark',
   phase: 'noite'
 };
 
-export function sceneFor({ mode }: SceneInput): SceneParams {
-  switch (mode) {
+export function sceneFor(input: SceneInput): SceneParams {
+  switch (input.mode) {
     case 'dia':
       return DAY;
     case 'noite':
       return NIGHT;
+    case 'ao-vivo':
+      return liveScene(input.minutes);
   }
 }
 
 const mix = (from: number, to: number, t: number) => from + (to - from) * t;
 
-const mixColor = (from: string, to: string, t: number) =>
-  '#' +
-  [1, 3, 5]
-    .map(i => {
-      const channel = mix(parseInt(from.slice(i, i + 2), 16), parseInt(to.slice(i, i + 2), 16), t);
-      return Math.round(channel).toString(16).padStart(2, '0');
-    })
-    .join('');
+// Os canais (0..255) de uma cor `#rrggbb`.
+const channels = (hex: string) => [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16));
+
+export const mixColor = (from: string, to: string, t: number) => {
+  const target = channels(to);
+  return (
+    '#' +
+    channels(from)
+      .map((channel, i) => Math.round(mix(channel, target[i], t)).toString(16).padStart(2, '0'))
+      .join('')
+  );
+};
 
 const mixTrio = (from: ColorTrio, to: ColorTrio, t: number): ColorTrio => [
   mixColor(from[0], to[0], t),
@@ -100,7 +112,108 @@ export function mixScenes(from: SceneParams, to: SceneParams, t: number): SceneP
     waves: mixTrio(from.waves, to.waves, t),
     dark: mix(from.dark, to.dark, t),
     tone: ending.tone,
+    seaTone: ending.seaTone,
     phase: ending.phase
+  };
+}
+
+const luminance = (hex: string) => {
+  const linear = (channel: number) => {
+    const c = channel / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  };
+  const [r, g, b] = channels(hex).map(linear);
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
+
+const contrast = (a: string, b: string) => {
+  const [high, low] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return (high + 0.05) / (low + 0.05);
+};
+
+// O tom que lê melhor no pior ponto de um fundo.
+function toneOver(background: string[]): SceneParams['tone'] {
+  const worst = (tone: SceneParams['tone']) => {
+    const { ink } = textOnScene(tone);
+    return Math.min(...background.map(color => contrast(ink, color)));
+  };
+  return worst('light') >= worst('dark') ? 'light' : 'dark';
+}
+
+// Nascer e pôr do sol em Salvador, em minutos: a tabela fixa enquanto o clima não informa os do dia.
+const SUNRISE = 5 * 60 + 30;
+const SUNSET = 17 * 60 + 30;
+const DAY_MINUTES = 24 * 60;
+
+// Um ponto da curva do dia: o céu, quanta luz há (0 noite .. 1 dia), quanto do laranja do sol e
+// quão perto as ondas estão das de dia. O mar não segue a luz do céu ao pé da letra: no amanhecer e
+// no pôr do sol ele já está escuro, para os textos sobre o Mar terem uma tinta que leia bem
+// (um azul médio não deixa nem o texto claro nem o escuro passar no contraste).
+type SkyKey = { at: number; sky: ColorTrio; light: number; warm: number; sea: number };
+
+const NIGHT_KEY = { sky: NIGHT.sky, light: 0, warm: 0, sea: 0 };
+const DAY_KEY = { sky: DAY.sky, light: 1, warm: 0, sea: 1 };
+
+// A curva do protótipo (branch prototype/cena-viva), presa ao nascer e ao pôr do sol. No amanhecer
+// e no pôr do sol o meio do céu é um coral escuro, para o texto claro do Hero ler bem; o laranja vivo fica na base.
+const SKY_KEYS: SkyKey[] = [
+  { at: 0, ...NIGHT_KEY },
+  { at: SUNRISE - 30, ...NIGHT_KEY },
+  { at: SUNRISE + 15, sky: ['#3b4a78', '#a5504f', '#f7c690'], light: 0.45, warm: 1, sea: 0.2 },
+  { at: SUNRISE + 100, sky: ['#dfe3ea', '#f2f2f2', '#f2f2f2'], light: 1, warm: 0.25, sea: 1 },
+  { at: SUNRISE + 170, ...DAY_KEY },
+  { at: SUNSET - 90, ...DAY_KEY },
+  { at: SUNSET, sky: ['#5a4a86', '#9c4f52', '#f6b064'], light: 0.5, warm: 1, sea: 0.2 },
+  { at: SUNSET + 60, sky: ['#161c45', '#3a2c5e', '#b25a5e'], light: 0.15, warm: 0.6, sea: 0.05 },
+  { at: SUNSET + 120, ...NIGHT_KEY },
+  { at: DAY_MINUTES, ...NIGHT_KEY }
+];
+
+// Onde termina cada fase; depois do crepúsculo, noite até o outro amanhecer.
+const PHASE_UNTIL: [number, ScenePhase][] = [
+  [SUNRISE - 30, 'noite'],
+  [SUNRISE + 100, 'amanhecer'],
+  [SUNSET - 45, 'dia'],
+  [SUNSET + 30, 'por-do-sol'],
+  [SUNSET + 90, 'crepusculo'],
+  [DAY_MINUTES, 'noite']
+];
+
+// O laranja que o sol baixo deixa nas ondas do meio e da frente.
+const SUN_GLOW = '#e0735a';
+
+function liveScene(minutes: number): SceneParams {
+  const m = ((minutes % DAY_MINUTES) + DAY_MINUTES) % DAY_MINUTES;
+  const next = SKY_KEYS.findIndex(key => key.at > m);
+  const [a, b] = [SKY_KEYS[next - 1], SKY_KEYS[next]];
+  const t = (m - a.at) / (b.at - a.at);
+  const light = mix(a.light, b.light, t);
+  const warm = mix(a.warm, b.warm, t);
+  const sea = mix(a.sea, b.sea, t);
+
+  const sky = mixTrio(a.sky, b.sky, t);
+  // Em pleno dia, as ondas são exatamente as do preset `dia` (a mistura não guarda a grafia das cores).
+  const waves =
+    sea === 1 && warm === 0
+      ? DAY.waves
+      : (DAY.waves.map((day, i) => {
+          const color = mixColor(NIGHT.waves[i], day, sea);
+          return i > 0 ? mixColor(color, SUN_GLOW, warm * 0.16) : color;
+        }) as ColorTrio);
+
+  return {
+    sky,
+    // As estrelas só aparecem quando o céu já escureceu de fato.
+    stars: Math.min(1, Math.max(0, (0.4 - light) / 0.4)),
+    cloud: 0,
+    rain: 0,
+    amp: 1,
+    speed: 1,
+    waves,
+    dark: 1 - light,
+    tone: toneOver([sky[0], sky[1]]),
+    seaTone: toneOver([waves[2]]),
+    phase: PHASE_UNTIL.find(([until]) => m < until)![1]
   };
 }
 

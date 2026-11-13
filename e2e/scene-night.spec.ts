@@ -43,9 +43,10 @@ test.describe('seletor do Modo da Cena', () => {
     expect(await waveFills(page)).toEqual(DAY_WAVES);
 
     const group = sceneSwitch(page);
-    await expect(group.getByRole('radio')).toHaveCount(2);
+    await expect(group.getByRole('radio')).toHaveCount(3);
     await expect(group.getByRole('radio', { name: pt.ui.sceneModes.dia })).toBeChecked();
     await expect(group.getByRole('radio', { name: pt.ui.sceneModes.noite })).not.toBeChecked();
+    await expect(group.getByRole('radio', { name: pt.ui.sceneModes['ao-vivo'] })).not.toBeChecked();
   });
 
   test('funciona só pelo teclado: setas movem a escolha, Enter e Espaço escolhem', async ({

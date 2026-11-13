@@ -71,7 +71,7 @@ const pt: Dictionary = {
     tagFrontEnd: '👉 Desenvolvedor front-end',
     languageSwitch: 'Idioma',
     sceneSwitch: 'Modo da cena',
-    sceneModes: { dia: 'Dia', noite: 'Noite' }
+    sceneModes: { dia: 'Dia', noite: 'Noite', 'ao-vivo': 'Ao vivo' }
   },
   content,
   navLinks,

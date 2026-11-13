@@ -217,7 +217,7 @@ const en: Dictionary = {
     tagFrontEnd: '👉 Front-end developer',
     languageSwitch: 'Language',
     sceneSwitch: 'Scene mode',
-    sceneModes: { dia: 'Day', noite: 'Night' }
+    sceneModes: { dia: 'Day', noite: 'Night', 'ao-vivo': 'Live' }
   },
   content: {
     hero: {

@@ -111,3 +111,99 @@ test.describe('hora de Salvador', () => {
     });
   }
 });
+
+test.describe('modelo da Cena em ao vivo', () => {
+  const at = (hours: number, minutes = 0) => sceneFor({ mode: 'ao-vivo', minutes: hours * 60 + minutes });
+  const luminance = (hex: string) =>
+    [1, 3, 5].reduce((sum, i, k) => sum + parseInt(hex.slice(i, i + 2), 16) * [0.2126, 0.7152, 0.0722][k], 0);
+  const channels = (hex: string) => [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16));
+  const warmth = (hex: string) => channels(hex)[0] - channels(hex)[2];
+
+  test('de madrugada é a noite estrelada, com as cores do modo noite', () => {
+    const night = sceneFor({ mode: 'noite' });
+    expect(at(3)).toMatchObject({ phase: 'noite', sky: night.sky, waves: night.waves, stars: 1, dark: 1, tone: 'dark' });
+  });
+
+  test('ao meio-dia é o dia de sempre, e as ondas calmas de sempre', () => {
+    expect(at(12)).toEqual(sceneFor({ mode: 'dia' }));
+  });
+
+  test('o amanhecer é alaranjado, entre a noite e o dia', () => {
+    const dawn = at(5, 45);
+    expect(dawn.phase).toBe('amanhecer');
+    expect(warmth(dawn.sky[1])).toBeGreaterThan(40);
+    expect(dawn.dark).toBeGreaterThan(0);
+    expect(dawn.dark).toBeLessThan(1);
+  });
+
+  test('o pôr do sol é alaranjado e o crepúsculo já escurece', () => {
+    const sunset = at(17, 30);
+    expect(sunset.phase).toBe('por-do-sol');
+    expect(warmth(sunset.sky[1])).toBeGreaterThan(40);
+
+    const dusk = at(18, 15);
+    expect(dusk.phase).toBe('crepusculo');
+    expect(dusk.dark).toBeGreaterThan(sunset.dark);
+    expect(luminance(dusk.sky[0])).toBeLessThan(luminance(sunset.sky[0]));
+  });
+
+  test('às 21h já é noite de novo', () => {
+    expect(at(21)).toMatchObject({ phase: 'noite', stars: 1, tone: 'dark' });
+  });
+
+  test('o tom dos textos acompanha a luz: claro de dia, escuro à noite', () => {
+    expect(at(12).tone).toBe('light');
+    expect(at(3).tone).toBe('dark');
+    expect(at(21).tone).toBe('dark');
+  });
+
+  test('as estrelas somem com o dia', () => {
+    expect(at(12).stars).toBe(0);
+    expect(at(3).stars).toBe(1);
+  });
+
+  test('a passagem é gradual: minutos vizinhos dão Cenas próximas, inclusive na virada da meia-noite', () => {
+    // O maior salto de um minuto para o seguinte, em canal de cor e em estrelas e escuridão.
+    let colorJump = 0;
+    let numberJump = 0;
+    for (let minute = 0; minute < 1440; minute++) {
+      const a = sceneFor({ mode: 'ao-vivo', minutes: minute });
+      const b = sceneFor({ mode: 'ao-vivo', minutes: (minute + 1) % 1440 });
+      const next = [...b.sky, ...b.waves];
+      [...a.sky, ...a.waves].forEach((color, i) =>
+        channels(color).forEach((channel, k) => {
+          colorJump = Math.max(colorJump, Math.abs(channel - channels(next[i])[k]));
+        })
+      );
+      numberJump = Math.max(numberJump, Math.abs(a.stars - b.stars), Math.abs(a.dark - b.dark));
+    }
+    expect(colorJump).toBeLessThanOrEqual(8);
+    expect(numberJump).toBeLessThanOrEqual(0.05);
+  });
+
+  test('nas horas de referência, o tom sobre o Mar lê bem na onda da frente, onde o Mar começa', () => {
+    const linear = (c: number) => (c / 255 <= 0.03928 ? c / 255 / 12.92 : ((c / 255 + 0.055) / 1.055) ** 2.4);
+    const relative = (hex: string) =>
+      channels(hex).reduce((sum, c, k) => sum + linear(c) * [0.2126, 0.7152, 0.0722][k], 0);
+    const contrast = (a: string, b: string) => {
+      const [high, low] = [relative(a), relative(b)].sort((x, y) => y - x);
+      return (high + 0.05) / (low + 0.05);
+    };
+    for (const [hours, minutes] of [[3, 0], [5, 45], [12, 0], [17, 30], [18, 15], [21, 0]]) {
+      const scene = at(hours, minutes);
+      expect(contrast(textOnScene(scene.seaTone).ink, scene.waves[2]), `${hours}h${minutes}`).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+
+  test('a hora fora do intervalo de um dia dá a volta no relógio', () => {
+    expect(sceneFor({ mode: 'ao-vivo', minutes: 1440 + 12 * 60 })).toEqual(at(12));
+    expect(sceneFor({ mode: 'ao-vivo', minutes: -60 })).toEqual(at(23));
+  });
+
+  test('todas as cores são válidas a qualquer hora', () => {
+    for (let minute = 0; minute < 1440; minute += 7) {
+      const scene = sceneFor({ mode: 'ao-vivo', minutes: minute });
+      [...scene.sky, ...scene.waves].forEach(color => expect(color).toMatch(/^#[0-9a-f]{6}$/i));
+    }
+  });
+});
