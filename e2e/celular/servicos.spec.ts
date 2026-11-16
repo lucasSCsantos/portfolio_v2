@@ -63,8 +63,8 @@ test('o botão abre o WhatsApp numa nova aba', async ({ page }) => {
   await expect(button).toHaveAttribute('rel', /noopener/);
 });
 
-test.describe('animação e corais', () => {
-  test('a animação fica pequena junto ao título, e os corais no pé da Tela, mexendo', async ({ page }) => {
+test.describe('animação', () => {
+  test('a animação fica pequena junto ao título, sem corais na Tela', async ({ page }) => {
     await open(page);
     const animation = services(page).locator('[data-lottie] svg');
     await expect(animation).toBeVisible();
@@ -73,19 +73,13 @@ test.describe('animação e corais', () => {
     const title = (await services(page).getByRole('heading', { name: pt.content.services.label }).boundingBox())!;
     expect(Math.abs(box.y - title.y)).toBeLessThan(120);
 
-    const corals = services(page).locator('[data-corais]');
-    await expect(corals).toBeVisible();
-    const tela = (await services(page).boundingBox())!;
-    const foot = (await corals.boundingBox())!;
-    expect(tela.y + tela.height - (foot.y + foot.height)).toBeLessThanOrEqual(1);
-    expect(await corals.evaluate(el => el.getAnimations({ subtree: true }).length)).toBeGreaterThan(0);
+    await expect(services(page).locator('[data-corais]')).toHaveCount(0);
   });
 
-  test('com movimento reduzido, os corais param e a animação não roda', async ({ page }) => {
+  test('com movimento reduzido, a animação não roda', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await open(page);
-    await expect(services(page).locator('[data-corais]')).toBeVisible();
-    expect(await services(page).locator('[data-corais]').evaluate(el => el.getAnimations({ subtree: true }).length)).toBe(0);
+    await expect(services(page).locator('[data-corais]')).toHaveCount(0);
     await expect(services(page).locator('[data-lottie] svg')).toHaveCount(0);
   });
 });

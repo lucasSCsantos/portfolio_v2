@@ -39,6 +39,8 @@ export interface Ui {
   nextProject: string;
   readMore: string;
   readLess: string;
+  pauseSkills: string;
+  resumeSkills: string;
   viewDemo: string;
   viewDemoLabel: string;
   viewSite: string;

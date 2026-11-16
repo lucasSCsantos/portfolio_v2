@@ -50,7 +50,7 @@ export default function Project({
   const hasVideo = Boolean(video && (video.horizontal || video.vertical));
 
   return (
-    <Card>
+    <Card tabIndex={0}>
       <Picture>
         <Image
           src={`/${src}`}

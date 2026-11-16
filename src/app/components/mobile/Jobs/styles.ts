@@ -2,6 +2,7 @@
 
 import styled from 'styled-components';
 import { glassCard } from '../glass';
+import { Achievements as DesktopAchievements, TechList as DesktopTechs } from '../../Jobs/styles';
 
 // Margem lateral de 20px; à direita, o espaço dos pontos da lateral (44px de toque + 4px da borda).
 const SIDE = '20px';
@@ -68,7 +69,7 @@ export const Summary = styled.button`
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  padding: 0.75rem 1rem;
+  padding: 1.25rem 1.25rem 0.75rem;
   border: 0;
   background: none;
   color: inherit;
@@ -80,7 +81,7 @@ export const Summary = styled.button`
   > span {
     display: flex;
     flex-direction: column;
-    gap: 0.125rem;
+    gap: 0.5rem;
     min-width: 0;
   }
 
@@ -89,18 +90,20 @@ export const Summary = styled.button`
     flex-wrap: wrap;
     align-items: baseline;
     gap: 0.25rem 0.5rem;
-    font: 700 1.0625rem / 1.3 ${({ theme }) => theme.font.family.poppins};
+    font: 700 1.5rem / 1.2 ${({ theme }) => theme.font.family.poppins};
   }
 
-  // O vínculo vira uma etiqueta no tom do texto: o tom de destaque não tem contraste sobre o cartão.
   small {
-    padding: 0 0.5rem;
+    padding: 2px 10px;
     border-radius: 999px;
-    border: 1px solid color-mix(in srgb, currentColor 50%, transparent);
+    color: ${({ theme }) => theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.tertiary};
     font: 600 ${({ theme }) => theme.sizes.xxxsmall} / 1.5 ${({ theme }) => theme.font.family.inter};
   }
 
   strong + span {
+    /* Mais escuro que o cinza do desktop para ler sobre o vidro na Cena noturna. */
+    color: #2e2e2e;
     font: 500 ${({ theme }) => theme.sizes.xxxsmall} / 1.4 ${({ theme }) => theme.font.family.inter};
   }
 
@@ -127,20 +130,21 @@ export const Body = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: 0 1rem;
+  gap: 0.5rem;
+  padding: 0 1.25rem;
 
   > :first-child {
     margin-top: 0.25rem;
   }
 
   > :last-child {
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
   }
 `;
 
 export const Highlight = styled.p`
   font: 600 1rem / 1.5 ${({ theme }) => theme.font.family.inter};
+  color: ${({ theme }) => theme.colors.backgroundDarkBlue};
 `;
 
 // O Projeto relacionado: o link ocupa a altura de um toque.
@@ -153,34 +157,19 @@ export const Project = styled.p`
     min-height: 44px;
     min-width: 44px;
     font-weight: 600;
-    color: inherit;
+    color: ${({ theme }) => theme.colors.backgroundDarkBlue};
     text-decoration: underline;
     text-underline-offset: 3px;
   }
 `;
 
-export const Achievements = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding-left: 1.125rem;
-
-  li {
-    font: 400 1rem / 1.5 ${({ theme }) => theme.font.family.inter};
-  }
+export const Achievements = styled(DesktopAchievements)`
+  font-size: 1rem;
 `;
 
-export const Techs = styled.ul`
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.375rem;
-
+export const Techs = styled(DesktopTechs)`
   li {
-    padding: 0.25rem 0.625rem;
-    border-radius: 999px;
-    border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
-    font: 500 ${({ theme }) => theme.sizes.xxxsmall} / 1.4 ${({ theme }) => theme.font.family.inter};
+    color: ${({ theme }) => theme.colors.backgroundDarkBlue};
   }
 `;
 

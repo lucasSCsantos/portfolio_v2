@@ -10,12 +10,18 @@ const DOTS = '48px';
 // O texto fica direto sobre o Mar, no tom da Tela (`--sea-ink`). Sem respiro embaixo: o fundo do mar
 // ocupa o pé da seção, logo acima do Rodapé.
 export const Container = styled.section`
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   padding: 3rem ${DOTS} 0 ${SIDE};
   color: ${({ theme }) => theme.colors.onSea};
+
+  > div:not([data-fundo-do-mar]) {
+    position: relative;
+    z-index: 1;
+  }
 `;
 
 export const Label = styled.h2`
@@ -125,10 +131,11 @@ export const Switches = styled.div`
 // Rodapé, que continua logo abaixo.
 export const SeabedBand = styled.div`
   position: relative;
+  z-index: 0;
   flex: none;
-  height: 140px;
+  height: 180px;
   margin: auto -${DOTS} 0 -${SIDE};
-  overflow: hidden;
+  overflow-x: clip;
   pointer-events: none;
 `;
 
@@ -138,7 +145,7 @@ export const Hill = styled.svg<{ $z: number }>`
   bottom: 0;
   z-index: ${({ $z }) => $z};
   width: 100%;
-  height: 100%;
+  height: 140px;
 `;
 
 const sway = keyframes`

@@ -9,6 +9,40 @@ import { MIN_CONTRAST, worstContrast } from '../contrast';
 const STORAGE_KEY = 'cena-modo';
 const total = pt.projects.length;
 
+test('Projetos cabe na altura visível, com controles e conteúdo acessíveis', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  const section = page.locator('#projetos');
+  for (const viewport of [
+    { width: 390, height: 844 },
+    { width: 360, height: 640 },
+    { width: 800, height: 380 }
+  ]) {
+    await page.setViewportSize(viewport);
+    await section.evaluate(el => el.scrollIntoView());
+    const layout = await section.evaluate(el => {
+      const box = el.getBoundingClientRect();
+      const cards = Array.from(el.querySelectorAll('article'));
+      return {
+        height: box.height,
+        bottom: el.lastElementChild!.getBoundingClientRect().bottom - box.top,
+        cards: cards.map(card => {
+          card.scrollTop = card.scrollHeight;
+          const last = card.lastElementChild!.getBoundingClientRect();
+          const rect = card.getBoundingClientRect();
+          return { bottom: rect.bottom - box.top, remaining: last.bottom - rect.bottom };
+        })
+      };
+    });
+    expect(layout.height).toBeLessThanOrEqual(viewport.height + 1);
+    expect(layout.bottom).toBeLessThanOrEqual(viewport.height);
+    for (const card of layout.cards) {
+      expect(card.bottom).toBeLessThanOrEqual(viewport.height);
+      expect(card.remaining).toBeLessThanOrEqual(1);
+    }
+  }
+});
+
 const tela = (page: Page) => page.locator('[data-tela="projetos"]');
 const pager = (page: Page, name = pt.content.projects.label) => tela(page).getByRole('list', { name });
 const pages = (page: Page, name?: string) => pager(page, name).getByRole('listitem').filter({ has: page.getByRole('heading') });

@@ -62,7 +62,7 @@ export default function Carousel() {
         navigation
         breakpoints={{
           835: { slidesPerView: 2 },
-          1280: { slidesPerView: 3 }
+          1920: { slidesPerView: 3 }
         }}
       >
         {projects.map((project, index) => (

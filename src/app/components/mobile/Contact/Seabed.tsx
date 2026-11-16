@@ -13,11 +13,11 @@ import { Hill, Piece, SeabedBand } from './styles';
 // As plantas do fundo do mar do desktop, em tamanho de celular. `x` em % da faixa; `h` e `bottom` em
 // px. O pé fica atrás da colina do meio (z 2), que nasce a uns 36px do fim da faixa.
 const GROWTHS = [
-  { shape: KELP, x: 7, h: 88, color: '#0063A3', delay: 0 },
-  { shape: BRANCH, x: 27, h: 72, color: '#298DBC', delay: -1.4 },
-  { shape: KELP, x: 47, h: 60, color: '#5FA9CF', delay: -2.6, flip: true },
-  { shape: FAN, x: 73, h: 52, color: '#298DBC', delay: -0.7 },
-  { shape: KELP, x: 92, h: 96, color: '#0063A3', delay: -3.3, flip: true }
+  { shape: KELP, x: 7, h: 120, color: '#0063A3', delay: 0 },
+  { shape: BRANCH, x: 27, h: 104, color: '#298DBC', delay: -1.4 },
+  { shape: KELP, x: 47, h: 92, color: '#5FA9CF', delay: -2.6, flip: true },
+  { shape: FAN, x: 73, h: 84, bottom: 32, color: '#298DBC', delay: -0.7 },
+  { shape: KELP, x: 92, h: 128, color: '#0063A3', delay: -3.3, flip: true }
 ];
 
 /** A vida no fundo do mar no pé da Tela de Contato: algas e corais balançando, a âncora e a estrela-do-mar. */
@@ -27,7 +27,7 @@ export default function Seabed() {
       <Hill $z={0} viewBox="0 0 400 140" preserveAspectRatio="none">
         <path d="M0 70C60 50 120 80 200 66S330 40 400 60V140H0Z" fill="#0a3a66" />
       </Hill>
-      {GROWTHS.map(({ shape, x, h, color, delay, flip }) => (
+      {GROWTHS.map(({ shape, x, h, color, delay, flip, bottom = 44 }) => (
         <Piece
           key={x}
           viewBox={shape.viewBox}
@@ -35,7 +35,7 @@ export default function Seabed() {
           $h={h}
           $ratio={shape.ratio}
           $baseX={shape.baseX}
-          $bottom={28}
+          $bottom={bottom}
           $z={1}
           $flip={flip}
           $sway
@@ -49,7 +49,7 @@ export default function Seabed() {
       <Piece
         viewBox={ANCHOR_VIEWBOX}
         $x={60}
-        $h={76}
+        $h={270}
         $ratio={100 / 120}
         $baseX={0.5}
         $bottom={14}

@@ -78,6 +78,7 @@ const Project = ({
           $justify="flex-start"
           style={{ gap: 32 }}
           className="project-columns"
+          tabIndex={0}
         >
           <Box
             $height={'100%'}

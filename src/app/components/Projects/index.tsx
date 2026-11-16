@@ -21,8 +21,7 @@ function Projects() {
         style={{
           justifyContent: 'flex-start',
           maxWidth: 1120,
-          zIndex: 3,
-          gap: 32
+          zIndex: 3
         }}
         $direction="column"
       >

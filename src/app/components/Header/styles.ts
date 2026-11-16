@@ -25,6 +25,10 @@ export const Container = styled.header<{ $onSea: boolean; $light: boolean }>`
     $onSea ? `${theme.colors.backgroundDarkBlue}b3` : 'transparent'};
   backdrop-filter: ${({ $onSea }) => ($onSea ? 'blur(12px)' : 'none')};
 
+  > div {
+    gap: 1.5rem;
+  }
+
   ${({ $light, theme }) =>
     $light &&
     css`
@@ -73,6 +77,8 @@ export const DesktopNav = styled.nav`
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  flex-shrink: 0;
+  white-space: nowrap;
 
   ul {
     display: flex;
@@ -86,7 +92,15 @@ export const DesktopNav = styled.nav`
     }
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1320px) {
+    gap: 1rem;
+
+    p {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 1200px) {
     display: none;
   }
 `;
@@ -113,7 +127,7 @@ export const MobileMenuButton = styled.button<MobileMenuStateProps>`
   }
 
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1200px) {
     display: flex;
   }
 
@@ -160,7 +174,7 @@ export const MobileMenu = styled.nav<MobileMenuStateProps>`
     font-size: 1rem;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1200px) {
     display: block;
   }
 
@@ -229,7 +243,7 @@ export const DesktopOnly = styled.div`
   display: flex;
   align-items: center;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1200px) {
     display: none;
   }
 `;
@@ -244,8 +258,13 @@ export const HeaderActions = styled.div`
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  flex-shrink: 0;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1320px) {
+    gap: 1rem;
+  }
+
+  @media (max-width: 1200px) {
     gap: 0.5rem;
   }
 `;

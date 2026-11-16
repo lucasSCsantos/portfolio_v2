@@ -12,16 +12,19 @@ const CLAMP = 3;
 // O texto fica direto sobre o Mar, todo no tom da Tela (`--sea-ink`): o destaque das Telas do meio
 // não tem contraste sobre a água desta profundidade, então a ênfase vem do peso e da caixa.
 export const Container = styled.section`
-  flex: 1;
+  flex: none;
+  height: 100svh;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1.25rem;
-  padding: 3rem ${DOTS} 2.5rem ${SIDE};
+  gap: clamp(8px, 2svh, 20px);
+  padding: clamp(16px, 4svh, 48px) ${DOTS} max(16px, env(safe-area-inset-bottom)) ${SIDE};
   color: ${({ theme }) => theme.colors.onSea};
 `;
 
 export const Header = styled.div`
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -56,6 +59,8 @@ export const Fish = styled.div`
 
 // O paginador sangra até as bordas da Tela e rola por dentro; a página nunca rola para o lado.
 export const Pager = styled.ul`
+  flex: 1;
+  min-height: 0;
   list-style: none;
   display: flex;
   margin: 0 -${DOTS} 0 -${SIDE};
@@ -86,6 +91,8 @@ export const Page = styled.li`
 export const Card = styled.article`
   flex: 1;
   min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 0.625rem;
@@ -95,8 +102,9 @@ export const Card = styled.article`
 `;
 
 export const Picture = styled.div`
+  flex-shrink: 0;
   position: relative;
-  height: 168px;
+  height: clamp(96px, 20svh, 168px);
   border-radius: 12px;
   overflow: hidden;
   background: color-mix(in srgb, currentColor 12%, transparent);
@@ -234,6 +242,7 @@ export const Offline = styled.span`
 `;
 
 export const Controls = styled.div`
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;

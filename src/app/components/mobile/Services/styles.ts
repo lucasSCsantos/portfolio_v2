@@ -1,7 +1,6 @@
 'use client';
 
 import styled from 'styled-components';
-import { REEF_HEIGHT } from '../Screens/styles';
 import { glassCard } from '../glass';
 
 // Margem lateral de 20px; à direita, o espaço dos pontos da lateral (44px de toque + 4px da borda).
@@ -9,7 +8,7 @@ const SIDE = '20px';
 const DOTS = '48px';
 
 // O texto fica direto sobre o Mar, no tom da Tela (`--sea-ink`). Nada no tom de destaque: a Tela é mais alta
-// que o celular, e no alto dela a água ainda é a da Tela de cima, mais clara. Embaixo, o espaço dos corais.
+// que o celular, e no alto dela a água ainda é a da Tela de cima, mais clara.
 export const Container = styled.section`
   position: relative;
   flex: 1;
@@ -17,7 +16,7 @@ export const Container = styled.section`
   flex-direction: column;
   justify-content: center;
   gap: 1.5rem;
-  padding: 3rem ${DOTS} calc(2rem + ${REEF_HEIGHT}) ${SIDE};
+  padding: 3rem ${DOTS} 2rem ${SIDE};
   color: ${({ theme }) => theme.colors.onSea};
 `;
 
