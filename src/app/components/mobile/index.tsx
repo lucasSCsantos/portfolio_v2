@@ -4,11 +4,11 @@ import Hero from './Hero';
 import Screen from './Screens/Screen';
 import Services from './Services';
 import About from './About';
+import Skills from './Skills';
 
 // Enquanto a Tela de uma seção não tem desenho próprio, ela mostra a seção da Versão para desktop.
 const Projects = dynamic(() => import('../Projects'));
 const Jobs     = dynamic(() => import('../Jobs'));
-const Work     = dynamic(() => import('../Work'));
 const Contact  = dynamic(() => import('../Contact'));
 const Footer   = dynamic(() => import('../Footer'));
 
@@ -32,7 +32,7 @@ export default function MobileHome() {
         <Services />
       </Screen>
       <Screen id="habilidades">
-        <Work />
+        <Skills />
       </Screen>
       <Screen id="contato">
         <Contact />
