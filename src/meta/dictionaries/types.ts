@@ -25,6 +25,8 @@ export interface Ui {
   // Versão para celular: o nome da Tela do Hero e o da navegação pelos pontos da lateral.
   home: string;
   screens: string;
+  // O convite do Hero da Versão para celular para descer à próxima Tela.
+  dive: string;
   openMenu: string;
   closeMenu: string;
   stats: string;

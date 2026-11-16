@@ -51,6 +51,7 @@ const pt: Dictionary = {
     nextSection: 'Descer para a próxima seção',
     home: 'Início',
     screens: 'Seções',
+    dive: 'Mergulhe',
     openMenu: 'Abrir menu de navegação',
     closeMenu: 'Fechar menu de navegação',
     stats: 'Números',

@@ -197,6 +197,7 @@ const en: Dictionary = {
     nextSection: 'Scroll to the next section',
     home: 'Home',
     screens: 'Sections',
+    dive: 'Dive in',
     openMenu: 'Open navigation menu',
     closeMenu: 'Close navigation menu',
     stats: 'Numbers',

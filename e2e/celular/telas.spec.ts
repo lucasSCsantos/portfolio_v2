@@ -92,12 +92,10 @@ test.describe('pontos da lateral', () => {
   });
 });
 
-test('o seletor de Idioma mantém a Tela', async ({ page }) => {
-  await open(page);
-  await dots(page).getByRole('link', { name: pt.navLinks[1].text }).tap();
-  await expect.poll(() => topOf(page, 'projetos'), { timeout: 5000 }).toBe(0);
-  await page.getByRole('link', { name: 'English' }).first().tap();
-  await expect(page).toHaveURL(/\/en#projetos$/);
+// O seletor de Idioma do Hero leva ao Hero do outro Idioma (ver hero.spec.ts); o da Tela de Contato
+// (ticket 09) levará à mesma Tela, por âncora, como aqui.
+test('o outro Idioma com âncora chega na mesma Tela', async ({ page }) => {
+  await open(page, '/en#projetos');
   await expect(page.locator('[data-versao]')).toHaveAttribute('data-versao', 'celular');
   await expect.poll(() => topOf(page, 'projetos')).toBe(0);
 });
