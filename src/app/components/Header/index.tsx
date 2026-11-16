@@ -78,7 +78,7 @@ function Header() {
   }, []);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(min-width: 1025px)');
+    const mediaQuery = window.matchMedia('(min-width: 1201px)');
 
     const handleBreakpointChange = (event: MediaQueryListEvent) => {
       if (event.matches) {

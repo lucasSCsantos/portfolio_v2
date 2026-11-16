@@ -63,6 +63,8 @@ const pt: Dictionary = {
     nextProject: 'Próximo projeto',
     readMore: 'ler mais',
     readLess: 'ler menos',
+    pauseSkills: 'Pausar habilidades',
+    resumeSkills: 'Continuar habilidades',
     viewDemo: 'Ver demo',
     viewDemoLabel: 'Ver demo do projeto {title}',
     viewSite: 'Ver site →',

@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import { glassCard } from '../glass';
 
 // Margem lateral de 20px; à direita, o espaço dos pontos da lateral (44px de toque + 4px da borda).
 const SIDE = '20px';
@@ -11,16 +12,19 @@ const CLAMP = 3;
 // O texto fica direto sobre o Mar, todo no tom da Tela (`--sea-ink`): o destaque das Telas do meio
 // não tem contraste sobre a água desta profundidade, então a ênfase vem do peso e da caixa.
 export const Container = styled.section`
-  flex: 1;
+  flex: none;
+  height: 100svh;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1.25rem;
-  padding: 3rem ${DOTS} 2.5rem ${SIDE};
+  gap: clamp(8px, 2svh, 20px);
+  padding: clamp(16px, 4svh, 48px) ${DOTS} max(16px, env(safe-area-inset-bottom)) ${SIDE};
   color: ${({ theme }) => theme.colors.onSea};
 `;
 
 export const Header = styled.div`
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -55,6 +59,8 @@ export const Fish = styled.div`
 
 // O paginador sangra até as bordas da Tela e rola por dentro; a página nunca rola para o lado.
 export const Pager = styled.ul`
+  flex: 1;
+  min-height: 0;
   list-style: none;
   display: flex;
   margin: 0 -${DOTS} 0 -${SIDE};
@@ -85,19 +91,20 @@ export const Page = styled.li`
 export const Card = styled.article`
   flex: 1;
   min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 0.625rem;
   padding: 0.75rem;
   border-radius: 20px;
-  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
-  /* No alto da Tela a água ainda é clara para o texto: o cartão puxa para a cor do pé dela. */
-  background: color-mix(in srgb, ${({ theme }) => theme.colors.sea} 60%, transparent);
+  ${glassCard}
 `;
 
 export const Picture = styled.div`
+  flex-shrink: 0;
   position: relative;
-  height: 168px;
+  height: clamp(96px, 20svh, 168px);
   border-radius: 12px;
   overflow: hidden;
   background: color-mix(in srgb, currentColor 12%, transparent);
@@ -201,20 +208,27 @@ export const Actions = styled.div`
   }
 `;
 
-// O botão inverte o Mar: fundo da cor do texto, texto da cor da água.
+// Mesmo botão da versão desktop (ProjectButton), com altura de toque.
 export const Action = styled.a`
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 44px;
-  padding: 0 1.25rem;
+  padding: 8px 20px;
   border: none;
-  border-radius: 12px;
-  font: 600 1rem / 1 ${({ theme }) => theme.font.family.inter};
-  color: ${({ theme }) => theme.colors.sea};
-  background: ${({ theme }) => theme.colors.onSea};
+  border-radius: 10px;
+  font: 600 ${({ theme }) => theme.sizes.xxxsmall} / 1.25 ${({ theme }) => theme.font.family.inter};
+  color: white;
+  background-color: ${({ theme }) => theme.colors.tertiary}cd;
+  box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.15);
+  transition: 0.4s ease;
   text-decoration: none;
   cursor: pointer;
+
+  &:hover,
+  &:active {
+    background-color: ${({ theme }) => theme.colors.tertiary}ff;
+  }
 `;
 
 export const Offline = styled.span`
@@ -228,6 +242,7 @@ export const Offline = styled.span`
 `;
 
 export const Controls = styled.div`
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;

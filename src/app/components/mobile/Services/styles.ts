@@ -1,15 +1,14 @@
 'use client';
 
 import styled from 'styled-components';
-import { ctaVariant } from '../../ui/default';
-import { REEF_HEIGHT } from '../Screens/styles';
+import { glassCard } from '../glass';
 
 // Margem lateral de 20px; à direita, o espaço dos pontos da lateral (44px de toque + 4px da borda).
 const SIDE = '20px';
 const DOTS = '48px';
 
 // O texto fica direto sobre o Mar, no tom da Tela (`--sea-ink`). Nada no tom de destaque: a Tela é mais alta
-// que o celular, e no alto dela a água ainda é a da Tela de cima, mais clara. Embaixo, o espaço dos corais.
+// que o celular, e no alto dela a água ainda é a da Tela de cima, mais clara.
 export const Container = styled.section`
   position: relative;
   flex: 1;
@@ -17,7 +16,7 @@ export const Container = styled.section`
   flex-direction: column;
   justify-content: center;
   gap: 1.5rem;
-  padding: 3rem ${DOTS} calc(2rem + ${REEF_HEIGHT}) ${SIDE};
+  padding: 3rem ${DOTS} 2rem ${SIDE};
   color: ${({ theme }) => theme.colors.onSea};
 `;
 
@@ -62,8 +61,7 @@ export const List = styled.ol`
     gap: 0.5rem;
     padding: 1.125rem 1rem 1rem;
     border-radius: 18px;
-    border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
-    background: color-mix(in srgb, currentColor 7%, transparent);
+    ${glassCard}
   }
 
   h3 {
@@ -101,16 +99,29 @@ export const Proof = styled.p`
 `;
 
 export const Button = styled.a`
+  /* Mesmo botão da versão desktop (ServiceButton), com altura de toque. */
+  align-self: flex-start;
   min-height: 48px;
-  padding: 0.625rem 1rem;
+  margin-top: 0.5rem;
+  padding: 10px 16px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 100px;
-  font: 600 1rem / 1.25 ${({ theme }) => theme.font.family.inter};
+  border-radius: 10px;
+  border: none;
+  white-space: nowrap;
+  font: 600 ${({ theme }) => theme.sizes.xxxsmall} / 1.25 ${({ theme }) => theme.font.family.inter};
+  color: white;
   text-align: center;
+  box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.15);
+  background-color: ${({ theme }) => theme.colors.tertiary}cd;
+  transition: 0.4s ease;
   -webkit-tap-highlight-color: transparent;
-  ${ctaVariant('light')}
+
+  &:hover,
+  &:active {
+    background-color: ${({ theme }) => theme.colors.tertiary}ff;
+  }
 
   &:active {
     transform: scale(0.98);

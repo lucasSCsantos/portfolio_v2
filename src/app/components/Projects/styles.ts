@@ -5,11 +5,11 @@ import { Box, Button } from '../ui/default';
 
 export const Container = styled.section`
   overflow: hidden;
-  height: 100vh;
+  height: 100svh;
   display: flex;
   position: relative;
   justify-content: center;
-  padding-top: 128px;
+  padding: clamp(88px, 12svh, 128px) 0 16px;
   z-index: 98;
   background-color: ${({ theme }) => theme.colors.secondary};
   /* background-image: linear-gradient(
@@ -19,14 +19,28 @@ export const Container = styled.section`
   ); */
   background-color: transparent;
 
+  > div:first-child {
+    min-height: 0;
+    gap: clamp(8px, 2svh, 24px);
+  }
+
+  > div:first-child > div:first-child {
+    flex-shrink: 0;
+  }
+
+  > div:first-child > div:last-child {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 4.5svh, 3rem);
+  }
+
   @media (max-width: 834px) {
-    height: auto;
-    padding-bottom: 96px;
-
-    & > div:first-of-type {
-      height: auto;
-    }
-
      h3 {
       font-size: ${({ theme }) => theme.sizes.xsmall} !important;
     }
@@ -41,17 +55,16 @@ export const Container = styled.section`
     }
   }
 
-   @media (max-width: 428px) {
-    padding-top: 32px !important;
-   }
 `;
 
 export const SliderWrapper = styled.div`
   width: 130vw;
-  height: auto;
+  flex-shrink: 0;
+  height: 100%;
 
   /* Folga para a flutuação dos cards não ser cortada pelo carrossel. */
   .swiper {
+    height: 100%;
     padding: 24px 0;
   }
 
@@ -60,7 +73,7 @@ export const SliderWrapper = styled.div`
   }
 
   .swiper-slide {
-    height: auto;
+    height: 100%;
   }
 
   .swiper-slide > div {
@@ -70,7 +83,6 @@ export const SliderWrapper = styled.div`
   }
 
   @media (max-width: 834px) {
-    height: auto;
     border-radius: 5px;
     width: 90vw;
   }
@@ -130,7 +142,7 @@ export const ProjectContainer = styled(Box)`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 2rem;
+  padding: clamp(16px, 3svh, 32px);
   overflow: hidden;
   color: #fff;
   position: relative;
@@ -140,9 +152,19 @@ export const ProjectContainer = styled(Box)`
   border: 1.6px solid white;
   background-color: ${({ theme }) => theme.colors.textLight}9a;
 
+  height: 100% !important;
+  min-height: 0;
+
+  /* Reserva as ações; em janelas baixas, o corpo rola sem perder conteúdo. */
+  .project-columns {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+
   @media (min-width: 835px) {
     flex: 1;
-    height: auto !important;
 
     .project-columns {
       flex: 1;
@@ -165,7 +187,7 @@ export const ProjectContainer = styled(Box)`
 
     #project-right-area > div {
       flex: 1;
-      min-height: 200px;
+      min-height: 0;
       width: 100%;
       height: auto !important;
     }
@@ -189,7 +211,7 @@ export const ProjectContainer = styled(Box)`
 
   @media (max-width: 834px) {
     height: 100% !important;
-    min-height: 24rem;
+    min-height: 0;
 
     h6 {
       font-size: ${({ theme }) => theme.sizes.xxsmall} !important;

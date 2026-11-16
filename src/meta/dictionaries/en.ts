@@ -209,6 +209,8 @@ const en: Dictionary = {
     nextProject: 'Next project',
     readMore: 'read more',
     readLess: 'read less',
+    pauseSkills: 'Pause skills',
+    resumeSkills: 'Resume skills',
     viewDemo: 'View demo',
     viewDemoLabel: 'View demo of the {title} project',
     viewSite: 'View site →',

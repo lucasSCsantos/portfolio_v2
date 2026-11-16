@@ -14,21 +14,8 @@ import {
   SkillCard,
   SkillGrid
 } from './styles';
-import skillGroups from '@/meta/skills';
-import { useEffect, useRef, useState } from 'react';
-import { useReducedMotion } from 'framer-motion';
-
-const allSkills = skillGroups.flatMap(group =>
-  group.skills.map(skill => ({ skill, kind: group.kind }))
-);
-const SWAP_EVERY_MS = 2500;
-
-// Vitrine inicial: tudo que não é de revezamento; o resto espera fora da grade.
-function initialSlots() {
-  const shown = allSkills.filter(item => !item.skill.rotating);
-  const waiting = allSkills.filter(item => item.skill.rotating);
-  return { shown, waiting };
-}
+import { useRef } from 'react';
+import useSkillRotation from './useSkillRotation';
 import { useDict } from '@/app/lib/locale';
 import dynamic from 'next/dynamic';
 
@@ -36,28 +23,8 @@ const Animation = dynamic(() => import('./Animation'), { ssr: false });
 
 function Work() {
   const { content, skillKinds, backgroundWords } = useDict();
-  const [{ shown }, setSlots] = useState(initialSlots);
-  const reducedMotion = useReducedMotion();
   const gridRef = useRef<HTMLUListElement>(null);
-
-  // De tempos em tempos, uma habilidade visível troca de lugar com uma que está de fora.
-  useEffect(() => {
-    if (reducedMotion) return;
-    const id = setInterval(() => {
-      // Não troca o card que o visitante está lendo.
-      if (gridRef.current?.matches(':hover, :focus-within')) return;
-      setSlots(({ shown, waiting }) => {
-        const out = Math.floor(Math.random() * shown.length);
-        const into = Math.floor(Math.random() * waiting.length);
-        const nextShown = shown.slice();
-        const nextWaiting = waiting.slice();
-        nextShown[out] = waiting[into];
-        nextWaiting[into] = shown[out];
-        return { shown: nextShown, waiting: nextWaiting };
-      });
-    }, SWAP_EVERY_MS);
-    return () => clearInterval(id);
-  }, [reducedMotion]);
+  const { shown } = useSkillRotation(gridRef, false);
 
   return (
     <Container id="habilidades">

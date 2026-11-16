@@ -115,7 +115,8 @@ test.describe('contraste sobre o Mar', () => {
       // Espera a entrada e a abertura terminarem: a medida é do texto já formado.
       await page.waitForTimeout(1200);
       const texts = jobs(page)
-        .locator('h2, div > h3, p, strong, small, button > span > span, li li, h3 + ul li')
+        // Empresa e etiqueta têm cores diferentes: o contraste é medido separadamente.
+        .locator('h2, div > h3, p, strong:not(:has(small)), strong > span, small, button > span > span, li li, h3 + ul li')
         .filter({ visible: true });
       for (const text of await texts.all()) {
         await text.scrollIntoViewIfNeeded();

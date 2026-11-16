@@ -5,7 +5,6 @@ import { motion, useReducedMotion } from 'framer-motion';
 import profile from '@/meta/profile';
 import { useDict } from '@/app/lib/locale';
 import { scrollToId } from '@/app/lib/scroll';
-import Corals from '../Screens/Corals';
 import { Button, Container, Description, Fishes, Header, Label, List, Position, Proof, Title } from './styles';
 
 const Animation = dynamic(() => import('../../Services/Animation'), { ssr: false });
@@ -66,7 +65,6 @@ export default function Services() {
           </motion.li>
         ))}
       </List>
-      <Corals />
     </Container>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import { glassCard } from '../glass';
 
 // Margem lateral de 20px; à direita, o espaço dos pontos da lateral (44px de toque + 4px da borda).
 const SIDE = '20px';
@@ -107,8 +108,7 @@ export const Method = styled.ol`
     min-height: 44px;
     padding: 0.5rem 0.875rem;
     border-radius: 14px;
-    border: 1px solid color-mix(in srgb, currentColor 45%, transparent);
-    background: var(--sea-glass, transparent);
+    ${glassCard}
     font: 500 1rem / 1.3 ${({ theme }) => theme.font.family.inter};
     white-space: nowrap;
     scroll-snap-align: start;

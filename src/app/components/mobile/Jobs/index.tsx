@@ -62,7 +62,7 @@ export default function Jobs() {
                   >
                     <span>
                       <strong>
-                        {job.company}
+                        <span>{job.company}</span>
                         {job.kind && <small>{job.kind}</small>}
                       </strong>
                       <span>

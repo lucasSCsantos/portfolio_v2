@@ -1,6 +1,7 @@
 'use client';
 
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+import { glassCard } from '../glass';
 
 // Margem lateral de 20px; à direita, o espaço dos pontos da lateral (44px de toque + 4px da borda).
 const SIDE = '20px';
@@ -9,12 +10,18 @@ const DOTS = '48px';
 // O texto fica direto sobre o Mar, no tom da Tela (`--sea-ink`). Sem respiro embaixo: o fundo do mar
 // ocupa o pé da seção, logo acima do Rodapé.
 export const Container = styled.section`
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   padding: 3rem ${DOTS} 0 ${SIDE};
   color: ${({ theme }) => theme.colors.onSea};
+
+  > div:not([data-fundo-do-mar]) {
+    position: relative;
+    z-index: 1;
+  }
 `;
 
 export const Label = styled.h2`
@@ -45,8 +52,7 @@ export const Topics = styled.ul`
   li {
     padding: 0.375rem 0.875rem;
     border-radius: 999px;
-    border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
-    background: var(--sea-glass, transparent);
+    ${glassCard}
     font: 500 ${({ theme }) => theme.sizes.xxxsmall} / 1.4 ${({ theme }) => theme.font.family.inter};
   }
 `;
@@ -67,10 +73,14 @@ export const Action = styled.a<{ $principal?: boolean }>`
   border-radius: 16px;
   font: 600 1rem / 1.3 ${({ theme }) => theme.font.family.inter};
   text-decoration: none;
-  color: ${({ $principal, theme }) => ($principal ? theme.colors.backgroundDarkBlue : 'inherit')};
-  background: ${({ $principal, theme }) => ($principal ? theme.colors.primary : 'var(--sea-glass, transparent)')};
-  border: 1px solid
-    ${({ $principal }) => ($principal ? 'transparent' : 'color-mix(in srgb, currentColor 35%, transparent)')};
+  ${({ $principal, theme }) =>
+    $principal
+      ? css`
+          color: ${theme.colors.backgroundDarkBlue};
+          background: ${theme.colors.primary};
+          border: 1px solid transparent;
+        `
+      : glassCard}
   transition: transform 0.15s ease;
 
   svg {
@@ -121,10 +131,11 @@ export const Switches = styled.div`
 // Rodapé, que continua logo abaixo.
 export const SeabedBand = styled.div`
   position: relative;
+  z-index: 0;
   flex: none;
-  height: 140px;
+  height: 180px;
   margin: auto -${DOTS} 0 -${SIDE};
-  overflow: hidden;
+  overflow-x: clip;
   pointer-events: none;
 `;
 
@@ -134,7 +145,7 @@ export const Hill = styled.svg<{ $z: number }>`
   bottom: 0;
   z-index: ${({ $z }) => $z};
   width: 100%;
-  height: 100%;
+  height: 140px;
 `;
 
 const sway = keyframes`
