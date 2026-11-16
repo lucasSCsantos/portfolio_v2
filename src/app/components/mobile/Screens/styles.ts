@@ -1,6 +1,6 @@
 'use client';
 
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle, keyframes } from 'styled-components';
 
 // Cada Tela encaixa quando a rolagem para perto dela; Telas mais altas que o celular rolam livres.
 export const SnapScroll = createGlobalStyle`
@@ -83,5 +83,38 @@ export const Name = styled.span<{ $visible: boolean }>`
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
+  }
+`;
+
+const sway = keyframes`
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+`;
+
+// A faixa de corais no pé de uma Tela: quem a usa reserva a altura dela no próprio espaçamento.
+export const REEF_HEIGHT = '104px';
+
+export const Reef = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: ${REEF_HEIGHT};
+  overflow: hidden;
+  pointer-events: none;
+`;
+
+export const Coral = styled.svg<{ $x: number; $h: number; $ratio: number; $flip?: boolean }>`
+  position: absolute;
+  bottom: -6px;
+  height: ${({ $h }) => $h}px;
+  width: ${({ $h, $ratio }) => Math.round($h * $ratio)}px;
+  left: calc(${({ $x }) => $x}% - ${({ $h, $ratio }) => Math.round(($h * $ratio) / 2)}px);
+  scale: ${({ $flip }) => ($flip ? '-1 1' : 'none')};
+  transform-origin: 50% 100%;
+  animation: ${sway} 6s ease-in-out infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
   }
 `;

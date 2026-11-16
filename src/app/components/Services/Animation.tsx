@@ -19,7 +19,7 @@ const style: CSSProperties = {
   filter: 'brightness(0)'
 };
 
-function Fishes() {
+function Fishes({ style }: { style: CSSProperties }) {
   const lottieObj = useLottie(options, style);
   const Animation = useLottieInteractivity({
     lottieObj,
@@ -37,7 +37,8 @@ function Fishes() {
 }
 
 // Os peixes nadam conforme a rolagem; sem eles quando se pede menos movimento.
-export default function Animation() {
+// O desktop os espalha pela largura da seção; o celular passa o próprio `style` para tê-los pequenos.
+export default function Animation({ style: custom }: { style?: CSSProperties }) {
   const reducedMotion = useReducedMotion();
-  return reducedMotion ? null : <Fishes />;
+  return reducedMotion ? null : <Fishes style={custom ?? style} />;
 }
