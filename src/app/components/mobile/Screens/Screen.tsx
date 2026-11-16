@@ -29,6 +29,7 @@ export default function Screen({ id, children }: { id: ScreenId; children: React
           '--sea-top': scene.waves[2],
           '--sea-ink': sea.ink,
           '--sea-accent': sea.accent,
+          '--sea-glass': sea.glass,
           '--sea-color': sea.bottom
         } as CSSProperties)
       }

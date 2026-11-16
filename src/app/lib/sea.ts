@@ -12,9 +12,10 @@ const DEEPER_DAY = ['#2A74A6', '#085690', '#043A6B', '#010F22'];
 const DEEPER_NIGHT = ['#0a3058', '#072545', '#041930', '#010812'];
 
 // Textos que ficam direto sobre o Mar: escuros sobre a água clara, claros sobre a escura.
-const TEXT_ON_SEA: Record<SceneParams['tone'], { ink: string; accent: string }> = {
-  light: { ink: theme.colors.text, accent: theme.colors.tertiary },
-  dark: { ink: theme.colors.textLight, accent: theme.colors.primary }
+// O vidro é o fundo de uma peça sobre a água (uma etiqueta, um cartão): reforça o contraste com a tinta.
+const TEXT_ON_SEA: Record<SceneParams['tone'], { ink: string; accent: string; glass: string }> = {
+  light: { ink: theme.colors.text, accent: theme.colors.tertiary, glass: 'rgba(255, 255, 255, 0.3)' },
+  dark: { ink: theme.colors.textLight, accent: theme.colors.primary, glass: 'rgba(0, 12, 32, 0.3)' }
 };
 
 type SeaScene = Pick<SceneParams, 'waves' | 'dark' | 'seaTone'>;
