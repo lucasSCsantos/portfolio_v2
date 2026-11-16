@@ -95,6 +95,18 @@ export const mixColor = (from: string, to: string, t: number) => {
   );
 };
 
+// Mistura no espaço linear (a raiz da média dos quadrados), como o Framer Motion mistura cores: o meio não fica acinzentado.
+export const mixColorLinear = (from: string, to: string, t: number) => {
+  const target = channels(to);
+  return (
+    '#' +
+    channels(from)
+      .map((c, i) => Math.round(Math.sqrt(Math.max(0, mix(c * c, target[i] ** 2, t)))))
+      .map(c => c.toString(16).padStart(2, '0'))
+      .join('')
+  );
+};
+
 const mixTrio = (from: ColorTrio, to: ColorTrio, t: number): ColorTrio => [
   mixColor(from[0], to[0], t),
   mixColor(from[1], to[1], t),
@@ -137,7 +149,7 @@ const contrast = (a: string, b: string) => {
 };
 
 // O tom que lê melhor no pior ponto de um fundo.
-function toneOver(background: string[]): SceneParams['tone'] {
+export function toneOver(background: string[]): SceneParams['tone'] {
   const worst = (tone: SceneParams['tone']) => {
     const { ink } = textOnScene(tone);
     return Math.min(...background.map(color => contrast(ink, color)));
