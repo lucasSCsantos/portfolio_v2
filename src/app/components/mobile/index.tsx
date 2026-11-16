@@ -3,10 +3,10 @@ import Header from '../Header';
 import Hero from '../Hero';
 import Dive from './Screens';
 import Screen from './Screens/Screen';
+import Projects from './Projects';
 
 // Enquanto a Tela de uma seção não tem desenho próprio, ela mostra a seção da Versão para desktop.
 const About    = dynamic(() => import('../About'));
-const Projects = dynamic(() => import('../Projects'));
 const Jobs     = dynamic(() => import('../Jobs'));
 const Services = dynamic(() => import('../Services'));
 const Work     = dynamic(() => import('../Work'));

@@ -32,6 +32,11 @@ export interface Ui {
   technologies: string;
   relation: string;
   role: string;
+  // Versão para celular: o paginador da Tela de Projetos e a descrição que abre na própria página.
+  previousProject: string;
+  nextProject: string;
+  readMore: string;
+  readLess: string;
   viewDemo: string;
   viewDemoLabel: string;
   viewSite: string;
