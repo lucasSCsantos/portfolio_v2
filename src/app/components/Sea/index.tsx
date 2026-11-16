@@ -16,7 +16,7 @@ import { seaAt } from '@/app/lib/sea';
 import FloatingBubble, { BubbleSpec } from './FloatingBubble';
 import { Backdrop, Vignette, Zone } from './styles';
 
-const BUBBLES: BubbleSpec[] = [
+export const BUBBLES: BubbleSpec[] = [
   // Atrás do conteúdo: de blobs grandes e lentos a gotas minúsculas.
   { src: '/bubble5.png', size: 300, left: 3, rise: 9, depth: 0.5, sway: 44, offset: 0, opacity: 0.55 },
   { src: '/bubble-2.svg', size: 220, left: 70, rise: 11, depth: 0.6, sway: 40, offset: 1400, opacity: 0.9 },

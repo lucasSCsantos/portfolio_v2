@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@gabrielfins/ripple-effect": "^1.0.5",
@@ -35,6 +36,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "lighthouse": "^13.6.0",
+    "patch-package": "^8.0.1",
     "prettier": "^3.3.3",
     "typescript": "^5"
   }

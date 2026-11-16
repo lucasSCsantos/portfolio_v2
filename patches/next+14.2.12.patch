@@ -1,0 +1,17 @@
+diff --git a/node_modules/next/dist/server/base-server.js b/node_modules/next/dist/server/base-server.js
+index c090749..54187bd 100644
+--- a/node_modules/next/dist/server/base-server.js
++++ b/node_modules/next/dist/server/base-server.js
+@@ -1001,8 +1001,11 @@ class Server {
+         });
+     }
+     setVaryHeader(req, res, isAppPath, resolvedPathname) {
+-        const baseVaryHeader = `${_approuterheaders.RSC_HEADER}, ${_approuterheaders.NEXT_ROUTER_STATE_TREE}, ${_approuterheaders.NEXT_ROUTER_PREFETCH_HEADER}`;
++        let baseVaryHeader = `${_approuterheaders.RSC_HEADER}, ${_approuterheaders.NEXT_ROUTER_STATE_TREE}, ${_approuterheaders.NEXT_ROUTER_PREFETCH_HEADER}`;
+         const isRSCRequest = isRSCRequestCheck(req);
++        // Mantém o Vary posto pelo middleware (a home varia pelo User-Agent: ADR 0004).
++        const previousVary = res.getHeader("vary");
++        if (previousVary) baseVaryHeader = `${baseVaryHeader}, ${previousVary}`;
+         let addedNextUrlToVary = false;
+         if (isAppPath && this.pathCouldBeIntercepted(resolvedPathname)) {
+             // Interception route responses can vary based on the `Next-URL` header.

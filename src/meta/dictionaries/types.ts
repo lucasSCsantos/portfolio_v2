@@ -22,6 +22,9 @@ export const ogLocale: Record<Locale, string> = { pt: 'pt_BR', en: 'en_US' };
 export interface Ui {
   skipLink: string;
   nextSection: string;
+  // Versão para celular: o nome da Tela do Hero e o da navegação pelos pontos da lateral.
+  home: string;
+  screens: string;
   openMenu: string;
   closeMenu: string;
   stats: string;

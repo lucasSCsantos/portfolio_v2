@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { sceneFor, type SceneParams } from '../src/app/lib/scene';
-import { seaAt } from '../src/app/lib/sea';
+import { seaAt, seaSpan } from '../src/app/lib/sea';
 import { MIN_CONTRAST } from './contrast';
 
 // A profundidade do Mar (0 = raso, 1 = fundo): a mesma regra pinta o Mar do desktop e as Telas do celular.
@@ -63,4 +63,16 @@ test.describe('profundidade do Mar', () => {
     expect(seaAt(-1, day)).toEqual(seaAt(0, day));
     expect(seaAt(2, day)).toEqual(seaAt(1, day));
   });
+
+  // As Telas do celular: cada uma desce um sexto do Mar, do raso (Sobre) ao fundo (Contato).
+  // O contraste do texto fica com o conteúdo de cada Tela: no dia, a Tela 2 cruza a troca de tom.
+  for (const [name, scene] of SCENES) {
+    test(`${name}: cada Tela vai da profundidade da anterior até a sua`, () => {
+      for (let i = 0; i < 6; i++) {
+        const { top, bottom } = seaSpan(i / 6, (i + 1) / 6, scene);
+        expect(top).toBe(seaAt(i / 6, scene).color);
+        expect(bottom).toBe(seaAt((i + 1) / 6, scene).color);
+      }
+    });
+  }
 });

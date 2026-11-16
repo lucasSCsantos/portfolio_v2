@@ -49,6 +49,8 @@ const pt: Dictionary = {
   ui: {
     skipLink: 'Pular para o conteúdo',
     nextSection: 'Descer para a próxima seção',
+    home: 'Início',
+    screens: 'Seções',
     openMenu: 'Abrir menu de navegação',
     closeMenu: 'Fechar menu de navegação',
     stats: 'Números',

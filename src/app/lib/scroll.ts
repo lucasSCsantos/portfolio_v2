@@ -40,18 +40,20 @@ export function scrollToId(id: string) {
   cancelDive('released');
 
   const from = window.scrollY;
-  const to = Math.max(
-    0,
-    Math.min(
-      from + target.getBoundingClientRect().top,
-      document.documentElement.scrollHeight - window.innerHeight
-    )
-  );
-  const distance = to - from;
+  // Medido de novo a cada quadro: seções que crescem ao carregar não deixam o mergulho parar antes.
+  const destination = () =>
+    Math.max(
+      0,
+      Math.min(
+        window.scrollY + target.getBoundingClientRect().top,
+        document.documentElement.scrollHeight - window.innerHeight
+      )
+    );
+  const distance = destination() - from;
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduced || Math.abs(distance) < 4) {
-    window.scrollTo({ top: to, behavior: 'instant' });
+    window.scrollTo({ top: from + distance, behavior: 'instant' });
     return;
   }
 
@@ -70,7 +72,7 @@ export function scrollToId(id: string) {
   const start = performance.now();
   const step = (now: number) => {
     const t = Math.min(1, (now - start) / duration);
-    window.scrollTo({ top: from + distance * sink(t), behavior: 'instant' });
+    window.scrollTo({ top: from + (destination() - from) * sink(t), behavior: 'instant' });
     dive.set(Math.sin(Math.PI * t));
 
     if (t < 1) {

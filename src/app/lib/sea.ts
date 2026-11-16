@@ -40,6 +40,14 @@ function seaColor(depth: number, scene: SeaScene) {
   return mixColorLinear(colors[i], colors[i + 1], t);
 }
 
+// Um trecho do Mar entre duas profundidades (o fundo de uma Tela do celular), com o tom que lê bem nas duas pontas.
+export function seaSpan(from: number, to: number, scene: SeaScene) {
+  const top = seaColor(from, scene);
+  const bottom = seaColor(to, scene);
+  const tone = toneOver([top, bottom]);
+  return { top, bottom, tone, ...TEXT_ON_SEA[tone] };
+}
+
 export function seaAt(depth: number, scene: SeaScene) {
   const color = seaColor(depth, scene);
   // No raso vale o tom da Cena sobre o Mar (que, na passagem entre Cenas, troca na metade);
