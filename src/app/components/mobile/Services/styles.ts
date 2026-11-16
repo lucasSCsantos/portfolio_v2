@@ -11,6 +11,7 @@ const DOTS = '48px';
 // que o celular, e no alto dela a água ainda é a da Tela de cima, mais clara.
 export const Container = styled.section`
   position: relative;
+  isolation: isolate;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -40,10 +41,13 @@ export const Title = styled.p`
   overflow-wrap: anywhere;
 `;
 
-// A animação dos peixes, pequena ao lado do título, em silhueta clara sobre a água funda.
+// Os peixes ocupam toda a Tela, atrás do conteúdo e sem interceptar os toques.
 export const Fishes = styled.div`
-  flex: none;
-  width: 88px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
   opacity: 0.6;
   filter: brightness(0) invert(1);
   pointer-events: none;
@@ -100,8 +104,8 @@ export const Proof = styled.p`
 
 export const Button = styled.a`
   /* Mesmo botão da versão desktop (ServiceButton), com altura de toque. */
-  align-self: flex-start;
-  min-height: 48px;
+  align-self: stretch;
+  min-height: 56px;
   margin-top: 0.5rem;
   padding: 10px 16px;
   display: inline-flex;
@@ -109,7 +113,8 @@ export const Button = styled.a`
   justify-content: center;
   border-radius: 10px;
   border: none;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
   font: 600 ${({ theme }) => theme.sizes.xxxsmall} / 1.25 ${({ theme }) => theme.font.family.inter};
   color: white;
   text-align: center;

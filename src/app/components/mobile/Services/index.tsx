@@ -26,15 +26,15 @@ export default function Services() {
 
   return (
     <Container id="servicos">
+      <Fishes data-lottie aria-hidden>
+        <Animation style={{ width: '100%', height: 'auto' }} />
+      </Fishes>
       <motion.div {...rise(0)}>
         <Header>
           <div>
             <Label>{content.services.label}</Label>
             <Title id="servicos-titulo">{content.services.title}</Title>
           </div>
-          <Fishes data-lottie aria-hidden>
-            <Animation style={{ width: '100%', height: 'auto' }} />
-          </Fishes>
         </Header>
       </motion.div>
       <List aria-labelledby="servicos-titulo">

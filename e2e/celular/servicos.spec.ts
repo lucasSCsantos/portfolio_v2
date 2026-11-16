@@ -24,6 +24,41 @@ const topOf = (page: Page, id: string) =>
   page.locator(`[data-tela="${id}"]`).evaluate(el => Math.round(el.getBoundingClientRect().top) || 0);
 
 for (const dict of [pt, en]) {
+  test(`${dict.locale}: botões uniformes e contidos nos cards`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await open(page, dict.locale === 'pt' ? '/' : '/en');
+    await page.evaluate(() => document.fonts.ready);
+
+    for (const viewport of [page.viewportSize()!, { width: 320, height: 640 }, { width: 800, height: 380 }]) {
+      await page.setViewportSize(viewport);
+      const sizes = await list(page, dict.content.services.title).getByRole('listitem').evaluateAll(cards =>
+        cards.map(card => {
+          const button = card.querySelector<HTMLAnchorElement>('a[href^="https://wa.me/"]')!;
+          const bounds = button.getBoundingClientRect();
+          const cardBounds = card.getBoundingClientRect();
+          const style = getComputedStyle(card);
+          return {
+            width: bounds.width,
+            height: bounds.height,
+            left: bounds.left - cardBounds.left - parseFloat(style.paddingLeft) - parseFloat(style.borderLeftWidth),
+            right: cardBounds.right - bounds.right - parseFloat(style.paddingRight) - parseFloat(style.borderRightWidth),
+            fits: button.scrollWidth <= button.clientWidth && button.scrollHeight <= button.clientHeight
+          };
+        })
+      );
+
+      expect(sizes).toHaveLength(dict.services.length);
+      for (const size of sizes) {
+        expect(size.width, `${viewport.width}px`).toBeCloseTo(sizes[0].width, 0);
+        expect(size.height, `${viewport.width}px`).toBeCloseTo(sizes[0].height, 0);
+        expect(size.height).toBeGreaterThanOrEqual(48);
+        expect(Math.abs(size.left)).toBeLessThan(1);
+        expect(Math.abs(size.right)).toBeLessThan(1);
+        expect(size.fits).toBe(true);
+      }
+    }
+  });
+
   test(`${dict.locale}: cada Serviço com título, descrição, prova e botão, numa lista numerada`, async ({ page }) => {
     await open(page, dict.locale === 'pt' ? '/' : '/en');
     const copy = dict.content.services;
@@ -64,14 +99,14 @@ test('o botão abre o WhatsApp numa nova aba', async ({ page }) => {
 });
 
 test.describe('animação', () => {
-  test('a animação fica pequena junto ao título, sem corais na Tela', async ({ page }) => {
+  test('a animação ocupa a largura da Tela, sem corais', async ({ page }) => {
     await open(page);
     const animation = services(page).locator('[data-lottie] svg');
     await expect(animation).toBeVisible();
     const box = (await animation.boundingBox())!;
-    expect(box.width).toBeLessThanOrEqual(160);
-    const title = (await services(page).getByRole('heading', { name: pt.content.services.label }).boundingBox())!;
-    expect(Math.abs(box.y - title.y)).toBeLessThan(120);
+    expect(box.x).toBeCloseTo(0, 0);
+    expect(box.width).toBeCloseTo(page.viewportSize()!.width, 0);
+    expect(await services(page).locator('[data-lottie]').evaluate(el => getComputedStyle(el).pointerEvents)).toBe('none');
 
     await expect(services(page).locator('[data-corais]')).toHaveCount(0);
   });
@@ -97,8 +132,8 @@ test('toques de 44px ou mais', async ({ page }) => {
   for (const target of await services(page).locator('a, button').all()) {
     const box = (await target.boundingBox())!;
     const label = (await target.textContent()) ?? '';
-    expect(box.width, label).toBeGreaterThanOrEqual(44);
-    expect(box.height, label).toBeGreaterThanOrEqual(44);
+    expect(Math.round(box.width), label).toBeGreaterThanOrEqual(44);
+    expect(Math.round(box.height), label).toBeGreaterThanOrEqual(44);
   }
 });
 

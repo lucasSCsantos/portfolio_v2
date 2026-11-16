@@ -19,7 +19,8 @@ import {
   Label,
   Switches,
   Title,
-  Topics
+  Topics,
+  WhatsAppAction
 } from './styles';
 
 const COPIED_FEEDBACK_MS = 2000;
@@ -78,15 +79,14 @@ export default function Contact() {
         </motion.div>
         <motion.div {...rise(2)}>
           <Actions>
-            <Action
-              $principal
+            <WhatsAppAction
               href={`${profile.social.whatsapp}?text=${text.whatsappMessage}`}
               target="_blank"
               rel="noopener noreferrer"
             >
               <FaWhatsapp aria-hidden size={22} />
               <span>{copy.buttonText}</span>
-            </Action>
+            </WhatsAppAction>
             <Action href={`mailto:${profile.email}?subject=${encodeURIComponent(text.emailSubject)}`}>
               <FaEnvelope aria-hidden size={20} />
               <span>{copy.emailButtonText}</span>

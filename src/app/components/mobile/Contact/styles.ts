@@ -1,6 +1,7 @@
 'use client';
 
-import styled, { css, keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import { GlassButton } from '../../Contact/styles';
 import { glassCard } from '../glass';
 
 // Margem lateral de 20px; à direita, o espaço dos pontos da lateral (44px de toque + 4px da borda).
@@ -63,8 +64,32 @@ export const Actions = styled.div`
   gap: 0.75rem;
 `;
 
-// Botão grande, da largura do conteúdo. O do WhatsApp é o principal: cheio, na cor da marca.
-export const Action = styled.a<{ $principal?: boolean }>`
+export const WhatsAppAction = styled(GlassButton).attrs({ $principal: true })`
+  border-radius: 16px;
+  font-size: 1rem;
+  line-height: 1.3;
+
+  svg {
+    flex: none;
+  }
+
+  span {
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+  }
+
+  &::after {
+    width: 22px;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+`;
+
+// Botões grandes, da largura do conteúdo.
+export const Action = styled.a`
   display: flex;
   align-items: center;
   gap: 0.875rem;
@@ -73,14 +98,7 @@ export const Action = styled.a<{ $principal?: boolean }>`
   border-radius: 16px;
   font: 600 1rem / 1.3 ${({ theme }) => theme.font.family.inter};
   text-decoration: none;
-  ${({ $principal, theme }) =>
-    $principal
-      ? css`
-          color: ${theme.colors.backgroundDarkBlue};
-          background: ${theme.colors.primary};
-          border: 1px solid transparent;
-        `
-      : glassCard}
+  ${glassCard}
   transition: transform 0.15s ease;
 
   svg {

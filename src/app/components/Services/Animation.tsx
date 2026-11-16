@@ -37,7 +37,7 @@ function Fishes({ style }: { style: CSSProperties }) {
 }
 
 // Os peixes nadam conforme a rolagem; sem eles quando se pede menos movimento.
-// O desktop os espalha pela largura da seção; o celular passa o próprio `style` para tê-los pequenos.
+// O celular passa o próprio `style` para encaixar os peixes na largura da Tela.
 export default function Animation({ style: custom }: { style?: CSSProperties }) {
   const reducedMotion = useReducedMotion();
   return reducedMotion ? null : <Fishes style={custom ?? style} />;
