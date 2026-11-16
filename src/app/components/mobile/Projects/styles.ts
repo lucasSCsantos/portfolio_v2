@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import { glassCard } from '../glass';
 
 // Margem lateral de 20px; à direita, o espaço dos pontos da lateral (44px de toque + 4px da borda).
 const SIDE = '20px';
@@ -90,9 +91,7 @@ export const Card = styled.article`
   gap: 0.625rem;
   padding: 0.75rem;
   border-radius: 20px;
-  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
-  /* No alto da Tela a água ainda é clara para o texto: o cartão puxa para a cor do pé dela. */
-  background: color-mix(in srgb, ${({ theme }) => theme.colors.sea} 60%, transparent);
+  ${glassCard}
 `;
 
 export const Picture = styled.div`
@@ -201,20 +200,27 @@ export const Actions = styled.div`
   }
 `;
 
-// O botão inverte o Mar: fundo da cor do texto, texto da cor da água.
+// Mesmo botão da versão desktop (ProjectButton), com altura de toque.
 export const Action = styled.a`
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 44px;
-  padding: 0 1.25rem;
+  padding: 8px 20px;
   border: none;
-  border-radius: 12px;
-  font: 600 1rem / 1 ${({ theme }) => theme.font.family.inter};
-  color: ${({ theme }) => theme.colors.sea};
-  background: ${({ theme }) => theme.colors.onSea};
+  border-radius: 10px;
+  font: 600 ${({ theme }) => theme.sizes.xxxsmall} / 1.25 ${({ theme }) => theme.font.family.inter};
+  color: white;
+  background-color: ${({ theme }) => theme.colors.tertiary}cd;
+  box-shadow: -5px 7px 16px rgba(0, 0, 0, 0.15);
+  transition: 0.4s ease;
   text-decoration: none;
   cursor: pointer;
+
+  &:hover,
+  &:active {
+    background-color: ${({ theme }) => theme.colors.tertiary}ff;
+  }
 `;
 
 export const Offline = styled.span`

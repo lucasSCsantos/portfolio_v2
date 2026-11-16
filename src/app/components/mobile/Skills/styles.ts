@@ -1,6 +1,7 @@
 'use client';
 
 import styled, { keyframes } from 'styled-components';
+import { glassCard } from '../glass';
 
 // Margem lateral de 20px; à direita, o espaço dos pontos da lateral (44px de toque + 4px da borda).
 const SIDE = '20px';
@@ -71,8 +72,8 @@ export const Grid = styled.ul`
     min-height: 76px;
     padding: 0.625rem 0.25rem;
     border-radius: 14px;
-    border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
-    background: color-mix(in srgb, currentColor 8%, transparent);
+    ${glassCard}
+    color: ${({ theme }) => theme.colors.textLight};
     font: 500 ${({ theme }) => theme.sizes.xxxsmall} / 1.3 ${({ theme }) => theme.font.family.inter};
     text-align: center;
     white-space: nowrap;

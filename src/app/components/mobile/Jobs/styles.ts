@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import { glassCard } from '../glass';
 
 // Margem lateral de 20px; à direita, o espaço dos pontos da lateral (44px de toque + 4px da borda).
 const SIDE = '20px';
@@ -40,13 +41,7 @@ export const List = styled.ul`
 
 export const Item = styled.li<{ $open: boolean }>`
   border-radius: 16px;
-  border: 1px solid color-mix(in srgb, currentColor ${({ $open }) => ($open ? 50 : 30)}%, transparent);
-  // O fundo é o Mar do pé da Tela, quase opaco: as bolhas que sobem atrás não lavam o texto.
-  background: color-mix(
-    in srgb,
-    color-mix(in srgb, var(--sea-color) 88%, transparent) ${({ $open }) => ($open ? 92 : 95)}%,
-    currentColor
-  );
+  ${glassCard}
   transition: border-color 0.25s ease, background 0.25s ease;
 
   svg {

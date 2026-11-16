@@ -34,7 +34,13 @@
     ".next/types/**/*.ts",
     ".next-e2e/types/**/*.ts",
     ".next-e2e-sea/types/**/*.ts",
-    ".next-e2e-waves/types/**/*.ts"
+    ".next-e2e-waves/types/**/*.ts",
+    ".scratch/build-hero/types/**/*.ts",
+    ".scratch/build-jobs/types/**/*.ts",
+    ".scratch/build-servicos/types/**/*.ts",
+    ".scratch/build-habilidades/types/**/*.ts",
+    ".scratch/build-contato/types/**/*.ts",
+    ".scratch/build-hero-2/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
