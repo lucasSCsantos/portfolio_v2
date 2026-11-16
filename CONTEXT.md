@@ -16,6 +16,18 @@ _Avoid_: Footer, seção de contato
 A língua em que a página é mostrada: português (`/`, padrão) ou inglês (`/en`). Só a home tem os dois; a Página de Links é só em português. O visitante troca pelo botão `PT | EN` no Header, que é um link para a mesma seção no outro idioma.
 _Avoid_: Locale, tradução (no código e nas conversas, use Idioma)
 
+**Versão para celular**:
+A home (nos dois Idiomas) pensada especificamente para celulares, servida na mesma URL quando o visitante está num celular. Tem o mesmo conteúdo e as mesmas animações da Versão para desktop, mas cada seção, inclusive a Cena, pode ser redesenhada para funcionar em tela pequena. Tablets recebem a Versão para desktop. A Página de Links tem uma versão só.
+_Avoid_: Versão mobile, site responsivo, layout mobile
+
+**Tela**:
+Na Versão para celular, cada seção da home é uma Tela que encaixa ao rolar; cada Tela é um pouco mais funda no Mar que a anterior, num mergulho do Hero até o Contato. Uma Tela pode ser mais alta que o celular e rolar por dentro. Pontos na lateral mostram em que Tela o visitante está e levam a qualquer uma.
+_Avoid_: Slide, página, seção (no celular)
+
+**Versão para desktop**:
+A home para computadores e tablets: o layout original, com seus breakpoints.
+_Avoid_: Versão web, versão completa
+
 **Dicionário**:
 O conjunto tipado de todos os textos visíveis de um Idioma (`src/meta/dictionaries`). Os dois Dicionários têm o mesmo formato.
 _Avoid_: Arquivo de tradução, i18n
