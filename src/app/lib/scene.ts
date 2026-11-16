@@ -240,7 +240,7 @@ function liveScene(minutes: number, weather: SceneWeather | null): SceneParams {
   const cloud = clamp((weather?.cloudCover ?? 0) / 100, 0, 1) || 0;
   const rain = clamp((weather?.precipitation ?? 0) / HEAVY_RAIN, 0, 1) || 0;
   // Nuvens e chuva empurram o céu para um cinza que depende da luz do momento.
-  const grayness = Math.min(1, cloud * 0.45 + rain * 0.35);
+  const grayness = Math.min(1, cloud * 0.2 + rain * 0.3);
   const gray = mixColor(STORM_GRAY.night, STORM_GRAY.day, light);
   const seaGray = grayness * 0.3 * light + rain * 0.1;
 

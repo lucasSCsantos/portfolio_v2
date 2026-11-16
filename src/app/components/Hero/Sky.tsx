@@ -22,10 +22,11 @@ const STARS = Array.from({ length: 70 }, () => ({
 }));
 
 // Nuvens e gotas também têm lugar fixo; o clima só decide quantas aparecem.
-const CLOUDS = Array.from({ length: 7 }, (_, i) => ({
-  x: (i * 0.17 + random() * 0.08) % 1,
-  y: 0.06 + random() * 0.42,
-  width: 220 + random() * 260,
+// Poucas, pequenas e no alto, para não esconder o céu.
+const CLOUDS = Array.from({ length: 4 }, (_, i) => ({
+  x: (i * 0.27 + random() * 0.08) % 1,
+  y: 0.04 + random() * 0.22,
+  width: 140 + random() * 120,
   duration: 14 + random() * 22
 }));
 const DROPS = Array.from({ length: 110 }, () => ({
@@ -36,7 +37,7 @@ const DROPS = Array.from({ length: 110 }, () => ({
 }));
 
 function Clouds({ scene }: { scene: SceneParams }) {
-  const visible = Math.ceil(scene.cloud * CLOUDS.length);
+  const visible = Math.round(scene.cloud * CLOUDS.length);
   if (visible === 0) return null;
   // Brancas de dia, cinza-azuladas à noite, mais carregadas com chuva.
   const color = mixColor(mixColor('#ffffff', '#2b3445', scene.dark), '#4b5563', scene.rain * 0.7);
@@ -52,7 +53,7 @@ function Clouds({ scene }: { scene: SceneParams }) {
               width: cloud.width,
               height: cloud.width * 0.32,
               background: color,
-              opacity: 0.25 + scene.cloud * 0.5,
+              opacity: 0.18 + scene.cloud * 0.32,
               '--duration': `${cloud.duration}s`
             } as React.CSSProperties
           }
