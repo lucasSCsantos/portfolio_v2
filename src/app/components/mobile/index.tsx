@@ -1,15 +1,12 @@
-import dynamic from 'next/dynamic';
 import Dive from './Screens';
 import Hero from './Hero';
 import Screen from './Screens/Screen';
 import About from './About';
+import Projects from './Projects';
 import Services from './Services';
 import Jobs from './Jobs';
 import Skills from './Skills';
 import Contact from './Contact';
-
-// Enquanto a Tela de uma seção não tem desenho próprio, ela mostra a seção da Versão para desktop.
-const Projects = dynamic(() => import('../Projects'));
 
 /** A home da Versão para celular: um mergulho em Telas, do céu do Hero ao fundo do Contato. */
 export default function MobileHome() {
