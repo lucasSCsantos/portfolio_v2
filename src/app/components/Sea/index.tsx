@@ -14,6 +14,7 @@ import type { SceneParams } from '@/app/lib/scene';
 import { useScene } from '@/app/lib/scene-mode';
 import { seaAt } from '@/app/lib/sea';
 import FloatingBubble, { BubbleSpec } from './FloatingBubble';
+import SeaLife from './SeaLife';
 import { Backdrop, Vignette, Zone } from './styles';
 
 export const BUBBLES: BubbleSpec[] = [
@@ -94,6 +95,7 @@ export default function Sea({ children }: { children: ReactNode }) {
     >
       <Backdrop style={{ backgroundColor }} />
       <Vignette style={{ opacity: vignetteOpacity }} />
+      <SeaLife measure={() => zoneRef.current?.getBoundingClientRect()} />
       {!reducedMotion &&
         BUBBLES.map((spec, index) => (
           <FloatingBubble

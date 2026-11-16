@@ -1,6 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 import pt from '../../src/meta/dictionaries/pt';
 import en from '../../src/meta/dictionaries/en';
+import { SEA_LIFE, ZONES } from '../../src/app/components/Sea/life';
 
 // A casca da Versão para celular: uma Tela por seção, o mergulho no Mar, os pontos da lateral e as bolhas.
 
@@ -153,6 +154,41 @@ test.describe('bolhas', () => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await open(page);
     await expect(bubbles(page)).toHaveCount(0);
+  });
+});
+
+test.describe('vida marinha', () => {
+  const animals = (page: Page) => page.locator('[data-vida-marinha] > *');
+  // As zonas dos animais à vista (os fora da tela ficam sem `display`).
+  const zonesInView = (page: Page) =>
+    animals(page).evaluateAll(els =>
+      els.filter(el => getComputedStyle(el).display !== 'none').map(el => (el as HTMLElement).dataset.zona)
+    );
+
+  test('o celular fica sem os animais extras, e nenhum nada sobre o Hero', async ({ page }) => {
+    await open(page);
+    await expect(animals(page)).toHaveCount(SEA_LIFE.filter(({ extra }) => !extra).length);
+    await page.waitForTimeout(300);
+    expect(await zonesInView(page)).toEqual([]);
+  });
+
+  test('do raso ao fundo, passam animais de todas as zonas, atrás do conteúdo', async ({ page }) => {
+    await open(page);
+    const seen = new Set<string | undefined>();
+    const end = await page.evaluate(() => document.documentElement.scrollHeight - window.innerHeight);
+    for (let step = 0; step <= 30; step++) {
+      await page.evaluate(top => window.scrollTo({ top, behavior: 'instant' }), (end * step) / 30);
+      await page.waitForTimeout(100);
+      (await zonesInView(page)).forEach(zone => seen.add(zone));
+    }
+    expect(Array.from(seen).sort()).toEqual(ZONES.map(({ name }) => name).sort());
+    expect(await animals(page).first().evaluate(el => getComputedStyle(el).pointerEvents)).toBe('none');
+  });
+
+  test('somem com movimento reduzido', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await open(page);
+    await expect(animals(page)).toHaveCount(0);
   });
 });
 

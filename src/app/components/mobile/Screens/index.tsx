@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, type ReactNode } from 'react';
 import MainContainer from '../../main';
+import SeaLife from '../../Sea/SeaLife';
 import Bubbles from './Bubbles';
 import Dots from './Dots';
 import { SnapScroll } from './styles';
@@ -37,10 +38,19 @@ export default function Dive({ children }: { children: ReactNode }) {
   const main = useRef<HTMLElement>(null);
   useHoldAnchoredScreen(main);
 
+  // O Mar começa no pé do Hero: é a casca inteira menos a primeira Tela.
+  const measureSea = () => {
+    const hero = main.current?.querySelector<HTMLElement>('[data-tela]');
+    if (!main.current || !hero) return;
+    const { top, height } = main.current.getBoundingClientRect();
+    return { top: top + hero.offsetHeight, height: height - hero.offsetHeight };
+  };
+
   return (
     <MainContainer ref={main} id="conteudo" tabIndex={-1} data-versao="celular">
       <SnapScroll />
       <Bubbles />
+      <SeaLife phone measure={measureSea} />
       {children}
       <Dots />
     </MainContainer>

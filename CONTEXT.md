@@ -72,6 +72,10 @@ _Avoid_: Período, turno
 A zona submersa abaixo do Hero, que escurece conforme o visitante rola a página. No Modo `noite` a profundidade começa já escura, em continuidade com as ondas, e o texto que fica direto sobre ele passa a ser claro.
 _Avoid_: Sea, fundo do mar
 
+**Vida marinha**:
+Os animais que passam nadando no Mar, atrás do conteúdo, conforme o visitante desce. Cada zona de profundidade tem os seus: no raso, cardumes, tartaruga e peixes de recife; na meia-água, golfinhos, arraia e águas-vivas; na penumbra, tubarão, baleia e lula; no abismo, polvo, peixes-lanterna e peixe-diabo, que trazem a própria luz. São silhuetas decorativas, nas duas Versões (menos animais no celular), e somem com movimento reduzido.
+_Avoid_: Fauna, bichos, peixes (nem todos são peixes)
+
 **Aviso de sono**:
 A frase discreta ("provavelmente dormindo... 😴" / "probably sleeping...") que aparece junto ao selo de disponibilidade entre 22h e 5h, hora de Salvador, em todos os Modos da Cena. Não esconde nem altera o selo de disponibilidade.
 _Avoid_: Status, offline
